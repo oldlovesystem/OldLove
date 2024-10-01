@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -55,7 +54,6 @@ body {
   color: var(--black);
   font-weight: 400;
   overflow-x: hidden;
-  font-family: 'Tenor Sans';
   user-select: none;
   scroll-behavior: smooth;
 }

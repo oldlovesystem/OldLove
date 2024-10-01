@@ -53,7 +53,7 @@ import {
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
   : '';
-const endpoint = `https://oldlove.in/api/2024-07/graphql.json`;
+const endpoint = `https://9eca2f-11.myshopify.com/api/2024-07/graphql.json`;
 const key = "e5f230e4a5202dc92cf9d9341c72bc5b";
 
 type ExtractVariables<T> = T extends { variables: object } ? T['variables'] : never;
