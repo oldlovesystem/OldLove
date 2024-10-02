@@ -1,5 +1,5 @@
-"use client"
-import React, { useState, useEffect } from 'react';
+"use client";
+import React, { useState, useEffect, useRef } from 'react';
 import CartModal from 'components/cart/modal';
 import Image from 'next/image';
 import { Menu } from 'lib/shopify/types';
@@ -11,6 +11,13 @@ import SpotlightSearch from 'components/spotlight-search';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 
+// Import hover components
+import HomeHoverContent from './HomeHoverContent';
+import FeaturesHoverContent from './FeaturesHoverContent';
+import ShopHoverContent from './ShopHoverContent';
+import AboutHoverContent from './AboutHoverContent';
+import ContactHoverContent from './ContactHoverContent';
+
 const menu: Menu[] = [
   { title: 'Home', path: '/' },
   { title: 'Features', path: '/#!' },
@@ -18,21 +25,14 @@ const menu: Menu[] = [
   { title: 'About Us', path: '/about' },
   { title: 'Contact', path: '/contact' },
 ];
-interface HoverContentProps {
-  title: string;
-}
-const HoverContent: React.FC<HoverContentProps> = ({ title }) => (
-  <div className="mt-2 w-full bg-white shadow-lg p-4 rounded">
-    <h3 className="text-lg font-semibold">{title} Additional Content</h3>
-    <p>This is the content that shows when hovering over {title}.</p>
-  </div>
-);
 
 export function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const [fixedHeader, setFixedHeader] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const [isHovering, setIsHovering] = useState(false);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,6 +45,39 @@ export function Navbar() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const handleMouseEnter = (itemTitle: string) => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current); // Prevent closing if already hovering
+    }
+    setHoveredItem(itemTitle);
+    setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    hoverTimeoutRef.current = setTimeout(() => {
+      setIsHovering(false);
+      setHoveredItem(null);
+    }, 300); // Delay closing by 1600ms
+  };
+
+  // Function to render the correct hover content based on the hovered item
+  const renderHoverContent = () => {
+    switch (hoveredItem) {
+      case 'Home':
+        return <HomeHoverContent />;
+      case 'Features':
+        return <FeaturesHoverContent />;
+      case 'Shop':
+        return <ShopHoverContent />;
+      case 'About Us':
+        return <AboutHoverContent />;
+      case 'Contact':
+        return <ContactHoverContent />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className={`relative`}>
@@ -69,8 +102,8 @@ export function Navbar() {
                 <li
                   key={item.title}
                   className="relative group text-sm font-semibold"
-                  onMouseEnter={() => setHoveredItem(item.title)}
-                  onMouseLeave={() => setHoveredItem(null)}
+                  onMouseEnter={() => handleMouseEnter(item.title)}
+                  onMouseLeave={handleMouseLeave}
                 >
                   <Link
                     href={item.path}
@@ -97,9 +130,14 @@ export function Navbar() {
         </div>
       </nav>
 
-      {/* Hover Content Rendered Below Navbar */}
-      {hoveredItem && (
-        <HoverContent title={hoveredItem} />
+      {hoveredItem && isHovering && (
+        <div
+          className="absolute left-0 right-0 top-full  z-20"
+          onMouseEnter={() => handleMouseEnter(hoveredItem)} // Keep it open when hovering over the content
+          onMouseLeave={handleMouseLeave}
+        >
+          {renderHoverContent()}
+        </div>
       )}
     </div>
   );

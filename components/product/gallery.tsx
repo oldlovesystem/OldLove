@@ -8,6 +8,7 @@ import Image from 'next/image';
 export function Gallery({ images }: { images: { src: string; altText: string }[] }) {
   const { state, updateImage } = useProduct();
   const updateURL = useUpdateURL();
+
   const imageIndex = state.image ? parseInt(state.image) : 0;
 
   const nextImageIndex = imageIndex + 1 < images.length ? imageIndex + 1 : 0;
