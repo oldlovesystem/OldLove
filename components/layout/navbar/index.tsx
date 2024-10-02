@@ -13,14 +13,11 @@ import { usePathname } from 'next/navigation';
 
 // Import hover components
 import HomeHoverContent from './HomeHoverContent';
-import FeaturesHoverContent from './FeaturesHoverContent';
 import ShopHoverContent from './ShopHoverContent';
-import AboutHoverContent from './AboutHoverContent';
-import ContactHoverContent from './ContactHoverContent';
+
 
 const menu: Menu[] = [
   { title: 'Home', path: '/' },
-  { title: 'Features', path: '/#!' },
   { title: 'Shop', path: '/shop' },
   { title: 'About Us', path: '/about' },
   { title: 'Contact', path: '/contact' },
@@ -47,33 +44,27 @@ export function Navbar() {
   }, []);
 
   const handleMouseEnter = (itemTitle: string) => {
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current); // Prevent closing if already hovering
+    if (itemTitle !== 'About Us') {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current); // Prevent closing if already hovering
+      }
+      setHoveredItem(itemTitle);
+      setIsHovering(true);
     }
-    setHoveredItem(itemTitle);
-    setIsHovering(true);
   };
 
   const handleMouseLeave = () => {
     hoverTimeoutRef.current = setTimeout(() => {
       setIsHovering(false);
       setHoveredItem(null);
-    }, 300); // Delay closing by 1600ms
+    }, 300); // Delay closing by 300ms
   };
 
-  // Function to render the correct hover content based on the hovered item
   const renderHoverContent = () => {
     switch (hoveredItem) {
-      case 'Home':
-        return <HomeHoverContent />;
-      case 'Features':
-        return <FeaturesHoverContent />;
       case 'Shop':
         return <ShopHoverContent />;
-      case 'About Us':
-        return <AboutHoverContent />;
-      case 'Contact':
-        return <ContactHoverContent />;
+    
       default:
         return null;
     }
@@ -103,7 +94,7 @@ export function Navbar() {
                   key={item.title}
                   className="relative group text-sm font-semibold"
                   onMouseEnter={() => handleMouseEnter(item.title)}
-                  onMouseLeave={handleMouseLeave}
+                  onMouseLeave={item.title !== 'About Us' ? handleMouseLeave : undefined} // No leave handler for About Us
                 >
                   <Link
                     href={item.path}
@@ -112,6 +103,7 @@ export function Navbar() {
                       hover:text-black hover:underline hover:underline-offset-8 
                       ${pathname === item.path ? 'text-black underline underline-offset-8' : ''}
                     `}
+                    onClick={item.title === 'About Us' ? () => setIsHovering(false) : undefined} // Close hover on click for About Us
                   >
                     {item.title}
                   </Link>
@@ -132,7 +124,7 @@ export function Navbar() {
 
       {hoveredItem && isHovering && (
         <div
-          className="absolute left-0 right-0 top-full  z-20"
+          className="absolute left-0 right-0 top-full z-20"
           onMouseEnter={() => handleMouseEnter(hoveredItem)} // Keep it open when hovering over the content
           onMouseLeave={handleMouseLeave}
         >
