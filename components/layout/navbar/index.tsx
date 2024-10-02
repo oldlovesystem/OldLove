@@ -49,7 +49,7 @@ export function Navbar() {
           </Link>
           
           {menu.length ? (
-            <ul className="hidden md:flex md:items-center gap-9 text-lg mr-3 ml-16">
+            <ul className="hidden md:flex md:items-center gap-9 text-lg mr-3 ml-16 uppercase">
               {menu.map((item: Menu) => (
                 <li key={item.title} className="relative group">
                   <Link
