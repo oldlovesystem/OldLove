@@ -43,7 +43,7 @@ export function Navbar() {
             className="flex items-center justify-center"
           >
             <Image src={"/logo.png"} alt="logo" width={50} height={30} />
-            <div className="ml-2 text-black text-2xl font-medium uppercase ">
+            <div className="heading4 ml-2 text-black text-2xl font-medium uppercase ">
               Old Love
             </div>
           </Link>
@@ -56,7 +56,7 @@ export function Navbar() {
                     href={item.path}
                     prefetch={true}
                     className={`
-                      hover:text-black  hover:underline hover:underline-offset-8 dark:text-gray-900 dark:hover:text-black
+                      hover:text-black  hover:underline hover:underline-offset-8 
                       ${pathname === item.path ? 'text-black underline underline-offset-8 ' : ''}
                     `}
                   >
@@ -64,8 +64,8 @@ export function Navbar() {
                   </Link>
 
                   {item.title === 'Shop' && (
-                    <div className="absolute left-0 mt-2 hidden  p-4 bg-white border border-gray-200 shadow-lg group-hover:block ">
-                      <h3 className="font-semibold text-xl mb-2 text-gray-900">Collections</h3>
+                    <div className=" absolute left-0 mt-2 hidden  p-4 bg-white border border-gray-200 shadow-lg group-hover:block ">
+                      <h3 className="font-semibold text-lg mb-2 text-gray-900">Collections</h3>
                       <div className="flex flex-col">
                         {collectionMenu.map((collection) => (
                           <Link
