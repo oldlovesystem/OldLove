@@ -6,7 +6,9 @@ import { getCart } from 'lib/shopify';
 import { ensureStartsWith } from 'lib/utils';
 import { cookies } from 'next/headers';
 import { ReactNode } from 'react';
+import TopNavOne from 'components/layout/navbar/TopNavOne';
 import { Toaster } from 'sonner';
+import './styles/styles.scss';
 import './globals.css';
 
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
@@ -45,6 +47,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     <html lang="en" className={GeistSans.variable}>
       <body className="bg-neutral-50 text-black selection:bg-teal-300 ">
         <CartProvider cartPromise={cart}>
+          <TopNavOne props="style-one bg-black" slogan="New customers save 10% with the code GET10"/>
           <Navbar />
           <main>
             {children}
