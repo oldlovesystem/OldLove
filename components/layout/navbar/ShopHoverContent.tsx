@@ -1,13 +1,54 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const ShopHoverContent: React.FC = () => (
-  <div className="w-full bg-white shadow-lg p-4 rounded">
-    <h3 className="text-lg font-semibold">Home Additional Content</h3>
-    <p>This is the content that shows when hovering over Home.</p>
-    <Link href="/" className="text-blue-500 underline">
-      Go to Home
-    </Link>
+  <div className="w-full bg-white shadow-lg p-4 rounded"> 
+    <div className="grid grid-cols-4 gap-4 mt-4">
+      {/* Column 1: Top Wear */}
+      <div>
+      <h4 className="font-semibold uppercase text-center">Top Wear</h4>
+        <ul className="pl-5 text-center text-gray-500 mt-2">
+          <li className="mb-2">Printed Shirts</li>
+          <li className="mb-2">Casual Shirts</li>
+          <li className="mb-2">Checks Shirts</li>
+          <li className="ml-2 mb-2">Mandarin Shirts</li>
+        </ul>
+      </div>
+
+      {/* Column 2: Bottom Wear */}
+      <div>
+        <h4 className="font-semibold uppercase text-center">Bottom Wear</h4>
+        <ul className=" pl-5 text-gray-500 mt-2 text-center">
+          <li className="mb-2">Classic Jeans Wear</li>
+          <li className="mb-2"> Trendy Cargos Wear</li>
+        </ul>
+      </div>
+
+      {/* Column 3: Recent Products */}
+      <div>
+        <h4 className="font-semibold">Recent Products</h4>
+        <Image 
+          src="/4M6A2498.JPG" 
+          alt="Top Wear 1" 
+          width={250} 
+          height={200} 
+          className="mb-2"
+        />
+      </div>
+
+      {/* Column 4: Recent Products */}
+      <div>
+      <h4 className="font-semibold text-white">Recent Products</h4>
+        <Image 
+          src="/IMG_0012.JPG" 
+          alt="Bottom Wear 1" 
+          width={250} 
+          height={200} 
+          className="mb-2"
+        />
+      </div>
+    </div>
   </div>
 );
 
