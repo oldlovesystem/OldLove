@@ -1,4 +1,5 @@
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
+import * as Icon from "@phosphor-icons/react/dist/ssr";
 import clsx from 'clsx';
 
 export default function OpenCart({
@@ -10,8 +11,8 @@ export default function OpenCart({
 }) {
   return (
     <div className="relative flex h-11 w-11 items-center justify-center  transition-colors dark:border-neutral-700 ">
-      <ShoppingCartIcon
-        className={clsx('h-6 transition-all ease-in-out hover:scale-110 ', className)}
+      <Icon.Handbag 
+        className='text-3xl transition-all ease-in-out hover:scale-110 '
       />
 
       {quantity ? (
