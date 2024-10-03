@@ -14,7 +14,7 @@ const TopNavOne: React.FC<Props> = ({ props, slogan }) => {
     const [isOpenLanguage, setIsOpenLanguage] = useState(false)
     const [isOpenCurrence, setIsOpenCurrence] = useState(false)
     const [language, setLanguage] = useState('English')
-    const [currence, setCurrence] = useState('USD')
+    const [currence, setCurrence] = useState('INR')
 
     return (
         <>
@@ -33,7 +33,7 @@ const TopNavOne: React.FC<Props> = ({ props, slogan }) => {
                                     <p className="selected caption2 text-white">{language}</p>
                                     <ul className={`list-option bg-white ${isOpenLanguage ? 'open' : ''}`}>
                                         {
-                                            ['English', 'Espana', 'France'].map((item, index) => (
+                                            ['English'].map((item, index) => (
                                                 <li key={index} className="caption2" onClick={() => setLanguage(item)}>{item}</li>
                                             ))
                                         }
@@ -52,7 +52,7 @@ const TopNavOne: React.FC<Props> = ({ props, slogan }) => {
                                     <p className="selected caption2 text-white">{currence}</p>
                                     <ul className={`list-option bg-white ${isOpenCurrence ? 'open' : ''}`}>
                                         {
-                                            ['USD', 'EUR', 'GBP'].map((item, index) => (
+                                            ['INR'].map((item, index) => (
                                                 <li key={index} className="caption2" onClick={() => setCurrence(item)}>{item}</li>
                                             ))
                                         }
@@ -73,12 +73,6 @@ const TopNavOne: React.FC<Props> = ({ props, slogan }) => {
                             </Link>
                             <Link href={'https://www.youtube.com/'} target='_blank'>
                                 <i className="icon-youtube text-white"></i>
-                            </Link>
-                            <Link href={'https://twitter.com/'} target='_blank'>
-                                <i className="icon-twitter text-white"></i>
-                            </Link>
-                            <Link href={'https://pinterest.com/'} target='_blank'>
-                                <i className="icon-pinterest text-white"></i>
                             </Link>
                         </div>
 

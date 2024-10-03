@@ -1,3 +1,4 @@
+// Your existing RootLayout component
 import { CartProvider } from 'components/cart/cart-context';
 import { Navbar } from 'components/layout/navbar';
 import { WelcomeToast } from 'components/welcome-toast';
@@ -7,7 +8,9 @@ import { ensureStartsWith } from 'lib/utils';
 import { cookies } from 'next/headers';
 import { ReactNode } from 'react';
 import TopNavOne from 'components/layout/navbar/TopNavOne';
+import Footer from 'components/layout/footer';
 import { Toaster } from 'sonner';
+import WhatsAppIcon from 'components/WhatsAppIcon'; // Import the WhatsAppIcon component
 import './styles/styles.scss';
 import './globals.css';
 
@@ -40,20 +43,21 @@ export const metadata = {
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const cartId = cookies().get('cartId')?.value;
-  // Don't await the fetch, pass the Promise to the context provider
   const cart = getCart(cartId);
 
   return (
     <html lang="en" className={GeistSans.variable}>
-      <body className="bg-neutral-50 text-black selection:bg-teal-300 ">
+      <body className="bg-neutral-50 text-black selection:bg-teal-300">
         <CartProvider cartPromise={cart}>
-          <TopNavOne props="style-one bg-black" slogan="New customers save 10% with the code GET10"/>
+          <TopNavOne props="style-one bg-black" slogan="Welcome to Old Love"/>
           <Navbar />
           <main>
             {children}
             <Toaster closeButton />
             <WelcomeToast />
+            <WhatsAppIcon /> {/* Include the WhatsAppIcon here */}
           </main>
+          <Footer/>
         </CartProvider>
       </body>
     </html>

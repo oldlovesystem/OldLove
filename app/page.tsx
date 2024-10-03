@@ -3,7 +3,6 @@ import { ThreeItemGrid } from 'components/grid/three-items';
 import SliderCosmeticOne from 'components/Slider/Slider';
 import Collection from 'components/Collection';
 import WhatNewOne from 'components/WhatNewOne';
-import Footer from 'components/layout/footer';
 import Benefit from 'components/Benefit';
 import testimonialData from './Testimonial.json'
 import Testimonial from 'components/Testimonial';
@@ -26,7 +25,6 @@ export default function HomePage() {
       <Testimonial data={testimonialData} limit={6} />
       <Instagram/>
       <Carousel />
-      <Footer />
     </>
   );
 }

@@ -7,7 +7,7 @@ const Footer = () => {
     return (
         <>
             <div id="footer" className='footer'>
-                <div className="footer-main bg-surface">
+                <div className="footer-main bg-gray-100 mt-10">
                     <div className="container">
                         <div className="content-footer py-[60px] flex justify-between flex-wrap gap-y-8">
                             <div className="company-infor basis-1/4 max-lg:basis-full pr-7">
@@ -35,7 +35,7 @@ const Footer = () => {
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'#!'}>Career</Link>
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/my-account'}>My Account</Link>
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/order-tracking'}>Order  & Returns</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/faqs'}>FAQs</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/policy'}>FAQs</Link>
                                     </div>
                                     <div className="item flex flex-col basis-1/3 ">
                                         <div className="text-button-uppercase pb-3">Quick Shop</div>
@@ -47,10 +47,10 @@ const Footer = () => {
                                     </div>
                                     <div className="item flex flex-col basis-1/3 ">
                                         <div className="text-button-uppercase pb-3">Customer Services</div>
-                                        <Link className='caption1 has-line-before duration-300 w-fit' href={'/pages/faqs'}>Orders FAQs</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/faqs'}>Shipping</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/faqs'}>Privacy Policy</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/order-tracking'}>Return & Refund</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit' href={'/policy'}>Orders FAQs</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/policy'}>Shipping</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/policy'}>Privacy Policy</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/policy'}>Return & Refund</Link>
                                     </div>
                                 </div>
                                 <div className="newsletter basis-1/3 pl-7 max-md:basis-full max-md:pl-0">

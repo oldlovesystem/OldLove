@@ -54,10 +54,7 @@ const Instagram = () => {
                                         className='h-full w-full duration-500 relative'
                                     />
                                     <div className="icon w-12 h-12 bg-white hover:bg-black duration-500 flex items-center justify-center rounded-2xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1]">
-                                    <Image src={"/instagram.png"}
-                                            alt='facebook'
-                                            width={30}
-                                            height={30}/>
+                                     <div className="icon-instagram text-2xl text-black"></div>
                                     </div>
                                 </Link>
                             </SwiperSlide>
@@ -71,10 +68,7 @@ const Instagram = () => {
                                         className='h-full w-full duration-500 relative'
                                     />
                                     <div className="icon w-12 h-12 bg-white hover:bg-black duration-500 flex items-center justify-center rounded-2xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1]">
-                                    <Image src={"/instagram.png"}
-                                            alt='facebook'
-                                            width={30}
-                                            height={30}/>
+                                    <div className="icon-instagram text-2xl text-black"></div>
                                     </div>
                                 </Link>
                             </SwiperSlide>
@@ -88,10 +82,7 @@ const Instagram = () => {
                                         className='h-full w-full duration-500 relative'
                                     />
                                     <div className="icon w-12 h-12 bg-white hover:bg-black duration-500 flex items-center justify-center rounded-2xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1]">
-                                    <Image src={"/instagram.png"}
-                                            alt='facebook'
-                                            width={30}
-                                            height={30}/>
+                                    <div className="icon-instagram text-2xl text-black"></div>
                                     </div>
                                 </Link>
                             </SwiperSlide>
@@ -105,10 +96,7 @@ const Instagram = () => {
                                         className='h-full w-full duration-500 relative'
                                     />
                                     <div className="icon w-12 h-12 bg-white hover:bg-black duration-500 flex items-center justify-center rounded-2xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1]">
-                                    <Image src={"/instagram.png"}
-                                            alt='facebook'
-                                            width={30}
-                                            height={30}/>
+                                    <div className="icon-instagram text-2xl text-black"></div>
                                     </div>
                                 </Link>
                             </SwiperSlide>
@@ -122,10 +110,7 @@ const Instagram = () => {
                                         className='h-full w-full duration-500 relative'
                                     />
                                     <div className="icon w-12 h-12 bg-white hover:bg-black duration-500 flex items-center justify-center rounded-2xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1]">
-                                         <Image src={"/instagram.png"}
-                                            alt='facebook'
-                                            width={30}
-                                            height={30}/>
+                                    <div className="icon-instagram text-2xl text-black"></div>
                                     </div>
                                 </Link>
                             </SwiperSlide>
