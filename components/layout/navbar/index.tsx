@@ -56,7 +56,7 @@ export function Navbar() {
     hoverTimeoutRef.current = setTimeout(() => {
       setIsHovering(false);
       setHoveredItem(null);
-    }, 20); // Delay closing by 300ms
+    }, 100); // Delay closing by 300ms
   };
 
   const renderHoverContent = () => {

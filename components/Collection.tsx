@@ -45,10 +45,11 @@ const Collection = () => {
                         className='h-full'
                     >
                         <SwiperSlide>
+                            <Link href={'search/formal-shirts'}>
                             <div className="collection-item block relative rounded-2xl overflow-hidden cursor-pointer" onClick={() => handleTypeClick('swimwear')}>
                                 <div className="bg-img">
                                     <Image
-                                        src={"/4M6A2746.JPG"}
+                                        src={"/FormalShirt.webp"}
                                         width={1000}
                                         height={600}
                                         alt='swimwear'
@@ -56,8 +57,10 @@ const Collection = () => {
                                 </div>
                                 <div className="collection-name heading5 text-center sm:bottom-8 bottom-4 lg:w-[200px] md:w-[160px] w-[100px] md:py-3 py-1.5 bg-white rounded-xl duration-500">Formals</div>
                             </div>
+                            </Link>
                         </SwiperSlide>
                         <SwiperSlide>
+                        <Link href={'search/casual-shirts'}>
                             <div className="collection-item block relative rounded-2xl overflow-hidden cursor-pointer" onClick={() => handleTypeClick('top')}>
                                 <div className="bg-img">
                                     <Image
@@ -69,12 +72,44 @@ const Collection = () => {
                                 </div>
                                 <div className="collection-name heading5 text-center sm:bottom-8 bottom-4 lg:w-[200px] md:w-[160px] w-[100px] md:py-3 py-3 bg-white rounded-xl duration-500">Casuals</div>
                             </div>
+                            </Link>
                         </SwiperSlide>
                         <SwiperSlide>
+                        <Link href={"search/check-shirts"}>
+                            <div className="collection-item block relative rounded-2xl overflow-hidden cursor-pointer" onClick={() => handleTypeClick('t-shirt')}>
+                                <div className="bg-img">
+                                    <Image
+                                        src={'/PrintedShirt.webp'}
+                                        width={1000}
+                                        height={600}
+                                        alt='t-shirt'
+                                    />
+                                </div>
+                                <div className="collection-name heading5 text-center sm:bottom-8 bottom-4 lg:w-[200px] md:w-[160px] w-[100px] md:py-3 py-1.5 bg-white rounded-xl duration-500">Printed Shirts</div>
+                            </div>
+                            </Link>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                        <Link href={"search/check-shirts"}>
+                            <div className="collection-item block relative rounded-2xl overflow-hidden cursor-pointer" onClick={() => handleTypeClick('underwear')}>
+                                <div className="bg-img">
+                                    <Image
+                                        src={'/Check Shirts.webp'}
+                                        width={1000}
+                                        height={600}
+                                        alt='underwear'
+                                    />
+                                </div>
+                                <div className="collection-name heading5 text-center sm:bottom-8 bottom-4 lg:w-[200px] md:w-[160px] w-[100px] md:py-3 py-1.5 bg-white rounded-xl duration-500">Checks Shirt</div>
+                            </div>
+                            </Link>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                        <Link href={'search/jeans'}>
                             <div className="collection-item block relative rounded-2xl overflow-hidden cursor-pointer" onClick={() => handleTypeClick('sets')}>
                                 <div className="bg-img">
                                     <Image
-                                        src={'/IMG_0144_3.png'}
+                                        src={'/Jeans.webp'}
                                         width={1000}
                                         height={600}
                                         alt='sets'
@@ -82,46 +117,25 @@ const Collection = () => {
                                 </div>
                                 <div className="collection-name heading5 text-center sm:bottom-8 bottom-4 lg:w-[200px] md:w-[160px] w-[100px] md:py-3 py-1.5 bg-white rounded-xl duration-500">Jeans</div>
                             </div>
+                        </Link>
                         </SwiperSlide>
                         <SwiperSlide>
+                            <Link href={"search/cargo-trousers"}>
                             <div className="collection-item block relative rounded-2xl overflow-hidden cursor-pointer" onClick={() => handleTypeClick('outerwear')}>
                                 <div className="bg-img">
                                     <Image
-                                        src={'/IMG_0062.JPG'}
+                                        src={'/Cargo.webp'}
                                         width={1000}
                                         height={600}
                                         alt='outerwear'
                                     />
                                 </div>
-                                <div className="collection-name heading5 text-center sm:bottom-8 bottom-4 lg:w-[200px] md:w-[160px] w-[100px] md:py-3 py-1.5 bg-white rounded-xl duration-500">Mandarin Collar </div>
+                                <div className="collection-name heading5 text-center sm:bottom-8 bottom-4 lg:w-[200px] md:w-[160px] w-[100px] md:py-3 py-1.5 bg-white rounded-xl duration-500">Cargo</div>
                             </div>
+                            </Link>
                         </SwiperSlide>
-                        <SwiperSlide>
-                            <div className="collection-item block relative rounded-2xl overflow-hidden cursor-pointer" onClick={() => handleTypeClick('underwear')}>
-                                <div className="bg-img">
-                                    <Image
-                                        src={'/images/collection/underwear.png'}
-                                        width={1000}
-                                        height={600}
-                                        alt='underwear'
-                                    />
-                                </div>
-                                <div className="collection-name heading5 text-center sm:bottom-8 bottom-4 lg:w-[200px] md:w-[160px] w-[100px] md:py-3 py-1.5 bg-white rounded-xl duration-500">underwear</div>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className="collection-item block relative rounded-2xl overflow-hidden cursor-pointer" onClick={() => handleTypeClick('t-shirt')}>
-                                <div className="bg-img">
-                                    <Image
-                                        src={'/images/collection/t-shirt.png'}
-                                        width={1000}
-                                        height={600}
-                                        alt='t-shirt'
-                                    />
-                                </div>
-                                <div className="collection-name heading5 text-center sm:bottom-8 bottom-4 lg:w-[200px] md:w-[160px] w-[100px] md:py-3 py-1.5 bg-white rounded-xl duration-500">t-shirt</div>
-                            </div>
-                        </SwiperSlide>
+                     
+                        
                     </Swiper>
                 </div>
             </div>

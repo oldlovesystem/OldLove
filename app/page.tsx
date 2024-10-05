@@ -1,8 +1,7 @@
 import { Carousel } from 'components/carousel';
-import { ThreeItemGrid } from 'components/grid/three-items';
 import SliderCosmeticOne from 'components/Slider/Slider';
 import Collection from 'components/Collection';
-import WhatNewOne from 'components/WhatNewOne';
+import {WhatNewOne } from 'components/WhatNewOne';
 import Benefit from 'components/Benefit';
 import testimonialData from './Testimonial.json'
 import Testimonial from 'components/Testimonial';
@@ -19,7 +18,7 @@ export default function HomePage() {
   return (
     <>
       <SliderCosmeticOne/>
-      <WhatNewOne start={0} limit={4} />
+      <WhatNewOne/>
       <Collection/>
       <Benefit props="md:py-20 py-10" />
       <Testimonial data={testimonialData} limit={6} />
