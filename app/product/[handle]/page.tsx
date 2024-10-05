@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { GridTileImage } from 'components/grid/tile';
-import Footer from 'components/layout/footer';
 import { Gallery } from 'components/product/gallery';
 import { ProductProvider } from 'components/product/product-context';
 import { ProductDescription } from 'components/product/product-description';
@@ -52,7 +51,6 @@ export async function generateMetadata({
 
 export default async function ProductPage({ params }: { params: { handle: string } }) {
   const product = await getProduct(params.handle);
-
   if (!product) return notFound();
 
   const productJsonLd = {
@@ -89,7 +87,7 @@ export default async function ProductPage({ params }: { params: { handle: string
               }
             >
               <Gallery
-                images={product.images.slice(0, 6).map((image: Image) => ({
+                images={product.images.slice(0, 5).map((image: Image) => ({
                   src: image.url,
                   altText: image.altText
                 }))}
@@ -105,7 +103,6 @@ export default async function ProductPage({ params }: { params: { handle: string
         </div>
         <RelatedProducts id={product.id} />
       </div>
-      <Footer />
     </ProductProvider>
   );
 }

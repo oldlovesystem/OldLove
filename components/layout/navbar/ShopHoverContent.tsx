@@ -5,13 +5,18 @@ import Image from 'next/image';
 const ShopHoverContent: React.FC = () => (
   <div className="w-full bg-linear shadow-lg p-4 rounded"> 
     <div className="grid grid-cols-4 gap-4 mt-4">
-      {/* Column 1: Top Wear */}
       <div>
       <h4 className="font-semibold uppercase text-center">Top Wear</h4>
         <ul className="pl-5 text-center text-gray-500 mt-2">
+          <Link href={'/search/printed-shirts'}>
           <li className="mb-2">Printed Shirts</li>
+          </Link>
+          <Link href={"/search/casual-shirtsh"}>
           <li className="mb-2">Casual Shirts</li>
+          </Link>
+          <Link href={'/search/check-shirts'}>
           <li className="mb-2">Checks Shirts</li>
+          </Link>
           <li className="ml-2 mb-2">Mandarin Shirts</li>
         </ul>
       </div>

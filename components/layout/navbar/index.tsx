@@ -12,13 +12,12 @@ import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 
 // Import hover components
-import HomeHoverContent from './HomeHoverContent';
 import ShopHoverContent from './ShopHoverContent';
 
 
 const menu: Menu[] = [
   { title: 'Home', path: '/' },
-  { title: 'Shop', path: '/shop' },
+  { title: 'Shop', path: '/search' },
   { title: 'About Us', path: '/about' },
   { title: 'Contact', path: '/contact' },
 ];
@@ -57,7 +56,7 @@ export function Navbar() {
     hoverTimeoutRef.current = setTimeout(() => {
       setIsHovering(false);
       setHoveredItem(null);
-    }, 300); // Delay closing by 300ms
+    }, 20); // Delay closing by 300ms
   };
 
   const renderHoverContent = () => {
