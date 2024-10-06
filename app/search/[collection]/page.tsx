@@ -42,14 +42,16 @@ export default async function CategoryPage({
   return (
     <section>
       <div>
-        <div className='text-center py-20  mb-4'>
-        <h1 className="text-4xl font-bold">{collection.title}</h1>
-          <p>
+        <div className='text-center py-20 mb-4 relative'>
+          <h1 className="text-3xl sm:text-4xl font-bold -translate-x-4 sm:-translate-x-20"> {/* Adjusted size and translate */}
+            {collection.title}
+          </h1>
+          <p className="mt-2 -translate-x-4 sm:-translate-x-20"> {/* Adjusted translate */}
             <a href="/" className="hover:underline">Home</a> &gt; {collection.title}
           </p>
         </div>
       </div>
-      <div className='bg-white h-screen'>
+      <div className='bg-white min-h-screen'> {/* Changed to min-h-screen to allow for better viewing on small screens */}
         {products.length === 0 ? (
           <p className="py-3 text-lg">{`No products found in this collection`}</p>
         ) : (

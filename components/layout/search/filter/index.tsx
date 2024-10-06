@@ -10,7 +10,7 @@ function FilterItemList({ list }: { list: ListItem[] }) {
   return (
     <>
       {list.map((item: ListItem, i) => (
-        <FilterItem key={i} item={item} />
+        <FilterItem key={i} item={item}/>
       ))}
     </>
   );
@@ -18,9 +18,9 @@ function FilterItemList({ list }: { list: ListItem[] }) {
 
 export default function FilterList({ list, title }: { list: ListItem[]; title?: string }) {
   return (
-    <nav className="bg-white text-black w-full m-0 p-4"> {/* Full width and height */}
+    <nav className="bg-white text-black w-full m-0 p-4 "> 
       {title ? (
-        <h3 className="hidden text-xs md:block">
+        <h3 className="hidden text-2xl font-bold md:block mb-2">
           {title}
         </h3>
       ) : null}

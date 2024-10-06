@@ -6,19 +6,24 @@ import FilterList from './filter';
 
 async function CollectionList() {
   const collections = await getCollections();
-  return <FilterList list={collections} title="Collections" />;
+  
+  // Filter out the collection named "all"
+  const filteredCollections = collections.filter(collection => collection.title.toLowerCase() !== 'all');
+  
+
+  return <FilterList list={filteredCollections} title="Collections" />;
 }
 
 const skeleton = 'mb-3 h-4 w-full animate-pulse rounded';
-const activeAndTitles = 'bg-white text-black'; // Set background to white and text to black
-const items = 'bg-gray-200 text-black'; // Use a light gray for items with black text
+const activeAndTitles = 'bg-white text-black'; 
+const items = 'text-black  ';
 
 export default function Collections() {
   return (
-    <div className="bg-white text-black w-full "> {/* Full width and height */}
+    <div className="bg-white text-black w-full  "> {/* Full width and height */}
       <Suspense
         fallback={
-          <div className="col-span-2 hidden h-[400px] w-full flex-none lg:block">
+          <div className="col-span-2 hidden h-[400px] w-full flex-none lg:block ">
             <div className={clsx(skeleton, activeAndTitles)} />
             <div className={clsx(skeleton, activeAndTitles)} />
             <div className={clsx(skeleton, items)} />
