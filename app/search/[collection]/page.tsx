@@ -29,19 +29,35 @@ export default async function CategoryPage({
   params: { collection: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
+  const collection = await getCollection(params.collection); // Fetch the collection data
   const { sort } = searchParams as { [key: string]: string };
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
   const products = await getCollectionProducts({ collection: params.collection, sortKey, reverse });
 
+  // Check if collection is found
+  if (!collection) {
+    return <p className="py-3 text-lg">{`Collection not found`}</p>;
+  }
+
   return (
     <section>
-      {products.length === 0 ? (
-        <p className="py-3 text-lg">{`No products found in this collection`}</p>
-      ) : (
-        <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          <ProductGridItems products={products} />
-        </Grid>
-      )}
+      <div>
+        <div className='text-center py-20  mb-4'>
+        <h1 className="text-4xl font-bold">{collection.title}</h1>
+          <p>
+            <a href="/" className="hover:underline">Home</a> &gt; {collection.title}
+          </p>
+        </div>
+      </div>
+      <div className='bg-white h-screen'>
+        {products.length === 0 ? (
+          <p className="py-3 text-lg">{`No products found in this collection`}</p>
+        ) : (
+          <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            <ProductGridItems products={products} />
+          </Grid>
+        )}
+      </div>
     </section>
   );
 }

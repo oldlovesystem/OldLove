@@ -4,18 +4,27 @@ import FilterList from 'components/layout/search/filter';
 import { sorting } from 'lib/constants';
 import ChildrenWrapper from './children-wrapper';
 
-export default function SearchLayout({ children }: { children: React.ReactNode }) {
+interface SearchLayoutProps {
+  children: React.ReactNode;
+}
+
+export default function SearchLayout({ children }: SearchLayoutProps) {
   return (
     <>
-      <div className="mx-auto flex bg-linear max-w-screen-2xl flex-col gap-8 px-4 pb-4 text-black md:flex-row ">
-        <div className="order-first w-full flex-none md:max-w-[125px]">
-          <Collections />
+      <div className="mx-auto flex bg-linear max-w-screen-2xl flex-col px-0 pb-0 text-black md:flex-row">
+        {/* Side panel containing both Collections and FilterList */}
+        <div className="order-first flex-none md:flex md:flex-col md:w-[250px] lg:mt-60 bg-white">
+          <div className="flex-none md:py-10">
+            <Collections />
+          </div>
+          <div className="flex-none   border-gray-300">
+            <FilterList list={sorting} title="Sort by" />
+          </div>
         </div>
-        <div className="order-last min-h-screen w-full md:order-none">
+
+        {/* Main content area */}
+        <div className="order-last min-h-screen flex-grow md:order-none lg:py-0 ">
           <ChildrenWrapper>{children}</ChildrenWrapper>
-        </div>
-        <div className="order-none flex-none md:order-last md:w-[125px]">
-          <FilterList list={sorting} title="Sort by" />
         </div>
       </div>
       <Footer />

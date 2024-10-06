@@ -9,30 +9,31 @@ async function CollectionList() {
   return <FilterList list={collections} title="Collections" />;
 }
 
-const skeleton = 'mb-3 h-4 w-5/6 animate-pulse rounded';
-const activeAndTitles = 'bg-white dark:bg-neutral-300 dark:text-black';
-const items = 'bg-neutral-400 dark:bg-neutral-700 dark:text-black';
+const skeleton = 'mb-3 h-4 w-full animate-pulse rounded';
+const activeAndTitles = 'bg-white text-black'; // Set background to white and text to black
+const items = 'bg-gray-200 text-black'; // Use a light gray for items with black text
 
 export default function Collections() {
   return (
-    <Suspense
-      fallback={
-        <div className="col-span-2 hidden h-[400px] w-full flex-none py-4 lg:block">
-          <div className={clsx(skeleton, activeAndTitles)} />
-          <div className={clsx(skeleton, activeAndTitles)} />
-          <div className={clsx(skeleton, items)} />
-          <div className={clsx(skeleton, items)} />
-          <div className={clsx(skeleton, items)} />
-          <div className={clsx(skeleton, items)} />
-          <div className={clsx(skeleton, items)} />
-          <div className={clsx(skeleton, items)} />
-          <div className={clsx(skeleton, items)} />
-          <div className={clsx(skeleton, items)} />
-        </div>
-      }
-    >
-      <CollectionList />
-
-    </Suspense>
+    <div className="bg-white text-black w-full "> {/* Full width and height */}
+      <Suspense
+        fallback={
+          <div className="col-span-2 hidden h-[400px] w-full flex-none lg:block">
+            <div className={clsx(skeleton, activeAndTitles)} />
+            <div className={clsx(skeleton, activeAndTitles)} />
+            <div className={clsx(skeleton, items)} />
+            <div className={clsx(skeleton, items)} />
+            <div className={clsx(skeleton, items)} />
+            <div className={clsx(skeleton, items)} />
+            <div className={clsx(skeleton, items)} />
+            <div className={clsx(skeleton, items)} />
+            <div className={clsx(skeleton, items)} />
+            <div className={clsx(skeleton, items)} />
+          </div>
+        }
+      >
+        <CollectionList />
+      </Suspense>
+    </div>
   );
 }
