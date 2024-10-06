@@ -85,7 +85,7 @@ const Collection = () => {
                                         alt='t-shirt'
                                     />
                                 </div>
-                                <div className="collection-name heading5 text-center sm:bottom-8 bottom-4 lg:w-[200px] md:w-[160px] w-[100px] md:py-3 py-1.5 bg-white rounded-xl duration-500">Printed Shirts</div>
+                                <div className="collection-name heading5 text-center sm:bottom-8 bottom-4 lg:w-[200px] md:w-[160px] w-[100px] md:py-3 py-1.5 bg-white rounded-xl duration-500 ">Printed</div>
                             </div>
                             </Link>
                         </SwiperSlide>
@@ -100,7 +100,7 @@ const Collection = () => {
                                         alt='underwear'
                                     />
                                 </div>
-                                <div className="collection-name heading5 text-center sm:bottom-8 bottom-4 lg:w-[200px] md:w-[160px] w-[100px] md:py-3 py-1.5 bg-white rounded-xl duration-500">Checks Shirt</div>
+                                <div className="collection-name heading5 text-center sm:bottom-8 bottom-4 lg:w-[200px] md:w-[160px] w-[100px] md:py-3 py-1.5 bg-white rounded-xl duration-500">Checks</div>
                             </div>
                             </Link>
                         </SwiperSlide>

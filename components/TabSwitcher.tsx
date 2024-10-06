@@ -18,21 +18,20 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ collectionProducts }) => {
   console.log("TabSwitcher ", collectionProducts);
 
   const formatTitle = (title: string) => {
-    return title
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+    const firstWord = title.split('-')[0]; // Get only the first word before the hyphen
+    return firstWord ? firstWord.charAt(0).toUpperCase() + firstWord.slice(1) + 's' : ''; // Capitalize the first letter and add 's'
   };
-
-  // Ensure activeTab is a valid index
+  
   const isValidTab = activeTab >= 0 && activeTab < collectionProducts.length;
 
   return (
-    <div className="p-4">
-        <div className='text-center text-5xl font-bold py-2 mb-4 '>What's New</div>
+    <div className="p-4 max-w-full"> {/* Overall container */}
+      <div className='text-center text-5xl font-bold py-2 mb-4 overflow-x-auto scrollbar-hide'>What's New</div>
+      
+      {/* Tab buttons container */}
       <div className="flex justify-center mb-4">
-        <div className="border-b bg-gray-200 rounded-full lg:px-10 py-2 px-1 ">
-          <div className="flex space-x-4">
+        <div className=" menu-tab border-b bg-gray-200 rounded-full lg:px-10 py-2 px-1">
+          <div className="flex space-x-2 overflow-x-auto scrollbar-hide tab-item"> {/* Enable horizontal scroll for tabs */}
             {collectionProducts.map((collection, index) => (
               <button
                 key={collection.title}
@@ -49,14 +48,15 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ collectionProducts }) => {
           </div>
         </div>
       </div>
-      <div className="tab-content">
 
+      {/* Tab content */}
+      <div className="tab-content">
         {isValidTab && collectionProducts[activeTab]?.products.length ? (
           <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {collectionProducts[activeTab]?.products.map((product) => (
               <li key={product.handle} className="relative">
                 <Link href={`/product/${product.handle}`} className="relative h-full w-full block">
-                  <div className="w-full h-[50vh] relative overflow-hidden"> 
+                  <div className="w-full h-[50vh] relative overflow-hidden">
                     <GridTileImage
                       alt={product.title}
                       label={{
@@ -67,7 +67,7 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ collectionProducts }) => {
                       src={product.featuredImage?.url}
                       fill
                       sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-                      className="object-contain" // Changed to object-contain
+                      className="object-contain" 
                     />
                   </div>
                 </Link>
