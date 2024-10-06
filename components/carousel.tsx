@@ -1,6 +1,4 @@
 import { getCollectionProducts  , getCollections} from 'lib/shopify';
-import Link from 'next/link';
-import { GridTileImage } from './grid/tile';
 import TabSwitcher from './TabSwitcher';
 
 export async function Carousel() {

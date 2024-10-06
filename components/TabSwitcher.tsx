@@ -31,7 +31,7 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ collectionProducts }) => {
     <div className="p-4">
         <div className='text-center text-5xl font-bold py-2 mb-4 '>What's New</div>
       <div className="flex justify-center mb-4">
-        <div className="border-b bg-gray-200 rounded-full px-10 py-2">
+        <div className="border-b bg-gray-200 rounded-full lg:px-10 py-2 px-1 ">
           <div className="flex space-x-4">
             {collectionProducts.map((collection, index) => (
               <button
@@ -43,20 +43,20 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ collectionProducts }) => {
                     : 'bg-gray-200 text-gray-700 hover:bg-white '
                 }`}
               >
-                {formatTitle(collection.title)} {/* Use the formatting function here */}
+                {formatTitle(collection.title)} 
               </button>
             ))}
           </div>
         </div>
       </div>
       <div className="tab-content">
-        {/* Check if the active tab is valid and has products */}
+
         {isValidTab && collectionProducts[activeTab]?.products.length ? (
           <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {collectionProducts[activeTab]?.products.map((product) => (
               <li key={product.handle} className="relative">
                 <Link href={`/product/${product.handle}`} className="relative h-full w-full block">
-                  <div className="w-full h-[50vh] relative overflow-hidden"> {/* Half the viewport height */}
+                  <div className="w-full h-[50vh] relative overflow-hidden"> 
                     <GridTileImage
                       alt={product.title}
                       label={{

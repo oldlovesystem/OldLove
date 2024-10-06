@@ -18,32 +18,35 @@ export function GridTileImage({
   };
 } & React.ComponentProps<typeof Image>) {
   return (
-    <div
-      className={clsx(
-        'group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 ',
-        {
-          relative: label,
-          'border-2 border-blue-600': active,
-          'border-neutral-200 ': !active
-        }
+    <div className="flex flex-col h-full w-full">
+      <div
+        className={clsx(
+          'group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border hover:border-blue-600',
+          {
+            relative: label,
+            'border-2 border-blue-600': active,
+          }
+        )}
+      >
+        {props.src && (
+          <Image
+            className={clsx(' h-full w-full object-contain', {
+              'transition duration-300 ease-in-out group-hover:scale-105': isInteractive,
+            })}
+            {...props}
+          />
+        )}
+      </div>
+      {label && (
+        <div className="mt-2">
+          <Label
+            title={label.title}
+            amount={label.amount}
+            currencyCode={label.currencyCode}
+            position={label.position}
+          />
+        </div>
       )}
-    >
-      {props.src ? (
-        <Image
-          className={clsx('relative h-full w-full object-contain', {
-            'transition duration-300 ease-in-out group-hover:scale-105': isInteractive
-          })}
-          {...props}
-        />
-      ) : null}
-      {label ? (
-        <Label
-          title={label.title}
-          amount={label.amount}
-          currencyCode={label.currencyCode}
-          position={label.position}
-        />
-      ) : null}
     </div>
   );
 }
