@@ -10,13 +10,13 @@ export default function OpenCart({
   quantity?: number;
 }) {
   return (
-    <div className="relative flex h-11 w-11 items-center justify-center  transition-colors dark:border-neutral-700 ">
+    <div className={`relative flex h-11 w-11 items-center justify-center transition-colors  rounded-full ${className}`}>
       <Icon.Handbag 
-        className='text-3xl transition-all ease-in-out hover:scale-110 '
+        className='text-3xl transition-all ease-in-out hover:scale-110'
       />
 
       {quantity ? (
-        <div className="absolute right-0 top-0 -mr-2 -mt-2 h-4 w-4 rounded bg-blue-600 text-[11px] font-medium text-white">
+        <div className="absolute right-0 top-0 -mr-2 -mt-0 h-5 w-5 rounded-full bg-gray-900 text-[11px] font-medium text-white flex items-center justify-center">
           {quantity}
         </div>
       ) : null}
