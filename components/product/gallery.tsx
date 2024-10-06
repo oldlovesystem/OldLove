@@ -1,6 +1,5 @@
 'use client';
 
-import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { GridTileImage } from 'components/grid/tile';
 import { useProduct, useUpdateURL } from 'components/product/product-context';
 import Image from 'next/image';
@@ -10,12 +9,6 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
   const updateURL = useUpdateURL();
 
   const imageIndex = state.image ? parseInt(state.image) : 0;
-
-  const nextImageIndex = imageIndex + 1 < images.length ? imageIndex + 1 : 0;
-  const previousImageIndex = imageIndex === 0 ? images.length - 1 : imageIndex - 1;
-
-  const buttonClassName =
-    'h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black  flex items-center justify-center';
 
   return (
     <form>
@@ -30,34 +23,6 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
             priority={true}
           />
         )}
-
-        {images.length > 1 ? (
-          <div className="absolute bottom-[15%] flex w-full justify-center">
-            <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur ">
-              <button
-                formAction={() => {
-                  const newState = updateImage(previousImageIndex.toString());
-                  updateURL(newState);
-                }}
-                aria-label="Previous product image"
-                className={buttonClassName}
-              >
-                <ArrowLeftIcon className="h-5" />
-              </button>
-              <div className="mx-1 h-6 w-px bg-neutral-500"></div>
-              <button
-                formAction={() => {
-                  const newState = updateImage(nextImageIndex.toString());
-                  updateURL(newState);
-                }}
-                aria-label="Next product image"
-                className={buttonClassName}
-              >
-                <ArrowRightIcon className="h-5" />
-              </button>
-            </div>
-          </div>
-        ) : null}
       </div>
 
       {images.length > 1 ? (
@@ -66,7 +31,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
             const isActive = index === imageIndex;
 
             return (
-              <li key={image.src} className="h-20 w-20">
+              <li key={image.src} className="h-30 w-25">
                 <button
                   formAction={() => {
                     const newState = updateImage(index.toString());
@@ -78,8 +43,8 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
                   <GridTileImage
                     alt={image.altText}
                     src={image.src}
-                    width={80}
-                    height={80}
+                    width={100}
+                    height={100}
                     active={isActive}
                   />
                 </button>

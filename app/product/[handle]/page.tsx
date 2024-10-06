@@ -78,9 +78,9 @@ export default async function ProductPage({ params }: { params: { handle: string
           __html: JSON.stringify(productJsonLd)
         }}
       />
-      <div className="mx-auto max-w-screen-2xl px-4">
-        <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 md:p-12 lg:flex-row lg:gap-8 ">
-          <div className="h-full w-full basis-full lg:basis-4/6">
+      <div className="mx-auto max-w-screen-2xl px-4 border-neutral-200 bg-white">
+        <div className="flex flex-col   bg-white p-8 md:p-12 lg:flex-row lg:gap-8">
+          <div className="h-full w-full lg:basis-1/2"> {/* Set to 50% for larger screens */}
             <Suspense
               fallback={
                 <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden" />
@@ -95,12 +95,35 @@ export default async function ProductPage({ params }: { params: { handle: string
             </Suspense>
           </div>
 
-          <div className="basis-full lg:basis-2/6">
+          <div className="basis-full lg:basis-1/2"> {/* Set to 50% for larger screens */}
             <Suspense fallback={null}>
               <ProductDescription product={product} />
             </Suspense>
           </div>
+          
         </div>
+        <div className="grid lg:grid-cols-4 grid-cols-2 gap-[30px] md:mt-10 mt-6">
+                                    <div className="item">
+                                        <div className="icon-delivery-truck text-4xl"></div>
+                                        <div className="heading6 mt-4">Shipping Faster</div>
+                                        <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div>
+                                    </div>
+                                    <div className="item">
+                                        <div className="icon-cotton text-4xl"></div>
+                                        <div className="heading6 mt-4">Cotton Material</div>
+                                        <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div>
+                                    </div>
+                                    <div className="item">
+                                        <div className="icon-guarantee text-4xl"></div>
+                                        <div className="heading6 mt-4">High Quality</div>
+                                        <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div>
+                                    </div>
+                                    <div className="item">
+                                        <div className="icon-leaves-compatible text-4xl"></div>
+                                        <div className="heading6 mt-4">highly compatible</div>
+                                        <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div>
+                                    </div>
+                                </div>
         <RelatedProducts id={product.id} />
       </div>
     </ProductProvider>
