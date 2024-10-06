@@ -21,9 +21,10 @@ const Footer = () => {
                                         <span className="text-button mt-3">Address:</span>
                                     </div>
                                     <div className="flex flex-col ">
-                                        <span className=''>hi.avitex@gmail.com</span>
-                                        <span className='mt-3'>1-333-345-6868</span>
-                                        <span className='mt-3 pt-px'>549 Oak St.Crystal Lake, IL 60014</span>
+                                        <span className=''>customer@oldlove.in</span>
+                                        <span className='mt-3'>+91 9739430613</span>
+                                        <span className='mt-3 pt-px'>National Park Road</span>
+                                        <span className='pt-px'>Bannerughatta Post</span>
                                     </div>
                                 </div>
                             </div>
@@ -32,18 +33,16 @@ const Footer = () => {
                                     <div className="item flex flex-col basis-1/3 ">
                                         <div className="text-button-uppercase pb-3">Infomation</div>
                                         <Link className='caption1 has-line-before duration-300 w-fit' href={'/pages/contact'}>Contact us</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'#!'}>Career</Link>
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/my-account'}>My Account</Link>
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/order-tracking'}>Order  & Returns</Link>
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/policy'}>FAQs</Link>
                                     </div>
                                     <div className="item flex flex-col basis-1/3 ">
                                         <div className="text-button-uppercase pb-3">Quick Shop</div>
-                                        <Link className='caption1 has-line-before duration-300 w-fit' href={'/shop/breadcrumb1'}>Shirts</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/shop/breadcrumb1'}>T-Shirts</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/shop/breadcrumb1'}></Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/shop/breadcrumb1'}>Accessories</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/blog'}>Blog</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit' href={'/shop/breadcrumb1'}>Fromals</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/shop/breadcrumb1'}>Casuals</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/shop/breadcrumb1'}>Prints</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/blog'}>Jeans</Link>
                                     </div>
                                     <div className="item flex flex-col basis-1/3 ">
                                         <div className="text-button-uppercase pb-3">Customer Services</div>
@@ -77,17 +76,9 @@ const Footer = () => {
                                             width={30}
                                             height={30}/>
                                         </Link>
-                                        <Link href={'https://www.twitter.com/'} target='_blank'>
-                                        <Image src={"/twitter.png"}
-                                            alt='facebook'
-                                            width={30}
-                                            height={30}/>
-                                        </Link>
+
                                         <Link href={'https://www.youtube.com/'} target='_blank'>
                                             <div className="icon-youtube text-2xl text-black"></div>
-                                        </Link>
-                                        <Link href={'https://www.pinterest.com/'} target='_blank'>
-                                            <div className="icon-pinterest text-2xl text-black"></div>
                                         </Link>
                                     </div>
                                 </div>
