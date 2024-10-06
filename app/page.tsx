@@ -21,9 +21,10 @@ export default function HomePage() {
       <WhatNewOne/>
       <Collection/>
       <Benefit props="md:py-20 py-10" />
+      <Carousel />
       <Testimonial data={testimonialData} limit={6} />
       <Instagram/>
-      <Carousel />
+     
     </>
   );
 }
