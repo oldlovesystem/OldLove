@@ -102,28 +102,26 @@ export default async function ProductPage({ params }: { params: { handle: string
           </div>
           
         </div>
-        <div className="grid lg:grid-cols-4 grid-cols-2 gap-[30px] md:mt-10 mt-6">
-                                    <div className="item">
-                                        <div className="icon-delivery-truck text-4xl"></div>
-                                        <div className="heading6 mt-4">Shipping Faster</div>
-                                        <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div>
-                                    </div>
-                                    <div className="item">
-                                        <div className="icon-cotton text-4xl"></div>
-                                        <div className="heading6 mt-4">Cotton Material</div>
-                                        <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div>
-                                    </div>
-                                    <div className="item">
-                                        <div className="icon-guarantee text-4xl"></div>
-                                        <div className="heading6 mt-4">High Quality</div>
-                                        <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div>
-                                    </div>
-                                    <div className="item">
-                                        <div className="icon-leaves-compatible text-4xl"></div>
-                                        <div className="heading6 mt-4">highly compatible</div>
-                                        <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div>
-                                    </div>
-                                </div>
+      <div className="flex justify-center">
+  <div className="grid lg:grid-cols-3 grid-cols-2 gap-[30px] md:mt-10 mt-6">
+    <div className="item text-center"> 
+      <div className="icon-delivery-truck text-4xl"></div>
+      <div className="heading6 mt-4">Shipping Faster</div>
+      <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div>
+    </div>
+    <div className="item text-center"> {/* Center text inside each item */}
+      <div className="icon-guarantee text-4xl"></div>
+      <div className="heading6 mt-4">High Quality</div>
+      <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div>
+    </div>
+    <div className="item text-center"> {/* Center text inside each item */}
+      <div className="icon-leaves-compatible text-4xl"></div>
+      <div className="heading6 mt-4">Highly Compatible</div>
+      <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div>
+    </div>
+  </div>
+</div>
+
         <RelatedProducts id={product.id} />
       </div>
     </ProductProvider>

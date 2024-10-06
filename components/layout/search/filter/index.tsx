@@ -24,7 +24,7 @@ export default function FilterList({ list, title }: { list: ListItem[]; title?: 
           {title}
         </h3>
       ) : null}
-      <ul className="hidden md:block">
+      <ul className="hidden md:block md:bg-white md:text-black">
         <Suspense fallback={null}>
           <FilterItemList list={list} />
         </Suspense>

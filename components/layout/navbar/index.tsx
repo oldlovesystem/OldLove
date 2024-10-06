@@ -17,7 +17,7 @@ import ShopHoverContent from './ShopHoverContent';
 
 const menu: Menu[] = [
   { title: 'Home', path: '/' },
-  { title: 'Shop', path: '/search' },
+  { title: 'Shop', path: '/search/check-shirts' },
   { title: 'About Us', path: '/about' },
   { title: 'Contact', path: '/contact' },
 ];
@@ -113,7 +113,9 @@ export function Navbar() {
 
           <div className="flex items-center space-x-4">
             <CartModal />
+            <Link href={"/reg"}>
             <Icon.User className="text-2xl" />
+            </Link>
             <div className="hidden md:flex">
               <SpotlightSearch color="white" />
             </div>
