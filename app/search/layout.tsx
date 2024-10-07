@@ -10,7 +10,7 @@ interface SearchLayoutProps {
 export default function SearchLayout({ children }: SearchLayoutProps) {
   return (
     <>
-      <div className="mx-auto flex bg-linear max-w-screen-2xl flex-col px-0 pb-0 text-black md:flex-row">
+      <div className="mx-auto flex max-w-screen-2xl flex-col px-0 pb-0 text-black md:flex-row">
         <div className="order-first flex-none md:flex md:flex-col md:w-[250px] lg:mt-[253px] bg-white "> {/* Use custom value */}
           <div className="flex-none mt-5 md:py-10 ml-10 ">
             <Collections />

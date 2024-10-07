@@ -15,9 +15,7 @@ export async function Carousel() {
     })
   );
 
-
-  console.log(titles);
-  console.log(collectionProducts)
+ 
   if (!products?.length) return null;
 
   

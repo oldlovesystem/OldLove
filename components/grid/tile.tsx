@@ -1,4 +1,7 @@
+"use client"
 import clsx from 'clsx';
+import React from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Label from '../label';
 
@@ -16,12 +19,16 @@ export function GridTileImage({
     currencyCode: string;
     position?: 'bottom' | 'center';
   };
+  variants?: { color: string; colorImage: string }[]; // Array of variations
 } & React.ComponentProps<typeof Image>) {
+  const [activeColor, setActiveColor] = useState<string | null>(null); // Manage active color
+
+
   return (
-    <div className="flex flex-col h-full w-full">
+    <div className="flex flex-col h-full w-full ">
       <div
         className={clsx(
-          'group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border hover:border-blue-600',
+          'group flex h-full  w-full items-center justify-center overflow-hidden rounded-lg border hover:border-blue-600',
           {
             relative: label,
             'border-2 border-blue-600': active,
@@ -30,7 +37,7 @@ export function GridTileImage({
       >
         {props.src && (
           <Image
-            className={clsx(' h-full w-full object-contain', {
+            className={clsx(' h-full w-full object-contain ', {
               'transition duration-300 ease-in-out group-hover:scale-105': isInteractive,
             })}
             {...props}

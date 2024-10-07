@@ -10,13 +10,11 @@ export function ProductDescription({ product }: { product: Product }) {
   console.log(product);
 
   const getDeliveryRange = () => {
-    const today = new Date(); // Get the current date
+    const today = new Date(); 
     const startDate = new Date(today);
-    startDate.setDate(today.getDate() + 1); // Start from tomorrow
+    startDate.setDate(today.getDate() + 1); 
     const endDate = new Date(today);
-    endDate.setDate(today.getDate() + 10); // 10 days from today
-
-    // Format the start and end dates to 'DD Month' format
+    endDate.setDate(today.getDate() + 10); 
     const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long' }; // Correctly typed options
     const formattedStartDate = startDate.toLocaleDateString('en-US', options);
     const formattedEndDate = endDate.toLocaleDateString('en-US', options);
@@ -29,22 +27,42 @@ export function ProductDescription({ product }: { product: Product }) {
   return (
     <>
       <div className="mb-6 flex flex-col border-b pb-6 ">
-        <h1 className="mb-2 text-xl font-medium">{product.title}</h1>
-        <div className="mr-auto w-auto rounded-full  p-2 text-sm text-black">
-          <Price
-            amount={product.priceRange.maxVariantPrice.amount}
-            currencyCode={product.priceRange.maxVariantPrice.currencyCode}
-          />
-        </div>
-      </div>
-      <VariantSelector options={product.options} variants={product.variants} />
-      <div className='font-bold uppercase '>Description</div>
+        <p className='uppercase text-gray-400 mb-2'>{product.tags}</p>
+        <h1 className="mb-2 text-2xl font-medium">{product.title}</h1>
+        <div className="mr-auto w-auto rounded-full p-2 text-sm text-black flex items-center">
+  <span className="font-semibold text-2xl">
+    ₹{product.priceRange.maxVariantPrice.amount} {product.priceRange.maxVariantPrice.currencyCode}
+  </span>
+
+  <div className="mx-2 h-6 ml-2 border-l border-gray-300"></div>
+
+  <span className="ml-2 text-gray-400 line-through">
+    ₹{(+product.priceRange.maxVariantPrice.amount + 100).toFixed(2)} {product.priceRange.maxVariantPrice.currencyCode}
+  </span>
+
+  {/* Calculate Discount Percentage */}
+  {(() => {
+    const originalPrice = +product.priceRange.maxVariantPrice.amount + 100;
+    const currentPrice = +product.priceRange.maxVariantPrice.amount;
+    const discountPercentage = ((originalPrice - currentPrice) / originalPrice) * 100;
+    
+    return (
+      <span className="ml-2 bg-[rgb(216,238,163)] text-black font-bold rounded-full px-4 text-xs py-1">
+        - {discountPercentage.toFixed(0)}%
+      </span>
+    );
+  })()}
+</div>
+<div className='font-bold uppercase mt-4 text-sm text-gray-600'></div>
       {product.descriptionHtml ? (
         <Prose
-          className="mb-6 text-sm text-black "
+          className="mb-6  text-sm text-gray-600 "
           html={product.descriptionHtml}
         />
       ) : null}
+      </div>
+      <VariantSelector options={product.options} variants={product.variants} />
+     
       <AddToCart product={product} />
       <div className="more-info mt-6">
         <div className="flex items-center gap-4 flex-wrap">

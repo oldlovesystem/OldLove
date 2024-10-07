@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const ShopHoverContent: React.FC = () => (
-  <div className="w-full bg-linear shadow-lg p-4 rounded"> 
+  <div className="w-full shadow-lg p-4 rounded bg-white"> 
     <div className="grid grid-cols-4 gap-4 mt-4">
       {/* Column 1: Top Wear */}
       <div>

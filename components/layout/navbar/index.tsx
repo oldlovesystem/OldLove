@@ -71,7 +71,7 @@ export function Navbar() {
 
   return (
     <div className={`relative `}>
-      <nav className={`header-menu style-one bg-linear  flex items-center justify-between p-4 lg:px-6 ${fixedHeader ? 'fixed top-0 left-0 right-0 z-10' : ''}`}>
+      <nav className={`header-menu style-one bg-white  flex items-center justify-between p-4 lg:px-6 ${fixedHeader ? 'fixed top-0 left-0 right-0 z-10' : ''}`}>
         <div className="block flex-none md:hidden">
           <Suspense fallback={null}>
             <MobileMenu menu={menu} />

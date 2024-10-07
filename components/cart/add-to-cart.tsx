@@ -27,7 +27,7 @@ function SubmitButton({
     );
   }
 
-  console.log(selectedVariantId);
+
   if (!selectedVariantId) {
     return (
       <button
