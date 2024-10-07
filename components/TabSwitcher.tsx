@@ -20,15 +20,13 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ collectionProducts }) => {
     const firstWord = title.split('-')[0]; 
     return firstWord ? firstWord.charAt(0).toUpperCase() + firstWord.slice(1) + 's' : ''; 
   };
-
   const isValidTab = activeTab >= 0 && activeTab < collectionProducts.length;
 
   return (
     <div className="p-4 max-w-full"> 
-      <div className='text-center text-5xl font-bold py-2 mb-4 overflow-x-auto scrollbar-hide'>What's New</div>
-      
+       <div className="text-center text-3xl mb-4 mt-4">What{String.raw`'s`} new</div>
       <div className="flex justify-center mb-4">
-        <div className="menu-tab border-b bg-gray-200 rounded-full lg:px-10 py-2 px-1">
+        <div className="whate-new-block  border-b bg-gray-200 rounded-2xl lg:px-10 py-2 px-1">
           <div className="flex space-x-2 overflow-x-auto scrollbar-hide tab-item"> 
             {collectionProducts.map((collection, index) => (
               <button

@@ -391,7 +391,7 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
     },
     cache: 'no-store' // Ensure fresh data
   });
-
+  console.log("tryinh",res.body.data.product.variants)
   return reshapeProduct(res.body.data.product, false);
 }
 

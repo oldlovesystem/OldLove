@@ -7,7 +7,7 @@ import { Product } from 'lib/shopify/types';
 import { VariantSelector } from './variant-selector';
 
 export function ProductDescription({ product }: { product: Product }) {
-  console.log(product);
+  console.log("product varinat",product.variants);
 
   const getDeliveryRange = () => {
     const today = new Date(); 
@@ -15,11 +15,11 @@ export function ProductDescription({ product }: { product: Product }) {
     startDate.setDate(today.getDate() + 1); 
     const endDate = new Date(today);
     endDate.setDate(today.getDate() + 10); 
-    const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long' }; // Correctly typed options
+    const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long' }; 
     const formattedStartDate = startDate.toLocaleDateString('en-US', options);
     const formattedEndDate = endDate.toLocaleDateString('en-US', options);
 
-    return `${formattedStartDate} - ${formattedEndDate}`; // Return the formatted range
+    return `${formattedStartDate} - ${formattedEndDate}`; 
   };
 
   const deliveryRange = getDeliveryRange(); // Get the delivery range
