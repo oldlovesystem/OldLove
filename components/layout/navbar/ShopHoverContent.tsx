@@ -36,28 +36,28 @@ const ShopHoverContent: React.FC = () => {
         {[
           {
             src: '/4M6A2498.JPG',
-            name: 'Product Name 1',
+            name: 'Formal shirt',
             price: '₹499.99',
             oldPrice: '₹599.99',
             discount: '-17%',
           },
           {
             src: '/FormalShirt.webp',
-            name: 'Product Name 2',
+            name: 'Classsic Shirt',
             price: '₹590.99',
             oldPrice: '₹799.99',
             discount: '-25%',
           },
           {
             src: '/PrintedShirt.webp',
-            name: 'Product Name 3',
+            name: 'Formal Shirt',
             price: '₹449.99',
             oldPrice: '₹599.99',
             discount: '-25%',
           },
           {
             src: '/IMG_0012.JPG',
-            name: 'Product Name 4',
+            name: 'Fromal shirt',
             price: '₹399.99',
             oldPrice: '₹499.99',
             discount: '-20%',
