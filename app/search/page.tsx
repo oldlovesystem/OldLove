@@ -55,27 +55,10 @@ export default async function SearchPage({
         </p>
       ) : null}
 
-      {/* Buttons to change the number of columns using custom icons */}
-      <div className="mb-4 flex space-x-2 mt-4 ">
-        <Link href={{ pathname: '/search', query: { ...searchParams, columns: '2' } }}>
-          <button aria-label="2 Columns" className="p-2 rounded hover:bg-gray-200">
-            <TwoColumnsIcon />
-          </button>
-        </Link>
-        <Link href={{ pathname: '/search', query: { ...searchParams, columns: '3' } }}>
-          <button aria-label="3 Columns" className="p-2 rounded hover:bg-gray-200">
-            <ThreeColumnsIcon />
-          </button>
-        </Link>
-        <Link href={{ pathname: '/search', query: { ...searchParams, columns: '4' } }}>
-          <button aria-label="4 Columns" className="p-2 rounded hover:bg-gray-200">
-            <FourColumnsIcon />
-          </button>
-        </Link>
-      </div>
+
 
       {products.length > 0 ? (
-        <Grid className={`grid-cols-${columns} sm:grid-cols-${columns} lg:grid-cols-${columns} py-3 px-3`}>
+        <Grid className={`grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 ml-14 px-3`}>
           <ProductGridItems products={products} />
         </Grid>
       ) : null}

@@ -59,7 +59,7 @@ const Login = () => {
               <form onSubmit={handleSubmit} className="md:mt-7 mt-4">
                 <div className="email">
                   <input
-                    className="border-line px-4 pt-3 pb-3 w-full rounded-lg"
+                    className="border-line border-gray-300 px-4 pt-3 pb-3 w-full rounded-lg"
                     type="email"
                     placeholder="Username or email address *"
                     value={email}
@@ -69,7 +69,7 @@ const Login = () => {
                 </div>
                 <div className="pass mt-5">
                   <input
-                    className="border-line px-4 pt-3 pb-3 w-full rounded-lg"
+                    className="border-line border-gray-300  px-4 pt-3 pb-3 w-full rounded-lg"
                     type="password"
                     placeholder="Password *"
                     value={password}

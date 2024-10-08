@@ -9,7 +9,7 @@ export default function ProductGridItems({ products }: { products: Product[] }) 
       {products.map((product) => (
         <Grid.Item key={product.handle} className="animate-fadeIn">
           <Link
-            className="relative inline-block h-full w-full"
+            className="relative inline-block h-[60vh]  w-[90%]"
             href={`/product/${product.handle}`}
             prefetch={true}
           >
@@ -22,7 +22,7 @@ export default function ProductGridItems({ products }: { products: Product[] }) 
               }}
               src={product.featuredImage?.url}
               fill
-              sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+              sizes="(min-width: 500px) 33vw, (min-width: 500px) 50vw, 100vw"
             />
           </Link>
         </Grid.Item>

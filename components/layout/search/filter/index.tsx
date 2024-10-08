@@ -19,7 +19,7 @@ function FilterItemList({ list }: { list: ListItem[] }) {
 export default function FilterList({ list, title }: { list: ListItem[]; title?: string }) {
   console.log("print",title)
   return (
-    <nav className="bg-white text-black w-full m-0 p-2 py-4">
+    <nav className="bg-white text-black w-full m-0 p-2 ">
       {title ? (
         <h3 className="hidden text-xl font-semibold md:block mb-2">
           {title}

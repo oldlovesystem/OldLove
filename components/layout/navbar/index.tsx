@@ -68,11 +68,11 @@ export function Navbar() {
   };
 
   // Background color only changes when scrolled
-  const backgroundColor = fixedHeader ? 'bg-linear' : '';
+  const backgroundColor = fixedHeader ? 'bg-linear' : 'bg-linear';
 
   return (
     <div className="relative">
-      <nav className={`header-menu style-one flex items-center justify-between p-4 lg:px-6 ${fixedHeader ? 'fixed top-0 left-0 right-0 z-10' : ''} ${backgroundColor}`}>
+      <nav className={`header-menu style-one flex items-center justify-between p-4 lg:px-6 ${fixedHeader ? 'top-0 left-0 right-0 z-10' : ''} ${backgroundColor}`}>
         <div className="block flex-none md:hidden">
           <Suspense fallback={null}>
             <MobileMenu menu={menu} />
@@ -88,7 +88,7 @@ export function Navbar() {
               </div>
             </Link>
 
-            <ul className="hidden md:flex menu-main md:items-center gap-9 text-lg mr-3 ml-16 uppercase">
+            <ul className="hidden md:flex mega-menu md:items-center gap-9 text-lg mr-3 ml-16 uppercase">
               {menu.map((item) => (
                 <li
                   key={item.title}
@@ -114,7 +114,7 @@ export function Navbar() {
 
           <div className="flex items-center space-x-4">
             <CartModal />
-            <Link href={"/reg"}>
+            <Link href={"/register"}>
               <Icon.User className="text-2xl" />
             </Link>
             <div className="hidden md:flex">

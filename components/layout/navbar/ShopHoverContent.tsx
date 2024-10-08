@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -37,41 +37,42 @@ const ShopHoverContent: React.FC = () => {
           {
             src: '/4M6A2498.JPG',
             name: 'Product Name 1',
-            price: '$49.99',
-            oldPrice: '$59.99',
+            price: '₹499.99',
+            oldPrice: '₹599.99',
             discount: '-17%',
           },
           {
             src: '/FormalShirt.webp',
             name: 'Product Name 2',
-            price: '$59.99',
-            oldPrice: '$79.99',
+            price: '₹590.99',
+            oldPrice: '₹799.99',
             discount: '-25%',
           },
           {
             src: '/PrintedShirt.webp',
             name: 'Product Name 3',
-            price: '$44.99',
-            oldPrice: '$59.99',
+            price: '₹449.99',
+            oldPrice: '₹599.99',
             discount: '-25%',
           },
           {
             src: '/IMG_0012.JPG',
             name: 'Product Name 4',
-            price: '$39.99',
-            oldPrice: '$49.99',
+            price: '₹399.99',
+            oldPrice: '₹499.99',
             discount: '-20%',
           },
         ].map((product, index) => {
           const [isHovered, setIsHovered] = useState(false); // Manage hover state for each product
 
           return (
-            <div key={index} className="relative mb-2">
-              <div 
-                className="relative group"
-                onMouseEnter={() => setIsHovered(true)} 
-                onMouseLeave={() => setIsHovered(false)}
-              >
+            <div 
+              key={index} 
+              className="relative mb-2" 
+              onMouseEnter={() => setIsHovered(true)} 
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <div className="relative group">
                 <Image 
                   src={product.src} 
                   alt={product.name} 

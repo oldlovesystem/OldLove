@@ -24,7 +24,7 @@ export function GridTileImage({
 
   return (
     <div 
-      className="flex flex-col h-full w-full relative" 
+      className="flex flex-col h-full w-full relative  " 
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)} 
     >
@@ -35,7 +35,7 @@ export function GridTileImage({
       
       <div
         className={clsx(
-          'group flex h-full w-full items-center justify-center overflow-hidden hover:border-blue-600',
+          'group  bg-gray-200 rounded-xl  flex h-full w-full items-center justify-center overflow-hidden hover:border-blue-600',
           {
             relative: label,
             'border-2 border-blue-600': active,
@@ -45,7 +45,7 @@ export function GridTileImage({
         {props.src && (
           <Image
             className={clsx('h-full w-full object-contain', {
-              'transition duration-300 ease-in-out group-hover:scale-105': isInteractive,
+              'transition duration-700 ease-in-out  rounded-lg ': isInteractive,
             })}
 
             {...props}

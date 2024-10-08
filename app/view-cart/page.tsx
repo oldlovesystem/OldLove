@@ -27,7 +27,7 @@ export default function ViewCart() {
   return (
     <>
       <div id="header" className='relative w-full'>
-        <Breadcrumb heading='Contact Us' subHeading='Shopping cart' />
+        <Breadcrumb heading='Shopping Cart' subHeading='Shopping cart' />
       </div>
 
       <div className="container mx-auto p-6 flex">
@@ -42,10 +42,10 @@ export default function ViewCart() {
               <Link href="/" className="mt-4 text-blue-600 hover:underline">Continue Shopping</Link>
             </div>
           ) : (
-            <div className="list-product w-full sm:mt-7 mt-5">
+            <div className="list-product w-full sm:mt-7 mt-5 ">
               <div className='w-full'>
                 <div className="heading bg-surface rounded-4 pt-4 pb-4">
-                  <div className="flex">
+                  <div className="flex bg-gray-100 py-4 rounded-xl">
                     <div className="w-1/2">
                       <div className="text-button text-center">Products</div>
                     </div>
@@ -114,9 +114,9 @@ export default function ViewCart() {
           )}
         </div>
 
-        <div className="w-1/3 pl-6 bg-gray-100 rounded-xl ml-2 pr-6">
-          <div className="checkout-block bg-surface p-6 rounded-2xl">
-            <h2 className="text-xl font-semibold">Order Summary</h2>
+        <div className="w-1/3 pl-6 bg-gray-100 rounded-xl ml-12 mt-14 pr-6">
+          <div className="checkout-block bg-surface py-4 px-2 rounded-2xl">
+            <h2 className="heading5 py-4">Order Summary</h2>
             <div className="total-block py-5 flex justify-between border-b border-line">
               <div className="text-title">Subtotal</div>
               <div className="text-title">
@@ -161,6 +161,9 @@ export default function ViewCart() {
                   Proceed to Checkout
                 </button>
               </form>
+            </div>
+            <div className='text-center mt-4 font-semibold'>
+                Contuine to Shopping
             </div>
           </div>
         </div>

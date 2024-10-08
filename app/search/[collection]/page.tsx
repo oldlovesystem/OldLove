@@ -61,28 +61,17 @@ export default async function CategoryPage({
 
   return (
     <section>
-      <div className='bg-white min-h-screen'>
-        {/* Buttons to change the number of columns using custom icons */}
-        <div className="mb-4 flex space-x-2 ml-5">
-          <Link href={{ pathname: `/search//${params.collection}`, query: { ...searchParams, columns: '2' } }}>
-            <button aria-label="2 Columns" className="p-2 rounded hover:bg-gray-200">
-              <TwoColumnsIcon />
-            </button>
-          </Link>
-          <Link href={{ pathname: `/search/${params.collection}`, query: { ...searchParams, columns: '3' } }}>
-            <button aria-label="3 Columns" className="p-2 rounded hover:bg-gray-200">
-              <ThreeColumnsIcon />
-            </button>
-          </Link>
-        
-        </div>
+      <div className='bg-white min-h-screen ml-14'>
 
         {products.length === 0 ? (
           <p className="py-3 text-lg">{`No products found${searchValue ? ` for "${searchValue}"` : ''} in this collection`}</p>
         ) : (
-          <Grid className={`grid-cols-${columns} sm:grid-cols-${columns} lg:grid-cols-${columns}`}>
+          <div className=''>
+            <p className='ml-2'>2 <span className='text-gray-400'>Product</span> </p>
+          <Grid className={`grid-cols-3 sm:grid-cols-3 lg:grid-cols-3`}>
             <ProductGridItems products={products} />
           </Grid>
+          </div>
         )}
       </div>
     </section>

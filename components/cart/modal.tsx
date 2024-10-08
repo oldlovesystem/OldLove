@@ -74,10 +74,10 @@ export default function CartModal() {
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="fixed bottom-0 right-0 flex h-[90vh] w-full flex-col border-l mt-20 md:mt-20 border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[500px] rounded-3xl mr-5">
+            <Dialog.Panel className="fixed bottom-0 right-0 flex h-[96vh] mb-4 mt-2 w-full flex-col border-l md:mt-20 border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[500px] rounded-3xl mr-5">
               <div className="flex items-center justify-between">
-                <p className="text-lg font-semibold mt-10">My Cart</p>
-                <button aria-label="Close cart" className="mt-10" onClick={closeCart}>
+                <p className="text-3xl font-semibold heading5">My Cart</p>
+                <button aria-label="Close cart" onClick={closeCart}>
                   <CloseCart />
                 </button>
               </div>
@@ -88,7 +88,7 @@ export default function CartModal() {
                   <p className="mt-6 text-center text-2xl font-bold">Your cart is empty.</p>
                 </div>
               ) : (
-                <div className="flex flex-col justify-between overflow-hidden p-1">
+                <div className="flex flex-col flex-grow overflow-hidden p-1">
                   <ul className="flex-grow overflow-auto py-4">
                     {cart.lines
                       .sort((a, b) =>
@@ -109,20 +109,17 @@ export default function CartModal() {
                         );
 
                         return (
-                          <li
-                            key={i}
-                            className="flex w-full flex-col border-b border-neutral-300 "
-                          >
+                          <li key={i} className="flex w-full flex-col border-neutral-300">
                             <div className="relative flex w-full flex-row justify-between px-1 py-4">
                               <div className="absolute z-40 -ml-1 -mt-2">
                                 <DeleteItemButton item={item} optimisticUpdate={updateCartItem} />
                               </div>
                               <div className="flex flex-row">
-                                <div className="relative h-16 w-16 overflow-hidden rounded-md border border-neutral-300 bg-neutral-300">
+                                <div className="relative h-20 w-16 overflow-hidden rounded-md border border-neutral-300 bg-neutral-300">
                                   <Image
-                                    className="h-full w-full object-cover"
-                                    width={64}
-                                    height={64}
+                                    className="h-full w-full object-fill"
+                                    width={100}
+                                    height={100}
                                     alt={
                                       item.merchandise.product.featuredImage.altText ||
                                       item.merchandise.product.title
@@ -174,8 +171,8 @@ export default function CartModal() {
                         );
                       })}
                   </ul>
-                  <div className="py-4 text-sm text-neutral-500 ">
-                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 ">
+                  <div className="flex flex-col justify-between mt-auto py-4 text-sm text-neutral-500">
+                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1">
                       <p>Taxes</p>
                       <Price
                         className="text-right text-base text-black"
@@ -183,23 +180,22 @@ export default function CartModal() {
                         currencyCode={cart.cost.totalTaxAmount.currencyCode}
                       />
                     </div>
-                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 ">
+                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1">
                       <p>Shipping</p>
                       <p className="text-right">Calculated at checkout</p>
                     </div>
-                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 ">
-                      <p>Total</p>
+                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1">
+                      <p className='text-3xl font-bold text-black'>Total</p>
                       <Price
-                        className="text-right text-base text-black"
+                        className="text-3xl font-bold text-black"
                         amount={cart.cost.totalAmount.amount}
                         currencyCode={cart.cost.totalAmount.currencyCode}
                       />
                     </div>
+                    <form action={redirectToCheckout}>
+                      <CheckoutButton />
+                    </form>
                   </div>
-
-                  <form action={redirectToCheckout}>
-                    <CheckoutButton />
-                  </form>
                 </div>
               )}
             </Dialog.Panel>
@@ -212,9 +208,12 @@ export default function CartModal() {
 
 function CheckoutButton() {
   const { pending } = useFormStatus();
+  const [isOpen, setIsOpen] = useState(false);
+  const closeCart = () => setIsOpen(false);
+
 
   return (
-    <div className='flex space-x-2'> {/* Added space between buttons */}
+    <div className='flex space-x-2'> 
       <button
         className="block w-full rounded-lg bg-black p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
         type="submit"
@@ -226,6 +225,7 @@ function CheckoutButton() {
         className="block w-full rounded-lg bg-black p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
         type="submit"
         disabled={pending}
+        onClick={closeCart}
       >
         <Link href="/view-cart" className="text-white hover:underline">View Cart</Link>
       </button>
