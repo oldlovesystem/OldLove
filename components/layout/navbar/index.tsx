@@ -14,7 +14,7 @@ import ShopHoverContent from './ShopHoverContent';
 
 const menu: Menu[] = [
   { title: 'Home', path: '/' },
-  { title: 'Shop', path: '/search/check-shirts' },
+  { title: 'Shop', path: '/search' },
   { title: 'About Us', path: '/about' },
   { title: 'Contact', path: '/contact' },
 ];

@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import useLoginPopup from '../store/useLoginPopup';
 import { GridTileImage } from './grid/tile';
 import { Product } from 'lib/shopify/types';
 
