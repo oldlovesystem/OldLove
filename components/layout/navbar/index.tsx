@@ -83,7 +83,7 @@ export function Navbar() {
           <div className="flex items-center w-auto ml-12">
             <Link href="/" prefetch={true} className="flex items-center justify-center">
               <Image src="/logo.png" alt="logo" width={50} height={30} />
-              <div className="heading4 ml-2 text-black text-2xl font-medium uppercase">
+              <div className="heading4 ml-2 text-black text-2xl font-medium uppercase font-tenor-sans">
                 Old Love
               </div>
             </Link>
