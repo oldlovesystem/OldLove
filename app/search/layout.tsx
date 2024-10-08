@@ -11,19 +11,18 @@ interface SearchLayoutProps {
 export default function SearchLayout({ children }: SearchLayoutProps) {
   return (
     <>
-     <Breadcrumb  />
-      <div className="flex max-w-screen-2xl flex-col px-0 pb-0 text-black md:flex-row mt-5 ">
-     
-        <div className="order-first flex-none md:flex md:flex-col md:w-[250px]   "> 
+      <Breadcrumb />
+      <div className="flex max-w-screen-2xl flex-col px-0 pb-0 text-black md:flex-row mt-5">
+        <div className="order-first flex-none md:flex md:flex-col md:w-[20%] pl-10 py-5"> 
           <div className="flex-none">
             <Collections />
           </div>
-          <div className="flex-none ml-10">
-            {/* <FilterList list={sorting} title="Sort by" /> */}
+          <div className="flex-none ">
+            <FilterList list={sorting} title="Sort by" />
           </div>
         </div>
 
-        <div className="order-last min-h-screen flex-grow md:order-none lg:py-0">
+        <div className="order-last min-h-screen flex-grow md:order-none lg:py-0 md:w-[80%]">
           <ChildrenWrapper>{children}</ChildrenWrapper>
         </div>
       </div>

@@ -1,12 +1,11 @@
-import clsx from 'clsx';
 import { Suspense } from 'react';
-import { getCollectionProducts  , getCollections} from 'lib/shopify';
+import { getCollectionProducts, getCollections } from 'lib/shopify';
 import FilterList from './filter';
 
 async function CollectionList() {
   const collections = await getCollections();
   const titles = collections
-    .slice(1) 
+    .slice(1)
     .map(collection => collection.title.toLowerCase().replace(/\s+/g, '-'));
 
   const collectionProducts = await Promise.all(
@@ -16,9 +15,6 @@ async function CollectionList() {
     })
   );
 
-  console.log(collectionProducts);
-
-  // Get lengths of products for each collection
   const productLengths = collectionProducts.map(collection => ({
     title: collection.title,
     productCount: collection.products.length,
@@ -28,38 +24,16 @@ async function CollectionList() {
 
   const filteredCollections = collections.filter(collection => collection.title.toLowerCase() !== 'all');
 
+  // Create the filter list with product count for FilterList
+  const filterItems = productLengths.map(({ title, productCount }) => ({
+    title: title.replace('-', ' '),
+    path: `/search/${title}`, // assuming path is in this format
+    productCount,
+  }));
 
-
-  
-
-  return <FilterList list={filteredCollections} title="Product Type" />;
-}
-
-const skeleton = 'mb-3 h-4 w-full animate-pulse rounded';
-const activeAndTitles = 'bg-white text-black'; 
-const items = 'text-black  ';
-
-export default function Collections() {
   return (
-    <div className="bg-white text-black w-full  "> {/* Full width and height */}
-      <Suspense
-        fallback={
-          <div className="col-span-2 hidden h-[400px] w-full flex-none lg:block ">
-            <div className={clsx(skeleton, activeAndTitles)} />
-            <div className={clsx(skeleton, activeAndTitles)} />
-            <div className={clsx(skeleton, items)} />
-            <div className={clsx(skeleton, items)} />
-            <div className={clsx(skeleton, items)} />
-            <div className={clsx(skeleton, items)} />
-            <div className={clsx(skeleton, items)} />
-            <div className={clsx(skeleton, items)} />
-            <div className={clsx(skeleton, items)} />
-            <div className={clsx(skeleton, items)} />
-          </div>
-        }
-      >
-        <CollectionList />
-      </Suspense>
-    </div>
+    <FilterList list={filterItems} title="Products Type" />
   );
 }
+
+export default CollectionList;

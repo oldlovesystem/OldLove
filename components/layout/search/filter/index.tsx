@@ -4,23 +4,24 @@ import FilterItemDropdown from './dropdown';
 import { FilterItem } from './item';
 
 export type ListItem = SortFilterItem | PathFilterItem;
-export type PathFilterItem = { title: string; path: string };
+export type PathFilterItem = { title: string; path: string; productCount?: number };
 
 function FilterItemList({ list }: { list: ListItem[] }) {
   return (
     <>
       {list.map((item: ListItem, i) => (
-        <FilterItem key={i} item={item}/>
+        <FilterItem key={i} item={item} />
       ))}
     </>
   );
 }
 
 export default function FilterList({ list, title }: { list: ListItem[]; title?: string }) {
+  console.log("print",title)
   return (
-    <nav className="bg-white text-black w-full m-0 p-4 "> 
+    <nav className="bg-white text-black w-full m-0 p-2 py-4">
       {title ? (
-        <h3 className="hidden text-2xl font-bold md:block mb-2">
+        <h3 className="hidden text-xl font-semibold md:block mb-2">
           {title}
         </h3>
       ) : null}

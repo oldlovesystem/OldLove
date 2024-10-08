@@ -1,10 +1,9 @@
 "use client"
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import CartModal from 'components/cart/modal';
 import Image from 'next/image';
 import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';
-import { Suspense } from 'react';
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 import MobileMenu from './mobile-menu';
 import SpotlightSearch from 'components/spotlight-search';
@@ -26,11 +25,14 @@ export function Navbar() {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [isHovering, setIsHovering] = useState(false);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       setFixedHeader(scrollPosition > 0);
+
+      lastScrollY.current = scrollPosition;
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -65,9 +67,12 @@ export function Navbar() {
     }
   };
 
+  // Background color only changes when scrolled
+  const backgroundColor = fixedHeader ? 'bg-linear' : '';
+
   return (
     <div className="relative">
-      <nav className={`header-menu style-one bg-linear flex items-center justify-between p-4 lg:px-6 ${fixedHeader ? 'fixed top-0 left-0 right-0 z-10' : ''}`}>
+      <nav className={`header-menu style-one flex items-center justify-between p-4 lg:px-6 ${fixedHeader ? 'fixed top-0 left-0 right-0 z-10' : ''} ${backgroundColor}`}>
         <div className="block flex-none md:hidden">
           <Suspense fallback={null}>
             <MobileMenu menu={menu} />

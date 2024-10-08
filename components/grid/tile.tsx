@@ -18,15 +18,15 @@ export function GridTileImage({
     currencyCode: string;
     position?: 'bottom' | 'center';
   };
-  variants?: { color: string; colorImage: string }[]; // Array of variations
+  variants?: { color: string; colorImage: string }[]; 
 } & React.ComponentProps<typeof Image>) {
-  const [isHovered, setIsHovered] = useState(false); // Manage hover state
+  const [isHovered, setIsHovered] = useState(false); 
 
   return (
     <div 
-      className="flex flex-col h-full w-full relative" // Make the wrapper relative for absolute positioning
-      onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
-      onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
+      className="flex flex-col h-full w-full relative" 
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)} 
     >
       {/* New tag on the left side */}
       <div className="product-tag text-button-uppercase bg-[rgb(210,239,154)] px-3 py-0.5 inline-block rounded-full absolute top-3 left-3 z-[1]">

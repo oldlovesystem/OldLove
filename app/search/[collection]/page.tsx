@@ -1,7 +1,7 @@
-import { getCollection, getCollectionProducts } from 'lib/shopify';
+import { getCollection, getCollectionProducts, getProducts } from 'lib/shopify';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-
+import Link from 'next/link';
 import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
 import { defaultSort, sorting } from 'lib/constants';
@@ -22,6 +22,23 @@ export async function generateMetadata({
   };
 }
 
+const TwoColumnsIcon = () => (
+  <svg className="h-6 w-6 text-gray-600" viewBox="0 0 24 24">
+    <rect x="1" y="1" width="10" height="22" className="fill-current" />
+    <rect x="13" y="1" width="10" height="22" className="fill-current" />
+  </svg>
+);
+
+const ThreeColumnsIcon = () => (
+  <svg className="h-6 w-6 text-gray-600" viewBox="0 0 24 24">
+    <rect x="1" y="1" width="7" height="22" className="fill-current" />
+    <rect x="9" y="1" width="7" height="22" className="fill-current" />
+    <rect x="17" y="1" width="7" height="22" className="fill-current" />
+  </svg>
+);
+
+
+
 export default async function CategoryPage({
   params,
   searchParams
@@ -29,10 +46,13 @@ export default async function CategoryPage({
   params: { collection: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  const collection = await getCollection(params.collection); // Fetch the collection data
-  const { sort } = searchParams as { [key: string]: string };
+  const collection = await getCollection(params.collection);
+  const { sort, columns = '2', q: searchValue } = searchParams as { [key: string]: string };
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
-  const products = await getCollectionProducts({ collection: params.collection, sortKey, reverse });
+
+  const products = searchValue 
+    ? await getProducts({ sortKey, reverse, query: searchValue }) 
+    : await getCollectionProducts({ collection: params.collection, sortKey, reverse });
 
   // Check if collection is found
   if (!collection) {
@@ -41,11 +61,26 @@ export default async function CategoryPage({
 
   return (
     <section>
-      <div className='bg-white min-h-screen'> {/* Changed to min-h-screen to allow for better viewing on small screens */}
+      <div className='bg-white min-h-screen'>
+        {/* Buttons to change the number of columns using custom icons */}
+        <div className="mb-4 flex space-x-2 ml-5">
+          <Link href={{ pathname: `/search//${params.collection}`, query: { ...searchParams, columns: '2' } }}>
+            <button aria-label="2 Columns" className="p-2 rounded hover:bg-gray-200">
+              <TwoColumnsIcon />
+            </button>
+          </Link>
+          <Link href={{ pathname: `/search/${params.collection}`, query: { ...searchParams, columns: '3' } }}>
+            <button aria-label="3 Columns" className="p-2 rounded hover:bg-gray-200">
+              <ThreeColumnsIcon />
+            </button>
+          </Link>
+        
+        </div>
+
         {products.length === 0 ? (
-          <p className="py-3 text-lg">{`No products found in this collection`}</p>
+          <p className="py-3 text-lg">{`No products found${searchValue ? ` for "${searchValue}"` : ''} in this collection`}</p>
         ) : (
-          <Grid className="grid-cols-2 sm:grid-cols-2 lg:grid-cols-3">
+          <Grid className={`grid-cols-${columns} sm:grid-cols-${columns} lg:grid-cols-${columns}`}>
             <ProductGridItems products={products} />
           </Grid>
         )}
