@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState, useEffect, useRef } from 'react';
 import CartModal from 'components/cart/modal';
 import Image from 'next/image';
@@ -10,10 +10,7 @@ import MobileMenu from './mobile-menu';
 import SpotlightSearch from 'components/spotlight-search';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
-
-// Import hover components
 import ShopHoverContent from './ShopHoverContent';
-
 
 const menu: Menu[] = [
   { title: 'Home', path: '/' },
@@ -45,7 +42,7 @@ export function Navbar() {
   const handleMouseEnter = (itemTitle: string) => {
     if (itemTitle !== 'About Us') {
       if (hoverTimeoutRef.current) {
-        clearTimeout(hoverTimeoutRef.current); // Prevent closing if already hovering
+        clearTimeout(hoverTimeoutRef.current);
       }
       setHoveredItem(itemTitle);
       setIsHovering(true);
@@ -56,22 +53,21 @@ export function Navbar() {
     hoverTimeoutRef.current = setTimeout(() => {
       setIsHovering(false);
       setHoveredItem(null);
-    }, 100); // Delay closing by 300ms
+    }, 100);
   };
 
   const renderHoverContent = () => {
     switch (hoveredItem) {
       case 'Shop':
         return <ShopHoverContent />;
-    
       default:
         return null;
     }
   };
 
   return (
-    <div className={`relative `}>
-      <nav className={`header-menu style-one bg-white  flex items-center justify-between p-4 lg:px-6 ${fixedHeader ? 'fixed top-0 left-0 right-0 z-10' : ''}`}>
+    <div className="relative">
+      <nav className={`header-menu style-one bg-linear flex items-center justify-between p-4 lg:px-6 ${fixedHeader ? 'fixed top-0 left-0 right-0 z-10' : ''}`}>
         <div className="block flex-none md:hidden">
           <Suspense fallback={null}>
             <MobileMenu menu={menu} />
@@ -87,13 +83,13 @@ export function Navbar() {
               </div>
             </Link>
 
-            <ul className="hidden md:flex md:items-center gap-9 text-lg mr-3 ml-16 uppercase">
+            <ul className="hidden md:flex menu-main md:items-center gap-9 text-lg mr-3 ml-16 uppercase">
               {menu.map((item) => (
                 <li
                   key={item.title}
                   className="relative group text-sm font-semibold"
                   onMouseEnter={() => handleMouseEnter(item.title)}
-                  onMouseLeave={item.title !== 'About Us' ? handleMouseLeave : undefined} // No leave handler for About Us
+                  onMouseLeave={item.title !== 'About Us' ? handleMouseLeave : undefined}
                 >
                   <Link
                     href={item.path}
@@ -102,7 +98,7 @@ export function Navbar() {
                       hover:text-black hover:underline hover:underline-offset-8 
                       ${pathname === item.path ? 'text-black underline underline-offset-8' : ''}
                     `}
-                    onClick={item.title === 'About Us' ? () => setIsHovering(false) : undefined} // Close hover on click for About Us
+                    onClick={item.title === 'About Us' ? () => setIsHovering(false) : undefined}
                   >
                     {item.title}
                   </Link>
@@ -114,7 +110,7 @@ export function Navbar() {
           <div className="flex items-center space-x-4">
             <CartModal />
             <Link href={"/reg"}>
-            <Icon.User className="text-2xl" />
+              <Icon.User className="text-2xl" />
             </Link>
             <div className="hidden md:flex">
               <SpotlightSearch color="white" />
@@ -125,11 +121,14 @@ export function Navbar() {
 
       {hoveredItem && isHovering && (
         <div
-          className="absolute left-0 right-0 top-full z-20"
-          onMouseEnter={() => handleMouseEnter(hoveredItem)} // Keep it open when hovering over the content
+          className={`absolute left-0 right-0 top-full z-20 transition-all duration-300 ease-in-out 
+          ${isHovering ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
+          onMouseEnter={() => handleMouseEnter(hoveredItem)}
           onMouseLeave={handleMouseLeave}
         >
-          {renderHoverContent()}
+          <div className={`transition-transform duration-300 ease-in-out ${isHovering ? 'translate-y-0' : 'translate-y-2'}`}>
+            {renderHoverContent()}
+          </div>
         </div>
       )}
     </div>

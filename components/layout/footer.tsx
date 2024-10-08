@@ -22,7 +22,7 @@ const Footer = () => {
                                     </div>
                                     <div className="flex flex-col ">
                                         <span className=''>customer@oldlove.in</span>
-                                        <span className='mt-3'>+91 9739430613</span>
+                                        <span className='mt-3'>+91 7996777369 </span>
                                         <span className='mt-3 pt-px'>National Park Road</span>
                                         <span className='pt-px'>Bannerughatta Post</span>
                                     </div>
@@ -39,10 +39,10 @@ const Footer = () => {
                                     </div>
                                     <div className="item flex flex-col basis-1/3 ">
                                         <div className="text-button-uppercase pb-3">Quick Shop</div>
-                                        <Link className='caption1 has-line-before duration-300 w-fit' href={'/shop/breadcrumb1'}>Fromals</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/shop/breadcrumb1'}>Casuals</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/shop/breadcrumb1'}>Prints</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/blog'}>Jeans</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit' href={'/search'}>Fromals</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/search'}>Casuals</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/search'}>Prints</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/search'}>Jeans</Link>
                                     </div>
                                     <div className="item flex flex-col basis-1/3 ">
                                         <div className="text-button-uppercase pb-3">Customer Services</div>

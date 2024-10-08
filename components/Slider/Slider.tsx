@@ -12,7 +12,7 @@ import 'swiper/css/effect-fade';
 const SliderOne = () => {
     return (
         <>
-            <div className="slider-block style-one xl:h-[860px] lg:h-[800px] md:h-[580px] sm:h-[500px] h-[350px] max-[420px]:h-[320px] w-full">
+            <div className="slider-block bg-linear style-one xl:h-[860px] lg:h-[800px] md:h-[580px] sm:h-[500px] h-[350px] max-[420px]:h-[320px] w-full">
                 <div className="slider-main h-full w-full">
                     <Swiper
                         spaceBetween={0}
@@ -29,7 +29,7 @@ const SliderOne = () => {
                             <div className="slider-item h-full w-full relative">
                                 <div className="container w-full h-full flex items-center relative">
                                     <div className="text-content basis-1/2">
-                                        {/* <div className="text-sub-display">Sale! Up To 50% Off!</div> */}
+                                     
                                         <div className="text-display md:mt-5 mt-2">Formals Collections</div>
                                         <Link href='/search/formal-shirts' className="button-main md:mt-8 mt-3">Shop Now</Link>
                                     </div>

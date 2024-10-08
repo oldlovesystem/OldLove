@@ -29,3 +29,16 @@ button {
   opacity: 1; /* Ensure it’s fully visible */
 }
 
+
+.hover-content {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none; /* Prevent interaction when hidden */
+}
+
+.hover-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto; /* Enable interaction when visible */
+}

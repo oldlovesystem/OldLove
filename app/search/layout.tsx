@@ -2,6 +2,7 @@ import Collections from 'components/layout/search/collections';
 import FilterList from 'components/layout/search/filter';
 import { sorting } from 'lib/constants';
 import ChildrenWrapper from './children-wrapper';
+import Breadcrumb from 'components/shopbreadcrumbs';
 
 interface SearchLayoutProps {
   children: React.ReactNode;
@@ -10,13 +11,15 @@ interface SearchLayoutProps {
 export default function SearchLayout({ children }: SearchLayoutProps) {
   return (
     <>
-      <div className="mx-auto flex max-w-screen-2xl flex-col px-0 pb-0 text-black md:flex-row">
-        <div className="order-first flex-none md:flex md:flex-col md:w-[250px] lg:mt-[253px] bg-white "> {/* Use custom value */}
-          <div className="flex-none mt-5 md:py-10 ml-10 ">
+     <Breadcrumb  />
+      <div className="flex max-w-screen-2xl flex-col px-0 pb-0 text-black md:flex-row mt-5 ">
+     
+        <div className="order-first flex-none md:flex md:flex-col md:w-[250px]   "> 
+          <div className="flex-none">
             <Collections />
           </div>
           <div className="flex-none ml-10">
-            <FilterList list={sorting} title="Sort by" />
+            {/* <FilterList list={sorting} title="Sort by" /> */}
           </div>
         </div>
 

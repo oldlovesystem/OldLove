@@ -1,7 +1,13 @@
 "use client";
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation'; // Use this for client-side navigation
 import { loginShopify } from '../../lib/login';
+
+
+import Breadcrumb from '../../components/Breadcrumb';
+
+import * as Icon from "@phosphor-icons/react/dist/ssr";
 
 const Login = () => {
   const router = useRouter(); // Initialize the router
@@ -37,43 +43,68 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 shadow-md rounded-lg max-w-md w-full">
-        <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Login</h1>
-        
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-        {success && <p className="text-green-500 text-center mb-4">{success}</p>}
-        
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            Login
-          </button>
-        </form>
+    <>
+
+      <div id="header" className='relative w-full'>
+
+        <Breadcrumb heading='Login' subHeading='Login' />
       </div>
-    </div>
+      <div className="login-block md:py-20 py-10">
+        <div className="container">
+          <div className="content-main flex gap-y-8 max-md:flex-col">
+            <div className="left md:w-1/2 w-full lg:pr-[60px] md:pr-[40px] md:border-r border-line">
+              <div className="heading4">Login</div>
+              {error && <p className="text-red-500 mb-4">{error}</p>}
+              {success && <p className="text-green-500 mb-4">{success}</p>}
+              <form onSubmit={handleSubmit} className="md:mt-7 mt-4">
+                <div className="email">
+                  <input
+                    className="border-line px-4 pt-3 pb-3 w-full rounded-lg"
+                    type="email"
+                    placeholder="Username or email address *"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="pass mt-5">
+                  <input
+                    className="border-line px-4 pt-3 pb-3 w-full rounded-lg"
+                    type="password"
+                    placeholder="Password *"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="flex items-center justify-between mt-5">
+                  <div className='flex items-center'>
+                    <div className="block-input">
+                      <input type="checkbox" name='remember' id='remember' />
+                      <Icon.CheckSquare size={20} weight='fill' className='icon-checkbox' />
+                    </div>
+                    <label htmlFor='remember' className="pl-2 cursor-pointer">Remember me</label>
+                  </div>
+                  <Link href={'/forgot-password'} className='font-semibold hover:underline'>Forgot Your Password?</Link>
+                </div>
+                <div className="block-button md:mt-7 mt-4">
+                  <button type="submit" className="button-main">Login</button>
+                </div>
+              </form>
+            </div>
+            <div className="right md:w-1/2 w-full lg:pl-[60px] md:pl-[40px] flex items-center">
+              <div className="text-content">
+                <div className="heading4">New Customer</div>
+                <div className="mt-2 text-secondary">Be part of our growing family of new customers! Join us today and unlock a world of exclusive benefits, offers, and personalized experiences.</div>
+                <div className="block-button md:mt-7 mt-4">
+                  <Link href={'/register'} className="button-main">Register</Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

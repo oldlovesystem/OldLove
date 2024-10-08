@@ -1,6 +1,6 @@
 'use client';
 
-import { GridTileImage } from 'components/grid/tile';
+import { ProductTitle } from 'components/grid/producttitel';
 import { useProduct, useUpdateURL } from 'components/product/product-context';
 import Image from 'next/image';
 
@@ -40,7 +40,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
                   aria-label="Select product image"
                   className="h-full w-full"
                 >
-                  <GridTileImage
+                  <ProductTitle
                     alt={image.altText}
                     src={image.src}
                     width={100}

@@ -1,6 +1,9 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import * as Icon from "@phosphor-icons/react/dist/ssr";
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import useLoginPopup from '../store/useLoginPopup';
 import { GridTileImage } from './grid/tile';
 import { Product } from 'lib/shopify/types';
 
@@ -23,16 +26,16 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ collectionProducts }) => {
   const isValidTab = activeTab >= 0 && activeTab < collectionProducts.length;
 
   return (
-    <div className="p-4 max-w-full"> 
-       <div className="text-center text-3xl mb-4 mt-4">What{String.raw`'s`} new</div>
-      <div className="flex justify-center mb-4">
-        <div className="whate-new-block  border-b bg-gray-200 rounded-2xl lg:px-10 py-2 px-1">
+    <div className="whate-new-block md:pt-20">
+       <div className="text-center heading3 mb-5">What{String.raw`'s`} new</div>
+      <div className="flex justify-center  mt-4">
+        <div className="whate-new-block  border-b bg-gray-200 rounded-2xl  py-0.5 px-2 mb-10">
           <div className="flex space-x-2 overflow-x-auto scrollbar-hide tab-item"> 
             {collectionProducts.map((collection, index) => (
               <button
                 key={collection.title}
                 onClick={() => setActiveTab(index)}
-                className={`py-2 px-4 font-semibold transition-colors text-sm duration-300 rounded-full ${
+                className={`py-2 px-4 text-secondary transition-colors uppercase text-sm duration-300 rounded-full ${
                   activeTab === index 
                     ? 'bg-white text-black transform scale-105' 
                     : 'bg-gray-200 text-gray-700 hover:bg-white '
@@ -45,7 +48,7 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ collectionProducts }) => {
         </div>
       </div>
 
-      <div className="tab-content">
+      <div className='ml-10 '>
         {isValidTab && collectionProducts[activeTab]?.products.length ? (
           <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
             {collectionProducts[activeTab]?.products.map((product) => (
@@ -61,9 +64,8 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ collectionProducts }) => {
                       }}
                       src={product.featuredImage?.url}
                       fill
-                      sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+                      sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 60vw"
                       className="object-contain" 
-
                     />
                   </div>
                 </Link>

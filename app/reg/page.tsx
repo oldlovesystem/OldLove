@@ -1,7 +1,13 @@
 "use client";
 import React, { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation'; // Use this for client-side navigation
 import { registerCustomer } from '../../lib/customer';
-import { useRouter } from 'next/navigation'; // Import useRouter for navigation
+
+
+import Breadcrumb from '../../components/Breadcrumb';
+
+import * as Icon from "@phosphor-icons/react/dist/ssr";
 
 const Register = () => {
   const router = useRouter(); // Initialize the router
@@ -34,63 +40,89 @@ const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 shadow-md rounded-lg max-w-md w-full">
-        <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Register</h1>
-        
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-        {success && <p className="text-green-500 text-center mb-4">{success}</p>}
-        
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="First Name"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="Last Name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            Register
-          </button>
-        </form>
+    <>
+      <div id="header" className='relative w-full'>
+        <Breadcrumb heading='Create An Account' subHeading='Create An Account' />
       </div>
-    </div>
+      <div className="register-block md:py-20 py-10">
+        <div className="container">
+          <div className="content-main flex gap-y-8 max-md:flex-col">
+            <div className="left md:w-1/2 w-full lg:pr-[60px] md:pr-[40px] md:border-r border-line">
+              <div className="heading4">Register</div>
+              {error && <p className="text-red-500 mb-4">{error}</p>}
+              {success && <p className="text-green-500 mb-4">{success}</p>}
+              <form onSubmit={handleSubmit} className="md:mt-7 mt-4">
+                <div className="email">
+                  <input
+                    className="border-line px-4 pt-3 pb-3 w-full rounded-lg"
+                    type="email"
+                    placeholder="Username or email address *"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="pass mt-5">
+                  <input
+                    className="border-line px-4 pt-3 pb-3 w-full rounded-lg"
+                    type="password"
+                    placeholder="Password *"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="first-name mt-5">
+                  <input
+                    className="border-line px-4 pt-3 pb-3 w-full rounded-lg"
+                    type="text"
+                    placeholder="First Name *"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="last-name mt-5">
+                  <input
+                    className="border-line px-4 pt-3 pb-3 w-full rounded-lg"
+                    type="text"
+                    placeholder="Last Name *"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className='flex items-center mt-5'>
+                  <div className="block-input">
+                    <input
+                      type="checkbox"
+                      name='remember'
+                      id='remember'
+                    />
+                    <Icon.CheckSquare size={20} weight='fill' className='icon-checkbox' />
+                  </div>
+                  <label htmlFor='remember' className="pl-2 cursor-pointer text-secondary2">I agree to the
+                    <Link href={'#!'} className='text-black hover:underline pl-1'>Terms of Use</Link>
+                  </label>
+                </div>
+                <div className="block-button md:mt-7 mt-4">
+                  <button type="submit" className="button-main">Register</button>
+                </div>
+              </form>
+            </div>
+            <div className="right md:w-1/2 w-full lg:pl-[60px] md:pl-[40px] flex items-center">
+              <div className="text-content">
+                <div className="heading4">Already have an account?</div>
+                <div className="mt-2 text-secondary">Welcome back. Sign in to access your personalized experience, saved preferences, and more. We{String.raw`'re`} thrilled to have you with us again!</div>
+                <div className="block-button md:mt-7 mt-4">
+                  <Link href={'/login'} className="button-main">Login</Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
