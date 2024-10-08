@@ -1,6 +1,6 @@
-"use client"
-import React, { useState, useEffect } from 'react';
-import * as Icon from "@phosphor-icons/react/dist/ssr";
+"use client";
+import React, { useState } from 'react';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { GridTileImage } from './grid/tile';
@@ -20,15 +20,34 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ collectionProducts }) => {
 
   const formatTitle = (title: string) => {
     const firstWord = title.split('-')[0]; 
-    return firstWord ? firstWord.charAt(0).toUpperCase() + firstWord.slice(1) + 's' : ''; 
+    return firstWord ? firstWord.charAt(0).toUpperCase() + firstWord.slice(1) + '' : ''; 
   };
+
   const isValidTab = activeTab >= 0 && activeTab < collectionProducts.length;
+  const products = isValidTab ? collectionProducts[activeTab]?.products : [];
+
+  const handlePrev = () => {
+    setActiveTab((prev) => Math.max(prev - 1, 0));
+  };
+
+  const handleNext = () => {
+    setActiveTab((prev) => Math.min(prev + 1, collectionProducts.length - 1));
+  };
 
   return (
     <div className="whate-new-block md:pt-20">
-       <div className="text-center heading3 mb-5">What{String.raw`'s`} new</div>
-      <div className="flex justify-center  mt-4">
-        <div className="whate-new-block  border-b bg-gray-200 rounded-2xl  py-0.5 px-2 mb-10">
+      <div className="text-center heading3 mb-5">What{String.raw`'s`} new</div>
+
+      <div className="flex justify-center mt-4">
+        <button 
+          onClick={handlePrev} 
+          className="absolute left-2 bg-white rounded-full p-2 shadow-lg"
+          disabled={activeTab === 0}
+        >
+          <FaChevronLeft color="black" size={24} />
+        </button>
+
+        <div className="whate-new-block border-b bg-gray-200 rounded-2xl py-0.5 px-2 mb-10">
           <div className="flex space-x-2 overflow-x-auto scrollbar-hide tab-item"> 
             {collectionProducts.map((collection, index) => (
               <button
@@ -45,12 +64,20 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ collectionProducts }) => {
             ))}
           </div>
         </div>
+
+        <button 
+          onClick={handleNext} 
+          className="absolute right-2 bg-white rounded-full p-2 shadow-lg"
+          disabled={activeTab === collectionProducts.length - 1}
+        >
+          <FaChevronRight color="black" size={24} />
+        </button>
       </div>
 
-      <div className='ml-10 '>
-        {isValidTab && collectionProducts[activeTab]?.products.length ? (
+      <div className='mt-4'>
+        {isValidTab && products.length ? (
           <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            {collectionProducts[activeTab]?.products.map((product) => (
+            {products.map((product) => (
               <li key={product.handle} className="relative">
                 <Link href={`/product/${product.handle}`} className="relative h-full w-full block">
                   <div className="w-full h-[60vh] relative overflow-hidden">

@@ -25,8 +25,8 @@ const Benefit: React.FC<Props> = ({ props }) => {
 
                         <div className="benefit-item flex flex-col items-center justify-center">
                         <i className="icon-delivery-truck lg:text-7xl text-5xl"></i>
-                            <div className="heading6 text-center mt-5">Shipping worldwide</div>
-                            <div className="caption1 text-secondary text-center mt-3">We ship our products worldwide, making them accessible to customers everywhere.</div>
+                            <div className="heading6 text-center mt-5">Shipping All over India</div>
+                            <div className="caption1 text-secondary text-center mt-3">We ship our products through out India, making them accessible to customers everywhere.</div>
                         </div>
                     </div>
                 </div>

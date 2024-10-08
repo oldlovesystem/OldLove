@@ -1,10 +1,10 @@
-"use client"
+'use client';
 import React, { useState, useEffect, useRef, Suspense } from 'react';
 import CartModal from 'components/cart/modal';
 import Image from 'next/image';
 import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';
-import * as Icon from "@phosphor-icons/react/dist/ssr";
+import * as Icon from '@phosphor-icons/react/dist/ssr';
 import MobileMenu from './mobile-menu';
 import SpotlightSearch from 'components/spotlight-search';
 import { useRouter } from 'next/navigation';
@@ -15,7 +15,7 @@ const menu: Menu[] = [
   { title: 'Home', path: '/' },
   { title: 'Shop', path: '/search' },
   { title: 'About Us', path: '/about' },
-  { title: 'Contact', path: '/contact' },
+  { title: 'Contact', path: '/contact' }
 ];
 
 export function Navbar() {
@@ -24,8 +24,15 @@ export function Navbar() {
   const [fixedHeader, setFixedHeader] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [isHovering, setIsHovering] = useState(false);
+  const [profileHover, setProfileHover] = useState(false);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const lastScrollY = useRef(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const customerToken = localStorage.getItem('customerAccessToken');
+    setIsLoggedIn(!!customerToken);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,12 +74,28 @@ export function Navbar() {
     }
   };
 
+  const handleProfileClick = () => {
+    if (isLoggedIn) {
+      router.push('/my-account'); // Redirect to "my-account" if logged in
+    } else {
+      router.push('/login'); // Redirect to "/login" if not logged in
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('customerAccessToken');
+    setIsLoggedIn(false);
+    router.push('/login');
+  };
+
   // Background color only changes when scrolled
   const backgroundColor = fixedHeader ? 'bg-linear' : 'bg-linear';
 
   return (
     <div className="relative">
-      <nav className={`header-menu style-one flex items-center justify-between p-4 lg:px-6 ${fixedHeader ? 'top-0 left-0 right-0 z-10' : ''} ${backgroundColor}`}>
+      <nav
+        className={`header-menu style-one flex items-center justify-between p-4 lg:px-6 ${fixedHeader ? 'left-0 right-0 top-0 z-10' : ''} ${backgroundColor}`}
+      >
         <div className="block flex-none md:hidden">
           <Suspense fallback={null}>
             <MobileMenu menu={menu} />
@@ -80,29 +103,26 @@ export function Navbar() {
         </div>
 
         <div className="flex w-full items-center justify-between">
-          <div className="flex items-center w-auto ml-12">
+          <div className="ml-12 flex w-auto items-center">
             <Link href="/" prefetch={true} className="flex items-center justify-center">
               <Image src="/logo.png" alt="logo" width={50} height={30} />
-              <div className="heading4 ml-2 text-black text-2xl font-bold uppercase font-tenor-sans">
+              <div className="heading4 font-tenor-sans ml-2 text-2xl font-bold uppercase text-black">
                 Old Love
               </div>
             </Link>
 
-            <ul className="hidden md:flex mega-menu md:items-center gap-9 text-lg mr-3 ml-16 uppercase">
+            <ul className="mega-menu ml-16 mr-3 hidden gap-9 text-lg uppercase md:flex md:items-center">
               {menu.map((item) => (
                 <li
                   key={item.title}
-                  className="relative group text-sm font-semibold"
+                  className="group relative text-sm font-semibold"
                   onMouseEnter={() => handleMouseEnter(item.title)}
                   onMouseLeave={item.title !== 'About Us' ? handleMouseLeave : undefined}
                 >
                   <Link
                     href={item.path}
                     prefetch={true}
-                    className={`
-                      hover:text-black hover:underline hover:underline-offset-8 
-                      ${pathname === item.path ? 'text-black underline underline-offset-8' : ''}
-                    `}
+                    className={`hover:text-black hover:underline hover:underline-offset-8 ${pathname === item.path ? 'text-black underline underline-offset-8' : ''} `}
                     onClick={item.title === 'About Us' ? () => setIsHovering(false) : undefined}
                   >
                     {item.title}
@@ -112,11 +132,45 @@ export function Navbar() {
             </ul>
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="relative flex items-center space-x-4">
             <CartModal />
-            <Link href={"/register"}>
-              <Icon.User className="text-2xl" />
-            </Link>
+
+            <div
+              className="relative"
+              onMouseEnter={() => setProfileHover(true)}
+              onMouseLeave={() => setProfileHover(false)}
+            >
+              <button onClick={handleProfileClick}>
+                <Icon.User className="text-2xl" />
+              </button>
+
+              {profileHover && (
+                <div className="absolute right-0 top-full z-20 w-64 rounded-lg border border-gray-200 bg-white px-6 py-4 shadow-lg">
+                  {isLoggedIn ? (
+                    <button
+                      className="block w-full rounded-md bg-black py-2 text-center font-semibold text-white transition hover:bg-gray-800"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  ) : (
+                    <>
+                      <Link href="/login">
+                        <button className="mb-2 block w-full rounded-md bg-black py-2 text-center font-semibold text-white transition hover:bg-gray-800">
+                          Login
+                        </button>
+                      </Link>
+                      <Link href="/register">
+                        <button className="block w-full rounded-md bg-black py-2 text-center font-semibold text-white transition hover:bg-gray-800">
+                          Register
+                        </button>
+                      </Link>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+
             <div className="hidden md:flex">
               <SpotlightSearch color="white" />
             </div>
@@ -126,12 +180,13 @@ export function Navbar() {
 
       {hoveredItem && isHovering && (
         <div
-          className={`absolute left-0 right-0 top-full z-20 transition-all duration-300 ease-in-out 
-          ${isHovering ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
+          className={`absolute left-0 right-0 top-full z-20 transition-all duration-300 ease-in-out ${isHovering ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'}`}
           onMouseEnter={() => handleMouseEnter(hoveredItem)}
           onMouseLeave={handleMouseLeave}
         >
-          <div className={`transition-transform duration-300 ease-in-out ${isHovering ? 'translate-y-0' : 'translate-y-2'}`}>
+          <div
+            className={`transition-transform duration-300 ease-in-out ${isHovering ? 'translate-y-0' : 'translate-y-2'}`}
+          >
             {renderHoverContent()}
           </div>
         </div>

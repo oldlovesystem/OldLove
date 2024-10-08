@@ -21,7 +21,13 @@ const Login = () => {
     try {
       const result = await loginShopify(email, password);
       if (result.success) {
-        setSuccess('Login successful!'); // Update success message
+        // Save the access token to local storage
+        if (result.token) {
+          console.log(result.token)
+          localStorage.setItem('customerAccessToken', result.token);
+        }
+  
+        setSuccess('Login successful!');
         setError('');
         
         // Redirect to home page after a successful login

@@ -25,6 +25,7 @@ const Footer = () => {
                                         <span className='mt-3'>+91 7996777369 </span>
                                         <span className='mt-3 pt-px'>National Park Road</span>
                                         <span className='pt-px'>Bannerughatta Post</span>
+                                        <span className='pt-px'>Banglore.</span>
                                     </div>
                                 </div>
                             </div>
@@ -34,8 +35,7 @@ const Footer = () => {
                                         <div className="text-button-uppercase pb-3">Infomation</div>
                                         <Link className='caption1 has-line-before duration-300 w-fit' href={'/pages/contact'}>Contact us</Link>
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/my-account'}>My Account</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/order-tracking'}>Order  & Returns</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/policy'}>FAQs</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/my-account'}>Order  & Returns</Link>
                                     </div>
                                     <div className="item flex flex-col basis-1/3 ">
                                         <div className="text-button-uppercase pb-3">Quick Shop</div>
