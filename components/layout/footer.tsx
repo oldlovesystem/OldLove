@@ -77,9 +77,6 @@ const Footer = () => {
                                             height={30}/>
                                         </Link>
 
-                                        <Link href={'https://www.youtube.com/'} target='_blank'>
-                                            <div className="icon-youtube text-2xl text-black"></div>
-                                        </Link>
                                     </div>
                                 </div>
                             </div>

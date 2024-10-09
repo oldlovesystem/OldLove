@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Breadcrumb from "components/Breadcrumb";
 
 const PolicyPage = () => {
   const [activeSection, setActiveSection] = useState("delivery");
@@ -83,6 +84,8 @@ const PolicyPage = () => {
   ];
 
   return (
+    <>
+    <Breadcrumb heading='Privacy Policy' subHeading='Privacy Policy' />
     <div className="flex flex-col md:flex-row w-full min-h-screen bg-gray-50">
       <aside className="md:w-1/4 p-6 border-r border-gray-300">
         <h2 className="text-xl font-semibold mb-6 text-center">Policies</h2>
@@ -104,6 +107,7 @@ const PolicyPage = () => {
         {sections.find(section => section.key === activeSection).content}
       </main>
     </div>
+    </>
   );
 };
 

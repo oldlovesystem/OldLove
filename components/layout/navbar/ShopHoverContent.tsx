@@ -16,22 +16,22 @@ const ShopHoverContent: React.FC = () => {
             <div className="text-button-uppercase pb-2">TOPWEAR</div>
             <ul>
               <li>
-                <Link href={'/search/check-shirts'} className={`link text-secondary duration-300`}>
+                <Link href={'/search/check-shirts'} className={`link text-secondary  has-line-before  duration-300`}>
                  Checks Shirts
                 </Link>
               </li>
               <li>
-                <Link href={'search/casual-shirts'} className={`link text-secondary duration-300`}>
+                <Link href={'search/casual-shirts'} className={`link text-secondary has-line-before  duration-300`}>
                 Casual Shirts
                 </Link>
               </li>
               <li>
-                <Link href={'/search/formal-shirts'} className={`link text-secondary duration-300`}>
+                <Link href={'/search/formal-shirts'} className={`link text-secondary has-line-before   duration-300`}>
                   Fromal Shirts
                 </Link>
               </li>
               <li>
-                <Link href={'/search/printed-shirts'} className={`link text-secondary duration-300`}>
+                <Link href={'/search/printed-shirts'} className={`link text-secondary has-line-before  duration-300`}>
                   Printed Shirts
                 </Link>
               </li>
@@ -44,16 +44,15 @@ const ShopHoverContent: React.FC = () => {
             <div className="text-button-uppercase pb-2">Bottom Wear</div>
             <ul>
               <li>
-                <Link href={'/search/jeans'} className={`link text-secondary duration-300`}>
+                <Link href={'/search/jeans'} className={`link text-secondary has-line-before  duration-300`}>
                  Jeans
                 </Link>
               </li>
               <li>
-                <Link href={'/search/cargo-trousers'} className={`link text-secondary duration-300`}>
+                <Link href={'/search/cargo-trousers'} className={`link text-secondary has-line-before   duration-300`}>
                 Cargo Trousers
                 </Link>
               </li>
-
 
             </ul>
           </div>
