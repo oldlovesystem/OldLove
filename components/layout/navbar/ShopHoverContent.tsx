@@ -21,7 +21,7 @@ const ShopHoverContent: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link href={'search/casual-shirts'} className={`link text-secondary has-line-before  duration-300`}>
+                <Link href={'/search/casual-shirts'} className={`link text-secondary has-line-before  duration-300`}>
                 Casual Shirts
                 </Link>
               </li>

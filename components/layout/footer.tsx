@@ -21,8 +21,8 @@ const Footer = () => {
                                         <span className="text-button mt-3">Address:</span>
                                     </div>
                                     <div className="flex flex-col ">
-                                        <span className=''>customer@oldlove.in</span>
-                                        <span className='mt-3'>+91 7996777369 </span>
+                                        <span className=''>support@oldlove.in</span>
+                                        {/* <span className='mt-3'>+91 7996777369 </span> */}
                                         <span className='mt-3 pt-px'>National Park Road</span>
                                         <span className='pt-px'>Bannerughatta Post</span>
                                         <span className='pt-px'>Banglore.</span>
@@ -32,7 +32,7 @@ const Footer = () => {
                             <div className="right-content flex flex-wrap gap-y-8 basis-3/4 max-lg:basis-full">
                                 <div className="list-nav flex justify-between basis-2/3 max-md:basis-full gap-4">
                                     <div className="item flex flex-col basis-1/3 ">
-                                        <div className="text-button-uppercase pb-3">Infomation</div>
+                                        <div className="text-button-uppercase pb-3">Information</div>
                                         <Link className='caption1 has-line-before duration-300 w-fit' href={'/pages/contact'}>Contact us</Link>
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/my-account'}>My Account</Link>
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/my-account'}>Order  & Returns</Link>
@@ -53,7 +53,7 @@ const Footer = () => {
                                     </div>
                                 </div>
                                 <div className="newsletter basis-1/3 pl-7 max-md:basis-full max-md:pl-0">
-                                    <div className="text-button-uppercase">Newletter</div>
+                                    <div className="text-button-uppercase">Newsletter</div>
                                     <div className="caption1 mt-3">Sign up for our newsletter and get 10% off your first purchase</div>
                                     <div className="input-block w-full h-[52px] mt-4">
                                         <form className='w-full h-full relative' action="post">

@@ -21,7 +21,7 @@ export default function HomePage() {
       <Carousel />
       <Collection/>
       <Benefit props="md:py-20 py-10" />
-      <Testimonial data={testimonialData} limit={6} />
+      {/* <Testimonial data={testimonialData} limit={6} /> */}
       <Instagram/>
      
     </>

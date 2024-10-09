@@ -141,11 +141,11 @@ export function Navbar() {
               onMouseLeave={() => setProfileHover(false)}
             >
               <button onClick={handleProfileClick}>
-                <Icon.User className="text-2xl" />
+                <Icon.User className="text-2xl mt-1" />
               </button>
 
               {profileHover && (
-                <div className="absolute right-0 top-full z-20 w-64 rounded-lg border border-gray-200 bg-white px-6 py-4 shadow-lg">
+                <div className="absolute right-0 top-full z-20 w-64 rounded-lg border border-gray-200 bg-white px-3 py-4 shadow-lg">
                   {isLoggedIn ? (
                     <button
                       className="block w-full rounded-md bg-black py-2 text-center font-semibold text-white transition hover:bg-gray-800"
@@ -160,18 +160,18 @@ export function Navbar() {
                           Login
                         </button>
                       </Link>
-                      <Link href="/register">
-                        <button className="block w-full rounded-md bg-black py-2 text-center font-semibold text-white transition hover:bg-gray-800">
-                          Register
-                        </button>
-                      </Link>
+                     
+                        <div className="block w-full rounded-md text-sm py-2 text-center font-semibold text-black ">
+                        <span className='text-gray-400 text-sm'> Don't have an account?</span> <Link href="/register" className='hover:underline'> Register</Link>
+                        </div>
+                      
                     </>
                   )}
                 </div>
               )}
             </div>
 
-            <div className="hidden md:flex">
+            <div className="hidden md:flex -mt-1">
               <SpotlightSearch color="white" />
             </div>
           </div>

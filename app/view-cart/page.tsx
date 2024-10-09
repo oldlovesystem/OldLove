@@ -126,7 +126,7 @@ export default function ViewCart() {
                 )}
               </div>
             </div>
-            <div className="discount-block py-5 flex justify-between border-b border-line">
+            {/* <div className="discount-block py-5 flex justify-between border-b border-line">
               <div className="text-title">Taxes</div>
               <div className="text-title">
                 {cart && Number(cart.cost.totalTaxAmount.amount) > 0 ? (
@@ -135,11 +135,11 @@ export default function ViewCart() {
                   <span className="text-gray-500">N/A</span>
                 )}
               </div>
-            </div>
-            <div className="shipping-block py-5 flex justify-between border-b border-line">
+            </div> */}
+            {/* <div className="shipping-block py-5 flex justify-between border-b border-line">
               <div className="text-title">Shipping</div>
               <div className="text-title">Calculated at checkout</div>
-            </div>
+            </div> */}
             <div className="total-cart-block pt-4 pb-4 flex justify-between">
               <div className="heading5">Total</div>
               <div className="heading5">
