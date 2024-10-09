@@ -144,7 +144,7 @@ async function RelatedProducts({ id }: { id: string }) {
             {relatedProducts.map((product) => (
               <li key={product.handle} className="relative">
                 <Link href={`/product/${product.handle}`} className="relative h-full w-full block">
-                  <div className="w-full h-[60vh] relative overflow-hidden">
+                  <div className="w-fullh-[50vh]  md:h-[60vh] relative overflow-hidden">
                     <GridTileImage
                       alt={product.title}
                       label={{

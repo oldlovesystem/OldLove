@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import * as Icon from "@phosphor-icons/react/dist/ssr";
+import Link from "next/link";
 
 const Dashboard = () => {
   const [customer, setCustomer] = useState(null);
@@ -34,7 +36,6 @@ const Dashboard = () => {
                     edges {
                       node {
                         id
-                        name
                         orderNumber
                         processedAt
                         billingAddress {
@@ -48,14 +49,6 @@ const Dashboard = () => {
                           amount
                           currencyCode
                         }
-                        currentTotalTax {
-                          amount
-                          currencyCode
-                        }
-                        currentSubtotalPrice {
-                          amount
-                          currencyCode
-                        }
                         fulfillmentStatus
                         lineItems(first: 5) {
                           edges {
@@ -63,18 +56,6 @@ const Dashboard = () => {
                               title
                               quantity
                             }
-                          }
-                        }
-                        shippingAddress {
-                          address1
-                          city
-                          country
-                        }
-                        successfulFulfillments {
-                          trackingCompany
-                          trackingInfo {
-                            number
-                            url
                           }
                         }
                       }
@@ -90,11 +71,11 @@ const Dashboard = () => {
           {
             headers: {
               "Content-Type": "application/json",
-              "X-Shopify-Storefront-Access-Token": "e5f230e4a5202dc92cf9d9341c72bc5b", // Replace with your Storefront API access token
+              "X-Shopify-Storefront-Access-Token": "e5f230e4a5202dc92cf9d9341c72bc5b",
             },
           }
         );
-        console.log(response)
+
         if (response.data && response.data.data && response.data.data.customer) {
           const customerData = response.data.data.customer;
           setCustomer(customerData);
@@ -122,50 +103,72 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="dashboard">
-      <h1>Welcome, {customer.firstName} {customer.lastName}</h1>
-      <p>Email: {customer.email}</p>
+    <>
+      <div className="profile-block md:py-20 py-10">
+        <div className="container">
+          <div className="content-main flex gap-y-8 max-md:flex-col w-full">
+            <div className="left md:w-1/3 w-full xl:pr-[3.125rem] lg:pr-[28px] md:pr-[16px]">
+              <div className="user-info bg-white shadow-lg rounded-lg border border-gray-200 lg:px-7 px-4 lg:py-10 py-5">
+                <div className="heading flex flex-col items-center justify-center">
+                  <div className="icon mb-4">
+                    <Icon.User size={100} className="text-gray-700" />
+                  </div>
+                  <div className="name heading6 mt-4 text-center font-semibold">{customer.firstName} {customer.lastName}</div>
+                  <div className="mail heading6 font-normal text-gray-600 text-center mt-1">{customer.email}</div>
+                </div>
+                <div className="menu-tab w-full max-w-none lg:mt-10 mt-6">
+                  <Link href={'#!'} scroll={false} className={`item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-gray-100`}>
+                    <Icon.HouseLine size={20} />
+                    <strong className="heading6">Dashboard</strong>
+                  </Link>
+                  <Link href={'#!'} scroll={false} className={`item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-gray-100 mt-1.5`}>
+                    <Icon.Package size={20} />
+                    <strong className="heading6">History Orders</strong>
+                  </Link>
+                  <Link href={'/login'} className="item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-gray-100 mt-1.5">
+                    <Icon.SignOut size={20} />
+                    <strong className="heading6">Logout</strong>
+                  </Link>
+                </div>
+              </div>
+            </div>
 
-      <h2>Your Orders</h2>
-      {orders.length === 0 ? (
-        <p>No orders found.</p>
-      ) : (
-        <ul>
-          {orders.map(({ node: order }) => (
-            <li key={order.id} className="order-item">
-              <h3>Order #{order.orderNumber}</h3>
-              <p>Processed At: {new Date(order.processedAt).toLocaleDateString()}</p>
-              <p>Status: {order.fulfillmentStatus}</p>
-              <p>Total Price: {order.currentTotalPrice.amount} {order.currentTotalPrice.currencyCode}</p>
-              <p>Total Tax: {order.currentTotalTax.amount} {order.currentTotalTax.currencyCode}</p>
-              <p>Subtotal: {order.currentSubtotalPrice.amount} {order.currentSubtotalPrice.currencyCode}</p>
-              <p>Billing Address: {order.billingAddress?.address1}, {order.billingAddress?.city}, {order.billingAddress?.country}</p>
-              <p>Shipping Address: {order.shippingAddress?.address1}, {order.shippingAddress?.city}, {order.shippingAddress?.country}</p>
-              {order.canceledAt && <p>Order Canceled At: {new Date(order.canceledAt).toLocaleDateString()}</p>}
-              {order.cancelReason && <p>Cancellation Reason: {order.cancelReason}</p>}
-              <h4>Items:</h4>
-              <ul>
-                {order.lineItems.edges.map(({ node: item }) => (
-                  <li key={item.title}>
-                    {item.title} (Quantity: {item.quantity})
-                  </li>
-                ))}
-              </ul>
-              <h4>Fulfillment:</h4>
-              {order.successfulFulfillments.map((fulfillment, index) => (
-                <p key={index}>Tracking: {fulfillment.trackingCompany}, Number: {fulfillment.trackingInfo?.number} (<a href={fulfillment.trackingInfo?.url}>Track</a>)</p>
-              ))}
-            </li>
-          ))}
-        </ul>
-      )}
+            <div className="right md:w-2/3 w-full pl-2.5">
+              <div className="dashboard">
+                <h1 className="text-title font-bold text-2xl mb-4">Welcome, {customer.firstName} {customer.lastName}</h1>
+                <h2 className="font-semibold text-xl mb-3">Your Orders</h2>
+                {orders.length === 0 ? (
+                  <p className="text-gray-600">No orders found.</p>
+                ) : (
+                  <ul>
+                    {orders.map(({ node: order }) => (
+                      <li key={order.id} className="order-item border border-gray-300 rounded-lg p-4 my-2 bg-white shadow-sm">
+                        <h3 className="font-semibold">Order #{order.orderNumber}</h3>
+                        <p className="text-gray-600">Processed At: {new Date(order.processedAt).toLocaleDateString()}</p>
+                        <p className="text-gray-600">Status: {order.fulfillmentStatus}</p>
+                        <p className="font-bold">Total Price: {order.currentTotalPrice.amount} {order.currentTotalPrice.currencyCode}</p>
+                        <p className="text-gray-600">Billing Address: {order.billingAddress?.address1}, {order.billingAddress?.city}, {order.billingAddress?.country}</p>
+                        {order.canceledAt && <p className="text-red-500">Order Canceled At: {new Date(order.canceledAt).toLocaleDateString()}</p>}
+                        {order.cancelReason && <p className="text-red-500">Cancellation Reason: {order.cancelReason}</p>}
+                        <h4 className="font-semibold mt-3">Items:</h4>
+                        <ul className="list-disc pl-5">
+                          {order.lineItems.edges.map(({ node: item }) => (
+                            <li key={item.title} className="text-gray-600">
+                              {item.title} (Quantity: {item.quantity})
+                            </li>
+                          ))}
+                        </ul>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <style jsx>{`
-        .dashboard {
-          padding: 20px;
-          max-width: 600px;
-          margin: auto;
-        }
         .order-item {
           border: 1px solid #ddd;
           padding: 15px;
@@ -176,7 +179,7 @@ const Dashboard = () => {
           color: #333;
         }
       `}</style>
-    </div>
+    </>
   );
 };
 

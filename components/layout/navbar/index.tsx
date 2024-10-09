@@ -33,7 +33,7 @@ export function Navbar() {
     const customerToken = localStorage.getItem('customerAccessToken');
     setIsLoggedIn(!!customerToken);
   }, []);
-
+ 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;

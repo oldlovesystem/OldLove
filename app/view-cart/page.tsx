@@ -10,7 +10,6 @@ import Image from 'next/image';
 import Breadcrumb from 'components/Breadcrumb';
 import { DeleteItemButton } from '../../components/cart/delete-item-button';
 import { EditItemQuantityButton } from '../../components/cart/edit-item-quantity-button';
-import { useFormStatus } from 'react-dom';
 import { redirectToCheckout } from '../../components/cart/actions';
 
 export default function ViewCart() {
@@ -30,9 +29,9 @@ export default function ViewCart() {
         <Breadcrumb heading='Shopping Cart' subHeading='Shopping cart' />
       </div>
 
-      <div className="container mx-auto p-6 flex">
+      <div className="container mx-auto p-6 flex flex-col md:flex-row">
         
-        <div className="w-2/3">
+        <div className="w-full md:w-2/3">
           <h1 className="text-3xl font-bold mb-6">Your Shopping Cart</h1>
 
           {!cart || cart.lines.length === 0 ? (
@@ -46,16 +45,16 @@ export default function ViewCart() {
               <div className='w-full'>
                 <div className="heading bg-surface rounded-4 pt-4 pb-4">
                   <div className="flex bg-gray-100 py-4 rounded-xl">
-                    <div className="w-1/2">
+                    <div className="w-1/2 md:w-1/2">
                       <div className="text-button text-center">Products</div>
                     </div>
-                    <div className="w-1/12">
+                    <div className="w-1/12 md:w-1/12">
                       <div className="text-button text-center">Price</div>
                     </div>
-                    <div className="w-1/6">
+                    <div className="w-1/6 md:w-1/6">
                       <div className="text-button text-center">Quantity</div>
                     </div>
-                    <div className="w-1/6">
+                    <div className="w-1/6 md:w-1/6">
                       <div className="text-button text-center">Total Price</div>
                     </div>
                   </div>
@@ -67,8 +66,8 @@ export default function ViewCart() {
                     const totalPrice = item.cost.totalAmount.amount;
 
                     return (
-                      <li key={index} className="flex items-center border-b border-neutral-300 p-4">
-                        <div className="w-1/2 flex items-center">
+                      <li key={index} className="flex flex-col md:flex-row items-center border-b border-neutral-300 p-4">
+                        <div className="w-full md:w-1/2 flex items-center mb-4 md:mb-0">
                           <div className="relative h-24 w-24 overflow-hidden rounded-md border border-neutral-300 bg-neutral-300">
                             <Image
                               className="h-full w-full object-contain"
@@ -85,24 +84,24 @@ export default function ViewCart() {
                             )}
                           </Link>
                         </div>
-                        <div className="w-1/12 price flex items-center justify-center">
+                        <div className="w-1/12 md:w-1/12 price flex items-center justify-center">
                           <div className="text-title text-center">
                             <Price amount={String(item.cost.totalAmount.amount)} currencyCode={item.cost.totalAmount.currencyCode} />
                           </div>
                         </div>
-                        <div className="w-1/6 flex items-center justify-center">
+                        <div className="w-1/6 md:w-1/6 flex items-center justify-center">
                           <div className="quantity-block bg-surface p-2 flex items-center justify-between rounded-lg border border-line">
                             <EditItemQuantityButton item={item} type="minus" optimisticUpdate={updateCartItem} />
                             <div className="text-button quantity">{item.quantity}</div>
                             <EditItemQuantityButton item={item} type="plus" optimisticUpdate={updateCartItem} />
                           </div>
                         </div>
-                        <div className="w-1/6 flex items-center justify-center">
+                        <div className="w-1/6 md:w-1/6 flex items-center justify-center">
                           <div className="text-title text-center">
                             <Price amount={String(totalPrice)} currencyCode={item.cost.totalAmount.currencyCode} />
                           </div>
                         </div>
-                        <div className="w-1/12 flex items-center justify-center">
+                        <div className="w-1/12 md:w-1/12 flex items-center justify-center">
                           <DeleteItemButton item={item} optimisticUpdate={updateCartItem} />
                         </div>
                       </li>
@@ -114,7 +113,7 @@ export default function ViewCart() {
           )}
         </div>
 
-        <div className="w-1/3 pl-6 bg-gray-100 rounded-xl ml-12 mt-14 pr-6">
+        <div className="w-full md:w-1/3 pl-0 md:pl-6 bg-gray-100 rounded-xl ml-0 md:ml-12 mt-6 md:mt-14 pr-6">
           <div className="checkout-block bg-surface py-4 px-2 rounded-2xl">
             <h2 className="heading5 py-4">Order Summary</h2>
             <div className="total-block py-5 flex justify-between border-b border-line">
@@ -163,7 +162,9 @@ export default function ViewCart() {
               </form>
             </div>
             <div className='text-center mt-4 font-semibold'>
-                Contuine to Shopping
+              <Link href="/">
+                Continue Shopping
+              </Link>
             </div>
           </div>
         </div>

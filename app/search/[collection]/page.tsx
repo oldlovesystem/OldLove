@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
+
 import { defaultSort, sorting } from 'lib/constants';
 
 export async function generateMetadata({
@@ -22,20 +23,6 @@ export async function generateMetadata({
   };
 }
 
-const TwoColumnsIcon = () => (
-  <svg className="h-6 w-6 text-gray-600" viewBox="0 0 24 24">
-    <rect x="1" y="1" width="10" height="22" className="fill-current" />
-    <rect x="13" y="1" width="10" height="22" className="fill-current" />
-  </svg>
-);
-
-const ThreeColumnsIcon = () => (
-  <svg className="h-6 w-6 text-gray-600" viewBox="0 0 24 24">
-    <rect x="1" y="1" width="7" height="22" className="fill-current" />
-    <rect x="9" y="1" width="7" height="22" className="fill-current" />
-    <rect x="17" y="1" width="7" height="22" className="fill-current" />
-  </svg>
-);
 
 
 
@@ -68,7 +55,7 @@ export default async function CategoryPage({
         ) : (
           <div className=''>
             <p className='ml-2'>2 <span className='text-gray-400'>Product</span> </p>
-          <Grid className={`grid-cols-3 sm:grid-cols-3 lg:grid-cols-3`}>
+          <Grid className={`grid-cols-2 sm:grid-cols-2 lg:grid-cols-3`}>
             <ProductGridItems products={products} />
           </Grid>
           </div>
