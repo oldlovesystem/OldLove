@@ -25,6 +25,7 @@ export default function CartModal() {
   const { cart, updateCartItem } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const quantityRef = useRef(cart?.totalQuantity);
+  
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
 
@@ -53,28 +54,28 @@ export default function CartModal() {
         <OpenCart quantity={cart?.totalQuantity} />
       </button>
       <Transition show={isOpen}>
-        <Dialog onClose={closeCart} className="relative z-50">
+        <Dialog onClose={closeCart} className="fixed inset-0 z-50 overflow-hidden">
           <Transition.Child
             as={Fragment}
-            enter="transition-all ease-in-out duration-300"
-            enterFrom="opacity-0 backdrop-blur-none"
-            enterTo="opacity-100 backdrop-blur-[.5px]"
-            leave="transition-all ease-in-out duration-200"
-            leaveFrom="opacity-100 backdrop-blur-[.5px]"
-            leaveTo="opacity-0 backdrop-blur-none"
+            enter="transition-opacity duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+            <div className="fixed inset-0 bg-black/30 backdrop-blur" aria-hidden="true" />
           </Transition.Child>
           <Transition.Child
             as={Fragment}
-            enter="transition-all ease-in-out duration-300"
+            enter="transition-transform duration-300"
             enterFrom="translate-x-full"
             enterTo="translate-x-0"
-            leave="transition-all ease-in-out duration-200"
+            leave="transition-transform duration-200"
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="fixed bottom-0 right-0 flex h-[96vh] mb-4 mt-2 w-full flex-col border-l md:mt-20 border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[500px] rounded-3xl mr-5">
+            <Dialog.Panel className="fixed bottom-0 h-[80vh] mt-40 right-0 flex mb-4  w-full flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[500px] rounded-3xl mr-5">
               <div className="flex items-center justify-between">
                 <p className="text-3xl font-semibold heading5">My Cart</p>
                 <button aria-label="Close cart" onClick={closeCart}>
@@ -172,18 +173,6 @@ export default function CartModal() {
                       })}
                   </ul>
                   <div className="flex flex-col justify-between mt-auto py-4 text-sm text-neutral-500">
-                    {/* <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1">
-                      <p>Taxes</p>
-                      <Price
-                        className="text-right text-base text-black"
-                        amount={cart.cost.totalTaxAmount.amount}
-                        currencyCode={cart.cost.totalTaxAmount.currencyCode}
-                      />
-                    </div> */}
-                    {/* <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1">
-                      <p>Shipping</p>
-                      <p className="text-right">Calculated at checkout</p>
-                    </div> */}
                     <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1">
                       <p className='text-3xl font-bold text-black'>Total</p>
                       <Price
@@ -210,7 +199,6 @@ function CheckoutButton() {
   const { pending } = useFormStatus();
   const [isOpen, setIsOpen] = useState(false);
   const closeCart = () => setIsOpen(false);
-
 
   return (
     <div className='flex space-x-2'> 

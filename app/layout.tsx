@@ -53,7 +53,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           <main>
             {children}
             <Toaster closeButton />
-            <WhatsAppIcon /> {/* Include the WhatsAppIcon here */}
+            <WhatsAppIcon /> 
           </main>
           <Footer/>
         </CartProvider>
