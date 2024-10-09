@@ -75,7 +75,7 @@ export default function CartModal() {
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="fixed bottom-0 h-[80vh] mt-40 right-0 flex mb-4  w-full flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[500px] rounded-3xl mr-5">
+            <Dialog.Panel className="fixed bottom-0 h-[80vh] mt-40 right-0 flex mb-4   flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[500px] rounded-3xl ">
               <div className="flex items-center justify-between">
                 <p className="text-3xl font-semibold heading5">My Cart</p>
                 <button aria-label="Close cart" onClick={closeCart}>

@@ -29,7 +29,8 @@ const SliderOne = () => {
                             <div className="slider-item h-full w-full relative">
                                 <div className="container w-full h-full flex items-center relative">
                                     <div className="text-content basis-1/2">
-                                     
+                                    <div className="text-sub-display">Sale! Up To 10% Off! on all products</div>
+                                    <div className="text">Use "NEW10" Discount Coupon at checkout</div>
                                         <div className="text-display md:mt-5 mt-2">Formals Collections</div>
                                         <Link href='/search/formal-shirts' className="button-main md:mt-8 mt-3">Shop Now</Link>
                                     </div>
@@ -49,7 +50,8 @@ const SliderOne = () => {
                             <div className="slider-item h-full w-full relative">
                                 <div className="container w-full h-full flex items-center relative">
                                     <div className="text-content basis-1/2">
-                                        {/* <div className="text-sub-display">Sale! Up To 50% Off!</div> */}
+                                        <div className="text-sub-display">Sale! Up To 10% Off! on all products</div>
+                                        <div className="text">Use "NEW10" Discount Coupon at checkout</div>
                                         <div className="text-display md:mt-5 mt-2">Fashion for Every Occasion</div>
                                         <Link href='/search/formal-shirts' className="button-main md:mt-8 mt-3">Shop Now</Link>
                                     </div>
@@ -69,7 +71,8 @@ const SliderOne = () => {
                             <div className="slider-item h-full w-full relative">
                                 <div className="container w-full h-full flex items-center relative">
                                     <div className="text-content basis-1/2">
-                                        {/* <div className="text-sub-display text-black">Sale! Up To 50% Off!</div> */}
+                                    <div className="text-sub-display">Sale! Up To 10% Off! on all products</div>
+                                    <div className="text">Use "NEW10" Discount Coupon at checkout</div>
                                         <div className="text-display md:mt-5 mt-2">Stylish Looks for Any Season</div>
                                         <Link href='/search/formal-shirts' className="button-main md:mt-8 mt-3">Shop Now</Link>
                                     </div>

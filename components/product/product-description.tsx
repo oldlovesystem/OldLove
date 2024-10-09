@@ -8,6 +8,7 @@ import { VariantSelector } from './variant-selector';
 
 export function ProductDescription({ product }: { product: Product }) {
   console.log("product varinat",product.variants);
+  console.log("product",product)
 
   const getDeliveryRange = () => {
     const today = new Date(); 
