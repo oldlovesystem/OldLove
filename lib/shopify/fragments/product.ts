@@ -47,7 +47,7 @@ const productFragment = /* GraphQL */ `
     featuredImage {
       ...image
     }
-    images(first: 20) {
+    images(first: 45) {
       edges {
         node {
           ...image

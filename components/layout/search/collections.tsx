@@ -20,7 +20,7 @@ async function CollectionList() {
     productCount: collection.products.length,
   }));
 
-  console.log(productLengths);
+
 
   const filteredCollections = collections.filter(collection => collection.title.toLowerCase() !== 'all');
 

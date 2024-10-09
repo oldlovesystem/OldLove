@@ -8,7 +8,7 @@ import { VariantSelector } from './variant-selector';
 
 export function ProductDescription({ product }: { product: Product }) {
   console.log("product varinat",product.variants);
-  console.log("product",product)
+  console.log("product")
 
   const getDeliveryRange = () => {
     const today = new Date(); 
@@ -41,7 +41,6 @@ export function ProductDescription({ product }: { product: Product }) {
     ₹{(+product.priceRange.maxVariantPrice.amount + 100).toFixed(2)} {product.priceRange.maxVariantPrice.currencyCode}
   </span>
 
-  {/* Calculate Discount Percentage */}
   {(() => {
     const originalPrice = +product.priceRange.maxVariantPrice.amount + 100;
     const currentPrice = +product.priceRange.maxVariantPrice.amount;
