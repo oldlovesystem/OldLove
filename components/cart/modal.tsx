@@ -75,7 +75,7 @@ export default function CartModal() {
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="fixed bottom-0 h-[80vh] mt-40 right-0 flex mb-4   flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[500px] rounded-3xl ">
+            <Dialog.Panel className="fixed bottom-0 h-[80vh] mt-40 right-0 flex mb-4 flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[500px] rounded-3xl">
               <div className="flex items-center justify-between">
                 <p className="text-3xl font-semibold heading5">My Cart</p>
                 <button aria-label="Close cart" onClick={closeCart}>
@@ -182,7 +182,7 @@ export default function CartModal() {
                       />
                     </div>
                     <form action={redirectToCheckout}>
-                      <CheckoutButton />
+                      <CheckoutButton closeCart={closeCart} />
                     </form>
                   </div>
                 </div>
@@ -195,10 +195,8 @@ export default function CartModal() {
   );
 }
 
-function CheckoutButton() {
+function CheckoutButton({ closeCart }) {
   const { pending } = useFormStatus();
-  const [isOpen, setIsOpen] = useState(false);
-  const closeCart = () => setIsOpen(false);
 
   return (
     <div className='flex space-x-2'> 
@@ -211,11 +209,14 @@ function CheckoutButton() {
       </button>
       <button
         className="block w-full rounded-lg bg-black p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
-        type="submit"
+        type="button" // Change type to button
         disabled={pending}
-        onClick={closeCart}
+        onClick={() => {
+          closeCart(); // Close the cart
+          window.location.href = "/view-cart"; // Navigate to the view cart page
+        }}
       >
-        <Link href="/view-cart" className="text-white hover:underline">View Cart</Link>
+        View Cart
       </button>
     </div>
   );

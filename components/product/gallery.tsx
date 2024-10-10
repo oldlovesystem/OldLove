@@ -13,9 +13,13 @@ export function Gallery({ images }) {
   const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    // Retrieve the selected image URL from local storage
     const storedImageUrl = localStorage.getItem('selectedImageUrl');
-    setSelectedImageUrl(storedImageUrl || images[0].src); // Default to the first image if none stored
+    if (storedImageUrl) {
+      setSelectedImageUrl(storedImageUrl);
+    } else {
+      setSelectedImageUrl(images[0]?.src || null); // Default to the first image if none stored
+    }
+    setStartIndex(0); // Reset startIndex to show the first set of thumbnails
   }, [images]);
 
   const visibleThumbnails = 5; // Number of thumbnails to show
@@ -30,7 +34,10 @@ export function Gallery({ images }) {
     }
 
     if (thumbnailRef.current) {
-      const scrollAmount = direction === 'left' ? -thumbnailRef.current.clientWidth / visibleThumbnails : thumbnailRef.current.clientWidth / visibleThumbnails;
+      const scrollAmount = direction === 'left' 
+        ? -thumbnailRef.current.clientWidth / visibleThumbnails 
+        : thumbnailRef.current.clientWidth / visibleThumbnails;
+
       thumbnailRef.current.scrollBy({
         top: 0,
         left: scrollAmount,
@@ -69,20 +76,19 @@ export function Gallery({ images }) {
             ref={thumbnailRef}
             className="flex items-center justify-center gap-2 overflow-x-auto py-1 lg:mb-0"
           >
-            {images.slice(startIndex, startIndex + visibleThumbnails).map((image, index) => {
-              const isActive = image.url === selectedImageUrl;
+            {images.slice(startIndex, startIndex + visibleThumbnails).map((image) => {
+              const isActive = image.src === selectedImageUrl;
 
               return (
                 <li key={image.src} className="h-30 w-25">
                   <button
                     type="button"
                     onClick={() => {
-                      // Store the selected image URL in local storage
-                      localStorage.setItem('selectedImageUrl', image.url);
-                      setSelectedImageUrl(image.url); // Update the displayed image
+                      localStorage.setItem('selectedImageUrl', image.src);
+                      setSelectedImageUrl(image.src);
                     }}
                     aria-label="Select product image"
-                    className="h-full w-full"
+                    className={`h-full w-full ${isActive ? 'border border-blue-500' : ''}`}
                   >
                     <ProductTitle
                       alt={image.altText}
