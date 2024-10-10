@@ -48,13 +48,12 @@ export default async function CategoryPage({
 
   return (
     <section>
-      <div className='bg-white min-h-screen ml-14'>
+      <div className='bg-white min-h-screen ml-5 lg:ml-14'>
 
         {products.length === 0 ? (
           <p className="py-3 text-lg">{`No products found${searchValue ? ` for "${searchValue}"` : ''} in this collection`}</p>
         ) : (
           <div className=''>
-            <p className='ml-2'>2 <span className='text-gray-400'>Product</span> </p>
           <Grid className={`grid-cols-2 sm:grid-cols-2 lg:grid-cols-3`}>
             <ProductGridItems products={products} />
           </Grid>

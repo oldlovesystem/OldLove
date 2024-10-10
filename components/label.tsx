@@ -21,7 +21,7 @@ const Label = ({
       })}
     >
       <div className="items-center p-1 text-xs font-semibold text-black">
-        <h3 className="line-clamp-2 product-origin-price caption1 text-lg">{title}</h3>
+        <h3 className="line-clamp-2 product-origin-price caption1 lg:text-lg text-sm">{title}</h3>
         <div className="product-price-block flex items-center gap-2 flex-wrap mt-1 duration-300 relative z-[1]">
           <div className="product-price text-title text-xl">
             ₹{numericAmount}.0

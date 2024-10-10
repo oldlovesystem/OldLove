@@ -15,37 +15,16 @@ export default function SearchLayout({ children }: SearchLayoutProps) {
   return (
     <>
       <Breadcrumb />
-      <div className="mr-14 mt-5 flex justify-end">
-        <div className="select-block relative">
-          <select
-            id="select-filter"
-            name="select-filter"
-            className="caption1 border-line w-full rounded-lg border py-2 pl-3 pr-10 md:pr-10"
-            defaultValue={'Sorting'}
-            // onChange={(e) => { handleSortChange(e.target.value) }}
-          >
-            <option value="Sorting" disabled>
-              Sorting
-            </option>
-            <option value="soldQuantityHighToLow">Best Selling</option>
-            <option value="discountHighToLow">Best Discount</option>
-            <option value="priceHighToLow">Price High To Low</option>
-            <option value="priceLowToHigh">Price Low To High</option>
-          </select>
-          <div className="absolute right-2 top-1/2 -translate-y-1/2 transform">
-            <FaCaretDown size={12} className="text-gray-400" />
-          </div>
-        </div>
-      </div>
+    
       <div className="mt-5 flex max-w-screen-2xl flex-col px-0 pb-0 text-black md:flex-row">
         <div className="right flex items-center gap-3"></div>
-        <div className="order-first flex-none  pl-10 md:flex md:w-[20%] md:flex-col ">
+        <div className="order-first flex-none lg:pl-10 pl-5 pr-5 md:flex md:w-[20%] md:flex-col ">
           <div className="flex-none border-b border-line  ">
             <Collections />
           </div>
-          {/* <div className="flex-none ">
+          <div className="flex-none ">
             <FilterList list={sorting} title="Sort by" />
-          </div> */}
+          </div>
           <div className="filter-size border-line mt-8 border-b pb-8">
             <div className="heading6">Size</div>
             <div className="list-size mt-4 flex flex-wrap items-center gap-3 gap-y-4">
