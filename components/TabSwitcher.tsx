@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from 'react';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { GridTileImage } from './grid/tile';
@@ -26,34 +25,18 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ collectionProducts }) => {
   const isValidTab = activeTab >= 0 && activeTab < collectionProducts.length;
   const products = isValidTab ? collectionProducts[activeTab]?.products : [];
 
-  const handlePrev = () => {
-    setActiveTab((prev) => Math.max(prev - 1, 0));
-  };
-
-  const handleNext = () => {
-    setActiveTab((prev) => Math.min(prev + 1, collectionProducts.length - 1));
-  };
-
   return (
     <div className="whate-new-block md:pt-20">
       <div className="text-center heading3 mb-5">What{String.raw`'s`} new</div>
 
       <div className="flex justify-center mt-4">
-        <button 
-          onClick={handlePrev} 
-          className="absolute left-2 bg-white rounded-full p-2 shadow-lg"
-          disabled={activeTab === 0}
-        >
-          <FaChevronLeft color="black" size={24} />
-        </button>
-
         <div className="whate-new-block border-b bg-gray-200 rounded-2xl py-0.5 px-2 mb-10">
-          <div className="flex space-x-2 overflow-x-auto scrollbar-hide tab-item"> 
+          <div className="flex space-x-2  tab-item"> 
             {collectionProducts.map((collection, index) => (
               <button
                 key={collection.title}
                 onClick={() => setActiveTab(index)}
-                className={`py-2 px-4 text-secondary transition-colors uppercase text-sm duration-300 rounded-full ${
+                className={`py-2 lg:px-4 lg:text-secondary text-xs  px-2 transition-colors uppercase  duration-300 rounded-full ${
                   activeTab === index 
                     ? 'bg-white text-black transform scale-105' 
                     : 'bg-gray-200 text-gray-700 hover:bg-white '
@@ -64,14 +47,6 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ collectionProducts }) => {
             ))}
           </div>
         </div>
-
-        <button 
-          onClick={handleNext} 
-          className="absolute right-2 bg-white rounded-full p-2 shadow-lg"
-          disabled={activeTab === collectionProducts.length - 1}
-        >
-          <FaChevronRight color="black" size={24} />
-        </button>
       </div>
 
       <div className='mt-4'>
