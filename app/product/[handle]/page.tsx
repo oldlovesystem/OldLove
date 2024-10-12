@@ -69,6 +69,13 @@ export default async function ProductPage({ params }: { params: { handle: string
       lowPrice: product.priceRange.minVariantPrice.amount
     }
   };
+
+  // const { updateSelectedVariantImage } = useProduct();
+
+  // useEffect(() => {
+  //   updateSelectedVariantImage(product.featuredImage.url);
+  // }, []);
+
   return (
     <ProductProvider>
       <script
@@ -78,50 +85,58 @@ export default async function ProductPage({ params }: { params: { handle: string
         }}
       />
       <Breadcrumbs productName={product.title} />
-      <div className="mx-auto max-w-screen-2xl px-4 border-neutral-200 bg-white">
-     
-        <div className="flex flex-col   bg-white p-8 md:p-12 lg:flex-row lg:gap-8">
-          <div className="h-full w-full lg:basis-1/2"> 
+      <div className="mx-auto max-w-screen-2xl border-neutral-200 bg-white px-4">
+        <div className="flex flex-col bg-white p-8 md:p-12 lg:flex-row lg:gap-8">
+          <div className="h-full w-full lg:basis-1/2">
             <Suspense
               fallback={
                 <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden" />
               }
             >
               <Gallery
-    images={product.images.map((image: Image) => ({
-      src: image.url,
-      altText: image.altText
-    }))}
-  />
+                images={product.images.map((image: Image) => ({
+                  src: image.url,
+                  altText: image.altText
+                }))}
+                // product_variants={product.variants}
+              />
             </Suspense>
           </div>
 
-          <div className="basis-full lg:basis-1/2"> 
+          <div className="basis-full lg:basis-1/2">
             <Suspense fallback={null}>
               <ProductDescription product={product} />
             </Suspense>
           </div>
-          
         </div>
-      <div className="flex justify-center">
-  <div className="grid lg:grid-cols-3 grid-cols-2 gap-[30px] md:mt-10 mt-6">
-    <div className="item text-center"> 
-      <div className="icon-delivery-truck text-4xl"></div>
-      <div className="heading6 mt-4">Shipping Faster</div>
-      <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div>
-    </div>
-    <div className="item text-center"> 
-      <div className="icon-guarantee text-4xl"></div>
-      <div className="heading6 mt-4">High Quality</div>
-      <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div>
-    </div>
-    <div className="item text-center"> 
-      <div className="icon-leaves-compatible text-4xl"></div>
-      <div className="heading6 mt-4">Highly Compatible</div>
-      <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div>
-    </div>
-  </div>
-</div>
+        <div className="flex justify-center">
+          <div className="mt-6 grid grid-cols-2 gap-[30px] md:mt-10 lg:grid-cols-3">
+            <div className="item text-center">
+              <div className="icon-delivery-truck text-4xl"></div>
+              <div className="heading6 mt-4">Shipping Faster</div>
+              <div className="text-secondary mt-2">
+                Use on walls, furniture, doors and many more surfaces. The possibilities are
+                endless.
+              </div>
+            </div>
+            <div className="item text-center">
+              <div className="icon-guarantee text-4xl"></div>
+              <div className="heading6 mt-4">High Quality</div>
+              <div className="text-secondary mt-2">
+                Use on walls, furniture, doors and many more surfaces. The possibilities are
+                endless.
+              </div>
+            </div>
+            <div className="item text-center">
+              <div className="icon-leaves-compatible text-4xl"></div>
+              <div className="heading6 mt-4">Highly Compatible</div>
+              <div className="text-secondary mt-2">
+                Use on walls, furniture, doors and many more surfaces. The possibilities are
+                endless.
+              </div>
+            </div>
+          </div>
+        </div>
 
         <RelatedProducts id={product.id} />
       </div>
@@ -136,14 +151,14 @@ async function RelatedProducts({ id }: { id: string }) {
 
   return (
     <div>
-      <h2 className=" text-4xl font-bold text-center   max-w-full mt-5 mb-5">Related Products</h2>
+      <h2 className="mb-5 mt-5 max-w-full text-center text-4xl font-bold">Related Products</h2>
       <div className="tab-content">
-        {relatedProducts? (
-          <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        {relatedProducts ? (
+          <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
             {relatedProducts.map((product) => (
               <li key={product.handle} className="relative">
-                <Link href={`/product/${product.handle}`} className="relative h-full w-full block">
-                  <div className="w-full h-[50vh]  md:h-[60vh] relative overflow-hidden">
+                <Link href={`/product/${product.handle}`} className="relative block h-full w-full">
+                  <div className="relative h-[50vh] w-full overflow-hidden md:h-[60vh]">
                     <GridTileImage
                       alt={product.title}
                       label={{
@@ -154,8 +169,7 @@ async function RelatedProducts({ id }: { id: string }) {
                       src={product.featuredImage?.url}
                       fill
                       sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-                      className="object-contain" 
-
+                      className="object-contain"
                     />
                   </div>
                 </Link>
@@ -166,6 +180,6 @@ async function RelatedProducts({ id }: { id: string }) {
           <p className="mt-4 text-gray-500">No products available.</p>
         )}
       </div>
-      </div>
+    </div>
   );
 }
