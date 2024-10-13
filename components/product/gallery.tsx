@@ -11,21 +11,42 @@ export function Gallery({ images }) {
   const thumbnailRef = useRef<HTMLUListElement>(null);
   const [startIndex, setStartIndex] = useState(0);
   const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(null);
+  const [displayedImages, setDisplayedImages] = useState(images); // State for displayed images
 
   useEffect(() => {
     const storedImageUrl = localStorage.getItem('selectedImageUrl');
+    console.log(storedImageUrl);
+    console.log(images);
+
     if (storedImageUrl) {
-      setSelectedImageUrl(storedImageUrl);
+      const regex = /files\/([^?]+)/; 
+      const match = storedImageUrl.match(regex);
+      const storedImageId = match ? match[1] : null;
+
+    
+      const foundIndex = images.findIndex(image => image.src.includes(storedImageId));
+
+      if (foundIndex !== -1) {
+      
+        setDisplayedImages(images.slice(foundIndex));
+        setSelectedImageUrl(images[foundIndex].src);
+        setStartIndex(0);
+      } else {
+        setSelectedImageUrl(images[0]?.src || null);
+        setDisplayedImages(images);
+        setStartIndex(0);
+      }
     } else {
-      setSelectedImageUrl(images[0]?.src || null); // Default to the first image if none stored
+      setSelectedImageUrl(images[0]?.src || null);
+      setDisplayedImages(images);
+      setStartIndex(0);
     }
-    setStartIndex(0); // Reset startIndex to show the first set of thumbnails
   }, [images]);
 
-  const visibleThumbnails = 5; // Number of thumbnails to show
+  const visibleThumbnails = 5;
 
   const scrollThumbnails = (direction: 'left' | 'right') => {
-    const totalImages = images.length;
+    const totalImages = displayedImages.length;
 
     if (direction === 'left' && startIndex > 0) {
       setStartIndex((prev) => Math.max(prev - 1, 0));
@@ -34,8 +55,8 @@ export function Gallery({ images }) {
     }
 
     if (thumbnailRef.current) {
-      const scrollAmount = direction === 'left' 
-        ? -thumbnailRef.current.clientWidth / visibleThumbnails 
+      const scrollAmount = direction === 'left'
+        ? -thumbnailRef.current.clientWidth / visibleThumbnails
         : thumbnailRef.current.clientWidth / visibleThumbnails;
 
       thumbnailRef.current.scrollBy({
@@ -61,7 +82,7 @@ export function Gallery({ images }) {
         )}
       </div>
 
-      {images.length > 1 && (
+      {displayedImages.length > 1 && (
         <div className="flex items-center justify-center my-12">
           <button
             type="button"
@@ -76,7 +97,7 @@ export function Gallery({ images }) {
             ref={thumbnailRef}
             className="flex items-center justify-center gap-2 overflow-x-auto py-1 lg:mb-0"
           >
-            {images.slice(startIndex, startIndex + visibleThumbnails).map((image) => {
+            {displayedImages.slice(startIndex, startIndex + visibleThumbnails).map((image) => {
               const isActive = image.src === selectedImageUrl;
 
               return (
@@ -101,8 +122,8 @@ export function Gallery({ images }) {
                 </li>
               );
             })}
-            {images.length > visibleThumbnails && (
-              <div className="text-gray-500">{`+ ${images.length - visibleThumbnails - startIndex} more`}</div>
+            {displayedImages.length > visibleThumbnails && (
+              <div className="text-gray-500">{`+ ${displayedImages.length - visibleThumbnails - startIndex} more`}</div>
             )}
           </ul>
           <button
@@ -110,7 +131,7 @@ export function Gallery({ images }) {
             onClick={() => scrollThumbnails('right')}
             aria-label="Scroll right"
             className="p-2"
-            disabled={startIndex + visibleThumbnails >= images.length}
+            disabled={startIndex + visibleThumbnails >= displayedImages.length}
           >
             <FaChevronRight />
           </button>
