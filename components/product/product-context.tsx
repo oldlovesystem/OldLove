@@ -1,7 +1,13 @@
 'use client';
-
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { createContext, useContext, useMemo, useOptimistic } from 'react';
+import React, {
+  createContext,
+  startTransition,
+  useContext,
+  useMemo,
+  useOptimistic,
+  useState
+} from 'react';
 
 type ProductState = {
   [key: string]: string;
@@ -11,8 +17,10 @@ type ProductState = {
 
 type ProductContextType = {
   state: ProductState;
+  selectedVariantImage: string | null;
   updateOption: (name: string, value: string) => ProductState;
   updateImage: (index: string) => ProductState;
+  updateSelectedVariantImage: (variant: string) => void;
 };
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
@@ -36,25 +44,37 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
     })
   );
 
+  const [selectedVariantImage, setSelectedVariantImage] = useState<string | null>(null);
+
   const updateOption = (name: string, value: string) => {
     const newState = { [name]: value };
-    setOptimisticState(newState);
+    startTransition(() => {
+      setOptimisticState(newState);
+    });
     return { ...state, ...newState };
   };
 
   const updateImage = (index: string) => {
     const newState = { image: index };
-    setOptimisticState(newState);
+    startTransition(() => {
+      setOptimisticState(newState);
+    });
     return { ...state, ...newState };
+  };
+
+  const updateSelectedVariantImage = (variant: string) => {
+    setSelectedVariantImage(variant);
   };
 
   const value = useMemo(
     () => ({
       state,
       updateOption,
-      updateImage
+      updateImage,
+      selectedVariantImage,
+      updateSelectedVariantImage
     }),
-    [state]
+    [state, selectedVariantImage]
   );
 
   return <ProductContext.Provider value={value}>{children}</ProductContext.Provider>;
