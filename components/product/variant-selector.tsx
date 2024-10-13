@@ -3,6 +3,7 @@
 import clsx from 'clsx';
 import { useProduct, useUpdateURL } from 'components/product/product-context';
 import { ProductOption, ProductVariant } from 'lib/shopify/types';
+import { useEffect } from 'react';
 
 type Combination = {
   id: string;
@@ -18,7 +19,7 @@ export function VariantSelector({
   options: ProductOption[];
   variants: ProductVariant[];
 }) {
-  const { state, updateOption, updateSelectedVariantImage } = useProduct();
+  const { state, updateOption, selectedVariantImage, updateSelectedVariantImage } = useProduct();
   const updateURL = useUpdateURL();
   const hasNoOptionsOrJustOneOption =
     !options.length || (options.length === 1 && options[0]?.values.length === 1);
@@ -36,6 +37,12 @@ export function VariantSelector({
       {}
     )
   }));
+
+  useEffect(() => {
+    if (!selectedVariantImage && variants.length > 0) {
+      updateSelectedVariantImage(variants[0].image.url);
+    }
+  }, [selectedVariantImage, variants]);
 
   return options.map((option) => (
     <form key={option.id}>
@@ -74,7 +81,7 @@ export function VariantSelector({
                   );
                   if (selectedVariant?.imageUrl) {
                     updateSelectedVariantImage(selectedVariant.imageUrl);
-                    
+
                     // console.log('selectedVariantImageUrl: ', selectedVariant.imageUrl);
                     // localStorage.setItem('selectedImageUrl', selectedVariant.imageUrl);
                   }
