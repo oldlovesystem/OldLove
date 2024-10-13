@@ -89,7 +89,7 @@ export function Navbar() {
   };
 
   // Background color only changes when scrolled
-  const backgroundColor = fixedHeader ? 'bg-linear' : 'bg-linear';
+  const backgroundColor = fixedHeader ? 'bg-white' : 'bg-white';
 
   return (
     <div className="relative">
@@ -105,9 +105,9 @@ export function Navbar() {
         <div className="flex w-full items-center justify-between">
           <div className="ml-12 flex w-auto items-center">
             <Link href="/" prefetch={true} className="flex items-center justify-center">
-              <Image src="/logo.png" alt="logo" width={50} height={30} />
-              <div className="heading4 font-tenor-sans ml-2 text-2xl font-bold uppercase text-black">
-                Old Love
+              <Image src="/updatedlog.svg" alt="logo" width={60} height={30}  className='md:ml-10' />
+              <div className="logofont  ml-2 text-3xl font-bold uppercase text-black">
+                OldLove
               </div>
             </Link>
 

@@ -1,61 +1,28 @@
 "use client";
-import React, { useState } from 'react';
-import { usePathname } from 'next/navigation';
+import React from 'react';
 import Link from 'next/link';
 import { GridTileImage } from './grid/tile';
 import { Product } from 'lib/shopify/types';
 
-interface CollectionProduct {
-  title: string;
+interface TabSwitcherProps {
   products: Product[];
 }
 
-interface TabSwitcherProps {
-  collectionProducts: CollectionProduct[];
-}
-
-const TabSwitcher: React.FC<TabSwitcherProps> = ({ collectionProducts }) => {
-  const [activeTab, setActiveTab] = useState(0);
-
-  const formatTitle = (title: string) => {
-    const firstWord = title.split('-')[0]; 
-    return firstWord ? firstWord.charAt(0).toUpperCase() + firstWord.slice(1) + '' : ''; 
-  };
-
-  const isValidTab = activeTab >= 0 && activeTab < collectionProducts.length;
-  const products = isValidTab ? collectionProducts[activeTab]?.products : [];
+const TabSwitcher: React.FC<TabSwitcherProps> = ({ products }) => {
+  // Limit the number of products displayed
+  const displayProducts = products.length > 6 ? products.slice(0, 10) : products;
 
   return (
-    <div className="whate-new-block md:pt-20">
-      <div className="text-center heading3 mb-5">What{String.raw`'s`} new</div>
+    <div className="what-new-block md:pt-20">
+      <div className="text-center logo-font uppercase text-3xl font-thin mb-8">Redefine your Wadrobe</div>
 
-      <div className="flex justify-center mt-4">
-        <div className="whate-new-block border-b bg-gray-200 rounded-2xl py-0.5 px-2 mb-10">
-          <div className="flex space-x-2  tab-item"> 
-            {collectionProducts.map((collection, index) => (
-              <button
-                key={collection.title}
-                onClick={() => setActiveTab(index)}
-                className={`py-2 lg:px-4 lg:text-secondary text-xs  px-2 transition-colors uppercase  duration-300 rounded-full ${
-                  activeTab === index 
-                    ? 'bg-white text-black transform scale-105' 
-                    : 'bg-gray-200 text-gray-700 hover:bg-white '
-                }`}
-              >
-                {formatTitle(collection.title)} 
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className='mt-4'>
-        {isValidTab && products.length ? (
-          <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 ml-4 mr-4">
-            {products.map((product) => (
+      <div className='mt-10'>
+        {displayProducts.length ? (
+          <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 ml-4 mr-4 ">
+            {displayProducts.map((product) => (
               <li key={product.handle} className="relative">
                 <Link href={`/product/${product.handle}`} className="relative h-full w-full block">
-                  <div className="w-full h-[50vh]  md:h-[60vh] relative overflow-hidden">
+                  <div className="w-full h-[40vh] md:h-[50vh] relative overflow-hidden">
                     <GridTileImage
                       alt={product.title}
                       label={{

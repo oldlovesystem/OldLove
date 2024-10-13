@@ -3,12 +3,18 @@
 @tailwind components;
 @tailwind utilities;
 
-
+@font-face {
+  font-family: 'font-name';
+  src: url('/fonts/ProximaNovaFont.otf'); 
+ }
 @media (prefers-color-scheme: light) {
   html {
     color-scheme: light;
   }
 }
+.ogofontl { 
+  font-family: 'font-name';
+ }
 
 @supports (font: -apple-system-body) and (-webkit-appearance: none) {
   img[loading='lazy'] {

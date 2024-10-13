@@ -28,14 +28,11 @@ export function GridTileImage({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)} 
     >
-      {/* New tag on the left side */}
-      <div className="product-tag text-button-uppercase bg-[rgb(210,239,154)] px-3 py-0.5 inline-block rounded-full absolute top-3 left-3 z-[1]">
-          New
-       </div>
+     
       
       <div
         className={clsx(
-          'group  bg-gray-200 rounded-xl  flex h-full w-full items-center justify-center overflow-hidden hover:border-blue-600',
+          'group  bg-gray-200  flex h-full w-full items-center justify-center overflow-hidden hover:border-blue-600',
           {
             relative: label,
             'border-2 border-blue-600': active,
@@ -45,19 +42,13 @@ export function GridTileImage({
         {props.src && (
           <Image
             className={clsx('h-full w-full object-contain', {
-              'transition duration-700 ease-in-out  rounded-lg ': isInteractive,
+              'transition duration-700 ease-in-out  ': isInteractive,
             })}
 
             {...props}
           />
         )}
-        {/* Overlay Buttons */}
-        <div className={`absolute bottom-0 mb-4 w-full flex justify-center transform transition-transform duration-300 ${isHovered ? 'translate-y-0' : 'translate-y-4 opacity-0'}`}>
-          <div className="flex space-x-2">
-            <button className="bg-white text-black px-4 py-2 rounded-full text-sm shadow-md uppercase">Quick Shop</button>
-            <button className="bg-white text-black px-4 py-2 rounded-full text-sm shadow-md uppercase">Quick View</button>
-          </div>
-        </div>
+       
       </div>
       {label && (
         <div className="mt-2">

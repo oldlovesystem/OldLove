@@ -12,9 +12,9 @@ const Instagram = () => {
         <>
             <div className="instagram-block md:pt-20 pt-10">
                 <div className="container">
-                    <div className="heading">
-                        <div className="heading3 text-center">Oldlove On Instagram</div>
-                        <div className="text-center mt-3">#Oldlovetheme</div>
+                    <div className="logofont font-thin">
+                        <div className="text-center logofont uppercase  text-3xl">Oldlove On Instagram</div>
+                        <div className="text-center mt-3 logofont">#Oldlovetheme</div>
                     </div>
                     <div className="list-instagram md:mt-10 mt-6">
                         <Swiper
@@ -45,7 +45,7 @@ const Instagram = () => {
                             }}
                         >
                             <SwiperSlide>
-                                <Link href={'https://www.instagram.com/'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
+                                <Link href={'https://www.instagram.com/oldlove.in/?igsh=MTE4bHNuZXk1d2Y3aA%3D%3D'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
                                     <Image
                                         src={'/IMG_0062.JPG'}
                                         width={300}
@@ -59,7 +59,7 @@ const Instagram = () => {
                                 </Link>
                             </SwiperSlide>
                             <SwiperSlide>
-                                <Link href={'https://www.instagram.com/'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
+                                <Link href={'https://www.instagram.com/oldlove.in/?igsh=MTE4bHNuZXk1d2Y3aA%3D%3D'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
                                     <Image
                                         src={'/4M6A2692.JPG'}
                                         width={300}
@@ -73,7 +73,7 @@ const Instagram = () => {
                                 </Link>
                             </SwiperSlide>
                             <SwiperSlide>
-                                <Link href={'https://www.instagram.com/'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
+                                <Link href={'https://www.instagram.com/oldlove.in/?igsh=MTE4bHNuZXk1d2Y3aA%3D%3D'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
                                     <Image
                                         src={'/IMG_0012.JPG'}
                                         width={300}
@@ -87,7 +87,7 @@ const Instagram = () => {
                                 </Link>
                             </SwiperSlide>
                             <SwiperSlide>
-                                <Link href={'https://www.instagram.com/'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
+                                <Link href={'https://www.instagram.com/oldlove.in/?igsh=MTE4bHNuZXk1d2Y3aA%3D%3D'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
                                     <Image
                                         src={'/4M6A2769.JPG'}
                                         width={300}
@@ -101,7 +101,7 @@ const Instagram = () => {
                                 </Link>
                             </SwiperSlide>
                             <SwiperSlide>
-                                <Link href={'https://www.instagram.com/'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
+                                <Link href={'https://www.instagram.com/oldlove.in/?igsh=MTE4bHNuZXk1d2Y3aA%3D%3D'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
                                     <Image
                                         src={'/4M6A2498.JPG'}
                                         width={300}

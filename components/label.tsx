@@ -20,18 +20,13 @@ const Label = ({
         'lg:px-20 lg:pb-[35%]': position === 'center'
       })}
     >
-      <div className="items-center p-1 text-xs font-semibold text-black">
-        <h3 className="line-clamp-2 product-origin-price caption1 lg:text-lg text-sm">{title}</h3>
+      <div className="  logo-font  text-black">
+        <h3 className=" lg:text text-sm ">{title}</h3>
         <div className="product-price-block flex items-center gap-2 flex-wrap mt-1 duration-300 relative z-[1]">
-          <div className="product-price text-title text-xl">
-            ₹{numericAmount}.0
+          <div className="text-sm">
+            INR {numericAmount}.0
           </div>
-          <div className="text-gray-500 line-through">
-            ₹{numericAmount + 100}.0
-          </div>
-          <div className=" py-1 bg-[rgb(210,239,154)] px-4  text-sm rounded-full">
-            -{((100 / (numericAmount + 100)) * 100).toFixed(0)}%
-          </div>
+
         </div>
         {/* <Price
           className="flex-none rounded-full"

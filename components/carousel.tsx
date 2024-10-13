@@ -1,27 +1,39 @@
-import { getCollectionProducts  , getCollections} from 'lib/shopify';
+import { getCollectionProducts, getCollections } from 'lib/shopify';
 import TabSwitcher from './TabSwitcher';
 
 export async function Carousel() {
-  
-  const products = await getCollectionProducts({ collection: 'check-shirts' });
+  // Fetch collections excluding the 'All' collection
   const collections = await getCollections();
-  const titles = collections
-    .slice(1) 
-    .map(collection => collection.title.toLowerCase().replace(/\s+/g, '-'));
-    const collectionProducts = await Promise.all(
-    titles.map(async (title) => {
-      const products = await getCollectionProducts({ collection: title });
-      return { title, products };
+  const filteredCollections = collections.filter(collection => collection.title.toLowerCase() !== 'all');
+
+  // Fetch all products from each filtered collection
+  const allProducts = await Promise.all(
+    filteredCollections.map(async (collection) => {
+      const products = await getCollectionProducts({ collection: collection.title.toLowerCase().replace(/\s+/g, '-') });
+      return products; // Return products directly
     })
   );
 
- 
-  if (!products?.length) return null;
+  // Flatten the array of products
+  const combinedProducts = allProducts.flat();
+  console.log(combinedProducts.length)
 
-  
+  // Shuffle the combined products array
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+
+
+  const shuffledProducts = shuffleArray(combinedProducts).slice(0, 10); 
+  console.log(shuffledProducts.length)
+
   return (
     <div>
-      <TabSwitcher collectionProducts={collectionProducts} />
+      <TabSwitcher products={shuffledProducts} />
     </div>
   );
 }

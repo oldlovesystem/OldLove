@@ -17,11 +17,11 @@ const Collection = () => {
 
     return (
         <>
-            <div className="collection-block md:pt-20 pt-10">
+            <div className="collection-block md:pt-20 pt-10 mb-10 lg:mb-0">
                 <div className="container">
-                    <div className="text-center font-bold text-4xl">Explore Collections</div>
+                    <div className="text-center logo-font text-3xl font-thin uppercase">Explore Collections</div>
                 </div>
-                <div className="list-collection section-swiper-navigation md:mt-10 mt-6 sm:px-5 px-4">
+                <div className="list-collection section-swiper-navigation md:mt-10 sm:px-5 px-4 mt-5">
                     <Swiper
                         spaceBetween={12}
                         slidesPerView={2}
@@ -44,98 +44,149 @@ const Collection = () => {
                         }}
                         className='h-full'
                     >
+                        {/* Formal Shirts Slide */}
                         <SwiperSlide>
                             <Link href={'search/formal-shirts'}>
-                            <div className="collection-item block relative rounded-2xl overflow-hidden cursor-pointer" onClick={() => handleTypeClick('swimwear')}>
-                                <div className="bg-img">
-                                    <Image
-                                        src={"/FormalShirt.webp"}
-                                        width={1000}
-                                        height={600}
-                                        alt='swimwear'
-                                    />
+                                <div
+                                    className="collection-item block relative overflow-hidden cursor-pointer group"
+                                    onClick={() => handleTypeClick('swimwear')}
+                                >
+                                    <div className="bg-img relative bg-gray-300">
+                                        <Image
+                                            src={"/FormalShirt.webp"}
+                                            width={1000}
+                                            height={600}
+                                            alt='swimwear'
+                                            className="transition duration-500 ease-in-out transform group-hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-gray-700 bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-500 ease-in-out"></div>
+                                    </div>
+                                    <div className="heading5 text-center absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-60 text-white transition duration-500 ease-in-out">
+                                        Plain shirt
+                                    </div>
                                 </div>
-                                <div className="collection-name heading5 text-center sm:bottom-8 bottom-4 lg:w-[200px] md:w-[160px] w-[100px] md:py-3 py-1.5 bg-white rounded-xl duration-500">Formals</div>
-                            </div>
                             </Link>
                         </SwiperSlide>
+
+                        {/* Casual Shirts Slide */}
                         <SwiperSlide>
-                        <Link href={'search/casual-shirts'}>
-                            <div className="collection-item block relative rounded-2xl overflow-hidden cursor-pointer" onClick={() => handleTypeClick('top')}>
-                                <div className="bg-img">
-                                    <Image
-                                        src={'/4M6A9532.JPG'}
-                                        width={1000}
-                                        height={600}
-                                        alt='top'
-                                    />
+                            <Link href={'search/casual-shirts'}>
+                                <div
+                                    className="collection-item block relative overflow-hidden cursor-pointer group"
+                                    onClick={() => handleTypeClick('top')}
+                                >
+                                    <div className="bg-img relative bg-gray-300">
+                                        <Image
+                                            src={'/4M6A9532.JPG'}
+                                            width={1000}
+                                            height={600}
+                                            alt='top'
+                                            className="transition duration-500 ease-in-out transform group-hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-gray-700 bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-500 ease-in-out"></div>
+                                    </div>
+                                    <div className="heading5 text-center absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-60 text-white transition duration-500 ease-in-out">
+                                        Casuals
+                                    </div>
                                 </div>
-                                <div className="collection-name heading5 text-center sm:bottom-8 bottom-4 lg:w-[200px] md:w-[160px] w-[100px] md:py-3 py-3 bg-white rounded-xl duration-500">Casuals</div>
-                            </div>
                             </Link>
                         </SwiperSlide>
+
+                        {/* Printed Shirts Slide */}
                         <SwiperSlide>
-                        <Link href={"search/check-shirts"}>
-                            <div className="collection-item block relative rounded-2xl overflow-hidden cursor-pointer" onClick={() => handleTypeClick('t-shirt')}>
-                                <div className="bg-img">
-                                    <Image
-                                        src={'/PrintedShirt.webp'}
-                                        width={1000}
-                                        height={600}
-                                        alt='t-shirt'
-                                    />
+                            <Link href={"search/check-shirts"}>
+                                <div
+                                    className="collection-item block relative overflow-hidden cursor-pointer group"
+                                    onClick={() => handleTypeClick('t-shirt')}
+                                >
+                                    <div className="bg-img relative bg-gray-300">
+                                        <Image
+                                            src={'/PrintedShirt.webp'}
+                                            width={1000}
+                                            height={600}
+                                            alt='t-shirt'
+                                            className="transition duration-500 ease-in-out transform group-hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-gray-700 bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-500 ease-in-out"></div>
+                                    </div>
+                                    <div className="heading5 text-center absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-60 text-white transition duration-500 ease-in-out">
+                                        Printed
+                                    </div>
                                 </div>
-                                <div className="collection-name heading5 text-center sm:bottom-8 bottom-4 lg:w-[200px] md:w-[160px] w-[100px] md:py-3 py-1.5 bg-white rounded-xl duration-500 ">Printed</div>
-                            </div>
                             </Link>
                         </SwiperSlide>
+
+                        {/* Check Shirts Slide */}
                         <SwiperSlide>
-                        <Link href={"search/check-shirts"}>
-                            <div className="collection-item block relative rounded-2xl overflow-hidden cursor-pointer" onClick={() => handleTypeClick('underwear')}>
-                                <div className="bg-img">
-                                    <Image
-                                        src={'/Check Shirts.webp'}
-                                        width={1000}
-                                        height={600}
-                                        alt='underwear'
-                                    />
+                            <Link href={"search/check-shirts"}>
+                                <div
+                                    className="collection-item block relative overflow-hidden cursor-pointer group"
+                                    onClick={() => handleTypeClick('underwear')}
+                                >
+                                    <div className="bg-img relative bg-gray-300">
+                                        <Image
+                                            src={'/Check Shirts.webp'}
+                                            width={1000}
+                                            height={600}
+                                            alt='underwear'
+                                            className="transition duration-500 ease-in-out transform group-hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-gray-700 bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-500 ease-in-out"></div>
+                                    </div>
+                                    <div className="heading5 text-center absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-60 text-white transition duration-500 ease-in-out">
+                                        Checks
+                                    </div>
                                 </div>
-                                <div className="collection-name heading5 text-center sm:bottom-8 bottom-4 lg:w-[200px] md:w-[160px] w-[100px] md:py-3 py-1.5 bg-white rounded-xl duration-500">Checks</div>
-                            </div>
                             </Link>
                         </SwiperSlide>
+
+                        {/* Jeans Slide */}
                         <SwiperSlide>
-                        <Link href={'search/jeans'}>
-                            <div className="collection-item block relative rounded-2xl overflow-hidden cursor-pointer" onClick={() => handleTypeClick('sets')}>
-                                <div className="bg-img">
-                                    <Image
-                                        src={'/Jeans.webp'}
-                                        width={1000}
-                                        height={600}
-                                        alt='sets'
-                                    />
+                            <Link href={'search/jeans'}>
+                                <div
+                                    className="collection-item block relative overflow-hidden cursor-pointer group"
+                                    onClick={() => handleTypeClick('sets')}
+                                >
+                                    <div className="bg-img relative bg-gray-300">
+                                        <Image
+                                            src={'/Jeans.webp'}
+                                            width={1000}
+                                            height={600}
+                                            alt='sets'
+                                            className="transition duration-500 ease-in-out transform group-hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-gray-700 bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-500 ease-in-out"></div>
+                                    </div>
+                                    <div className="heading5 text-center absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-60 text-white transition duration-500 ease-in-out">
+                                        Jeans
+                                    </div>
                                 </div>
-                                <div className="collection-name heading5 text-center sm:bottom-8 bottom-4 lg:w-[200px] md:w-[160px] w-[100px] md:py-3 py-1.5 bg-white rounded-xl duration-500">Jeans</div>
-                            </div>
-                        </Link>
+                            </Link>
                         </SwiperSlide>
+
+                        {/* Cargo Trousers Slide */}
                         <SwiperSlide>
                             <Link href={"search/cargo-trousers"}>
-                            <div className="collection-item block relative rounded-2xl overflow-hidden cursor-pointer" onClick={() => handleTypeClick('outerwear')}>
-                                <div className="bg-img">
-                                    <Image
-                                        src={'/Cargo.webp'}
-                                        width={1000}
-                                        height={600}
-                                        alt='outerwear'
-                                    />
+                                <div
+                                    className="collection-item block relative overflow-hidden cursor-pointer group"
+                                    onClick={() => handleTypeClick('outerwear')}
+                                >
+                                    <div className="bg-img relative bg-gray-300">
+                                        <Image
+                                            src={'/Cargo.webp'}
+                                            width={1000}
+                                            height={600}
+                                            alt='outerwear'
+                                            className="transition duration-500 ease-in-out transform group-hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-gray-700 bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-500 ease-in-out"></div>
+                                    </div>
+                                    <div className="heading5 text-center absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-60 text-white transition duration-500 ease-in-out">
+                                        Cargo
+                                    </div>
                                 </div>
-                                <div className="collection-name heading5 text-center sm:bottom-8 bottom-4 lg:w-[200px] md:w-[160px] w-[100px] md:py-3 py-1.5 bg-white rounded-xl duration-500">Cargo</div>
-                            </div>
                             </Link>
                         </SwiperSlide>
-                     
-                        
                     </Swiper>
                 </div>
             </div>

@@ -18,10 +18,10 @@ export default function HomePage() {
   return (
     <>
       <SliderCosmeticOne/>
-      <Carousel />
       <Collection/>
+      <Carousel />
       <Benefit props="md:py-20 py-10" />
-      {/* <Testimonial data={testimonialData} limit={6} /> */}
+    
       <Instagram/>
      
     </>

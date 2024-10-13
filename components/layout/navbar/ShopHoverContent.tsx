@@ -101,22 +101,16 @@ const ShopHoverContent: React.FC = () => {
                   alt={product.name}
                   width={250}
                   height={200}
-                  className="mb-2 object-cover bg-gray-50 rounded-lg"
+                  className="mb-2 object-cover bg-gray-300"
                 />
                 {/* Overlay Buttons */}
                 <div
                   className={`absolute bottom-0 mb-4 flex w-full transform justify-center transition-transform duration-300 ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}
                 >
-                  <div className="flex space-x-2">
-                    <button className="transform rounded-full bg-white px-4 py-2 text-xs uppercase text-black shadow-md transition-transform duration-300 hover:scale-105">
-                      Go to shop
-                    </button>
-                  </div>
+               
                 </div>
               </Link>
-              <span className="product-tag text-button-uppercase absolute left-3 top-3 z-[1] inline-block rounded-full bg-[rgb(210,239,154)] px-3 py-0.5">
-                New
-              </span>
+              
               <div className="mb-1 text-gray-700">{product.name}</div>
             </div>
           );
