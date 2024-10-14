@@ -44,9 +44,9 @@ const Footer = () => {
                                     </div>
                                     <div className="item flex flex-col basis-1/3 ">
                                         <div className="text-button-uppercase pb-3">Quick Shop</div>
-                                        <Link className='caption1 has-line-before duration-300 w-fit' href={'/search'}>Fromals</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit' href={'/search'}>Formals</Link>
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/search'}>Casuals</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/search'}>Prints</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/search'}>Printed</Link>
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/search'}>Jeans</Link>
                                     </div>
                                   
