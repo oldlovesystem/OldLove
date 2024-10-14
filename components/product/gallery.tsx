@@ -5,6 +5,7 @@ import { useProduct } from 'components/product/product-context';
 import Image from 'next/image';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useRef, useEffect, useState } from 'react';
+import Modal from './Modal'; 
 
 // Skeleton Component
 function Skeleton({ className }: { className?: string }) {
@@ -19,6 +20,7 @@ export function Gallery({ images }) {
   );
   const [selectedIndex, setSelectedIndex] = useState(0); // Index of selected image
   const [loading, setLoading] = useState(true); // Loading state
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal open state
 
   const visibleThumbnails = 5;
 
@@ -79,6 +81,9 @@ export function Gallery({ images }) {
     }
   };
 
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <form>
       <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
@@ -88,18 +93,19 @@ export function Gallery({ images }) {
         ) : (
           selectedImageUrl && (
             <Image
-              className="h-full w-full object-contain"
+              className="h-full w-full object-contain cursor-pointer" // Add cursor pointer
               fill
               sizes="(min-width: 1024px) 66vw, 100vw"
               alt="Product Image"
               src={selectedImageUrl}
               priority={true}
+              onClick={openModal} // Open modal on click
             />
           )
         )}
       </div>
 
-      {loading || images.length == 0 ? (
+      {loading || images.length === 0 ? (
         // Skeletons for thumbnails
         <div className="my-12 flex items-center justify-center">
           {[...Array(visibleThumbnails)].map((_, i) => (
@@ -138,8 +144,8 @@ export function Gallery({ images }) {
                         key={image.src}
                         onClick={() => {
                           setSelectedImageUrl(image.src);
-                          setSelectedIndex(selectedIndex + idx);
-
+                          // Prevent changing selectedIndex on thumbnail click
+                          // setSelectedIndex(selectedIndex + idx); 
                           updateSelectedVariantImage(image.src);
                         }}
                         aria-label="Select product image"
@@ -170,6 +176,11 @@ export function Gallery({ images }) {
           </div>
         )
       )}
+      <Modal
+        isOpen={isModalOpen}
+        imageUrl={selectedImageUrl}
+        onClose={closeModal}
+      />
     </form>
   );
 }

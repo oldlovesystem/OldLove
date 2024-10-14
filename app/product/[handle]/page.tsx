@@ -109,34 +109,7 @@ export default async function ProductPage({ params }: { params: { handle: string
             </Suspense>
           </div>
         </div>
-        <div className="flex justify-center">
-          <div className="mt-6 grid grid-cols-2 gap-[30px] md:mt-10 lg:grid-cols-3">
-            <div className="item text-center">
-              <div className="icon-delivery-truck text-4xl"></div>
-              <div className="heading6 mt-4">Shipping Faster</div>
-              <div className="text-secondary mt-2">
-                Use on walls, furniture, doors and many more surfaces. The possibilities are
-                endless.
-              </div>
-            </div>
-            <div className="item text-center">
-              <div className="icon-guarantee text-4xl"></div>
-              <div className="heading6 mt-4">High Quality</div>
-              <div className="text-secondary mt-2">
-                Use on walls, furniture, doors and many more surfaces. The possibilities are
-                endless.
-              </div>
-            </div>
-            <div className="item text-center">
-              <div className="icon-leaves-compatible text-4xl"></div>
-              <div className="heading6 mt-4">Highly Compatible</div>
-              <div className="text-secondary mt-2">
-                Use on walls, furniture, doors and many more surfaces. The possibilities are
-                endless.
-              </div>
-            </div>
-          </div>
-        </div>
+      
 
         <RelatedProducts id={product.id} />
       </div>
@@ -151,14 +124,14 @@ async function RelatedProducts({ id }: { id: string }) {
 
   return (
     <div>
-      <h2 className="mb-5 mt-5 max-w-full text-center text-4xl font-bold">Related Products</h2>
+      <h2 className="mb-10 mt-5 max-w-full text-center text-4xl font-thin logofont">Related Products</h2>
       <div className="tab-content">
         {relatedProducts ? (
           <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
             {relatedProducts.map((product) => (
               <li key={product.handle} className="relative">
                 <Link href={`/product/${product.handle}`} className="relative block h-full w-full">
-                  <div className="relative h-[50vh] w-full overflow-hidden md:h-[60vh]">
+                  <div className="relative  overflow-hidden  h-[40vh] mt-4 ml-0  md:h-[40vh] w-[90%] lg:h-[50vh]">
                     <GridTileImage
                       alt={product.title}
                       label={{
