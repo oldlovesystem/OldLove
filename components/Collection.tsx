@@ -77,7 +77,7 @@ const Collection = () => {
                                 >
                                     <div className="bg-img relative bg-gray-300">
                                         <Image
-                                            src={'/4M6A9532.JPG'}
+                                            src={'/4M6A9532.webp'}
                                             width={1000}
                                             height={600}
                                             alt='top'
