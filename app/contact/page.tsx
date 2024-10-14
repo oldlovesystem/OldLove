@@ -1,63 +1,50 @@
-'use client'
-import React from 'react'
+'use client';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Breadcrumb from 'components/Breadcrumb';
 
 const ContactUs = () => {
     return (
-        <>  <div id="header" className='relative w-full'>
-        <Breadcrumb heading='Contact Us' subHeading='About Us' />
-   </div>
+        <>
+            <div id="header" className='relative w-full'>
+                <Breadcrumb heading='Contact Us' subHeading='About Us' />
+            </div>
 
-            <div className='contact-us md:py-20 py-10 '>
+            <div className='contact-us md:py-20 py-10 flex items-center justify-center'>
                 <div className="container">
-                    <div className="flex justify-between max-lg:flex-col gap-y-10">
+                    <div className="flex justify-center max-lg:flex-col gap-y-10">
                         <div className="left lg:w-2/3 lg:pr-4">
-                            <div className="heading3">Drop Us A Line</div>
-                            <div className="body1 text-secondary2 mt-3">Use the form below to get in touch with the sales team</div>
+                            <div className="heading3 text-center">Drop Us A Line</div>
+                            <div className="body1 text-secondary2 mt-3 text-center">Use the form below to get in touch with the sales team</div>
                             <form className="md:mt-6 mt-4">
                                 <div className='grid sm:grid-cols-2 grid-cols-1 gap-4 gap-y-5'>
-                                    <div className="name ">
+                                    <div className="name">
                                         <input className="border-line border-gray-400 px-4 py-3 w-full rounded-lg" id="username" type="text" placeholder="Your Name *" required />
                                     </div>
                                     <div className="email">
                                         <input className="border-line px-4 border-gray-400 pt-3 pb-3 w-full rounded-lg" id="email" type="email" placeholder="Your Email *" required />
                                     </div>
                                     <div className="phone_number">
-                                        <input className="border-line px-4 border-gray-400  py-3 w-full rounded-lg" id="username" type="number" placeholder="Your Phone Number *" required />
+                                        <input className="border-line px-4 border-gray-400 py-3 w-full rounded-lg" id="phone_number" type="number" placeholder="Your Phone Number *" required />
                                     </div>
                                     <div className="order_id">
-                                        <input className="border-line px-4 border-gray-400  pt-3 pb-3 w-full rounded-lg" id="email" type="email" placeholder="Order Id *" required />
+                                        <input className="border-line px-4 border-gray-400 pt-3 pb-3 w-full rounded-lg" id="order_id" type="text" placeholder="Order Id *" required />
                                     </div>
                                     <div className="message sm:col-span-2">
                                         <textarea className="border-line px-4 border-gray-400 pt-3 pb-3 w-full rounded-lg" id="message" rows={3} placeholder="Your Message *" required />
                                     </div>
                                 </div>
-                                <div className="block-button md:mt-6 mt-4">
+                                <div className="block-button md:mt-6 mt-4 text-center">
                                     <button className="button-main">Send message</button>
                                 </div>
                             </form>
                         </div>
-                        {/* <div className="right lg:w-1/4 lg:pl-4">
-                            <div className="item">
-                                <div className="heading4">Our Store</div>
-                                <p className="mt-3">2163 Phillips Gap Rd, West Jefferson, North Carolina, United States</p>
-                                <p className="mt-3">Phone: <span className='whitespace-nowrap'>+1 666 8888</span></p>
-                                <p className="mt-1">Email: <span className='whitespace-nowrap'>hi.avitex@gmail.com</span></p>
-                            </div>
-                            <div className="item mt-10">
-                                <div className="heading4">Open Hours</div>
-                                <p className="mt-3">Mon - Fri: <span className='whitespace-nowrap'>7:30am - 8:00pm PST</span></p>
-                                <p className="mt-3">Saturday: <span className='whitespace-nowrap'>8:00am - 6:00pm PST</span></p>
-                                <p className="mt-3">Sunday: <span className='whitespace-nowrap'>9:00am - 5:00pm PST</span></p>
-                            </div>
-                        </div> */}
                     </div>
                 </div>
             </div>
         </>
-    )
+    );
 }
 
-export default ContactUs
+export default ContactUs;

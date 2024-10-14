@@ -55,7 +55,7 @@ const SliderOne = () => {
             <Link href="/search/cargo-trousers">
               <div className="relative h-full w-full">
                 <Image
-                  src={'/b1.jpg'}
+                  src={'/bgg.jpeg'}
                   layout="fill"
                   objectFit="cover"
                   alt="bg1-1"
