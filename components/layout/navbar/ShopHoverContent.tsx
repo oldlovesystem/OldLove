@@ -4,6 +4,41 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const ShopHoverContent: React.FC = () => {
+  const products = [
+    {
+      src: '/4M6A2498.JPG',
+      name: 'Formal Shirt',
+      price: '₹499.99',
+      oldPrice: '₹599.99',
+      discount: '-17%',
+      href: '/search/formal-shirts',
+    },
+    {
+      src: '/FormalShirt.webp',
+      name: 'Classic Shirt',
+      price: '₹590.99',
+      oldPrice: '₹799.99',
+      discount: '-25%',
+      href: '/search/casual-shirts',
+    },
+    {
+      src: '/PrintedShirt.webp',
+      name: 'Printed Shirt',
+      price: '₹449.99',
+      oldPrice: '₹599.99',
+      discount: '-25%',
+      href: '/search/printed-shirts',
+    },
+    {
+      src: '/IMG_0012.JPG',
+      name: 'Casual Shirts',
+      price: '₹399.99',
+      oldPrice: '₹499.99',
+      discount: '-20%',
+      href: '/search/casual-shirts',
+    },
+  ];
+
   return (
     <div className="w-full rounded bg-white p-4 px-10 shadow-lg">
       <div className="mt-4 grid grid-cols-6 gap-4">
@@ -56,36 +91,7 @@ const ShopHoverContent: React.FC = () => {
         </div>
 
         {/* Products */}
-        {[
-          {
-            src: '/4M6A2498.JPG',
-            name: 'Formal Shirt',
-            price: '₹499.99',
-            oldPrice: '₹599.99',
-            discount: '-17%',
-          },
-          {
-            src: '/FormalShirt.webp',
-            name: 'Classic Shirt',
-            price: '₹590.99',
-            oldPrice: '₹799.99',
-            discount: '-25%',
-          },
-          {
-            src: '/PrintedShirt.webp',
-            name: 'Printed Shirt',
-            price: '₹449.99',
-            oldPrice: '₹599.99',
-            discount: '-25%',
-          },
-          {
-            src: '/IMG_0012.JPG',
-            name: ' Casual Shirts',
-            price: '₹399.99',
-            oldPrice: '₹499.99',
-            discount: '-20%',
-          },
-        ].map((product, index) => {
+        {products.map((product, index) => {
           const [isHovered, setIsHovered] = useState(false); // Manage hover state for each product
 
           return (
@@ -95,7 +101,7 @@ const ShopHoverContent: React.FC = () => {
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
-              <Link href="/search" className="group relative">
+              <Link href={product.href} className="group relative">
                 <Image
                   src={product.src}
                   alt={product.name}
@@ -107,11 +113,12 @@ const ShopHoverContent: React.FC = () => {
                 <div
                   className={`absolute bottom-0 mb-4 flex w-full transform justify-center transition-transform duration-300 ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}
                 >
-               
+                  {/* Add Buy Now or other buttons here if needed */}
                 </div>
               </Link>
               
               <div className="mb-1 text-gray-700">{product.name}</div>
+
             </div>
           );
         })}
