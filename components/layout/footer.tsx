@@ -2,6 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
+import { AiOutlineFacebook } from "react-icons/ai";
+import { FaInstagram } from "react-icons/fa6";
 
 const Footer = () => {
     return (
@@ -64,16 +66,10 @@ const Footer = () => {
                                     </div>
                                     <div className="list-social flex items-center gap-6 mt-4">
                                         <Link href={'https://www.facebook.com/'} target='_blank'>
-                                            <Image src={"/facebook.png"}
-                                            alt='facebook'
-                                            width={30}
-                                            height={30}/>
+                                        <AiOutlineFacebook  className='text-3xl'/>
                                         </Link>
                                         <Link href={'https://www.instagram.com/'} target='_blank'>
-                                        <Image src={"/instagram.png"}
-                                            alt='facebook'
-                                            width={30}
-                                            height={30}/>
+                                        <FaInstagram  className='text-2xl'/>
                                         </Link>
 
                                     </div>

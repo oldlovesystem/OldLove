@@ -7,7 +7,7 @@ import Testimonial from 'components/Testimonial';
 import Instagram from 'components/Instagram';
 
 export const metadata = {
-  description: 'High-performance ecommerce store built with Next.js, Vercel, and Shopify.',
+  description: "OldLove is a distinguished men's clothing store, curating timeless elegance and sophistication. Each piece is crafted to embody the essence of refined style, catering to the modern gentleman who values quality and heritage in his wardrobe.",
   openGraph: {
     type: 'website'
   }
