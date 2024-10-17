@@ -96,16 +96,16 @@ export function Navbar() {
       <nav
         className={`header-menu style-one flex items-center justify-between p-4 lg:px-6 ${fixedHeader ? 'left-0 right-0 top-0 z-10' : ''} ${backgroundColor}`}
       >
-        <div className="block flex-none md:hidden">
+        <div className="block flex-none md:hidden mr-1">
           <Suspense fallback={null}>
             <MobileMenu menu={menu} />
           </Suspense>
         </div>
 
         <div className="flex w-full items-center justify-between">
-          <div className="ml-12 flex w-auto items-center">
+          <div className="ml-2 xs:ml-3 flex w-auto items-center">
             <Link href="/" prefetch={true} className="flex items-center justify-center">
-              <Image src="/updatedlog.svg" alt="logo" width={60} height={30}  className='md:ml-10' />
+              <Image src="/updatedlog.svg" alt="logo" width={50} height={30}  className='md:ml-10' />
               <div className="logofont  ml-2 text-3xl font-bold uppercase text-black">
                 OldLove
               </div>
@@ -132,7 +132,7 @@ export function Navbar() {
             </ul>
           </div>
 
-          <div className="relative flex items-center space-x-4">
+          <div className="relative flex items-center space-x-4 ml-3">
             <CartModal />
 
             <div

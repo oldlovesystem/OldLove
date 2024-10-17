@@ -24,73 +24,8 @@ export default function SearchLayout({ children }: SearchLayoutProps) {
           <div className="flex-none">
             <FilterList list={sorting} title="Sort by" />
           </div>
-          <div className="filter-size border-line mt-8 border-b pb-8">
-            <div className="heading6">Size</div>
-            <div className="list-size mt-4 flex flex-wrap items-center gap-3 gap-y-4">
-              {['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL'].map((item, index) => (
-                <div
-                  key={index}
-                  className={`size-item text-button border-line flex h-[44px] w-[44px] items-center justify-center rounded-full border`}
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="filter-color border-line mt-8 border-b pb-8">
-            <div className="heading6">colors</div>
-            <div className="list-color mt-4 flex flex-wrap items-center gap-3 gap-y-4">
-              <div
-                className={`color-item border-line flex items-center justify-center gap-2 rounded-full border px-3 py-[5px]`}
-                // onClick={() => handleColor('pink')}
-              >
-                <div className="color h-5 w-5 rounded-full bg-[#F4C5BF]"></div>
-                <div className="caption1 capitalize">pink</div>
-              </div>
-              <div
-                className={`color-item border-line flex items-center justify-center gap-2 rounded-full border px-3 py-[5px]`}
-                // onClick={() => handleColor('red')}
-              >
-                <div className="color bg-red h-5 w-5 rounded-full"></div>
-                <div className="caption1 capitalize">red</div>
-              </div>
-              <div
-                className={`color-item border-line flex items-center justify-center gap-2 rounded-full border px-3 py-[5px]`}
-                // onClick={() => handleColor('green')}
-              >
-                <div className="color h-5 w-5 rounded-full bg-green-300"></div>
-                <div className="caption1 capitalize">green</div>
-              </div>
-              <div
-                className={`color-item border-line flex items-center justify-center gap-2 rounded-full border px-3 py-[5px]`}
-                // onClick={() => handleColor('yellow')}
-              >
-                <div className="color bg-yellow h-5 w-5 rounded-full"></div>
-                <div className="caption1 capitalize">yellow</div>
-              </div>
-              <div
-                className={`color-item border-line flex items-center justify-center gap-2 rounded-full border px-3 py-[5px]`}
-                // onClick={() => handleColor('purple')}
-              >
-                <div className="color bg-purple h-5 w-5 rounded-full"></div>
-                <div className="caption1 capitalize">purple</div>
-              </div>
-              <div
-                className={`color-item border-line flex items-center justify-center gap-2 rounded-full border px-3 py-[5px]`}
-                // onClick={() => handleColor('black')}
-              >
-                <div className="color h-5 w-5 rounded-full bg-black"></div>
-                <div className="caption1 capitalize">black</div>
-              </div>
-              <div
-                className={`color-item border-line flex items-center justify-center gap-2 rounded-full border px-3 py-[5px]`}
-                // onClick={() => handleColor('white')}
-              >
-                <div className="color h-5 w-5 rounded-full bg-[#F6EFDD]"></div>
-                <div className="caption1 capitalize">white</div>
-              </div>
-            </div>
-          </div>
+         
+
         </div>
 
         <div className="order-last min-h-screen flex-grow md:order-none md:w-[80%] lg:py-0">
