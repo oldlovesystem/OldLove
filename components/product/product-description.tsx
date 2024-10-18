@@ -91,36 +91,25 @@ export function ProductDescription({ product }: { product: Product }) {
   return (
     <>
       <div className="mb-6 flex flex-col border-b pb-6">
-        <p className="mb-2 uppercase text-gray-400 logofont">{product.tags}</p>
-        <h1 className="mb-2 text-2xl font-medium  logofont">{product.title}</h1>
-        <div className="mr-auto flex w-auto items-center rounded-full p-2 text-sm text-black">
-          <span className="text-2xl font-semibold  logofont">
-            ₹{product.priceRange.maxVariantPrice.amount}{' '}
-            {product.priceRange.maxVariantPrice.currencyCode}
-          </span>
-
-          <div className="mx-2 ml-2 h-6 border-l border-gray-300"></div>
-
-          <span className="ml-2 text-gray-400 line-through">
-            ₹{(+product.priceRange.maxVariantPrice.amount + 100).toFixed(2)}{' '}
-            {product.priceRange.maxVariantPrice.currencyCode}
+        <p className="logofont mb-2 uppercase text-gray-400">{product.tags}</p>
+        <h1 className="logofont mb-2 text-2xl font-medium">{product.title}</h1>
+        <div className="mr-auto flex w-auto items-center rounded-full text-sm text-black">
+          <span className="logofont text-2xl font-semibold">
+            INR {Math.round(Number(product.priceRange.maxVariantPrice.amount))}{' '}
           </span>
         </div>
-        
+
         <div className="mt-4 text-sm font-bold uppercase text-gray-600"></div>
-        
+
         {product.descriptionHtml ? (
           <div>
             <div
-              className={`mb-6 text-sm text-gray-600  logofont ${isDescriptionExpanded ? '' : 'truncated'}`}
+              className={`logofont mb-6 text-sm text-gray-600 ${isDescriptionExpanded ? '' : 'truncated'}`}
               style={isDescriptionExpanded ? {} : truncatedStyle}
             >
               <Prose html={product.descriptionHtml} />
             </div>
-            <button
-              onClick={toggleDescription}
-              className="text-blue-500 hover:underline mb-2"
-            >
+            <button onClick={toggleDescription} className="mb-2 text-blue-500 hover:underline">
               {isDescriptionExpanded ? 'See Less' : 'See More'}
             </button>
           </div>
@@ -130,14 +119,14 @@ export function ProductDescription({ product }: { product: Product }) {
       <VariantSelector options={product.options} variants={product.variants} />
       <AddToCart product={product} />
 
-      <div className="more-info mt-6  ">
+      <div className="more-info mt-6">
         {dropdownItems.map((item, index) => (
           <div key={index} className="border-b border-gray-300">
             <div
               className="flex cursor-pointer items-center justify-between py-2"
               onClick={() => toggleDropdown(index)}
             >
-              <span className="text-lg py-2">{item.title}</span>
+              <span className="py-2 text-lg">{item.title}</span>
               <span className="text-lg">{openDropdown === index ? '-' : '+'}</span>
             </div>
             {openDropdown === index && (

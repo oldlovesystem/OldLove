@@ -3,7 +3,6 @@
 import { ProductTitle } from 'components/grid/producttitel';
 import { useProduct } from 'components/product/product-context';
 import Image from 'next/image';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useRef, useEffect, useState } from 'react';
 import Modal from './Modal'; 
 
@@ -58,29 +57,6 @@ export function Gallery({ images }) {
     }
   }, [selectedVariantImage, selectedImageUrl]);
 
-  const scrollThumbnails = (direction: 'left' | 'right') => {
-    const totalImages = images.length;
-
-    if (direction === 'left') {
-      setSelectedIndex((prevIndex) => (prevIndex === 0 ? totalImages - 1 : prevIndex - 1));
-    } else if (direction === 'right') {
-      setSelectedIndex((prevIndex) => (prevIndex === totalImages - 1 ? 0 : prevIndex + 1));
-    }
-
-    if (thumbnailRef.current) {
-      const scrollAmount =
-        direction === 'left'
-          ? -thumbnailRef.current.clientWidth / visibleThumbnails
-          : thumbnailRef.current.clientWidth / visibleThumbnails;
-
-      thumbnailRef.current.scrollBy({
-        top: 0,
-        left: scrollAmount,
-        behavior: 'smooth'
-      });
-    }
-  };
-
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
@@ -93,7 +69,7 @@ export function Gallery({ images }) {
         ) : (
           selectedImageUrl && (
             <Image
-              className="h-full w-full object-contain cursor-pointer" // Add cursor pointer
+              className="h-full w-full object-contain cursor-pointer bg-gray-300" // Add cursor pointer
               fill
               sizes="(min-width: 1024px) 66vw, 100vw"
               alt="Product Image"
@@ -115,14 +91,6 @@ export function Gallery({ images }) {
       ) : (
         images.length > 1 && (
           <div className="my-12 flex items-center justify-center">
-            <button
-              type="button"
-              onClick={() => scrollThumbnails('left')}
-              aria-label="Scroll left"
-              className="p-2"
-            >
-              <FaChevronLeft />
-            </button>
             <ul
               ref={thumbnailRef}
               className="flex items-center justify-center gap-2 overflow-x-auto py-1 lg:mb-0"
@@ -151,7 +119,7 @@ export function Gallery({ images }) {
                         aria-label="Select product image"
                         className={`h-30 w-25 ${isActive ? 'border border-blue-500' : ''}`}
                       >
-                        <div className="h-full w-full">
+                        <div className="h-full w-full bg-gray-300">
                           <ProductTitle
                             alt={image.altText}
                             src={image.src}
@@ -165,14 +133,6 @@ export function Gallery({ images }) {
                   );
                 })}
             </ul>
-            <button
-              type="button"
-              onClick={() => scrollThumbnails('right')}
-              aria-label="Scroll right"
-              className="p-2"
-            >
-              <FaChevronRight />
-            </button>
           </div>
         )
       )}
