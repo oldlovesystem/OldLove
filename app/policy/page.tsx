@@ -13,7 +13,7 @@ const PolicyPage = () => {
       content: (
         <>
           <p className="mb-4">
-            Welcome to OLDLOVE's delivery policy. We are committed to providing you with the best
+            Welcome to OldLove (Nandi International)'s delivery policy. We are committed to providing you with the best
             shipping experience. We ensure prompt delivery, secure packaging, and transparent costs.
             Our aim is to build trust and confidence, so you can shop with peace of mind.
           </p>
@@ -36,7 +36,7 @@ const PolicyPage = () => {
       content: (
         <>
           <p className="mb-4">
-            At OLDLOVE, we prioritize customer satisfaction and make every effort to offer a
+            At OldLove (Nandi International), we prioritize customer satisfaction and make every effort to offer a
             hassle-free return policy, ensuring that you are fully satisfied with your purchase. Our
             goal is to establish trust with our customers and provide them with the confidence to
             shop with us.
@@ -67,7 +67,7 @@ const PolicyPage = () => {
       content: (
         <>
           <p className="mb-4">
-            At OLDLOVE, we want you to be delighted with your purchase. If for any reason you are
+            At OldLove (Nandi International), we want you to be delighted with your purchase. If for any reason you are
             not satisfied, our hassle-free exchange policy is here to ensure your complete
             satisfaction. We aim to build trust and reassure you that you can shop with confidence.
           </p>
@@ -91,7 +91,7 @@ const PolicyPage = () => {
       content: (
         <>
           <p className="mb-4">
-            At OLDLOVE, we respect your privacy and are committed to protecting your personal
+            At OldLove (Nandi International), we respect your privacy and are committed to protecting your personal
             information. This policy outlines how we collect, use, and safeguard your data.
           </p>
           <ul className="list-disc pl-6">
@@ -126,13 +126,13 @@ const PolicyPage = () => {
             Application” or “App” or “Us” or “We” or "Social Media Platforms"), which is operated
             and owned by Nandi International, marketed and/or managed by Nandi International. It is
             Old Love’s policy to comply with general laws for protecting user information and bank
-            details shared for the purpose of availing Old Love services. This regulates the
+            details shared for the purpose of availing Old Love (Nandi International) services. This regulates the
             processing of information relating to you and grants you various rights in respect of
             your personal data. Any Images, Data or Files Uploaded on the website must not be used
             without the consent of the authorized personnel of the brand. The Web Site contains
             links to other websites over which we have no control. Old Love is not responsible for
             the privacy policies or practices of other web sites to which you choose to link from
-            oldlove.in. We encourage you to review the privacy policies of those other web sites so
+            OldLove (Nandi International).in. We encourage you to review the privacy policies of those other web sites so
             you can understand how they collect, use and share your information.
           </p>
         </>
