@@ -1,6 +1,7 @@
 "use client"
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import Modal from './Modal'; 
 
 // Skeleton Component
 function Skeleton({ className }: { className?: string }) {
@@ -11,6 +12,7 @@ export function Gallery({ images }) {
   const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(images[0]?.src || null);
   const [loading, setLoading] = useState(true); // Loading state for all images
   const [imageError, setImageError] = useState(false); // Error state for images
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   const visibleThumbnails = 5;
 
@@ -33,10 +35,11 @@ export function Gallery({ images }) {
         setImageError(true); // Handle error if any image fails to load
       });
   }, [images]);
-
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   return (
     <form>
-      <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
+      <div className="relative aspect-square h-full max-h-[550px] lg:w-11/12 w-full overflow-hidden">
         {loading || !selectedImageUrl || imageError ? (
           <Skeleton className="h-full w-full object-contain" />
         ) : (
@@ -47,6 +50,7 @@ export function Gallery({ images }) {
             alt="Product Image"
             src={selectedImageUrl}
             priority={true}
+            onClick={openModal}
           />
         )}
       </div>
@@ -59,7 +63,7 @@ export function Gallery({ images }) {
         </div>
       ) : (
         images.length > 1 && (
-          <div className="my-12 flex items-center justify-center">
+          <div className="my-12 flex items-center justify-center lg:mr-14">
             <ul className="flex items-center justify-center gap-2 overflow-x-auto py-1 lg:mb-0">
               {images.slice(0, visibleThumbnails).map((image, idx) => {
                 const isActive = image.src === selectedImageUrl;
@@ -94,6 +98,11 @@ export function Gallery({ images }) {
           </div>
         )
       )}
+      <Modal
+        isOpen={isModalOpen}
+        imageUrl={selectedImageUrl}
+        onClose={closeModal}
+      />
     </form>
   );
 }

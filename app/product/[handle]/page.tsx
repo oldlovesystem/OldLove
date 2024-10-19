@@ -86,11 +86,11 @@ export default async function ProductPage({ params }: { params: { handle: string
       />
       <Breadcrumbs productName={product.title} />
       <div className="mx-auto max-w-screen-2xl border-neutral-200 bg-white px-4">
-        <div className="flex flex-col bg-white p-8 md:p-12 lg:flex-row lg:gap-8">
+        <div className="flex flex-col bg-white p-8 md:p-12 lg:flex-row lg:gap-10 gap-10">
           <div className="h-full w-full lg:basis-1/2">
             <Suspense
               fallback={
-                <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden" />
+                <div className="relative aspect-square h-full max-h-[550px] w-11/12 overflow-hidden " />
               }
             >
               <Gallery

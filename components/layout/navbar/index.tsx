@@ -141,7 +141,7 @@ export function Navbar() {
               onMouseLeave={() => setProfileHover(false)}
             >
               <button onClick={handleProfileClick}>
-                <Icon.User className="text-2xl mt-1" />
+                <Icon.User className="text-2xl" />
               </button>
 
               {profileHover && (
@@ -171,7 +171,7 @@ export function Navbar() {
               )}
             </div>
 
-            <div className="hidden md:flex -mt-1">
+            <div className="hidden md:flex mb-2">
               <SpotlightSearch color="white" />
             </div>
           </div>

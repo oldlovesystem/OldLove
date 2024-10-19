@@ -15,7 +15,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, imageUrl, onClose }) => {
         <img src={imageUrl} alt="Enlarged Product" className="max-w-full max-h-screen bg-gray-200" />
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 text-black text-5xl"
+          className="absolute top-2 right-2 text-black font-thin text-5xl"
         >
           &times;
         </button>
