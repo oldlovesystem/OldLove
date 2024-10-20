@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import Modal from './Modal';
@@ -15,11 +15,13 @@ export function Gallery({ images }: { images: Array<{ src: string; altText?: str
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const visibleThumbnails = 5;
+  const [touchStartX, setTouchStartX] = useState(0);
+  const [touchEndX, setTouchEndX] = useState(0);
 
   useEffect(() => {
     const imageLoadPromises = images.slice(0, visibleThumbnails).map((image) =>
       new Promise<void>((resolve, reject) => {
-        const img = new window.Image(); // Use the global Image constructor
+        const img = new window.Image();
         img.src = image.src;
         img.onload = () => resolve();
         img.onerror = () => reject();
@@ -50,11 +52,30 @@ export function Gallery({ images }: { images: Array<{ src: string; altText?: str
     setSelectedImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    setTouchEndX(e.changedTouches[0].clientX);
+    handleSwipe();
+  };
+
+  const handleSwipe = () => {
+    if (touchStartX - touchEndX > 50) {
+      goToNextImage(); // Swipe left
+    } else if (touchEndX - touchStartX > 50) {
+      goToPreviousImage(); // Swipe right
+    }
+  };
+
   return (
     <div>
       <div
         className="relative aspect-square h-full max-h-[550px] lg:w-11/12 w-full overflow-hidden"
         onClick={() => openModal(selectedImageIndex)}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         {loading || imageError ? (
           <Skeleton className="h-full w-full object-contain" />
