@@ -8,7 +8,7 @@ const Footer = () => {
     return (
         <>
             <div id="footer" className='footer'>
-                <div className="footer-main bg-white mt-10 logofont">
+                <div className="footer-main bg-white mt-10 ">
                     <div className="container">
                         <hr className='mt-5 '></hr>
                         <div className="content-footer py-[60px] flex justify-between flex-wrap gap-y-8">

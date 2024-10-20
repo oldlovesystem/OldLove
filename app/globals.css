@@ -12,9 +12,6 @@
     color-scheme: light;
   }
 }
-.logofont { 
-  font-family: 'font-name';
- }
 
 @supports (font: -apple-system-body) and (-webkit-appearance: none) {
   img[loading='lazy'] {
@@ -51,6 +48,73 @@ button {
   transform: translateY(0);
   pointer-events: auto; /* Enable interaction when visible */
 }
+/* Base styles */
+.logofont {
+  font-family: 'font-name';
+}
+
+.logo{
+  font-family: 'font-name';
+}
+
+@media (min-width: 322px) and (max-width: 400px) {
+  .logo {
+    margin-left: 3.5rem; /* adjust for tablets */
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+@media (min-width: 401px) and (max-width: 481px) {
+  .logo {
+    margin-left: 5.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+/* 481px to 768px (tablets, small devices) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .logo {
+    margin-left: 1.5rem; 
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .logo {
+    margin-left: 2rem; /* closer to the base value */
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+/* 1025px to 1440px (medium to large laptops, desktops) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .logo {
+    margin-left: 2.5rem; /* slightly wider margin */
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* 1441px to 1920px (larger screens, desktops) */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .logo {
+    margin-left: 3rem; /* larger margin for bigger screens */
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+}
+
+/* 1921px to 4K (ultra-wide or 4K displays) */
+@media (min-width: 1921px) and (max-width: 3840px) {
+  .logo {
+    margin-left: 4rem; /* even larger for 4K displays */
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
 
 @media (max-width: 340px) {
   .text-custom {
@@ -72,8 +136,51 @@ button {
   }
 }
 
-@media (min-width: 426px) {
+@media (min-width: 426px) and (max-width:1400) {
   .text-custom {
     font-size: 14px;
   }
 }
+
+@media  (min-width:1400) {
+  .text-custom {
+    font-size: 16px;
+  }
+}
+
+.slogan-wrapper {
+  display: inline-block;
+  animation: scroll 15s linear infinite;
+  white-space: nowrap;
+}
+
+@keyframes scroll {
+  0% {
+      transform: translateX(100%);
+  }
+  100% {
+      transform: translateX(-100%);
+  }
+}
+
+/* Full width for mobile */
+@media (max-width: 768px) {
+  .text-center {
+      width: 100%; /* Make the slogan wrapper take full width on mobile */
+  }
+  .slogan-wrapper {
+      width: 100%;
+      animation: scroll-mobile 10s linear infinite; /* Optional: faster scroll speed for mobile */
+  }
+}
+
+/* Mobile-specific scrolling adjustment */
+@keyframes scroll-mobile {
+  0% {
+      transform: translateX(100%);
+  }
+  100% {
+      transform: translateX(-100%);
+  }
+}
+

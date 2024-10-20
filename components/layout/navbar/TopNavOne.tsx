@@ -59,8 +59,10 @@ const TopNavOne: React.FC<Props> = ({ props, slogan }) => {
                             <Icon.CaretDown size={12} color='#fff' />
                         </div>
                     </div>
-                    <div className="text-center text-button-uppercase text-white flex items-center">
-                        {slogan}
+                    <div className="text-center text-button-uppercase text-white flex items-center overflow-hidden">
+                        <div className="slogan-wrapper whitespace-nowrap">
+                            {slogan}
+                        </div>
                     </div>
                     <div className="right-content flex items-center gap-5 max-md:hidden">
                         <Link href={'https://www.facebook.com/'} target='_blank'>

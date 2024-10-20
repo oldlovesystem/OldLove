@@ -54,7 +54,7 @@ export default async function CategoryPage({
           <p className="py-3 text-lg">{`No products found${searchValue ? ` for "${searchValue}"` : ''} in this collection`}</p>
         ) : (
           <div className=''>
-          <Grid className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 ml-2 mr-2 `}>
+          <Grid className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-2 ml-2 mr-2 `}>
             <ProductGridItems products={products} />
           </Grid>
           </div>
