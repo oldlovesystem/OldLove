@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import Modal from './Modal';
@@ -8,19 +8,18 @@ function Skeleton({ className }: { className?: string }) {
   return <div className={`animate-pulse bg-gray-300 ${className}`} />;
 }
 
-export function Gallery({ images }) {
-  const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(images[0]?.src || null);
+export function Gallery({ images }: { images: Array<{ src: string; altText?: string }> }) {
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const visibleThumbnails = 5;
-  let startX: number;
 
   useEffect(() => {
     const imageLoadPromises = images.slice(0, visibleThumbnails).map((image) =>
       new Promise<void>((resolve, reject) => {
-        const img = document.createElement('img');
+        const img = new window.Image(); // Use the global Image constructor
         img.src = image.src;
         img.onload = () => resolve();
         img.onerror = () => reject();
@@ -36,51 +35,28 @@ export function Gallery({ images }) {
       });
   }, [images]);
 
-  const openModal = () => setIsModalOpen(true);
+  const openModal = (index: number) => {
+    setSelectedImageIndex(index);
+    setIsModalOpen(true);
+  };
+
   const closeModal = () => setIsModalOpen(false);
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    startX = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    const endX = e.changedTouches[0].clientX;
-    const deltaX = startX - endX;
-
-    if (Math.abs(deltaX) > 50) {
-      // Detect swipe direction
-      if (deltaX > 0) {
-        // Swipe left
-        goToNextImage();
-      } else {
-        // Swipe right
-        goToPreviousImage();
-      }
-    }
-  };
-
   const goToNextImage = () => {
-    const currentIndex = images.findIndex(image => image.src === selectedImageUrl);
-    if (currentIndex < images.length - 1) {
-      setSelectedImageUrl(images[currentIndex + 1].src);
-    }
+    setSelectedImageIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
   const goToPreviousImage = () => {
-    const currentIndex = images.findIndex(image => image.src === selectedImageUrl);
-    if (currentIndex > 0) {
-      setSelectedImageUrl(images[currentIndex - 1].src);
-    }
+    setSelectedImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
   };
 
   return (
-    <form>
+    <div>
       <div
         className="relative aspect-square h-full max-h-[550px] lg:w-11/12 w-full overflow-hidden"
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
+        onClick={() => openModal(selectedImageIndex)}
       >
-        {loading || !selectedImageUrl || imageError ? (
+        {loading || imageError ? (
           <Skeleton className="h-full w-full object-contain" />
         ) : (
           <Image
@@ -88,9 +64,8 @@ export function Gallery({ images }) {
             fill
             sizes="(min-width: 1024px) 66vw, 100vw"
             alt="Product Image"
-            src={selectedImageUrl}
+            src={images[selectedImageIndex]?.src}
             priority={true}
-            onClick={openModal}
           />
         )}
       </div>
@@ -105,44 +80,38 @@ export function Gallery({ images }) {
         images.length > 1 && (
           <div className="my-12 flex items-center justify-center lg:mr-14">
             <ul className="flex items-center justify-center gap-2 overflow-x-auto py-1 lg:mb-0">
-              {images.slice(0, visibleThumbnails).map((image, idx) => {
-                const isActive = image.src === selectedImageUrl;
-
-                return (
-                  image.src && (
-                    <button
-                      type="button"
-                      key={image.src}
-                      onClick={() => {
-                        setImageError(false);
-                        setSelectedImageUrl(image.src);
-                      }}
-                      aria-label="Select product image"
-                      className={`h-30 w-25 ${isActive ? 'border border-blue-500' : ''}`}
-                    >
-                      <div className="h-full w-full bg-gray-300">
-                        <Image
-                          alt={image.altText}
-                          src={image.src}
-                          width={100}
-                          height={100}
-                          className="object-contain"
-                          onError={() => setImageError(true)}
-                        />
-                      </div>
-                    </button>
-                  )
-                );
-              })}
+              {images.slice(0, visibleThumbnails).map((image, idx) => (
+                <button
+                  type="button"
+                  key={image.src}
+                  onClick={() => openModal(idx)}
+                  aria-label="Select product image"
+                  className={`h-30 w-25 ${idx === selectedImageIndex ? 'border border-blue-500' : ''}`}
+                >
+                  <div className="h-full w-full bg-gray-300">
+                    <Image
+                      alt={image.altText}
+                      src={image.src}
+                      width={100}
+                      height={100}
+                      className="object-contain"
+                      onError={() => setImageError(true)}
+                    />
+                  </div>
+                </button>
+              ))}
             </ul>
           </div>
         )
       )}
       <Modal
         isOpen={isModalOpen}
-        imageUrl={selectedImageUrl}
+        images={images}
+        selectedIndex={selectedImageIndex}
         onClose={closeModal}
+        onNext={goToNextImage}
+        onPrevious={goToPreviousImage}
       />
-    </form>
+    </div>
   );
 }
