@@ -26,7 +26,7 @@ const Label = ({
       })}
     >
       <div className="logo-font text-black lg:text-xs text-xs">
-        <h3 className="text-xs">{title}</h3>
+        <h3 className="text-[7tpx] mt-2 md:text-xs">{title}</h3>
         <div className="product-price-block flex items-center gap-2 flex-wrap mt-1 duration-300 relative z-[1]">
           <div className="text-xs">
             INR {formatAmountInINR(numericAmount)}

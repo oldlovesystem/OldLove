@@ -106,7 +106,7 @@ export function Navbar() {
           <div className="ml-2 xs:ml-3 flex w-auto items-center">
             <Link href="/" prefetch={true} className="flex items-center justify-center">
               {/* <Image src="/updatedlog.svg" alt="logo" width={50} height={30}  className='md:ml-10' /> */}
-              <div className="logofont ml-14 lg:ml-2  text-3xl font-bold uppercase text-black">
+              <div className="logofont ml-9 px-7 lg:ml-2  text-3xl font-bold uppercase text-black">
                 OldLove
               </div>
             </Link>
