@@ -54,13 +54,14 @@ button {
 
 @media (max-width: 340px) {
   .text-custom {
-    font-size: 14px; /* or whatever size you need */
+    font-size: 14px; 
+    font-weight: 100;
   }
 }
 @media (min-width: 341px) and (max-width: 375px) {
   .text-custom {
     font-size: 10px;
-    font-weight: 100;
+ 
   }
 }
 
