@@ -18,11 +18,11 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ products }) => {
 
       <div className='mt-10'>
         {displayProducts.length ? (
-          <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 ml-4 mr-4 ">
+          <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 ml-2 mr-2 ">
             {displayProducts.map((product) => (
               <li key={product.handle} className="relative">
                 <Link href={`/product/${product.handle}`} className="relative h-full w-full block">
-                  <div className="w-full h-[35vh] md:h-[50vh] relative overflow-hidden">
+                  <div className="w-full h-[40vh] md:h-[50vh] relative overflow-hidden">
                     <GridTileImage
                       alt={product.title}
                       label={{

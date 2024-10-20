@@ -35,7 +35,7 @@ export function GridTileImage({
           'group  bg-gray-200  flex h-full w-full items-center justify-center overflow-hidden hover:border-blue-600',
           {
             relative: label,
-            'border-2 border-blue-600': active,
+            'border-1 border-blue-600': active,
           }
         )}
       >

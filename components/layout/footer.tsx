@@ -18,12 +18,10 @@ const Footer = () => {
                                 <div className='flex gap-3 mt-3'>
                                     <div className="flex flex-col ">
                                         <span className="text-button">Mail:</span>
-                                        <span className="text-button mt-3">WhatsApp</span>
                                         <span className="text-button mt-3">Instagram</span>
                                     </div>
                                     <div className="flex flex-col ">
                                         <span>support@oldlove.in</span>
-                                        <span className='mt-3'>+91 7996777369</span>
                                         <Link href="https://www.instagram.com/oldlove.in/?igsh=MTE4bHNuZXk1d2Y3aA%3D%3D" className='mt-3'>
                                             <span className='mt-3 text-blue-500'>OldLove</span>
                                         </Link>

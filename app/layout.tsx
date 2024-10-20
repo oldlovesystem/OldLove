@@ -55,7 +55,6 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <main className="pt-[110px] md:pt-[120px]"> {/* Adjust the padding to fit the fixed components */}
           {children}
           <Toaster closeButton />
-          <WhatsAppIcon /> 
         </main>
         <Footer />
       </CartProvider>

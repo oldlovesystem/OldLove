@@ -1,7 +1,7 @@
-"use client"
+"use client";
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import Modal from './Modal'; 
+import Modal from './Modal';
 
 // Skeleton Component
 function Skeleton({ className }: { className?: string }) {
@@ -10,17 +10,17 @@ function Skeleton({ className }: { className?: string }) {
 
 export function Gallery({ images }) {
   const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(images[0]?.src || null);
-  const [loading, setLoading] = useState(true); // Loading state for all images
-  const [imageError, setImageError] = useState(false); // Error state for images
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [loading, setLoading] = useState(true);
+  const [imageError, setImageError] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const visibleThumbnails = 5;
+  let startX: number;
 
   useEffect(() => {
-    // Load all images and wait for all to load before setting loading to false
     const imageLoadPromises = images.slice(0, visibleThumbnails).map((image) =>
       new Promise<void>((resolve, reject) => {
-        const img = document.createElement('img'); // Use HTMLImageElement
+        const img = document.createElement('img');
         img.src = image.src;
         img.onload = () => resolve();
         img.onerror = () => reject();
@@ -29,17 +29,57 @@ export function Gallery({ images }) {
 
     Promise.all(imageLoadPromises)
       .then(() => {
-        setLoading(false); // All images loaded
+        setLoading(false);
       })
       .catch(() => {
-        setImageError(true); // Handle error if any image fails to load
+        setImageError(true);
       });
   }, [images]);
+
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    startX = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const endX = e.changedTouches[0].clientX;
+    const deltaX = startX - endX;
+
+    if (Math.abs(deltaX) > 50) {
+      // Detect swipe direction
+      if (deltaX > 0) {
+        // Swipe left
+        goToNextImage();
+      } else {
+        // Swipe right
+        goToPreviousImage();
+      }
+    }
+  };
+
+  const goToNextImage = () => {
+    const currentIndex = images.findIndex(image => image.src === selectedImageUrl);
+    if (currentIndex < images.length - 1) {
+      setSelectedImageUrl(images[currentIndex + 1].src);
+    }
+  };
+
+  const goToPreviousImage = () => {
+    const currentIndex = images.findIndex(image => image.src === selectedImageUrl);
+    if (currentIndex > 0) {
+      setSelectedImageUrl(images[currentIndex - 1].src);
+    }
+  };
+
   return (
     <form>
-      <div className="relative aspect-square h-full max-h-[550px] lg:w-11/12 w-full overflow-hidden">
+      <div
+        className="relative aspect-square h-full max-h-[550px] lg:w-11/12 w-full overflow-hidden"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         {loading || !selectedImageUrl || imageError ? (
           <Skeleton className="h-full w-full object-contain" />
         ) : (
@@ -74,7 +114,7 @@ export function Gallery({ images }) {
                       type="button"
                       key={image.src}
                       onClick={() => {
-                        setImageError(false); // Reset image error state
+                        setImageError(false);
                         setSelectedImageUrl(image.src);
                       }}
                       aria-label="Select product image"
@@ -87,7 +127,7 @@ export function Gallery({ images }) {
                           width={100}
                           height={100}
                           className="object-contain"
-                          onError={() => setImageError(true)} // Handle error in thumbnail as well
+                          onError={() => setImageError(true)}
                         />
                       </div>
                     </button>
