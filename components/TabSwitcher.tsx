@@ -22,7 +22,7 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ products }) => {
             {displayProducts.map((product) => (
               <li key={product.handle} className="relative">
                 <Link href={`/product/${product.handle}`} className="relative h-full w-full inline-block">
-                  <div className="w-full h-[40vh] md:h-[50vh] lg:h-[40vh]  relative overflow-hidden">
+                <div className="w-full height-responsive relative overflow-hidden">
                     <GridTileImage
                       alt={product.title}
                       label={{

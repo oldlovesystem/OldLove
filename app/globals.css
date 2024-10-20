@@ -59,14 +59,14 @@ button {
 
 @media (min-width: 322px) and (max-width: 400px) {
   .logo {
-    margin-left: 3.5rem; /* adjust for tablets */
+    margin-left: 4.5rem; /* adjust for tablets */
     padding-left: 0.5rem;
     padding-right: 0.5rem;
   }
 }
 @media (min-width: 401px) and (max-width: 481px) {
   .logo {
-    margin-left: 5.5rem;
+    margin-left: 6.9rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
   }
@@ -122,29 +122,44 @@ button {
     font-weight: 100;
   }
 }
-@media (min-width: 341px) and (max-width: 375px) {
+@media (min-width: 341px) and (max-width: 376px) {
   .text-custom {
     font-size: 10px;
+    
  
   }
 }
 
-@media (min-width: 375px) and (max-width: 425px) {
+@media (min-width: 377px) and (max-width: 425px) {
   .text-custom {
     font-size: 10px;
 
   }
 }
 
-@media (min-width: 426px) and (max-width:1400) {
+@media (min-width: 426px) and (max-width:780) {
   .text-custom {
     font-size: 14px;
   }
 }
 
-@media  (min-width:1400) {
+@media  (min-width:900) and (max-width:1025) {
   .text-custom {
-    font-size: 16px;
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 2560px) {
+  .text-custom {
+    font-size: 25px;
+    padding-top: 2px;
+  }
+ 
+}
+@media (min-width: 1440px) {
+  .text-custom {
+    font-size: 15px;
+
   }
 }
 
@@ -184,3 +199,39 @@ button {
   }
 }
 
+
+.height-responsive {
+  height: 40vh;
+}
+
+
+@media (min-width: 768px) {
+  .height-responsive {
+      height: 50vh;
+  }
+}
+
+@media (min-width: 1000px) {
+  .height-responsive {
+      height: 50vh;
+  }
+}
+@media (min-width: 1024px) {
+  .height-responsive {
+      height: 42vh;
+  }
+}
+
+/* For extra-large screens (e.g., 2K resolution) */
+@media (min-width: 1440px) {
+  .height-responsive {
+      height: 45vh;
+  }
+}
+
+/* For 4K resolution screens */
+@media (min-width: 2560px) {
+  .height-responsive {
+      height: 35vh;
+  }
+}
