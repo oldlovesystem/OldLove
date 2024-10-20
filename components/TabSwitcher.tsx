@@ -21,7 +21,7 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ products }) => {
           <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 ml-2 mr-2 ">
             {displayProducts.map((product) => (
               <li key={product.handle} className="relative">
-                <Link href={`/product/${product.handle}`} className="relative h-full w-full block">
+                <Link href={`/product/${product.handle}`} className="relative h-full w-full inline-block">
                   <div className="w-full h-[40vh] md:h-[50vh] relative overflow-hidden">
                     <GridTileImage
                       alt={product.title}
@@ -31,7 +31,7 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ products }) => {
                         currencyCode: product.priceRange.maxVariantPrice.currencyCode
                       }}
                       src={product.featuredImage?.url}
-                      fill
+                     fill
                       sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 60vw"
                       className="object-contain" 
                     />

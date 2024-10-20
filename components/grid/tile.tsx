@@ -18,21 +18,20 @@ export function GridTileImage({
     currencyCode: string;
     position?: 'bottom' | 'center';
   };
+  height?: number; // Add height as a prop
   variants?: { color: string; colorImage: string }[]; 
 } & React.ComponentProps<typeof Image>) {
   const [isHovered, setIsHovered] = useState(false); 
 
   return (
     <div 
-      className="flex flex-col h-full w-full relative  " 
+      className="flex flex-col h-full w-full relative" 
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)} 
     >
-     
-      
       <div
         className={clsx(
-          'group  bg-gray-200  flex h-full w-full items-center justify-center overflow-hidden hover:border-blue-600',
+          'group bg-gray-200 flex h-full w-full items-center justify-center overflow-hidden hover:border-blue-600',
           {
             relative: label,
             'border-1 border-blue-600': active,
@@ -41,14 +40,12 @@ export function GridTileImage({
       >
         {props.src && (
           <Image
-            className={clsx('h-full w-full object-contain', {
-              'transition duration-700 ease-in-out  ': isInteractive,
+            className={clsx('lg:h-full w-full object-cover md:object-contain', {
+              'transition duration-700 ease-in-out': isInteractive,
             })}
-
             {...props}
           />
         )}
-       
       </div>
       {label && (
         <div className="mt-2">
