@@ -16,6 +16,7 @@ module.exports = {
           from: { opacity: 0 },
           to: { opacity: 1 }
         },
+        
         marquee: {
           '0%': { transform: 'translateX(0%)' },
           '100%': { transform: 'translateX(-100%)' }

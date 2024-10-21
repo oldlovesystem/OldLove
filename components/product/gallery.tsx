@@ -86,7 +86,7 @@ export function Gallery({ images }: { images: Array<{ src: string; altText?: str
                   key={image.src}
                   onClick={() => setSelectedImageIndex(idx)} // Update image index directly
                   aria-label="Select product image"
-                  className={`h-30 w-25 ${idx === selectedImageIndex ? 'border border-blue-500' : ''}`}
+                  className={`h-30 w-25 ${idx === selectedImageIndex ? 'border border-gray-500' : ''}`}
                 >
                   <div className="h-full w-full bg-gray-300">
                     <Image
@@ -107,7 +107,7 @@ export function Gallery({ images }: { images: Array<{ src: string; altText?: str
                     key={image.src}
                     onClick={() => setSelectedImageIndex(visibleThumbnails + idx)} // Change index without modal
                     aria-label="Select product image"
-                    className={`h-30 w-25 ${visibleThumbnails + idx === selectedImageIndex ? 'border border-blue-500' : ''}`}
+                    className={`h-30 w-25 ${visibleThumbnails + idx === selectedImageIndex ? 'border border-gray-500' : ''}`}
                   >
                     <div className="h-full w-full bg-gray-300">
                       <Image

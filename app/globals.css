@@ -185,7 +185,16 @@ button {
   }
   .slogan-wrapper {
       width: 100%;
-      animation: scroll-mobile 10s linear infinite; /* Optional: faster scroll speed for mobile */
+      animation: scroll-mobile 15s linear infinite; /* Optional: faster scroll speed for mobile */
+  }
+}
+@media (min-width: 768px) {
+  .text-center {
+      width: 100%; /* Make the slogan wrapper take full width on mobile */
+  }
+  .slogan-wrapper {
+      width: 90%;
+      animation: scroll-mobile 15s linear infinite; /* Optional: faster scroll speed for mobile */
   }
 }
 
@@ -223,9 +232,9 @@ button {
 }
 
 
-@media (min-width: 1440px) and  (max-width:1500) {
+@media (min-width: 1440px) and  (max-width:1600) {
   .height-responsive {
-      height: 50vh;
+      height: 55vh;
   }
 }
 
@@ -234,4 +243,9 @@ button {
   .height-responsive {
       height: 30vh;
   }
+}
+
+.descc{
+  letter-spacing: 0.3rem;
+  font-family: 'Times New Roman', Times, serif;
 }

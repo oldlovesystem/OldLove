@@ -60,7 +60,7 @@ const TopNavOne: React.FC<Props> = ({ props, slogan }) => {
                         </div>
                     </div>
                     <div className="text-center text-button-uppercase text-white flex items-center overflow-hidden">
-                        <div className="slogan-wrapper whitespace-nowrap">
+                        <div className="slogan-wrapper text-sm whitespace-nowrap">
                             {slogan}
                         </div>
                     </div>

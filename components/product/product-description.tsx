@@ -122,42 +122,46 @@ export function ProductDescription({ product }: { product: Product }) {
         </div>
 
         {product.descriptionHtml ? (
-          <div>
-            <div
-              className={`logofont mb-6 text-sm text-gray-600 ${isDescriptionExpanded ? '' : 'truncated'}`}
-              style={isDescriptionExpanded ? {} : truncatedStyle}
-            >
-              <Prose html={product.descriptionHtml} />
-            </div>
-            <button onClick={toggleDescription} className="mb-2 text-blue-500 hover:underline">
-              {isDescriptionExpanded ? 'See Less' : 'See More'}
-            </button>
-          </div>
-        ) : null}
+  <div>
+    <div
+      className={`logofont text-sm text-gray-600 ${isDescriptionExpanded ? '' : 'truncated'}`}
+      style={isDescriptionExpanded ? {} : truncatedStyle}
+    >
+      <Prose html={product.descriptionHtml} />
+    </div>
+    <div className="flex justify-between items-center mt-1 mr-9">
+      <button onClick={toggleDescription} className="hover:underline text-xs ml-auto">
+        {isDescriptionExpanded ? 'See Less' : 'See More'}
+      </button>
+    </div>
+  </div>
+) : null}
 
-        <div className="flex items-center mt-4">
+
+        <div className="flex items-center">
+
           <button 
             onClick={handleShare} 
-            className="text-blue-500 hover:underline"
+            className="hover:underline flex text-sm"
           >
             Share this product
+          <FaShareAlt className="ml-2 mt-1" />
           </button>
-          <FaShareAlt className="ml-2 text-blue-500" /> {/* Share icon */}
         </div>
       </div>
 
       <VariantSelector options={product.options} variants={product.variants} />
       <AddToCart product={product} />
 
-      <div className="more-info mt-6">
+      <div className="more-info uppercase  mt-6">
         {dropdownItems.map((item, index) => (
-          <div key={index} className="border-b border-gray-300">
+          <div key={index} className="border px-4 text-gray-600  border-gray-100">
             <div
               className="flex cursor-pointer items-center justify-between py-2"
               onClick={() => toggleDropdown(index)}
             >
-              <span className="py-2 text-lg">{item.title}</span>
-              <span className="text-lg">{openDropdown === index ? '-' : '+'}</span>
+              <span className="py-2 text-xs descc font-serif">{item.title}</span>
+              <span className="text-sm">{openDropdown === index ? '-' : '+'}</span>
             </div>
             {openDropdown === index && (
               <div className="bg-white p-2">
