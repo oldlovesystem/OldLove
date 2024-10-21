@@ -15,8 +15,6 @@ export function Gallery({ images }: { images: Array<{ src: string; altText?: str
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const visibleThumbnails = 5;
-  const [touchStartX, setTouchStartX] = useState(0);
-  const [touchEndX, setTouchEndX] = useState(0);
 
   useEffect(() => {
     const imageLoadPromises = images.slice(0, visibleThumbnails).map((image) =>
@@ -52,30 +50,11 @@ export function Gallery({ images }: { images: Array<{ src: string; altText?: str
     setSelectedImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
   };
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStartX(e.touches[0].clientX);
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    setTouchEndX(e.changedTouches[0].clientX);
-    handleSwipe();
-  };
-
-  const handleSwipe = () => {
-    if (touchStartX - touchEndX > 50) {
-      goToNextImage(); // Swipe left
-    } else if (touchEndX - touchStartX > 50) {
-      goToPreviousImage(); // Swipe right
-    }
-  };
-
   return (
     <div>
       <div
         className="relative aspect-square h-full max-h-[550px] lg:w-11/12 w-full overflow-hidden"
         onClick={() => openModal(selectedImageIndex)}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
       >
         {loading || imageError ? (
           <Skeleton className="h-full w-full object-contain" />
@@ -98,14 +77,14 @@ export function Gallery({ images }: { images: Array<{ src: string; altText?: str
           ))}
         </div>
       ) : (
-        images.length > 1 && (
+        images.length > 0 && (
           <div className="my-12 flex items-center justify-center lg:mr-14">
             <ul className="flex items-center justify-center gap-2 overflow-x-auto py-1 lg:mb-0">
               {images.slice(0, visibleThumbnails).map((image, idx) => (
                 <button
                   type="button"
                   key={image.src}
-                  onClick={() => openModal(idx)}
+                  onClick={() => setSelectedImageIndex(idx)} // Update image index directly
                   aria-label="Select product image"
                   className={`h-30 w-25 ${idx === selectedImageIndex ? 'border border-blue-500' : ''}`}
                 >
@@ -121,6 +100,28 @@ export function Gallery({ images }: { images: Array<{ src: string; altText?: str
                   </div>
                 </button>
               ))}
+              {images.length > visibleThumbnails && (
+                images.slice(visibleThumbnails).map((image, idx) => (
+                  <button
+                    type="button"
+                    key={image.src}
+                    onClick={() => setSelectedImageIndex(visibleThumbnails + idx)} // Change index without modal
+                    aria-label="Select product image"
+                    className={`h-30 w-25 ${visibleThumbnails + idx === selectedImageIndex ? 'border border-blue-500' : ''}`}
+                  >
+                    <div className="h-full w-full bg-gray-300">
+                      <Image
+                        alt={image.altText}
+                        src={image.src}
+                        width={100}
+                        height={100}
+                        className="object-contain"
+                        onError={() => setImageError(true)}
+                      />
+                    </div>
+                  </button>
+                ))
+              )}
             </ul>
           </div>
         )
