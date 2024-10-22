@@ -28,7 +28,7 @@ export default function SearchLayout({ children }: SearchLayoutProps) {
 
         </div>
 
-        <div className="order-last min-h-screen flex-grow md:order-none md:w-[80%] lg:py-0">
+        <div className="order-last min-h-screen flex-grow md:order-none md:w-[100%] lg:py-0">
           <ChildrenWrapper>{children}</ChildrenWrapper>
         </div>
       </div>

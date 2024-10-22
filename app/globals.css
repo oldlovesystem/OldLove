@@ -210,13 +210,28 @@ button {
 
 
 .height-responsive {
-  height: 40vh;
+  height: 37vh;
 }
 
+@media (min-width: 320px) {
+  .height-responsive {
+      height: 30vh;
+  }
+}
 
+@media (min-width: 370px) {
+  .height-responsive {
+      height: 35vh;
+  }
+}
+@media (min-width: 425px) {
+  .height-responsive {
+      height: 37vh;
+  }
+}
 @media (min-width: 768px) {
   .height-responsive {
-      height: 55vh;
+      height: 45vh;
   }
 }
 
@@ -225,18 +240,25 @@ button {
       height: 55vh;
   }
 }
-@media (min-width: 1024px) {
+@media (min-width: 1020px) {
   .height-responsive {
-      height: 55vh;
+      height: 35vh;
   }
 }
 
 
 @media (min-width: 1440px) and  (max-width:1600) {
   .height-responsive {
-      height: 55vh;
+      height: 38vh;
   }
 }
+
+@media (min-width: 1601px) and  (max-width:2000) {
+  .height-responsive {
+      height: 53vh;
+  }
+}
+
 
 /* For 4K resolution screens */
 @media (min-width: 2560px) {

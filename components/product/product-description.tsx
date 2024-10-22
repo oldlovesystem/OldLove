@@ -153,19 +153,19 @@ export function ProductDescription({ product }: { product: Product }) {
       <VariantSelector options={product.options} variants={product.variants} />
       <AddToCart product={product} />
 
-      <div className="more-info uppercase  mt-6">
+      <div className="more-info  mt-6">
         {dropdownItems.map((item, index) => (
           <div key={index} className="border px-4 text-gray-600  border-gray-100">
             <div
               className="flex cursor-pointer items-center justify-between py-2"
               onClick={() => toggleDropdown(index)}
             >
-              <span className="py-2 text-xs descc font-serif">{item.title}</span>
+              <span className="py-2 text-xs descc font-serif uppercase ">{item.title}</span>
               <span className="text-sm">{openDropdown === index ? '-' : '+'}</span>
             </div>
             {openDropdown === index && (
               <div className="bg-white p-2">
-                <p className="text-gray-600">{item.content}</p>
+                <p className="text-gray-600 text-xs">{item.content}</p>
               </div>
             )}
           </div>
