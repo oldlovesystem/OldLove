@@ -127,11 +127,11 @@ async function RelatedProducts({ id }: { id: string }) {
       <h2 className="mb-10 mt-5 max-w-full text-center text-4xl font-thin logofont">Related Products</h2>
       <div className="tab-content">
         {relatedProducts ? (
-          <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+          <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
             {relatedProducts.map((product) => (
               <li key={product.handle} className="relative">
                 <Link href={`/product/${product.handle}`} className="relative block h-full w-full">
-                  <div className="relative  overflow-hidden  h-[35vh] mt-4 ml-0  md:h-[40vh] w-[90%] lg:h-[50vh]">
+                  <div className="relative  overflow-hidden  h-[39vh] mt-4 ml-0  md:h-[40vh] w-[100%] lg:h-[50vh]">
                     <GridTileImage
                       alt={product.title}
                       label={{

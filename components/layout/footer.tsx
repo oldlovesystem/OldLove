@@ -18,7 +18,7 @@ const Footer = () => {
                                 <div className='flex gap-3 mt-3'>
                                     <div className="flex flex-col ">
                                         <span className="text-button">Mail:</span>
-                                        <span className="text-button mt-3">Instagram</span>
+                                        <span className="text-button mt-3">Instagram:</span>
                                     </div>
                                     <div className="flex flex-col ">
                                         <span>support@oldlove.in</span>
