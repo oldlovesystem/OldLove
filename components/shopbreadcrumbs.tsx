@@ -17,7 +17,7 @@ const Breadcrumb: React.FC = () => {
 
     return (
         <div className="breadcrumb-block style-shared">
-            <div className="breadcrumb-main bg-linear overflow-hidden">
+            <div className="breadcrumb-main  overflow-hidden">
                 <div className="container lg:pt-[20px] pt-7 pb-7 relative">
                     <div className="main-content w-full h-full flex flex-col items-center justify-center relative z-[1]">
                         <div className="text-content">
