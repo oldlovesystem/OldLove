@@ -66,9 +66,10 @@ export default function ViewCart() {
                     const totalPrice = item.cost.totalAmount.amount;
 
                     return (
-                      <li key={index} className="flex flex-col lg:flex-row items-center border-b border-neutral-300 p-4 space-y-4 lg:space-y-0 lg:space-x-6">
+                      <li key={index} className="flex flex-col lg:flex-row items-center  border-neutral-300 p-4 space-y-4 lg:space-y-0 lg:space-x-6">
                         {/* Product Image */}
                         <div className="w-full lg:w-1/3 flex items-center justify-center">
+                        
                           <div className="relative h-24 w-24 overflow-hidden rounded-lg border border-neutral-300 bg-neutral-300">
                             <Image
                               className="h-full w-full object-contain"
@@ -83,7 +84,7 @@ export default function ViewCart() {
                         {/* Product Title and Info */}
                         <div className="w-full lg:w-1/3 flex flex-col justify-center items-start">
                           <Link href={merchandiseUrl}>
-                            <span className="font-medium  ml-10 md:pl-[160px] lg:pl-0 lg:ml-0">{item.merchandise.product.title}</span>
+                            <span className="font-medium  ml-10 md:pl-[160px] lg:pl-0 lg:-ml-5">{item.merchandise.product.title}</span>
                             {item.merchandise.title !== 'Default Option' && (
                               <span className="text-sm text-neutral-500 px-5  md:px-5">{item.merchandise.title}</span>
                             )}
@@ -91,12 +92,12 @@ export default function ViewCart() {
                         </div>
 
                         {/* Price */}
-                        <div className="w-full lg:w-1/4 text-center flex items-center justify-center">
+                        <div className="w-full lg:w-1/4  text-center flex items-center justify-center">
                           <Price amount={String(item.cost.totalAmount.amount)} currencyCode={item.cost.totalAmount.currencyCode} />
                         </div>
                         
                         {/* Quantity */}
-                        <div className="w-full lg:w-1/4 flex justify-center">
+                        <div className="w-full lg:w-1/2   flex justify-center">
                           <div className="quantity-block flex items-center justify-between bg-gray-200 p-2 rounded-lg border border-gray-300">
                             <EditItemQuantityButton item={item} type="minus" optimisticUpdate={updateCartItem} />
                             <div className="text-center w-8">{item.quantity}</div>
@@ -105,14 +106,12 @@ export default function ViewCart() {
                         </div>
 
                         {/* Total Price */}
-                        <div className="w-full lg:w-1/4 flex justify-center">
+                        <div className="w-full lg:w-1/4  flex justify-center">
                           <Price amount={String(totalPrice)} currencyCode={item.cost.totalAmount.currencyCode} />
                         </div>
 
                         {/* Delete Button */}
-                        <div className="w-full lg:w-1/12 flex justify-center">
-                          <DeleteItemButton item={item} optimisticUpdate={updateCartItem} />
-                        </div>
+                      
                       </li>
                     );
                   })}
