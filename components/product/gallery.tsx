@@ -1,6 +1,7 @@
 "use client";
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import Modal from './Modal';
 
 // Skeleton Component
@@ -51,7 +52,8 @@ export function Gallery({ images }: { images: Array<{ src: string; altText?: str
   };
 
   return (
-    <div>
+    <div className="relative">
+      {/* Featured Image Container */}
       <div
         className="relative aspect-square h-full max-h-[550px] lg:w-11/12 w-full overflow-hidden"
         onClick={() => openModal(selectedImageIndex)}
@@ -68,8 +70,33 @@ export function Gallery({ images }: { images: Array<{ src: string; altText?: str
             priority={true}
           />
         )}
+
+        {/* Left Arrow */}
+        <button
+          className="absolute left-2 top-1/2 -translate-y-1/2    focus:outline-none"
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent opening modal
+            goToPreviousImage();
+          }}
+          aria-label="Previous image"
+        >
+          <FiChevronLeft size={24} />
+        </button>
+
+        {/* Right Arrow */}
+        <button
+          className="absolute right-2 top-1/2 -translate-y-1/2  focus:outline-none"
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent opening modal
+            goToNextImage();
+          }}
+          aria-label="Next image"
+        >
+          <FiChevronRight size={24} />
+        </button>
       </div>
 
+      {/* Thumbnails */}
       {loading || images.length === 0 ? (
         <div className="my-12 flex items-center justify-center">
           {[...Array(visibleThumbnails)].map((_, i) => (
@@ -84,7 +111,7 @@ export function Gallery({ images }: { images: Array<{ src: string; altText?: str
                 <button
                   type="button"
                   key={image.src}
-                  onClick={() => setSelectedImageIndex(idx)} // Update image index directly
+                  onClick={() => setSelectedImageIndex(idx)}
                   aria-label="Select product image"
                   className={`h-30 w-25 ${idx === selectedImageIndex ? 'border border-gray-500' : ''}`}
                 >
@@ -100,12 +127,12 @@ export function Gallery({ images }: { images: Array<{ src: string; altText?: str
                   </div>
                 </button>
               ))}
-              {images.length > visibleThumbnails && (
+              {images.length > visibleThumbnails &&
                 images.slice(visibleThumbnails).map((image, idx) => (
                   <button
                     type="button"
                     key={image.src}
-                    onClick={() => setSelectedImageIndex(visibleThumbnails + idx)} // Change index without modal
+                    onClick={() => setSelectedImageIndex(visibleThumbnails + idx)}
                     aria-label="Select product image"
                     className={`h-30 w-25 ${visibleThumbnails + idx === selectedImageIndex ? 'border border-gray-500' : ''}`}
                   >
@@ -120,12 +147,13 @@ export function Gallery({ images }: { images: Array<{ src: string; altText?: str
                       />
                     </div>
                   </button>
-                ))
-              )}
+                ))}
             </ul>
           </div>
         )
       )}
+
+      {/* Modal for fullscreen image */}
       <Modal
         isOpen={isModalOpen}
         images={images}

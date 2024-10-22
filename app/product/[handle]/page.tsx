@@ -86,7 +86,7 @@ export default async function ProductPage({ params }: { params: { handle: string
       />
       <Breadcrumbs productName={product.title} />
       <div className="mx-auto max-w-screen-2xl border-neutral-200 bg-white px-4">
-        <div className="flex flex-col bg-white p-8 md:p-12 lg:flex-row lg:gap-10 gap-10">
+        <div className="flex flex-col bg-white p-8 md:p-12 lg:flex-row lg:gap-2 gap-5">
           <div className="h-full w-full lg:basis-1/2">
             <Suspense
               fallback={

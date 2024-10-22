@@ -21,7 +21,7 @@ export function ProductDescription({ product }: { product: Product }) {
   const dropdownItems = [
     {
       title: "Size and Fit",
-      content: "Size - Modal Height - 6.1 ft, Chest - 40, Waist - 32/33, Shoe - 44, & he is wearing L size"
+      content: " Modal Height - 6.1 ft, Chest - 40, Waist - 32/33, Shoe - 44, & he is wearing L size"
     },
     {
       title: "Shipping",
@@ -68,10 +68,10 @@ export function ProductDescription({ product }: { product: Product }) {
     {
       title: "Manufactured & Marketed by",
       content: (
-        <div>
-          <p className='font-black'>Nandi International</p>
-          <p>No 79/290, National Park Road, Sampigehalli Village, near Sri Shyam Gaushala, Bannerughatta Post, Bengaluru - 560083</p>
-          <p className='font-bold'>Country of Origin</p>
+        <div className=''>
+          <p className=' font-semibold'>Nandi International</p>
+          <p className='logofont'>No 79/290, National Park Road, Sampigehalli Village, near Sri Shyam Gaushala, Bannerughatta Post, Bengaluru - 560083</p>
+          <p className='font-semibold'>Country of Origin</p>
           <p>India</p>
         </div>
       )
@@ -160,12 +160,12 @@ export function ProductDescription({ product }: { product: Product }) {
               className="flex cursor-pointer items-center justify-between py-2"
               onClick={() => toggleDropdown(index)}
             >
-              <span className="py-2 text-xs descc font-serif uppercase ">{item.title}</span>
+              <span className="py-2 text-sm louppercase ">{item.title}</span>
               <span className="text-sm">{openDropdown === index ? '-' : '+'}</span>
             </div>
             {openDropdown === index && (
               <div className="bg-white p-2">
-                <p className="text-gray-600 text-xs">{item.content}</p>
+                <p className="text-gray-600 text-sm">{item.content}</p>
               </div>
             )}
           </div>
