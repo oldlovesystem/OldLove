@@ -40,7 +40,7 @@ export function GridTileImage({
       >
         {props.src && (
           <Image
-            className={clsx('lg:h-full w-full object-cover md:object-contain', {
+            className={clsx('lg:h-full w-full object-cover md:object-contain ' , {
               'transition duration-700 ease-in-out': isInteractive,
             })}
             {...props}
