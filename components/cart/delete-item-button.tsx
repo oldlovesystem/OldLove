@@ -1,6 +1,6 @@
 'use client';
 
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import { TrashIcon } from '@heroicons/react/24/outline'; // Import the Trash icon
 import { removeItem } from 'components/cart/actions';
 import type { CartItem } from 'lib/shopify/types';
 import { useFormState } from 'react-dom';
@@ -26,9 +26,9 @@ export function DeleteItemButton({
       <button
         type="submit"
         aria-label="Remove cart item"
-        className="flex h-[24px] w-[24px] items-center justify-center rounded-full bg-neutral-500"
+        className="flex h-[24px] w-[24px] items-center justify-center rounded-full"
       >
-        <XMarkIcon className="mx-[1px] h-4 w-4 text-white dark:text-black" />
+        <TrashIcon className="mx-[1px] h-6 w-6 " />
       </button>
       <p aria-live="polite" className="sr-only" role="status">
         {message}
