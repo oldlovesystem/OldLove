@@ -69,10 +69,10 @@ export function ProductDescription({ product }: { product: Product }) {
       title: "Manufactured & Marketed by",
       content: (
         <div className=''>
-          <p className=' font-semibold'>Nandi International</p>
-          <p className='logofont'>No 79/290, National Park Road, Sampigehalli Village, near Sri Shyam Gaushala, Bannerughatta Post, Bengaluru - 560083</p>
-          <p className='font-semibold'>Country of Origin</p>
-          <p>India</p>
+          <p className=' font-semibold text-sm'>Nandi International</p>
+          <p className='logofont text-sm'>No 79/290, National Park Road, Sampigehalli Village, near Sri Shyam Gaushala, Bannerughatta Post, Bengaluru - 560083</p>
+          <p className='font-semibold text-sm '>Country of Origin</p>
+          <p className='text-sm'>India</p>
         </div>
       )
     },

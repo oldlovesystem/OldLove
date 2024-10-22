@@ -29,9 +29,9 @@ export default function ViewCart() {
         <Breadcrumb heading='Shopping Cart' subHeading='Shopping cart' />
       </div>
 
-      <div className="container mx-auto p-6 flex flex-col md:flex-row">
+      <div className="container mx-auto p-6 flex flex-col lg:flex-row">
         
-        <div className="w-full md:w-2/3">
+        <div className="w-full lg:w-2/3">
           <h1 className="text-3xl font-bold mb-6">Your Shopping Cart</h1>
 
           {!cart || cart.lines.length === 0 ? (
@@ -41,20 +41,20 @@ export default function ViewCart() {
               <Link href="/" className="mt-4 text-blue-600 hover:underline">Continue Shopping</Link>
             </div>
           ) : (
-            <div className="list-product w-full sm:mt-7 mt-5 ">
+            <div className="list-product w-full sm:mt-7 mt-5">
               <div className='w-full'>
-                <div className="heading bg-surface rounded-4 pt-4 pb-4">
-                  <div className="flex bg-gray-100 py-4 rounded-xl">
-                    <div className="w-1/2 md:w-1/2">
-                      <div className="text-button text-center">Products</div>
+                <div className="heading bg-surface rounded-4 pt-4 pb-4 hidden lg:block">
+                  <div className="flex flex-col lg:flex-row lg:justify-between bg-gray-100 py-4 rounded-xl">
+                    <div className="w-full lg:w-1/2">
+                      <div className="text-button text-center ">Products</div>
                     </div>
-                    <div className="w-1/12 md:w-1/12">
+                    <div className="w-1/4">
                       <div className="text-button text-center">Price</div>
                     </div>
-                    <div className="w-1/6 md:w-1/6">
+                    <div className="w-1/4">
                       <div className="text-button text-center">Quantity</div>
                     </div>
-                    <div className="w-1/6 md:w-1/6">
+                    <div className="w-1/4">
                       <div className="text-button text-center">Total Price</div>
                     </div>
                   </div>
@@ -66,9 +66,10 @@ export default function ViewCart() {
                     const totalPrice = item.cost.totalAmount.amount;
 
                     return (
-                      <li key={index} className="flex flex-col md:flex-row items-center border-b border-neutral-300 p-4">
-                        <div className="w-full md:w-1/2 flex items-center mb-4 md:mb-0">
-                          <div className="relative h-24 w-24 overflow-hidden rounded-md border border-neutral-300 bg-neutral-300">
+                      <li key={index} className="flex flex-col lg:flex-row items-center border-b border-neutral-300 p-4 space-y-4 lg:space-y-0 lg:space-x-6">
+                        {/* Product Image */}
+                        <div className="w-full lg:w-1/3 flex items-center justify-center">
+                          <div className="relative h-24 w-24 overflow-hidden rounded-lg border border-neutral-300 bg-neutral-300">
                             <Image
                               className="h-full w-full object-contain"
                               width={100} 
@@ -77,31 +78,39 @@ export default function ViewCart() {
                               src={item.merchandise.product.featuredImage.url}
                             />
                           </div>
-                          <Link href={merchandiseUrl} className="ml-4 flex flex-col">
-                            <span className="font-medium">{item.merchandise.product.title}</span>
+                        </div>
+                        
+                        {/* Product Title and Info */}
+                        <div className="w-full lg:w-1/3 flex flex-col justify-center items-start">
+                          <Link href={merchandiseUrl}>
+                            <span className="font-medium  ml-10 md:pl-[160px] lg:pl-0 lg:ml-0">{item.merchandise.product.title}</span>
                             {item.merchandise.title !== 'Default Option' && (
-                              <p className="text-sm text-neutral-500">{item.merchandise.title}</p>
+                              <span className="text-sm text-neutral-500 px-5  md:px-5">{item.merchandise.title}</span>
                             )}
                           </Link>
                         </div>
-                        <div className="w-1/12 md:w-1/12 price flex items-center justify-center">
-                          <div className="text-title text-center">
-                            <Price amount={String(item.cost.totalAmount.amount)} currencyCode={item.cost.totalAmount.currencyCode} />
-                          </div>
+
+                        {/* Price */}
+                        <div className="w-full lg:w-1/4 text-center flex items-center justify-center">
+                          <Price amount={String(item.cost.totalAmount.amount)} currencyCode={item.cost.totalAmount.currencyCode} />
                         </div>
-                        <div className="w-1/6 md:w-1/6 flex items-center justify-center">
-                          <div className="quantity-block bg-surface p-2 flex items-center justify-between rounded-lg border border-line">
+                        
+                        {/* Quantity */}
+                        <div className="w-full lg:w-1/4 flex justify-center">
+                          <div className="quantity-block flex items-center justify-between bg-gray-200 p-2 rounded-lg border border-gray-300">
                             <EditItemQuantityButton item={item} type="minus" optimisticUpdate={updateCartItem} />
-                            <div className="text-button quantity">{item.quantity}</div>
+                            <div className="text-center w-8">{item.quantity}</div>
                             <EditItemQuantityButton item={item} type="plus" optimisticUpdate={updateCartItem} />
                           </div>
                         </div>
-                        <div className="w-1/6 md:w-1/6 flex items-center justify-center">
-                          <div className="text-title text-center">
-                            <Price amount={String(totalPrice)} currencyCode={item.cost.totalAmount.currencyCode} />
-                          </div>
+
+                        {/* Total Price */}
+                        <div className="w-full lg:w-1/4 flex justify-center">
+                          <Price amount={String(totalPrice)} currencyCode={item.cost.totalAmount.currencyCode} />
                         </div>
-                        <div className="w-1/12 md:w-1/12 flex items-center justify-center">
+
+                        {/* Delete Button */}
+                        <div className="w-full lg:w-1/12 flex justify-center">
                           <DeleteItemButton item={item} optimisticUpdate={updateCartItem} />
                         </div>
                       </li>
@@ -113,7 +122,7 @@ export default function ViewCart() {
           )}
         </div>
 
-        <div className="w-full md:w-1/3 pl-0 md:pl-6 bg-gray-100 rounded-xl ml-0 md:ml-12 mt-6 md:mt-14 pr-6">
+        <div className="w-full lg:w-1/3 pl-0 lg:pl-6 bg-gray-100 rounded-xl ml-0 lg:ml-12 mt-6 lg:mt-14 pr-6">
           <div className="checkout-block bg-surface py-4 px-2 rounded-2xl">
             <h2 className="heading5 py-4">Order Summary</h2>
             <div className="total-block py-5 flex justify-between border-b border-line">
@@ -126,20 +135,6 @@ export default function ViewCart() {
                 )}
               </div>
             </div>
-            {/* <div className="discount-block py-5 flex justify-between border-b border-line">
-              <div className="text-title">Taxes</div>
-              <div className="text-title">
-                {cart && Number(cart.cost.totalTaxAmount.amount) > 0 ? (
-                  <Price amount={String(cart.cost.totalTaxAmount.amount)} currencyCode={cart.cost.totalTaxAmount.currencyCode} />
-                ) : (
-                  <span className="text-gray-500">N/A</span>
-                )}
-              </div>
-            </div> */}
-            {/* <div className="shipping-block py-5 flex justify-between border-b border-line">
-              <div className="text-title">Shipping</div>
-              <div className="text-title">Calculated at checkout</div>
-            </div> */}
             <div className="total-cart-block pt-4 pb-4 flex justify-between">
               <div className="heading5">Total</div>
               <div className="heading5">
