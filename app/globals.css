@@ -242,14 +242,14 @@ button {
 }
 @media (min-width: 1020px) {
   .height-responsive {
-      height: 35vh;
+      height: 40vh;
   }
 }
 
 
 @media (min-width: 1440px) and  (max-width:1600) {
   .height-responsive {
-      height: 38vh;
+      height: 40vh;
   }
 }
 
