@@ -271,3 +271,68 @@ button {
   letter-spacing: 0.3rem;
   font-family: 'Times New Roman', Times, serif;
 }
+
+
+  @media (min-width: 1024px) {
+    .try {
+        height: 45vh;
+    }
+}
+
+.try {
+  height: 35vh;
+}
+
+@media (min-width: 320px) {
+  .try {
+      height: 30vh;
+  }
+}
+
+@media (min-width: 370px) {
+  .try {
+      height: 35vh;
+  }
+}
+@media (min-width: 425px) {
+  .try {
+      height: 37vh;
+  }
+}
+@media (min-width: 768px) {
+  .try {
+      height: 45vh;
+  }
+}
+
+@media (min-width: 1000px) {
+  .try {
+      height: 55vh;
+  }
+}
+@media (min-width: 1024px) {
+  .try {
+      height: 45vh;
+  }
+}
+
+
+@media (min-width: 1440px) and  (max-width:1600) {
+  .try {
+      height: 30vh;
+  }
+}
+
+@media (min-width: 1601px) and  (max-width:2000) {
+  .height-responsive {
+      height: 53vh;
+  }
+}
+
+
+/* For 4K resolution screens */
+@media (min-width: 2560px) {
+  .height-responsive {
+      height: 30vh;
+  }
+}
