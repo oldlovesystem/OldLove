@@ -65,7 +65,7 @@ const Footer = () => {
                                         <Link href={'https://www.facebook.com/'} target='_blank'>
                                             <AiOutlineFacebook className='text-3xl' />
                                         </Link>
-                                        <Link href={'https://www.instagram.com/'} target='_blank'>
+                                        <Link href={'https://www.instagram.com/oldlove_b2b/'} target='_blank'>
                                             <FaInstagram className='text-2xl' />
                                         </Link>
                                     </div>

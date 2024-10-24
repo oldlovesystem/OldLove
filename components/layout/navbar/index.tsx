@@ -98,7 +98,7 @@ export function Navbar() {
       >
         <div className="block flex-none md:hidden mr-1">
           <Suspense fallback={null}>
-            <MobileMenu menu={menu} />
+            <MobileMenu />
           </Suspense>
         </div>
 

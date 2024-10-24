@@ -4,15 +4,15 @@ import { Dialog, Transition } from '@headlessui/react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Fragment, Suspense, useEffect, useState } from 'react';
-
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { Menu } from 'lib/shopify/types';
+import { FaInstagram, FaFacebook } from 'react-icons/fa'; // Importing React icons for Instagram and Facebook
 import Search, { SearchSkeleton } from './search';
 
-export default function MobileMenu({ menu }: { menu: Menu[] }) {
+export default function MobileMenu() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
+
   const openMobileMenu = () => setIsOpen(true);
   const closeMobileMenu = () => setIsOpen(false);
 
@@ -35,7 +35,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
       <button
         onClick={openMobileMenu}
         aria-label="Open mobile menu"
-        className="flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors md:hidden dark:border-neutral-700 "
+        className="flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors md:hidden dark:border-neutral-700"
       >
         <Bars3Icon className="h-4" />
       </button>
@@ -61,10 +61,10 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
             leaveFrom="translate-x-0"
             leaveTo="translate-x-[-100%]"
           >
-            <Dialog.Panel className="fixed bottom-0 left-0 right-0 top-0 flex h-full w-full flex-col bg-white pb-6 dark:bg-black">
+            <Dialog.Panel className="fixed bottom-0 left-0 right-0 top-0 flex h-full w-full flex-col bg-white pb-6 dark:bg-white">
               <div className="p-4">
                 <button
-                  className="mb-4 flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white"
+                  className="mb-4 flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors"
                   onClick={closeMobileMenu}
                   aria-label="Close mobile menu"
                 >
@@ -76,20 +76,85 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
                     <Search />
                   </Suspense>
                 </div>
-                {menu.length ? (
-                  <ul className="flex w-full flex-col">
-                    {menu.map((item: Menu) => (
-                      <li
-                        className="py-2 text-xl text-black transition-colors hover:text-neutral-500 dark:text-white"
-                        key={item.title}
-                      >
-                        <Link href={item.path} prefetch={true} onClick={closeMobileMenu}>
-                          {item.title}
-                        </Link>
-                      </li>
-                    ))}
+                <div className="flex h-full flex-col">
+                  {/* Scrollable List */}
+                  <ul className="flex-grow overflow-y-auto pl-4 pr-4 font-light uppercase tracking-widest">
+                    <li className="w-full border-b border-gray-300 py-4">
+                      <Link href="/search/cargo-trousers" onClick={closeMobileMenu}>
+                        Cargo Trousers
+                      </Link>
+                    </li>
+                    <li className="w-full border-b border-gray-300 py-4">
+                      <Link href="/search/casual-shirts" onClick={closeMobileMenu}>
+                        Casual Shirts
+                      </Link>
+                    </li>
+                    <li className="w-full border-b border-gray-300 py-4">
+                      <Link href="/search/check-shirts" onClick={closeMobileMenu}>
+                        Check Shirts
+                      </Link>
+                    </li>
+                    <li className="w-full border-b border-gray-300 py-4">
+                      <Link href="/search/formal-shirts" onClick={closeMobileMenu}>
+                        Formal Shirts
+                      </Link>
+                    </li>
+                    <li className="w-full border-b border-gray-300 py-4">
+                      <Link href="/search/jeans" onClick={closeMobileMenu}>
+                        Jeans
+                      </Link>
+                    </li>
+                    <li className="w-full border-b border-gray-300 py-4">
+                      <Link href="/search/printed-shirts" onClick={closeMobileMenu}>
+                        Printed Shirts
+                      </Link>
+                    </li>
+                    {/* Add more list items as needed */}
                   </ul>
-                ) : null}
+
+                  {/* Fixed Social Media & Links Section */}
+                  <div className="mt-auto flex flex-col space-y-4">
+                    {/* Social Media Box */}
+                    <div className="flex border-b border-t border-gray-300 p-4">
+                      <div className="flex flex-1 items-center justify-center">
+                        <a
+                          href="https://www.instagram.com/oldlove_b2b/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label="Instagram"
+                        >
+                          <FaInstagram className="h-8 w-8 text-center text-black" />
+                        </a>
+                      </div>
+                      <div className="mx-4 h-8 border-l border-gray-300" /> {/* Vertical Line */}
+                      <div className="flex flex-1 items-center justify-center">
+                        <a
+                          href="https://www.facebook.com"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label="Facebook"
+                        >
+                          <FaFacebook className="h-8 w-8 text-black" />
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* About Us / Contact Us Box */}
+                    <div className="flex border-b border-t border-gray-300 p-4">
+                      <div className="flex flex-1 items-center justify-center">
+                        <Link href="/about" onClick={closeMobileMenu}>
+                          <div className="uppercase">About Us</div>
+                        </Link>
+                      </div>
+                      <div className="mx-4 h-8 border-l border-gray-300" /> {/* Vertical Line */}
+                      <div className="flex flex-1 items-center justify-center">
+                        <Link href="/contact" onClick={closeMobileMenu}>
+                          <div className="uppercase">Contact Us</div>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </Dialog.Panel>
           </Transition.Child>
