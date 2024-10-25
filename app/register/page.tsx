@@ -1,22 +1,21 @@
 "use client";
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation'; // Use this for client-side navigation
+import { useRouter } from 'next/navigation';
 import { registerCustomer } from '../../lib/customer';
 
-
 import Breadcrumb from '../../components/Breadcrumb';
-
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 
 const Register = () => {
-  const router = useRouter(); // Initialize the router
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,17 +23,11 @@ const Register = () => {
       const customer = await registerCustomer(email, password, firstName, lastName);
       setSuccess(`Customer created: ${customer.email}`);
       setError('');
-
-      // Redirect to home page after successful registration
       setTimeout(() => {
-        router.push('/'); // Redirect to home page
-      }, 1000); // Delay for 1 second to show success message before redirecting
+        router.push('/');
+      }, 1000);
     } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError('An unexpected error occurred');
-      }
+      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
       setSuccess('');
     }
   };
@@ -101,8 +94,11 @@ const Register = () => {
                     />
                     <Icon.CheckSquare size={20} weight='fill' className='icon-checkbox' />
                   </div>
-                  <label htmlFor='remember' className="pl-2 cursor-pointer text-secondary2">I agree to the
-                    <Link href={'#!'} className='text-black hover:underline pl-1'>Terms of Use</Link>
+                  <label htmlFor='remember' className="pl-2 cursor-pointer text-secondary2">
+                    I agree to the
+                    <button type="button" onClick={() => setIsModalOpen(true)} className='text-black hover:underline pl-1'>
+                      Terms of Use
+                    </button>
                   </label>
                 </div>
                 <div className="block-button md:mt-7 mt-4">
@@ -113,7 +109,7 @@ const Register = () => {
             <div className="right md:w-1/2 w-full lg:pl-[60px] md:pl-[40px] flex items-center">
               <div className="text-content">
                 <div className="heading4">Already have an account?</div>
-                <div className="mt-2 text-secondary">Welcome back. Sign in to access your personalized experience, saved preferences, and more. We{String.raw`'re`} thrilled to have you with us again!</div>
+                <div className="mt-2 text-secondary">Welcome back. Sign in to access your personalized experience, saved preferences, and more. We’re thrilled to have you with us again!</div>
                 <div className="block-button md:mt-7 mt-4">
                   <Link href={'/login'} className="button-main">Login</Link>
                 </div>
@@ -122,6 +118,32 @@ const Register = () => {
           </div>
         </div>
       </div>
+
+      {/* Modal for Terms and Policies */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg w-full max-w-lg mx-4">
+            <h2 className="text-xl font-bold mb-4">Terms and Policies</h2>
+            <p className="text-sm text-gray-600 mb-4">
+            This policy applies to all the Old Love platforms (the “Site” or “Web Site” or “Mobile
+            Application” or “App” or “Us” or “We” or "Social Media Platforms"), which is operated
+            and owned by Nandi International, marketed and/or managed by Nandi International. It is
+            Old Love’s policy to comply with general laws for protecting user information and bank
+            details shared for the purpose of availing Old Love (Nandi International) services. This regulates the
+            processing of information relating to you and grants you various rights in respect of
+            your personal data. Any Images, Data or Files Uploaded on the website must not be used
+            without the consent of the authorized personnel of the brand. The Web Site contains
+            links to other websites over which we have no control. Old Love is not responsible for
+            the privacy policies or practices of other web sites to which you choose to link from
+            OldLove (Nandi International).in. We encourage you to review the privacy policies of those other web sites so
+            you can understand how they collect, use and share your information.
+            </p>
+            <button onClick={() => setIsModalOpen(false)} className="bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-800">
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 };
