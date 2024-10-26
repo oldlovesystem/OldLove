@@ -30,10 +30,10 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ products }) => {
                         amount: product.priceRange.maxVariantPrice.amount,
                         currencyCode: product.priceRange.maxVariantPrice.currencyCode
                       }}
+                      fill
                       src={product.featuredImage?.url}
-                     fill
                       sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 60vw"
-                      className="object-contain" 
+                     
                     />
                   </div>
                 </Link>

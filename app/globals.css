@@ -222,14 +222,14 @@ button {
   }
 }
 
-@media (min-width: 1000px) { /* lg */
+@media (min-width: 1000px) { 
   .collectionheading {
     font-size: 30px;
     padding: 16px;
   }
 }
 
-@media (min-width: 1280px) { /* xl */
+@media (min-width: 1280px) { 
   .collectionheading {
     font-size: 28px;
     padding: 18px;
@@ -243,6 +243,66 @@ button {
   }
 }
 /* ------------- END ----------------- */
+
+
+/* ------------------- RedfineImages --------------------- */
+.height-responsive {
+  height: 37vh;
+}
+
+@media (min-width: 320px) and (max-width: 369) {
+  .height-responsive {
+      height: 32vh;
+  }
+}
+
+@media (min-width: 370px) {
+  .height-responsive {
+      height: 35vh;
+  }
+}
+@media (min-width: 425px) {
+  .height-responsive {
+      height: 45vh;
+  }
+}
+@media (min-width: 768px) {
+  .height-responsive {
+      height: 45vh;
+  }
+}
+
+@media (min-width: 1000px) {
+  .height-responsive {
+      height: 55vh;
+  }
+}
+@media (min-width: 1020px) {
+  .height-responsive {
+      height: 55vh;
+  }
+}
+
+
+@media (min-width: 1440px) and  (max-width:1600) {
+  .height-responsive {
+      height: 40vh;
+  }
+}
+
+@media (min-width: 1601px) and  (max-width:2000) {
+  .height-responsive {
+      height: 53vh;
+  }
+}
+
+
+/* For 4K resolution screens */
+@media (min-width: 2560px) {
+  .height-responsive {
+      height: 29vh;
+  }
+}
 
 
 
@@ -310,27 +370,27 @@ button {
   }
 }
 
-/* Full width for mobile */
+
 @media (max-width: 768px) {
   .text-center {
-      width: 100%; /* Make the slogan wrapper take full width on mobile */
+      width: 100%; 
   }
   .slogan-wrapper {
       width: 100%;
-      animation: scroll-mobile 15s linear infinite; /* Optional: faster scroll speed for mobile */
+      animation: scroll-mobile 15s linear infinite; 
   }
 }
 @media (min-width: 768px) {
   .text-center {
-      width: 100%; /* Make the slogan wrapper take full width on mobile */
+      width: 100%; 
   }
   .slogan-wrapper {
       width: 90%;
-      animation: scroll-mobile 15s linear infinite; /* Optional: faster scroll speed for mobile */
+      animation: scroll-mobile 15s linear infinite; 
   }
 }
 
-/* Mobile-specific scrolling adjustment */
+
 @keyframes scroll-mobile {
   0% {
       transform: translateX(100%);
@@ -341,63 +401,6 @@ button {
 }
 
 
-.height-responsive {
-  height: 37vh;
-}
-
-@media (min-width: 320px) {
-  .height-responsive {
-      height: 30vh;
-  }
-}
-
-@media (min-width: 370px) {
-  .height-responsive {
-      height: 35vh;
-  }
-}
-@media (min-width: 425px) {
-  .height-responsive {
-      height: 45vh;
-  }
-}
-@media (min-width: 768px) {
-  .height-responsive {
-      height: 45vh;
-  }
-}
-
-@media (min-width: 1000px) {
-  .height-responsive {
-      height: 55vh;
-  }
-}
-@media (min-width: 1020px) {
-  .height-responsive {
-      height: 55vh;
-  }
-}
-
-
-@media (min-width: 1440px) and  (max-width:1600) {
-  .height-responsive {
-      height: 40vh;
-  }
-}
-
-@media (min-width: 1601px) and  (max-width:2000) {
-  .height-responsive {
-      height: 53vh;
-  }
-}
-
-
-/* For 4K resolution screens */
-@media (min-width: 2560px) {
-  .height-responsive {
-      height: 29vh;
-  }
-}
 
 .descc{
   letter-spacing: 0.3rem;
