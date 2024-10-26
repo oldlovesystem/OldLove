@@ -1,39 +1,40 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation'; // Use this for client-side navigation
+import { useRouter } from 'next/navigation';
 import { loginShopify } from '../../lib/login';
-
-
 import Breadcrumb from '../../components/Breadcrumb';
-
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 
 const Login = () => {
-  const router = useRouter(); // Initialize the router
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+
+  useEffect(() => {
+    // Check if a token exists on mount
+    const token = localStorage.getItem('customerAccessToken');
+    if (token) {
+      // Redirect to the home page if already logged in
+      router.push('/');
+    }
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const result = await loginShopify(email, password);
       if (result.success) {
-        // Save the access token to local storage
         if (result.token) {
-          console.log(result.token)
           localStorage.setItem('customerAccessToken', result.token);
         }
-  
         setSuccess('Login successful!');
         setError('');
-        
-        // Redirect to home page after a successful login
         setTimeout(() => {
-          router.push('/'); // Redirect to home page
-        }, 1000); // Delay for 1 second to show success message before redirecting
+          router.push('/');
+        }, 1000);
       } else {
         setError(result.message || 'Login failed');
         setSuccess('');
@@ -50,9 +51,7 @@ const Login = () => {
 
   return (
     <>
-
       <div id="header" className='relative w-full'>
-
         <Breadcrumb heading='Login' subHeading='Login' />
       </div>
       <div className="login-block md:py-20 py-10">
@@ -75,7 +74,7 @@ const Login = () => {
                 </div>
                 <div className="pass mt-5">
                   <input
-                    className="border-line border-gray-300  px-4 pt-3 pb-3 w-full rounded-lg"
+                    className="border-line border-gray-300 px-4 pt-3 pb-3 w-full rounded-lg"
                     type="password"
                     placeholder="Password *"
                     value={password}
