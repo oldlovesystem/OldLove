@@ -118,7 +118,7 @@ export default function MobileMenu() {
                     <div className="flex border-b border-t border-gray-300 p-4">
                       <div className="flex flex-1 items-center justify-center">
                         <a
-                          href="https://www.instagram.com/oldlove_b2b/"
+                          href="https://www.instagram.com/oldlove.in/?igsh=MTE4bHNuZXk1d2Y3aA%3D%3D"
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label="Instagram"
