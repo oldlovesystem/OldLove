@@ -272,12 +272,12 @@ button {
 
 @media (min-width: 425px)  and (max-width: 430px){
   .height-responsive {
-      height: 44vh;
+      height: 43vh;
   }
 }
 @media (min-width: 430px)  and (max-width: 538px){
   .height-responsive {
-      height: 44vh;
+      height: 43vh;
   }
 }
 @media(min-width: 538px) and (max-width: 600px){
