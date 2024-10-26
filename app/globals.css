@@ -48,30 +48,41 @@ button {
   transform: translateY(0);
   pointer-events: auto; /* Enable interaction when visible */
 }
-/* Base styles */
+
+
+
+/*font Family */
 .logofont {
   font-family: 'font-name';
 }
 
+
+/* HeaderAlignemnet */
 .logo{
   font-family: 'font-name';
 }
 
-@media (min-width: 322px) and (max-width: 400px) {
+@media (min-width: 320px) and (max-width: 340px) {
   .logo {
-    margin-left: 4.5rem; /* adjust for tablets */
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    margin-left: 2rem;
+  }
+}
+@media (min-width: 341px) and (max-width: 360px) {
+  .logo {
+    margin-left: 4rem;
+  }
+}
+@media (min-width: 365px) and (max-width: 400px) {
+  .logo {
+    margin-left: 5rem;
   }
 }
 @media (min-width: 401px) and (max-width: 481px) {
   .logo {
-    margin-left: 6.9rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    margin-left: 6rem;
   }
 }
-/* 481px to 768px (tablets, small devices) */
+
 @media (min-width: 481px) and (max-width: 768px) {
   .logo {
     margin-left: 1.5rem; 
@@ -80,41 +91,90 @@ button {
   }
 }
 
-
+@media (min-width:539) and (max-width: 600px) {
+  .logo{
+    margin-left: 10rem;
+  }
+}
 @media (min-width: 769px) and (max-width: 1024px) {
   .logo {
-    margin-left: 2rem; /* closer to the base value */
+    margin-left: 2rem;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
   }
 }
 
-/* 1025px to 1440px (medium to large laptops, desktops) */
+
 @media (min-width: 1025px) and (max-width: 1440px) {
   .logo {
-    margin-left: 2.5rem; /* slightly wider margin */
+    margin-left: 2.5rem;
     padding-left: 1rem;
     padding-right: 1rem;
   }
 }
 
-/* 1441px to 1920px (larger screens, desktops) */
+
 @media (min-width: 1441px) and (max-width: 1920px) {
   .logo {
-    margin-left: 3rem; /* larger margin for bigger screens */
+    margin-left: 3rem; 
     padding-left: 1.25rem;
     padding-right: 1.25rem;
   }
 }
 
-/* 1921px to 4K (ultra-wide or 4K displays) */
+
 @media (min-width: 1921px) and (max-width: 3840px) {
   .logo {
-    margin-left: 4rem; /* even larger for 4K displays */
+    margin-left: 4rem; 
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
 }
+
+
+/* -------------END------------------------- */
+
+
+/* Slider Alignments */
+
+.slider {
+  height: 350px;
+  width: 100%;
+}
+
+@media (max-width: 420px) {
+  .slider {
+    height: 320px;
+  }
+}
+
+@media (min-width: 640px) { 
+  .slider {
+    height: 500px;
+  }
+}
+
+@media (min-width: 768px) {
+  .slider {
+    height: 580px;
+  }
+}
+
+@media (min-width: 1024px) { 
+  .slider {
+    height: 800px;
+  }
+}
+
+@media (min-width: 1280px) { 
+  .slider {
+    height: 860px;
+  }
+}
+
+/* ------------  END ------------- */
+
+
 
 @media (max-width: 340px) {
   .text-custom {

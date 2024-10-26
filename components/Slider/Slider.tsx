@@ -10,7 +10,7 @@ import 'swiper/css/effect-fade';
 
 const SliderOne = () => {
   return (
-    <div className="slider-block bg-linear style-one h-[350px] w-full max-[420px]:h-[320px] sm:h-[500px] md:h-[580px] lg:h-[800px] xl:h-[860px] "> {/* Added padding-top */}
+    <div className="slider "> {/* Added padding-top */}
       <div className="slider-main h-full w-full">
         <Swiper
           spaceBetween={0}

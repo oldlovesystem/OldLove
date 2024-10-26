@@ -76,9 +76,9 @@ export function Navbar() {
 
   const handleProfileClick = () => {
     if (isLoggedIn) {
-      router.push('/my-account'); // Redirect to "my-account" if logged in
+      router.push('/my-account'); 
     } else {
-      router.push('/login'); // Redirect to "/login" if not logged in
+      router.push('/login'); 
     }
   };
 
@@ -106,7 +106,7 @@ export function Navbar() {
           <div className="ml-2 xs:ml-3 flex w-auto items-center">
             <Link href="/" prefetch={true} className="flex items-center justify-center">
               {/* <Image src="/updatedlog.svg" alt="logo" width={50} height={30}  className='md:ml-10' /> */}
-              <div className="logo ml-9 px-2 lg:ml-2  text-3xl font-bold uppercase text-black">
+              <div className="logo text-3xl font-bold uppercase text-black">
                 OldLove
               </div>
             </Link>
