@@ -14,7 +14,7 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ products }) => {
 
   return (
     <div className="what-new-block md:pt-20">
-      <div className="text-center logo-font uppercase text-3xl font-thin mb-8">Redefine your Wadrobe</div>
+      <div className="text-center logo-font uppercase collectionheading font-thin mb-8">Redefine your Wadrobe</div>
 
       <div className='mt-10'>
         {displayProducts.length ? (

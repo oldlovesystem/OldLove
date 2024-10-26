@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
-import { AiOutlineFacebook } from "react-icons/ai";
+import { AiFillFacebook } from "react-icons/ai";
 import { FaInstagram } from "react-icons/fa6";
 
 const Footer = () => {
@@ -63,9 +63,9 @@ const Footer = () => {
                                     </div>
                                     <div className="list-social flex items-center gap-6 mt-4">
                                         <Link href={'https://www.facebook.com/'} target='_blank'>
-                                            <AiOutlineFacebook className='text-3xl' />
+                                        <AiFillFacebook  className='text-3xl' />
                                         </Link>
-                                        <Link href={'https://www.instagram.com/oldlove_b2b/'} target='_blank'>
+                                        <Link href={'https://www.instagram.com/oldlove.in/?igsh=MTE4bHNuZXk1d2Y3aA%3D%3D'} target='_blank'>
                                             <FaInstagram className='text-2xl' />
                                         </Link>
                                     </div>

@@ -29,7 +29,7 @@ const Benefit: React.FC<Props> = ({ props }) => {
                         <div className="benefit-item flex flex-col items-center justify-center">
                         <Image src="/support.png" width={50} height={50}  alt='return'/>
                             <div className="heading6 text-center mt-5">Dedicated Customer Support</div>
-                            <div className="caption1 text-secondary text-center mt-3">We're Here to Assist You Every Step of the Way.</div>
+                            <div className="caption1 text-secondary text-center mt-3">We're Here to Assist You In Every Step of the Way.</div>
                         </div>
                     </div>
                 </div>
