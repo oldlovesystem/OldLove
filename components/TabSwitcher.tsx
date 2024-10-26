@@ -9,7 +9,6 @@ interface TabSwitcherProps {
 }
 
 const TabSwitcher: React.FC<TabSwitcherProps> = ({ products }) => {
-  // Limit the number of products displayed
   const displayProducts = products.length > 6 ? products.slice(0, 10) : products;
 
   return (
@@ -33,7 +32,6 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ products }) => {
                       fill
                       src={product.featuredImage?.url}
                       sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 60vw"
-                     
                     />
                   </div>
                 </Link>
