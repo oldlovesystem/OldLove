@@ -395,7 +395,7 @@ button {
 /* For 4K resolution screens */
 @media (min-width: 2560px) {
   .height-responsive {
-      height: 30vh;
+      height: 29vh;
   }
 }
 
