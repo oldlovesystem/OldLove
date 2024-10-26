@@ -47,7 +47,7 @@ export default function ViewCart() {
                   const totalPrice = item.cost.totalAmount.amount;
 
                   return (
-                    <li key={index} className="border-b border-neutral-300 py-4 flex flex-col lg:flex-row items-center justify-between">
+                    <li key={index} className="border-b border-neutral-300 py-4 flex  lg:flex-row items-center justify-between">
                       {/* Product Image */}
                       <div className="flex items-center">
                         <div className="relative h-16 w-16 overflow-hidden rounded-lg border border-neutral-300 bg-neutral-300">
@@ -72,6 +72,9 @@ export default function ViewCart() {
                       </div>
 
                       {/* Quantity, Total Price, and Delete Button */}
+                      <div className=" ">
+                          <span>₹{totalPrice} </span>
+                        </div>
                       <div className="flex flex-col lg:flex-row items-center justify-between mt-2 lg:mt-0 w-full lg:w-auto">
                         {/* Quantity */}
                         <div className="flex items-center bg-gray-200 p-1 sm:p-2 rounded-lg border border-gray-300 mx-4">
@@ -79,12 +82,6 @@ export default function ViewCart() {
                           <div className="text-center w-6 sm:w-8 text-xs sm:text-sm">{item.quantity}</div>
                           <EditItemQuantityButton item={item} type="plus" optimisticUpdate={updateCartItem} />
                         </div>
-
-                        {/* Total Price */}
-                        <div className="text-sm sm:text-base font-semibold mx-4">
-                          <span>{totalPrice} {item.cost.totalAmount.currencyCode}</span>
-                        </div>
-
                         {/* Delete Button */}
                         <div className="flex justify-center">
                           <DeleteItemButton item={item} optimisticUpdate={updateCartItem} />
