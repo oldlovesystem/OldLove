@@ -304,7 +304,12 @@ button {
 
 @media (min-width: 1400px) and  (max-width:1600) {
   .height-responsive {
-      height: 60vh;
+      height: 70vh;
+  }
+}
+@media (min-width: 1601px) and  (max-width:4000px) {
+  .height-responsive {
+      height: 70vh;
   }
 }
 
@@ -468,11 +473,7 @@ button {
   }
 }
 
-@media (min-width: 1601px) and  (max-width:2000) {
-  .height-responsive {
-      height: 50vh;
-  }
-}
+
 
 
 /* For 4K resolution screens */

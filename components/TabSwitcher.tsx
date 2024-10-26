@@ -9,15 +9,15 @@ interface TabSwitcherProps {
 }
 
 const TabSwitcher: React.FC<TabSwitcherProps> = ({ products }) => {
-  const displayProducts = products.length > 6 ? products.slice(0, 10) : products;
+  const displayProducts = products.length > 6 ? products.slice(0, 8) : products;
 
   return (
-    <div className="what-new-block md:pt-20">
+    <div className="what-new-block md:pt-20 ml-5 mr-5">
       <div className="text-center logo-font uppercase collectionheading font-thin mb-8">Redefine your Wadrobe</div>
 
       <div className='mt-10'>
         {displayProducts.length ? (
-          <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 ml-2 mr-2 ">
+          <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6  gap-4 ml-2 mr-2 ">
             {displayProducts.map((product) => (
               <li key={product.handle} className="relative">
                 <Link href={`/product/${product.handle}`} className="relative h-full w-full inline-block">
