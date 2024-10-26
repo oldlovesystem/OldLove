@@ -251,7 +251,7 @@ button {
 }
 @media (min-width: 300px) and (max-width: 340) {
   .height-responsive {
-      height: 37vh;
+      height: 32vh;
   }
 }
 @media (min-width:344px) and (max-width:349px){
@@ -266,18 +266,18 @@ button {
 }
 @media (min-width: 370px) and (max-width:425px){
   .height-responsive {
-      height: 42vh;
+      height: 32vh;
   }
 }
 
 @media (min-width: 425px)  and (max-width: 430px){
   .height-responsive {
-      height: 43vh;
+      height: 40vh;
   }
 }
 @media (min-width: 430px)  and (max-width: 538px){
   .height-responsive {
-      height: 43vh;
+      height: 40vh;
   }
 }
 @media(min-width: 538px) and (max-width: 600px){
