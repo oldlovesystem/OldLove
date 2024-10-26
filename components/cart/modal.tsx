@@ -113,7 +113,7 @@ export default function CartModal() {
                           <li key={i} className="flex w-full flex-col border-neutral-300">
                             <div className="relative flex w-full flex-row justify-between px-1 py-4">
                               <div className="absolute z-40 -ml-1 -mt-2">
-                                <DeleteItemButton item={item} optimisticUpdate={updateCartItem} />
+                               
                               </div>
                               <div className="flex flex-row">
                                 <div className="relative h-20 w-16 overflow-hidden rounded-md border border-neutral-300 bg-neutral-300">
@@ -147,7 +147,7 @@ export default function CartModal() {
                               </div>
                               <div className="flex flex-col justify-between">
                                 <Price
-                                  className="flex justify-end space-y-2 text-right text-sm"
+                                  className="flex justify-end space-y-2 text-right text-xs"
                                   amount={item.cost.totalAmount.amount}
                                   currencyCode={item.cost.totalAmount.currencyCode}
                                 />
