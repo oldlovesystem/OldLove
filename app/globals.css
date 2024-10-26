@@ -246,9 +246,6 @@ button {
 
 
 /* ------------------- RedfineImages --------------------- */
-.height-responsive {
-  height: 37vh;
-}
 
 @media (min-width: 300px) and (max-width: 340) {
   .height-responsive {
@@ -258,7 +255,7 @@ button {
 
 @media (min-width: 341px) and (max-width: 369px) {
   .height-responsive {
-      height: 40vh;
+      height: 30vh;
   }
 }
 @media (min-width:344px) and (max-width:350px){
@@ -277,9 +274,14 @@ button {
       height: 35vh;
   }
 }
-@media (min-width: 430px)  and (max-width: 500px){
+@media (min-width: 430px)  and (max-width: 538px){
   .height-responsive {
       height: 35vh;
+  }
+}
+@media(min-width: 538px) and (max-width: 600px){
+  .height-responsive{
+    height: 30vh;
   }
 }
 @media (min-width: 768px) {
@@ -295,12 +297,12 @@ button {
 
 @media (min-width: 1020px) and (max-width: 1100px) {
   .height-responsive {
-      height: 25vh;
+      height: 35vh;
   }
 }
 @media (min-width: 1200px) and (max-width: 1300px) {
   .height-responsive {
-      height: 50vh;
+      height: 45vh;
   }
 }
 
@@ -317,14 +319,13 @@ button {
   }
 }
 
-
-/* For 4K resolution screens */
 @media (min-width: 2560px) {
   .height-responsive {
-      height: 29vh;
+      height: 39vh;
   }
 }
 
+/* ------------- Text for Image -------------------- */
 
 @media (min-width: 320px) and (max-width: 339){
   .text-custom{
@@ -333,7 +334,7 @@ button {
 }
 @media (min-width: 340px) {
   .text-custom {
-    font-size: 16px; 
+    font-size: 8px; 
     font-weight: 100;
   }
 }
@@ -349,15 +350,21 @@ button {
 
 @media (min-width: 377px) and (max-width: 425px) {
   .text-custom {
-    font-size: 10px;
+    font-size: 8px;
 
   }
 }
 
 
-@media (min-width: 426px) and (max-width:780) {
+@media (min-width: 426px) and (max-width:759) {
   .text-custom {
-    font-size: 14px;
+    font-size: 8px;
+  }
+}
+
+@media (min-width: 760px) and (max-width:899px) {
+  .text-custom {
+    font-size: 8px;
   }
 }
 
