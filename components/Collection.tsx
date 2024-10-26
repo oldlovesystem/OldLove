@@ -19,7 +19,7 @@ const Collection = () => {
         <>
             <div className="collection-block md:pt-20 pt-10 mb-10 lg:mb-0">
                 <div className="container">
-                    <div className="text-center logo-font text-3xl font-thin uppercase">Explore Collections</div>
+                    <div className="text-center logo-font  font-thin uppercase collectionheading">Explore Collections</div>
                 </div>
                 <div className="list-collection section-swiper-navigation md:mt-10 sm:px-5 px-4 mt-5">
                     <Swiper
