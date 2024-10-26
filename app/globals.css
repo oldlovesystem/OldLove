@@ -251,39 +251,40 @@ button {
 }
 @media (min-width: 300px) and (max-width: 340) {
   .height-responsive {
-      height: 30vh;
+      height: 37vh;
   }
 }
 
-@media (min-width: 341px) and (max-width: 369px) {
-  .height-responsive {
-      height: 30vh;
-  }
-}
-@media (min-width:344px) and (max-width:350px){
+
+@media (min-width:344px) and (max-width:349px){
   .height-responsive{
     height: 30vh;
   }
 }
+@media (min-width: 350px) and (max-width: 369px) {
+  .height-responsive {
+      height: 40vh;
+  }
+}
 @media (min-width: 370px) and (max-width:425px){
   .height-responsive {
-      height: 33vh;
+      height: 42vh;
   }
 }
 
 @media (min-width: 425px)  and (max-width: 430px){
   .height-responsive {
-      height: 35vh;
+      height: 44vh;
   }
 }
 @media (min-width: 430px)  and (max-width: 538px){
   .height-responsive {
-      height: 35vh;
+      height: 44vh;
   }
 }
 @media(min-width: 538px) and (max-width: 600px){
   .height-responsive{
-    height: 30vh;
+    height: 50vh;
   }
 }
 
@@ -294,7 +295,7 @@ button {
 }
 @media (min-width: 768px) and (max-width:900px) {
   .height-responsive {
-      height: 35vh;
+      height: 25vh;
   }
 }
 @media (min-width: 1000px) and (max-width: 1400px) {
@@ -360,7 +361,7 @@ button {
     font-size: 12px;
   }
 }
-@media (min-width: 1440px) {
+@media (min-width: 1400px) and (max-width:1900px) {
   .text-custom {
     font-size: 12px;
 
@@ -428,17 +429,14 @@ button {
 }
 
 
-  @media (min-width: 1024px) {
-    .try {
-        height: 45vh;
-    }
-}
+/* ------------- Shop --------------- */
+
 
 .try {
   height: 35vh;
 }
 
-@media (min-width: 320px) {
+@media (min-width: 320px)  and (max-width: 369px){
   .try {
       height: 30vh;
   }
