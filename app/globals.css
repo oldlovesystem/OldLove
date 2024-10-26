@@ -297,15 +297,15 @@ button {
       height: 35vh;
   }
 }
-@media (min-width: 1023px) and (max-width: 1400px) {
+@media (min-width: 1000px) and (max-width: 1400px) {
   .height-responsive {
-      height: 35vh;
+      height: 60vh;
   }
 }
 
-@media (min-width: 1440px) and  (max-width:1600) {
+@media (min-width: 1400px) and  (max-width:1600) {
   .height-responsive {
-      height: 40vh;
+      height: 60vh;
   }
 }
 
@@ -317,7 +317,7 @@ button {
 
 @media (min-width: 2560px) {
   .height-responsive {
-      height: 39vh;
+      height: 50vh;
   }
 }
 
@@ -328,33 +328,24 @@ button {
     font-size: 8px;
   }
 }
-@media (min-width: 340px) {
-  .text-custom {
-    font-size: 8px; 
-    font-weight: 100;
-  }
-}
+
 @media (min-width: 341px) and (max-width: 376px) {
   .text-custom {
     font-size: 8px;
-
     font-weight: 600;
-    
- 
   }
 }
 
 @media (min-width: 377px) and (max-width: 425px) {
   .text-custom {
     font-size: 8px;
-
   }
 }
 
 
 @media (min-width: 426px) and (max-width:759) {
   .text-custom {
-    font-size: 8px;
+    font-size: 10px;
   }
 }
 
@@ -364,18 +355,10 @@ button {
   }
 }
 
-@media  (min-width:900) and (max-width:1025) {
+@media  (min-width:900px) and (max-width:1025px) {
   .text-custom {
     font-size: 12px;
   }
-}
-
-@media (min-width: 2560px) {
-  .text-custom {
-    font-size: 25px;
-    padding-top: 2px;
-  }
- 
 }
 @media (min-width: 1440px) {
   .text-custom {
@@ -383,6 +366,14 @@ button {
 
   }
 }
+@media (min-width: 2560px) {
+  .text-custom {
+    font-size: 25px;
+    padding-top: 2px;
+  }
+ 
+}
+
 
 .slogan-wrapper {
   display: inline-block;
