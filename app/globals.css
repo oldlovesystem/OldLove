@@ -442,30 +442,35 @@ button {
   }
 }
 
-@media (min-width: 370px) {
+@media (min-width: 370px)  and (max-width: 388px){
   .try {
-      height: 45vh;
+      height: 40vh;
   }
 }
-@media (min-width: 425px) {
+@media (min-width: 389px)  and (max-width: 424px){
   .try {
-      height: 55vh;
+      height: 35vh;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 425px) and (max-width: 766px) {
+  .try {
+      height: 35vh;
+  }
+}
+@media (min-width: 768px)  and (max-width: 999px){
   .try {
       height: 45vh;
   }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1000px) and (max-width: 1023px){
   .try {
       height: 55vh;
   }
 }
-@media (min-width: 1024px) {
+@media (min-width: 1024px){
   .try {
-      height: 45vh;
+      height: 55vh;
   }
 }
 
@@ -478,7 +483,7 @@ button {
 
 @media (min-width: 1601px) and  (max-width:2000) {
   .height-responsive {
-      height: 53vh;
+      height: 50vh;
   }
 }
 
