@@ -246,7 +246,9 @@ button {
 
 
 /* ------------------- RedfineImages --------------------- */
-
+.height-responsive{
+  height: 50vh;
+}
 @media (min-width: 300px) and (max-width: 340) {
   .height-responsive {
       height: 30vh;
@@ -263,7 +265,7 @@ button {
     height: 30vh;
   }
 }
-@media (min-width: 370px) {
+@media (min-width: 370px) and (max-width:425px){
   .height-responsive {
       height: 33vh;
   }
@@ -284,28 +286,22 @@ button {
     height: 30vh;
   }
 }
-@media (min-width: 768px) {
-  .height-responsive {
-      height: 35vh;
-  }
-}
+
 @media (min-width:539) and (max-width: 600px) {
   .height-responsive {
     height: 50vh;
 }
 }
-
-@media (min-width: 1020px) and (max-width: 1100px) {
+@media (min-width: 768px) and (max-width:900px) {
   .height-responsive {
       height: 35vh;
   }
 }
-@media (min-width: 1200px) and (max-width: 1300px) {
+@media (min-width: 1023px) and (max-width: 1400px) {
   .height-responsive {
-      height: 45vh;
+      height: 35vh;
   }
 }
-
 
 @media (min-width: 1440px) and  (max-width:1600) {
   .height-responsive {
