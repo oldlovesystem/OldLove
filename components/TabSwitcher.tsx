@@ -1,7 +1,10 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
-import { GridTileImage } from './grid/tile';
+import Image from 'next/image';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css/bundle';
 import { Product } from 'lib/shopify/types';
 
 interface TabSwitcherProps {
@@ -12,32 +15,57 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ products }) => {
   const displayProducts = products.length > 6 ? products.slice(0, 8) : products;
 
   return (
-    <div className="what-new-block md:pt-20 ml-5 mr-5">
-      <div className="text-center logo-font uppercase collectionheading font-thin mb-8">Redefine your Wadrobe</div>
-
-      <div className='mt-10'>
+    <div className="what-new-block ml-2 mr-2">
+      <div className='section-swiper-navigation'>
         {displayProducts.length ? (
-          <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6  gap-4 ml-2 mr-2 ">
+          <Swiper
+            spaceBetween={12}
+            slidesPerView={2}
+            loop={true}
+            modules={[Autoplay]} // Remove Navigation
+            autoplay={{
+              delay: 3000, // Adjust delay as needed
+              disableOnInteraction: false,
+            }}
+            breakpoints={{
+              576: {
+                slidesPerView: 2,
+                spaceBetween: 12,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+              },
+              1200: {
+                slidesPerView: 4,
+                spaceBetween: 20,
+              },
+            }}
+            className='h-full'
+          >
             {displayProducts.map((product) => (
-              <li key={product.handle} className="relative">
-                <Link href={`/product/${product.handle}`} className="relative h-full w-full inline-block">
-                <div className="w-full height-responsive relative overflow-hidden">
-                    <GridTileImage
-                      alt={product.title}
-                      label={{
-                        title: product.title,
-                        amount: product.priceRange.maxVariantPrice.amount,
-                        currencyCode: product.priceRange.maxVariantPrice.currencyCode
-                      }}
-                      fill
+              <SwiperSlide key={product.handle}>
+                <Link href={`/product/${product.handle}`} className="relative block overflow-hidden">
+                  <div className="bg-white p-4">
+                    <Image
                       src={product.featuredImage?.url}
-                      sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 60vw"
+                      alt={product.title}
+                      width={300}
+                      height={300}
+                      className="w-full bg-gray-300 h-auto transition duration-500 ease-in-out transform hover:scale-105"
+                      loading="lazy"
                     />
+                    <div className="mt-2 text-sm text-gray-700">
+                      <div>{product.title}</div>
+                      <div>
+                        {product.priceRange.maxVariantPrice.amount} {product.priceRange.maxVariantPrice.currencyCode}
+                      </div>
+                    </div>
                   </div>
                 </Link>
-              </li>
+              </SwiperSlide>
             ))}
-          </ul>
+          </Swiper>
         ) : (
           <p className="mt-4 text-gray-500">No products available.</p>
         )}

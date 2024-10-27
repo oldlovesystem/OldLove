@@ -18,6 +18,10 @@ export default function HomePage() {
     <>
       <SliderCosmeticOne/>
       <Collection/>
+      <div className="text-center mt-10  logo-font uppercase collectionheading font-thin mb-8">Redefine your Wardrobe</div>
+      <Carousel />
+      <Carousel />
+      <Carousel />
       <Carousel />
       <Benefit props="md:py-20 py-10" />
       <Instagram/>
