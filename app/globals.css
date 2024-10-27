@@ -247,7 +247,7 @@ button {
 
 /* ------------------- RedfineImages --------------------- */
 .height-responsive{
-  height: 50vh;
+  height: 60vh;
 }
 @media (min-width: 300px) and (max-width: 340) {
   .height-responsive {
