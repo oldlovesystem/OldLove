@@ -94,49 +94,6 @@ const Dashboard = () => {
     fetchCustomerOrders();
   }, []);
 
-  const cancelOrder = async (orderId) => {
-    try {
-      const response = await axios.post(
-        "https://9eca2f-11.myshopify.com/admin/api/2024-07/graphql.json",
-        {
-          query: `
-            mutation orderCancel($id: ID!) {
-              orderCancel(id: $id) {
-                userErrors {
-                  field
-                  message
-                }
-                order {
-                  id
-                  canceledAt
-                }
-              }
-            }
-          `,
-          variables: {
-            id: orderId,
-          },
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "X-Shopify-Access-Token": "your_admin_api_access_token", // Use Admin API token here
-          },
-        }
-      );
-
-      const errors = response.data?.data?.orderCancel?.userErrors;
-      if (errors && errors.length > 0) {
-        setError(errors[0].message);
-      } else {
-        alert("Order canceled successfully");
-        fetchCustomerOrders(); // Refresh orders after cancellation
-      }
-    } catch (err) {
-      setError("Error canceling order.");
-    }
-  };
-
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -159,20 +116,6 @@ const Dashboard = () => {
                   <div className="name heading6 mt-4 text-center font-semibold">{customer.firstName} {customer.lastName}</div>
                   <div className="mail heading6 font-normal text-gray-600 text-center mt-1">{customer.email}</div>
                 </div>
-                <div className="menu-tab w-full max-w-none lg:mt-10 mt-6">
-                  <Link href={'#!'} scroll={false} className="item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-gray-100">
-                    <Icon.HouseLine size={20} />
-                    <strong className="heading6">Dashboard</strong>
-                  </Link>
-                  <Link href={'#!'} scroll={false} className="item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-gray-100 mt-1.5">
-                    <Icon.Package size={20} />
-                    <strong className="heading6">History Orders</strong>
-                  </Link>
-                  <Link href={'/login'} className="item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-gray-100 mt-1.5">
-                    <Icon.SignOut size={20} />
-                    <strong className="heading6">Logout</strong>
-                  </Link>
-                </div>
               </div>
             </div>
 
@@ -187,26 +130,34 @@ const Dashboard = () => {
                     {orders.map(({ node: order }) => (
                       <li key={order.id} className="order-item border border-gray-300 rounded-lg p-4 my-2 bg-white shadow-sm">
                         <h3 className="font-semibold">Order #{order.orderNumber}</h3>
-                        <p className="text-gray-600">Processed At: {new Date(order.processedAt).toLocaleDateString()}</p>
-                        <p className="text-gray-600">Status: {order.fulfillmentStatus}</p>
-                        <p className="font-bold">Total Price: {order.currentTotalPrice.amount} {order.currentTotalPrice.currencyCode}</p>
-                        <p className="text-gray-600">Billing Address: {order.billingAddress?.address1}, {order.billingAddress?.city}, {order.billingAddress?.country}</p>
-                        {order.canceledAt && <p className="text-red-500">Order Canceled At: {new Date(order.canceledAt).toLocaleDateString()}</p>}
-                        {order.cancelReason && <p className="text-red-500">Cancellation Reason: {order.cancelReason}</p>}
-                        <h4 className="font-semibold mt-3">Items:</h4>
-                        <ul className="list-disc pl-5">
-                          {order.lineItems.edges.map(({ node: item }) => (
-                            <li key={item.title} className="text-gray-600">
-                              {item.title} (Quantity: {item.quantity})
-                            </li>
-                          ))}
-                        </ul>
-                        <button
-                          className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
-                          onClick={() => cancelOrder(order.id)}
-                        >
-                          Cancel Order
-                        </button>
+                        {order.canceledAt ? (
+                          <>
+                            <p className="text-red-500">Canceled</p>
+                            <h4 className="font-semibold mt-3">Items:</h4>
+                            <ul className="list-disc pl-5">
+                              {order.lineItems.edges.map(({ node: item }) => (
+                                <li key={item.title} className="text-gray-600">
+                                  {item.title}
+                                </li>
+                              ))}
+                            </ul>
+                          </>
+                        ) : (
+                          <>
+                            <p className="text-gray-600">Processed At: {new Date(order.processedAt).toLocaleDateString()}</p>
+                            <p className="text-gray-600">Status: {order.fulfillmentStatus}</p>
+                            <p className="font-bold">Total Price: {order.currentTotalPrice.amount} {order.currentTotalPrice.currencyCode}</p>
+                            <p className="text-gray-600">Billing Address: {order.billingAddress?.address1}, {order.billingAddress?.city}, {order.billingAddress?.country}</p>
+                            <h4 className="font-semibold mt-3">Items:</h4>
+                            <ul className="list-disc pl-5">
+                              {order.lineItems.edges.map(({ node: item }) => (
+                                <li key={item.title} className="text-gray-600">
+                                  {item.title} (Quantity: {item.quantity})
+                                </li>
+                              ))}
+                            </ul>
+                          </>
+                        )}
                       </li>
                     ))}
                   </ul>

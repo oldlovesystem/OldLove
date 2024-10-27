@@ -9,7 +9,7 @@ import { getProduct, getProductRecommendations } from 'lib/shopify';
 import { Image } from 'lib/shopify/types';
 import Link from 'next/link';
 import { Suspense } from 'react';
-import ProductGridItems from 'components/layout/product-grid-items'; // Update the import path as necessary
+import ProductGridItems from 'components/layout/product-grid-items'; 
 
 export async function generateMetadata({
   params
