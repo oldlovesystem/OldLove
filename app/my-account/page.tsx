@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import * as Icon from "@phosphor-icons/react/dist/ssr";
-import Link from "next/link";
 
 const Dashboard = () => {
   const [customer, setCustomer] = useState(null);
@@ -78,7 +77,22 @@ const Dashboard = () => {
       if (response.data && response.data.data && response.data.data.customer) {
         const customerData = response.data.data.customer;
         setCustomer(customerData);
-        setOrders(customerData.orders.edges);
+
+        // Check each order's cancellation status
+        const updatedOrders = await Promise.all(
+          customerData.orders.edges.map(async ({ node: order }) => {
+            const cancelCheckResponse = await axios.get(`https://cancelorder.vercel.app/api/cancelOrderCheck/${order.orderNumber}`);
+            const isCanceled = cancelCheckResponse.status === 200 && cancelCheckResponse.data.exists;
+            console.log(cancelCheckResponse )
+            // If Shopify API indicates it's canceled, or our local check says it's canceled, mark it as canceled
+            return {
+              ...order,
+              canceled: order.canceledAt || isCanceled,
+            };
+          })
+        );
+
+        setOrders(updatedOrders);
       } else {
         setError("No customer data found.");
       }
@@ -87,6 +101,27 @@ const Dashboard = () => {
       console.error(err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const cancelOrder = async (orderId, orderNumber) => {
+    const reason = prompt("Please enter the reason for cancellation:");
+
+    if (!reason) {
+      alert("Cancellation reason is required.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("https://cancelorder.vercel.app/api/cancelOrder", {
+        orderId: orderNumber, // Use order number instead of full ID
+        cancelReason: reason,
+      });
+
+      alert("Order canceled! Please allow a few minutes for the cancellation to reflect.");
+      fetchCustomerOrders(); // Refresh the orders list
+    } catch (error) {
+      setError("Error canceling order: " + (error.response?.data?.error || error.message));
     }
   };
 
@@ -127,10 +162,10 @@ const Dashboard = () => {
                   <p className="text-gray-600">No orders found.</p>
                 ) : (
                   <ul>
-                    {orders.map(({ node: order }) => (
+                    {orders.map((order) => (
                       <li key={order.id} className="order-item border border-gray-300 rounded-lg p-4 my-2 bg-white shadow-sm">
                         <h3 className="font-semibold">Order #{order.orderNumber}</h3>
-                        {order.canceledAt ? (
+                        {order.canceled ? (
                           <>
                             <p className="text-red-500">Canceled</p>
                             <h4 className="font-semibold mt-3">Items:</h4>
@@ -156,6 +191,12 @@ const Dashboard = () => {
                                 </li>
                               ))}
                             </ul>
+                            <button
+                              className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                              onClick={() => cancelOrder(order.id, order.orderNumber)} // Pass order.number here
+                            >
+                              Cancel Order
+                            </button>
                           </>
                         )}
                       </li>
