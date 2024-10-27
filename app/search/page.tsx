@@ -33,12 +33,12 @@ export default async function SearchPage({
       ) : null}
 
 
-
+<div className='ml-2 lg:ml-14'>
       {products.length > 0 ? (
-        <Grid className={`grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:ml-14 ml-5 `}>
+
           <ProductGridItems products={products} />
-        </Grid>
       ) : null}
+      </div>
     </>
   );
 }
