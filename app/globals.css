@@ -298,12 +298,12 @@ button {
 }
 @media (min-width: 768px) and (max-width:900px) {
   .height-responsive {
-      height: 26vh;
+      height: 40vh;
   }
 }
 @media (min-width: 1000px) and (max-width: 1440px) {
   .height-responsive {
-      height: 60vh;
+      height: 65vh;
   }
 }
 
