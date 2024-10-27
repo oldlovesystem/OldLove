@@ -176,13 +176,31 @@ const Dashboard = () => {
                       <li key={order.id} className="order-item border border-gray-300 rounded-lg p-4 my-2 bg-white shadow-sm">
                         <h3 className="font-semibold">Order #{order.orderNumber}</h3>
                         {order.canceled ? (
-                          <p className="text-red-500">Canceled</p>
+                          <>
+                            <p className="text-red-500">Canceled</p>
+                            <h4 className="font-semibold mt-3">Items:</h4>
+                            <ul className="list-disc pl-5">
+                              {order.lineItems.edges.map(({ node: item }) => (
+                                <li key={item.title} className="text-gray-600">
+                                  {item.title} {/* Display item name only */}
+                                </li>
+                              ))}
+                            </ul>
+                          </>
                         ) : (
                           <>
                             <p className="text-gray-600">Processed At: {new Date(order.processedAt).toLocaleDateString()}</p>
                             <p className="text-gray-600">Status: {order.fulfillmentStatus}</p>
                             <p className="font-bold">Total Price: {order.currentTotalPrice.amount} {order.currentTotalPrice.currencyCode}</p>
                             <p className="text-gray-600">Billing Address: {order.billingAddress?.address1}, {order.billingAddress?.city}, {order.billingAddress?.country}</p>
+                            <h4 className="font-semibold mt-3">Items:</h4>
+                            <ul className="list-disc pl-5">
+                              {order.lineItems.edges.map(({ node: item }) => (
+                                <li key={item.title} className="text-gray-600">
+                                  {item.title} (Quantity: {item.quantity})
+                                </li>
+                              ))}
+                            </ul>
                             <button
                               className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
                               onClick={() => openCancelModal(order)}
