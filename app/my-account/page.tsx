@@ -11,51 +11,49 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchCustomerOrders = async () => {
-      const accessToken = typeof window !== "undefined" ? localStorage.getItem("customerAccessToken") : null;
+  const fetchCustomerOrders = async () => {
+    const accessToken = typeof window !== "undefined" ? localStorage.getItem("customerAccessToken") : null;
 
-      if (!accessToken) {
-        setError("No customer access token found.");
-        setLoading(false);
-        return;
-      }
+    if (!accessToken) {
+      setError("No customer access token found.");
+      setLoading(false);
+      return;
+    }
 
-      try {
-        const response = await axios.post(
-          "https://9eca2f-11.myshopify.com/api/2024-07/graphql.json",
-          {
-            query: `
-              query GetCustomerOrders($customerAccessToken: String!) {
-                customer(customerAccessToken: $customerAccessToken) {
-                  id
-                  firstName
-                  lastName
-                  email
-                  orders(first: 10) {
-                    edges {
-                      node {
-                        id
-                        orderNumber
-                        processedAt
-                        billingAddress {
-                          address1
-                          city
-                          country
-                        }
-                        canceledAt
-                        cancelReason
-                        currentTotalPrice {
-                          amount
-                          currencyCode
-                        }
-                        fulfillmentStatus
-                        lineItems(first: 5) {
-                          edges {
-                            node {
-                              title
-                              quantity
-                            }
+    try {
+      const response = await axios.post(
+        "https://9eca2f-11.myshopify.com/api/2024-07/graphql.json",
+        {
+          query: `
+            query GetCustomerOrders($customerAccessToken: String!) {
+              customer(customerAccessToken: $customerAccessToken) {
+                id
+                firstName
+                lastName
+                email
+                orders(first: 10) {
+                  edges {
+                    node {
+                      id
+                      orderNumber
+                      processedAt
+                      billingAddress {
+                        address1
+                        city
+                        country
+                      }
+                      canceledAt
+                      cancelReason
+                      currentTotalPrice {
+                        amount
+                        currencyCode
+                      }
+                      fulfillmentStatus
+                      lineItems(first: 5) {
+                        edges {
+                          node {
+                            title
+                            quantity
                           }
                         }
                       }
@@ -63,36 +61,81 @@ const Dashboard = () => {
                   }
                 }
               }
-            `,
-            variables: {
-              customerAccessToken: accessToken,
-            },
+            }
+          `,
+          variables: {
+            customerAccessToken: accessToken,
           },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "X-Shopify-Storefront-Access-Token": "e5f230e4a5202dc92cf9d9341c72bc5b",
-            },
-          }
-        );
-
-        if (response.data && response.data.data && response.data.data.customer) {
-          const customerData = response.data.data.customer;
-          setCustomer(customerData);
-          setOrders(customerData.orders.edges);
-        } else {
-          setError("No customer data found.");
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-Shopify-Storefront-Access-Token": "e5f230e4a5202dc92cf9d9341c72bc5b",
+          },
         }
-      } catch (err) {
-        setError("Error fetching customer data or orders.");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+      );
 
+      if (response.data && response.data.data && response.data.data.customer) {
+        const customerData = response.data.data.customer;
+        setCustomer(customerData);
+        setOrders(customerData.orders.edges);
+      } else {
+        setError("No customer data found.");
+      }
+    } catch (err) {
+      setError("Error fetching customer data or orders.");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchCustomerOrders();
   }, []);
+
+  const cancelOrder = async (orderId) => {
+    try {
+      const response = await axios.post(
+        "https://9eca2f-11.myshopify.com/admin/api/2024-07/graphql.json",
+        {
+          query: `
+            mutation orderCancel($id: ID!) {
+              orderCancel(id: $id) {
+                userErrors {
+                  field
+                  message
+                }
+                order {
+                  id
+                  canceledAt
+                }
+              }
+            }
+          `,
+          variables: {
+            id: orderId,
+          },
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-Shopify-Access-Token": "your_admin_api_access_token", // Use Admin API token here
+          },
+        }
+      );
+
+      const errors = response.data?.data?.orderCancel?.userErrors;
+      if (errors && errors.length > 0) {
+        setError(errors[0].message);
+      } else {
+        alert("Order canceled successfully");
+        fetchCustomerOrders(); // Refresh orders after cancellation
+      }
+    } catch (err) {
+      setError("Error canceling order.");
+    }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -117,11 +160,11 @@ const Dashboard = () => {
                   <div className="mail heading6 font-normal text-gray-600 text-center mt-1">{customer.email}</div>
                 </div>
                 <div className="menu-tab w-full max-w-none lg:mt-10 mt-6">
-                  <Link href={'#!'} scroll={false} className={`item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-gray-100`}>
+                  <Link href={'#!'} scroll={false} className="item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-gray-100">
                     <Icon.HouseLine size={20} />
                     <strong className="heading6">Dashboard</strong>
                   </Link>
-                  <Link href={'#!'} scroll={false} className={`item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-gray-100 mt-1.5`}>
+                  <Link href={'#!'} scroll={false} className="item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-gray-100 mt-1.5">
                     <Icon.Package size={20} />
                     <strong className="heading6">History Orders</strong>
                   </Link>
@@ -158,6 +201,12 @@ const Dashboard = () => {
                             </li>
                           ))}
                         </ul>
+                        <button
+                          className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                          onClick={() => cancelOrder(order.id)}
+                        >
+                          Cancel Order
+                        </button>
                       </li>
                     ))}
                   </ul>

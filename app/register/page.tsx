@@ -97,7 +97,7 @@ const Register = () => {
                   <label htmlFor='remember' className="pl-2 cursor-pointer text-secondary2">
                     I agree to the
                     <button type="button" onClick={() => setIsModalOpen(true)} className='text-black hover:underline pl-1'>
-                      Terms of Use
+                      Terms and Policy
                     </button>
                   </label>
                 </div>
