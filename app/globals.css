@@ -324,7 +324,7 @@ button {
 }
 @media (min-width: 2001px) and  (max-width:3000px) {
   .height-responsive {
-      height: 20vh;
+      height: 40vh;
   }
 }
 
@@ -364,13 +364,13 @@ button {
   }
 }
 
-@media  (min-width:900px) and (max-width:1025px) {
+@media  (min-width:900px) and (max-width:1270px) {
   .text-custom {
     font-size: 12px;
   }
 }
 
-@media(min-width: 1270px) and (max-width: 1300px) {
+@media(min-width: 1270px) and (max-width: 1400px) {
   .text-custom {
     font-size: 12px;
 }
