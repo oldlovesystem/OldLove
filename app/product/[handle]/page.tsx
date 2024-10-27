@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Breadcrumbs from 'components/Breadcrumbs';
-import { GridTileImage } from 'components/grid/tile';
 import { Gallery } from 'components/product/gallery';
 import { ProductProvider } from 'components/product/product-context';
 import { ProductDescription } from 'components/product/product-description';
@@ -10,6 +9,7 @@ import { getProduct, getProductRecommendations } from 'lib/shopify';
 import { Image } from 'lib/shopify/types';
 import Link from 'next/link';
 import { Suspense } from 'react';
+import ProductGridItems from 'components/layout/product-grid-items'; // Update the import path as necessary
 
 export async function generateMetadata({
   params
@@ -70,12 +70,6 @@ export default async function ProductPage({ params }: { params: { handle: string
     }
   };
 
-  // const { updateSelectedVariantImage } = useProduct();
-
-  // useEffect(() => {
-  //   updateSelectedVariantImage(product.featuredImage.url);
-  // }, []);
-
   return (
     <ProductProvider>
       <script
@@ -98,7 +92,6 @@ export default async function ProductPage({ params }: { params: { handle: string
                   src: image.url,
                   altText: image.altText
                 }))}
-                // product_variants={product.variants}
               />
             </Suspense>
           </div>
@@ -109,8 +102,7 @@ export default async function ProductPage({ params }: { params: { handle: string
             </Suspense>
           </div>
         </div>
-      
-
+        
         <RelatedProducts id={product.id} />
       </div>
     </ProductProvider>
@@ -126,32 +118,7 @@ async function RelatedProducts({ id }: { id: string }) {
     <div>
       <h2 className="mb-10 mt-5 max-w-full text-center text-4xl font-thin logofont">Related Products</h2>
       <div className="tab-content">
-        {relatedProducts ? (
-          <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
-            {relatedProducts.map((product) => (
-              <li key={product.handle} className="relative">
-                <Link href={`/product/${product.handle}`} className="relative block h-full w-full">
-                  <div className="relative  overflow-hidden  h-[39vh] mt-4 ml-0  md:h-[40vh] w-[100%] lg:h-[50vh]">
-                    <GridTileImage
-                      alt={product.title}
-                      label={{
-                        title: product.title,
-                        amount: product.priceRange.maxVariantPrice.amount,
-                        currencyCode: product.priceRange.maxVariantPrice.currencyCode
-                      }}
-                      src={product.featuredImage?.url}
-                      fill
-                      sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-                      className="object-contain"
-                    />
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="mt-4 text-gray-500">No products available.</p>
-        )}
+        <ProductGridItems products={relatedProducts} />
       </div>
     </div>
   );
