@@ -9,9 +9,10 @@ import { Product } from 'lib/shopify/types';
 
 interface TabSwitcherProps {
   products: Product[];
+  speed: number; // Include speed prop
 }
 
-const TabSwitcher: React.FC<TabSwitcherProps> = ({ products }) => {
+const TabSwitcher: React.FC<TabSwitcherProps> = ({ products, speed }) => {
   const displayProducts = products.length > 6 ? products.slice(0, 8) : products;
 
   return (
@@ -22,15 +23,15 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ products }) => {
             spaceBetween={12}
             slidesPerView={2}
             loop={true}
-            modules={[Autoplay]} // Remove Navigation
+            modules={[Autoplay]}
             autoplay={{
-              delay: 3000, // Adjust delay as needed
+              delay: speed, // Use the speed prop here
               disableOnInteraction: false,
             }}
             breakpoints={{
               576: {
                 slidesPerView: 2,
-                spaceBetween: 12,
+                spaceBetween: 10,
               },
               768: {
                 slidesPerView: 3,
@@ -52,7 +53,7 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ products }) => {
                       alt={product.title}
                       width={300}
                       height={300}
-                      className="w-full bg-gray-300 h-auto transition duration-500 ease-in-out transform hover:scale-105"
+                      className="w-full bg-gray-300 rounded-lg h-auto transition duration-500 ease-in-out transform hover:scale-105"
                       loading="lazy"
                     />
                     <div className="mt-2 text-sm text-gray-700">

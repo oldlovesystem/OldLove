@@ -1,7 +1,7 @@
 import { getCollectionProducts, getCollections } from 'lib/shopify';
 import TabSwitcher from './TabSwitcher';
 
-export async function Carousel() {
+export async function Carousel({ speed }) {
   // Fetch collections excluding the 'All' collection
   const collections = await getCollections();
   const filteredCollections = collections.filter(collection => collection.title.toLowerCase() !== 'all');
@@ -16,7 +16,7 @@ export async function Carousel() {
 
   // Flatten the array of products
   const combinedProducts = allProducts.flat();
-  console.log(combinedProducts.length)
+  console.log(combinedProducts.length);
 
   // Shuffle the combined products array
   const shuffleArray = (array) => {
@@ -27,13 +27,12 @@ export async function Carousel() {
     return array;
   };
 
-
   const shuffledProducts = shuffleArray(combinedProducts).slice(0, 10); 
-  console.log(shuffledProducts.length)
+  console.log(shuffledProducts.length);
 
   return (
     <div>
-      <TabSwitcher products={shuffledProducts} />
+      <TabSwitcher products={shuffledProducts} speed={speed} />
     </div>
   );
 }
