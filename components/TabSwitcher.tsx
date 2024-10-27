@@ -53,7 +53,7 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ products, speed }) => {
                       alt={product.title}
                       width={300}
                       height={300}
-                      className="w-full bg-gray-300 rounded-lg h-auto transition duration-500 ease-in-out transform hover:scale-105"
+                      className="w-full bg-gray-300  h-auto transition duration-500 ease-in-out transform hover:scale-105"
                       loading="lazy"
                     />
                     <div className="mt-2 text-sm text-gray-700">
