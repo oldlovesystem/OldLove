@@ -314,7 +314,7 @@ button {
 }
 @media (min-width: 1400px) and  (max-width:1500) {
   .height-responsive {
-      height: 65vh;
+      height: 70vh;
   }
 }
 @media (min-width: 1501px) and  (max-width:2000px) {
