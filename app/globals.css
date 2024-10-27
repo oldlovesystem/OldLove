@@ -485,14 +485,14 @@ button {
 }
 @media (min-width: 1024px){
   .try {
-      height: 55vh;
+      height: 50vh;
   }
 }
 
 
 @media (min-width: 1440px) and  (max-width:1600) {
   .try {
-      height: 55vh;
+      height: 50vh;
   }
 }
 
