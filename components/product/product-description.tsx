@@ -43,7 +43,7 @@ export function ProductDescription({ product }: { product: Product }) {
         );
         console.log(estimatedDays);
         const deliveryRange = `${estimatedDays} to ${estimatedDays + 2} days`;
-        setEstimatedDelivery(`Shipped in ${deliveryRange}`);
+        setEstimatedDelivery(`Estimated delivery in ${deliveryRange}`);
       } else {
         setEstimatedDelivery('No courier options available for this postcode.');
       }
