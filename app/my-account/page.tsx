@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import * as Icon from "@phosphor-icons/react/dist/ssr";
+import Link from "next/link";
 
 // CSS Spinner Styles
 const spinnerStyles = `
@@ -197,44 +198,47 @@ const Dashboard = () => {
                 ) : (
                   <ul>
                     {orders.map((order) => (
-                      <li key={order.id} className="order-item border border-gray-300 rounded-lg p-4 my-2 bg-white shadow-sm">
-                        <h3 className="font-semibold">Order #{order.orderNumber}</h3>
-                        {order.canceled ? (
-                          <>
-                            <p className="text-red-500">Canceled</p>
-                            <h4 className="font-semibold mt-3">Items:</h4>
-                            <ul className="list-disc pl-5">
-                              {order.lineItems.edges.map(({ node: item }) => (
-                                <li key={item.title} className="text-gray-600">
-                                  {item.title} {/* Display item name only */}
-                                </li>
-                              ))}
-                            </ul>
-                          </>
-                        ) : (
-                          <>
-                            <p className="text-gray-600">Processed At: {new Date(order.processedAt).toLocaleDateString()}</p>
-                            <p className="text-gray-600">Status: {order.fulfillmentStatus}</p>
-                            <p className="font-bold">Total Price: {order.currentTotalPrice.amount} {order.currentTotalPrice.currencyCode}</p>
-                            <p className="text-gray-600">Billing Address: {order.billingAddress?.address1}, {order.billingAddress?.city}, {order.billingAddress?.country}</p>
-                            <h4 className="font-semibold mt-3">Items:</h4>
-                            <ul className="list-disc pl-5">
-                              {order.lineItems.edges.map(({ node: item }) => (
-                                <li key={item.title} className="text-gray-600">
-                                  {item.title} (Quantity: {item.quantity})
-                                </li>
-                              ))}
-                            </ul>
-                            {order.fulfillmentStatus !== "FULFILLED" && ( // Condition to check if order is not fulfilled
-                              <button
-                                className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
-                                onClick={() => openCancelModal(order)}
-                              >
-                                Cancel Order
-                              </button>
-                            )}
-                          </>
-                        )}
+                      <li key={order.id} className="order-item border border-gray-300 rounded-lg p-4 my-2 bg-white shadow-sm flex justify-between items-center">
+                        <div className="order-details">
+                          <h3 className="font-semibold">Order #{order.orderNumber}</h3>
+                          {order.canceled ? (
+                            <>
+                              <p className="text-red-500">Canceled</p>
+                              <h4 className="font-semibold mt-3">Items:</h4>
+                              <ul className="list-disc pl-5">
+                                {order.lineItems.edges.map(({ node: item }) => (
+                                  <li key={item.title} className="text-gray-600">
+                                    {item.title} {/* Display item name only */}
+                                  </li>
+                                ))}
+                              </ul>
+                            </>
+                          ) : (
+                            <>
+                              <p className="text-gray-600">Processed At: {new Date(order.processedAt).toLocaleDateString()}</p>
+                              <p className="text-gray-600">Status: {order.fulfillmentStatus}</p>
+                              <p className="font-bold">Total Price: {order.currentTotalPrice.amount} {order.currentTotalPrice.currencyCode}</p>
+                              <p className="text-gray-600">Billing Address: {order.billingAddress?.address1}, {order.billingAddress?.city}, {order.billingAddress?.country}</p>
+                              <h4 className="font-semibold mt-3">Items:</h4>
+                              <ul className="list-disc pl-5">
+                                {order.lineItems.edges.map(({ node: item }) => (
+                                  <li key={item.title} className="text-gray-600">
+                                    {item.title} (Quantity: {item.quantity})
+                                  </li>
+                                ))}
+                              </ul>
+                              
+                              {order.fulfillmentStatus !== "FULFILLED" && ( // Condition to check if order is not fulfilled
+                                <button
+                                  className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                                  onClick={() => openCancelModal(order)}
+                                >
+                                  Cancel Order
+                                </button>
+                              )}
+                            </>
+                          )}
+                        </div>
                       </li>
                     ))}
                   </ul>
@@ -248,26 +252,17 @@ const Dashboard = () => {
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
-            <h3 className="text-lg font-semibold mb-3">Cancel Order #{selectedOrder.orderNumber}</h3>
+            <h3 className="text-lg font-semibold mb-3">Cancel Order #{selectedOrder?.orderNumber}</h3>
             <textarea
-              className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
-              placeholder="*Enter reason for cancellation"
+              rows={4}
               value={cancelReason}
               onChange={(e) => setCancelReason(e.target.value)}
+              placeholder="Enter reason for cancellation..."
+              className="border border-gray-300 rounded-lg p-2 w-full mb-4"
             />
-            <div className="flex justify-end mt-4 gap-2">
-              <button
-                className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
-                onClick={closeModal}
-              >
-                Cancel
-              </button>
-              <button
-                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-red-600"
-                onClick={confirmCancellation}
-              >
-                Confirm
-              </button>
+            <div className="flex justify-end">
+              <button onClick={closeModal} className="mr-2 px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">Cancel</button>
+              <button onClick={confirmCancellation} className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">Confirm Cancellation</button>
             </div>
           </div>
         </div>
