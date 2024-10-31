@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -33,6 +34,8 @@ const Login = () => {
         setSuccess('Login successful!');
         setError('');
         setTimeout(() => {
+          // Refresh the page and then redirect to home
+          window.location.reload();
           router.push('/');
         }, 1000);
       } else {
@@ -51,9 +54,6 @@ const Login = () => {
 
   return (
     <>
-      <div id="header" className='relative w-full'>
-        <Breadcrumb heading='Login' subHeading='Login' />
-      </div>
       <div className="login-block md:py-20 py-10">
         <div className="container">
           <div className="content-main flex gap-y-8 max-md:flex-col">

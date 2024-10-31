@@ -224,7 +224,7 @@ export function ProductDescription({ product }: { product: Product }) {
             className="flex items-center space-x-2 rounded bg-black p-2 text-white hover:bg-gray-800 transform hover:scale-105 transition-all"
           >
 
-            <span>Check Delivery</span>
+            <span>Check</span>
           </button>
         </div>
       </div>

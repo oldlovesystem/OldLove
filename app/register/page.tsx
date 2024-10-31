@@ -16,19 +16,27 @@ const Register = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isVerificationModalOpen, setIsVerificationModalOpen] = useState(false); // For email verification modal
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const customer = await registerCustomer(email, password, firstName, lastName);
-      setSuccess(`Customer created: ${customer.email}`);
+    const response = await registerCustomer(email, password, firstName, lastName);
+    console.log(response);
+    if (response.success) {
+      setSuccess(`Customer created: ${response.customer.email}.`);
       setError('');
       setTimeout(() => {
         router.push('/');
-      }, 1000);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
+      }, 3000); // Redirect after 3 seconds
+    } else {
+      // Display the message returned by the registerCustomer function
+      setError(response.message);
       setSuccess('');
+      
+      // Show verification modal if the error is about email verification
+      if (response.message.includes('verify your email address')) {
+        setIsVerificationModalOpen(true);
+      }
     }
   };
 
@@ -121,29 +129,26 @@ const Register = () => {
 
       {/* Modal for Terms and Policies */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg w-full max-w-lg mx-4">
-            <h2 className="text-xl font-bold mb-4">Terms and Policies</h2>
-            <p className="text-sm text-gray-600 mb-4">
-            This policy applies to all the Old Love platforms (the “Site” or “Web Site” or “Mobile
-            Application” or “App” or “Us” or “We” or "Social Media Platforms"), which is operated
-            and owned by Nandi International, marketed and/or managed by Nandi International. It is
-            Old Love’s policy to comply with general laws for protecting user information and bank
-            details shared for the purpose of availing Old Love (Nandi International) services. This regulates the
-            processing of information relating to you and grants you various rights in respect of
-            your personal data. Any Images, Data or Files Uploaded on the website must not be used
-            without the consent of the authorized personnel of the brand. The Web Site contains
-            links to other websites over which we have no control. Old Love is not responsible for
-            the privacy policies or practices of other web sites to which you choose to link from
-            OldLove (Nandi International).in. We encourage you to review the privacy policies of those other web sites so
-            you can understand how they collect, use and share your information.
-            </p>
-            <button onClick={() => setIsModalOpen(false)} className="bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-800">
-              Close
-            </button>
+        <div className="modal">
+          {/* Modal content goes here */}
+          <div className="modal-content">
+            <span className="close" onClick={() => setIsModalOpen(false)}>&times;</span>
+            <h2>Terms and Policies</h2>
+            <p>Content of the terms and policies...</p>
           </div>
         </div>
       )}
+
+      {/* Modal for Verification */}
+      {isVerificationModalOpen && (
+  <div className="modal-overlay" onClick={() => setIsVerificationModalOpen(false)}>
+    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <span className="close" onClick={() => setIsVerificationModalOpen(false)}>&times;</span>
+      <h2>Email Verification Required</h2>
+      <p>We have sent an email to {email}, please click the link included to verify your email address.</p>
+    </div>
+  </div>
+)}
     </>
   );
 };
