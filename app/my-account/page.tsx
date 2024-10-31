@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { MdPerson, MdShoppingCart } from 'react-icons/md'; // React Icons for tab icons
 
 // CSS Spinner Styles
 const spinnerStyles = `
@@ -30,6 +29,9 @@ const Dashboard = () => {
   const [cancelReason, setCancelReason] = useState("");
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [activeTab, setActiveTab] = useState('info'); // State to manage active tab
+  const [isEditing, setIsEditing] = useState(false); // State to manage editing mode
+  const [editedName, setEditedName] = useState({ firstName: "", lastName: "" });
+  const [editedPhone, setEditedPhone] = useState("");
 
   const fetchCustomerOrders = async () => {
     const accessToken = typeof window !== "undefined" ? localStorage.getItem("customerAccessToken") : null;
@@ -52,7 +54,9 @@ const Dashboard = () => {
                 lastName
                 email
                 phone
-
+                metafield(namespace: "custom", key: "dob") {
+                  value
+                }
                 orders(first: 10) {
                   edges {
                     node {
@@ -70,6 +74,7 @@ const Dashboard = () => {
                         amount
                         currencyCode
                       }
+                      
                       fulfillmentStatus
                       lineItems(first: 5) {
                         edges {
@@ -98,9 +103,12 @@ const Dashboard = () => {
       );
 
       if (response.data && response.data.data && response.data.data.customer) {
+        console.log(response.data.data.customer)
         const customerData = response.data.data.customer;
-        console.log(customerData)
         setCustomer(customerData);
+        setEditedName({ firstName: customerData.firstName, lastName: customerData.lastName });
+        setEditedPhone(customerData.phone || "");
+        
         const updatedOrders = await Promise.all(
           customerData.orders.edges.map(async ({ node: order }) => {
             const cancelCheckResponse = await axios.get(`https://cancelorder.vercel.app/api/cancelOrderCheck/${order.orderNumber}`);
@@ -154,6 +162,84 @@ const Dashboard = () => {
     }
   };
 
+  const toggleEditing = () => {
+    setIsEditing((prev) => !prev);
+    if (isEditing) {
+      setEditedName({ firstName: customer.firstName, lastName: customer.lastName });
+      setEditedPhone(customer.phone || "");
+    }
+  };
+
+  const updateCustomerInfo = async () => {
+    const accessToken = typeof window !== "undefined" ? localStorage.getItem("customerAccessToken") : null;
+
+    if (!accessToken) {
+        setError("No customer access token found.");
+        return;
+    }
+
+    try {
+        const response = await axios.post(
+            "https://9eca2f-11.myshopify.com/api/2024-07/graphql.json",
+            {
+                query: `
+                    mutation UpdateCustomer($customerAccessToken: String!, $firstName: String, $lastName: String, $phone: String) {
+                        customerUpdate(
+                            customerAccessToken: $customerAccessToken,
+                            customer: {
+                                firstName: $firstName,
+                                lastName: $lastName,
+                                phone: $phone
+                            }
+                        ) {
+                            customer {
+                                id
+                                firstName
+                                lastName
+                                phone
+                            }
+                            userErrors {
+                                field
+                                message
+                            }
+                        }
+                    }
+                `,
+                variables: {
+                    customerAccessToken: accessToken,
+                    firstName: editedName.firstName,
+                    lastName: editedName.lastName,
+                    phone: editedPhone,
+                },
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Shopify-Storefront-Access-Token": "e5f230e4a5202dc92cf9d9341c72bc5b",
+                },
+            }
+        );
+
+        const data = response.data.data.customerUpdate;
+        if (data.userErrors.length > 0) {
+            setError(data.userErrors[0].message);
+        } else {
+            setCustomer({
+                ...customer,
+                firstName: data.customer.firstName,
+                lastName: data.customer.lastName,
+                phone: data.customer.phone,
+            });
+            alert("Customer information updated successfully!");
+            toggleEditing(); // Assuming this function closes the edit mode
+        }
+    } catch (error) {
+        setError("Error saving customer details.");
+    }
+};
+
+
+
   useEffect(() => {
     fetchCustomerOrders();
   }, []);
@@ -175,13 +261,12 @@ const Dashboard = () => {
 
   return (
     <>
-   
       <div className="profile-block md:py-20 py-10">
         <div className="container mx-auto px-4">
-        <div className="ml-2 text-sm">My Account</div>
-        <div className="ml-2 uppercase font-bold text-sm">{customer.firstName} {customer.lastName}</div>
+          <div className="ml-2 text-sm">My Account</div>
+          <div className="ml-2 uppercase font-bold text-sm">{customer.firstName} {customer.lastName}</div>
           <div className="content-main flex flex-col md:flex-row gap-y-8 w-full mt-4 border-t border-gray-400 py-2">
-          
+
             {/* Tabs for Customer Info and Orders */}
             <div className="tabs flex md:flex-col space-x-4 md:space-x-0 md:space-y-4 mb-6 md:mb-0 md:border-r md:pr-4">
               <button
@@ -194,23 +279,79 @@ const Dashboard = () => {
                 className={`tab ${activeTab === 'orders' ? 'bg-gray-800 text-white' : 'bg-gray-200 text-black'} px-4 py-2 rounded-lg transition`}
                 onClick={() => setActiveTab('orders')}
               >
-               Orders
+                Orders
               </button>
             </div>
 
             {/* Tab Content */}
             <div className="flex-grow md:pl-6">
               {activeTab === 'info' ? (
-                <div className="user-info   p-6">
+                <div className="user-info p-6">
                   <h3 className="text-lg font-semibold mb-4">Customer Information</h3>
-                  <ul className="list-disc pl-5 text-gray-700">
-                    <li>Name: {customer.firstName} {customer.lastName}</li>
-                    <li>Email: {customer.email}</li>
-                    {customer.phone && <li>Phone: {customer.phone}</li>}
-                  </ul>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="border border-gray-300 rounded-lg p-4 bg-gray-50">
+                      <div className="font-bold">First Name:</div>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={editedName.firstName}
+                          onChange={(e) => setEditedName((prev) => ({ ...prev, firstName: e.target.value }))}
+                          className="border border-gray-300 rounded-lg p-2 w-full"
+                        />
+                      ) : (
+                        <div>{customer.firstName}</div>
+                      )}
+                    </div>
+                    <div className="border border-gray-300 rounded-lg p-4 bg-gray-50">
+                      <div className="font-bold">Last Name:</div>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={editedName.lastName}
+                          onChange={(e) => setEditedName((prev) => ({ ...prev, lastName: e.target.value }))}
+                          className="border border-gray-300 rounded-lg p-2 w-full"
+                        />
+                      ) : (
+                        <div>{customer.lastName}</div>
+                      )}
+                    </div>
+                    <div className="border border-gray-300 rounded-lg p-4 bg-gray-50">
+                      <div className="font-bold">Email:</div>
+                      <div>{customer.email}</div>
+                    </div>
+                    <div className="border border-gray-300 rounded-lg p-4 bg-gray-50">
+                      <div className="font-bold">Phone:</div>
+                      {isEditing ? (
+                        <input
+                          type="tel"
+                          value={editedPhone}
+                          onChange={(e) => setEditedPhone(e.target.value)}
+                          className="border border-gray-300 rounded-lg p-2 w-full"
+                        />
+                      ) : (
+                        <div>{customer.phone || "N/A"}</div>
+                      )}
+                    </div>
+                    <div className="border border-gray-300 rounded-lg p-4 bg-gray-50">
+                      <div className="font-bold">Date of Birth:</div>
+                      <div>{customer.metafield?.value || "N/A"}</div>
+                    </div>
+                  </div>
+
+                  {/* Edit and Save buttons */}
+                  <div className="mt-4 flex justify-end">
+                    {isEditing ? (
+                      <>
+                        <button onClick={updateCustomerInfo} className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition mr-2">Save</button>
+                        <button onClick={toggleEditing} className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400 transition">Cancel</button>
+                      </>
+                    ) : (
+                      <button onClick={toggleEditing} className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400 transition">Edit</button>
+                    )}
+                  </div>
                 </div>
               ) : (
-                <div className="dashboard  p-6">
+                <div className="dashboard p-6">
                   <h1 className="text-title font-bold text-2xl mb-4">Your Orders</h1>
                   {orders.length === 0 ? (
                     <p className="text-gray-600">No orders found.</p>
@@ -235,10 +376,10 @@ const Dashboard = () => {
                                     </li>
                                   ))}
                                 </ul>
-                                
+
                                 {order.fulfillmentStatus !== "FULFILLED" && (
                                   <button
-                                    className="mt-4  text-black hover: transition"
+                                    className="mt-4 text-black hover: transition"
                                     onClick={() => openCancelModal(order)}
                                   >
                                     Cancel Order
