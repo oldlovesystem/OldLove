@@ -149,7 +149,7 @@ const Dashboard = () => {
     }
 
     try {
-      await axios.post(" http://cancelorder.vercel.app/api/cancelOrder", {
+      await axios.post("https://cancelorder.vercel.app/api/cancelOrder", {
         orderId: selectedOrder.orderNumber,
         cancelReason,
         id: selectedOrder.id
