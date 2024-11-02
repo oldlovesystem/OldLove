@@ -9,6 +9,7 @@ import { ReactNode } from 'react';
 import TopNavOne from 'components/layout/navbar/TopNavOne';
 import Footer from 'components/layout/footer';
 import { Toaster } from 'sonner';
+import PostShipLoader from './PostShipLoader';
 import WhatsAppIcon from 'components/WhatsAppIcon'; // Import the WhatsAppIcon component
 import './styles/styles.scss';
 import './globals.css';
@@ -58,7 +59,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         </main>
         <Footer />
       </CartProvider>
+      <PostShipLoader />
     </body>
+    
   </html>
   );
 }
