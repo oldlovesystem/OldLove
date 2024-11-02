@@ -1,4 +1,5 @@
 // Your existing RootLayout component
+
 import { CartProvider } from 'components/cart/cart-context';
 import { Navbar } from 'components/layout/navbar';
 import { GeistSans } from 'geist/font/sans';
@@ -59,9 +60,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         </main>
         <Footer />
       </CartProvider>
-      <PostShipLoader />
     </body>
-    
   </html>
   );
 }

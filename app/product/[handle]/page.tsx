@@ -116,7 +116,7 @@ async function RelatedProducts({ id }: { id: string }) {
 
   return (
     <div>
-      <h2 className="mb-10 mt-5 max-w-full text-center text-4xl font-thin logofont">Related Products</h2>
+      <h2 className="mb-10 mt-5 max-w-full text-center text-4xl font-thin logofont uppercase ">Related Products</h2>
       <div className="tab-content">
         <ProductGridItems products={relatedProducts} />
       </div>

@@ -75,13 +75,14 @@ export default function CartModal() {
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="fixed bottom-0 h-[80vh] mt-40 right-0 flex mb-4 flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[500px] rounded-3xl">
+            <Dialog.Panel className="fixed bottom-0 h-[99vh] mt-40 right-0 flex flex-col border-l border-neutral-200 bg-white p-6 text-black backdrop-blur-sm md:w-[450px] ">
               <div className="flex items-center justify-between">
-                <p className="text-3xl font-semibold heading5">My Cart</p>
+                <p className="text-3xl font-semibold heading5 text-gray-900 uppercase  ">Cart</p>
                 <button aria-label="Close cart" onClick={closeCart}>
                   <CloseCart />
                 </button>
               </div>
+              <hr className="my-2 border-t-1 border-gray-200" />
 
               {!cart || cart.lines.length === 0 ? (
                 <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
@@ -116,11 +117,11 @@ export default function CartModal() {
                                
                               </div>
                               <div className="flex flex-row">
-                                <div className="relative h-20 w-16 overflow-hidden rounded-md border border-neutral-300 bg-neutral-300">
+                                <div className="relative h-32 w-24 overflow-hidden  border border-neutral-300 bg-neutral-300 flex-1">
                                   <Image
                                     className="h-full w-full object-fill"
-                                    width={100}
-                                    height={100}
+                                    width={200}
+                                    height={200}
                                     alt={
                                       item.merchandise.product.featuredImage.altText ||
                                       item.merchandise.product.title
@@ -133,25 +134,24 @@ export default function CartModal() {
                                   onClick={closeCart}
                                   className="z-30 ml-2 flex flex-row space-x-4"
                                 >
-                                  <div className="flex flex-1 flex-col text-base">
+                                  <div className="flex flex-1 flex-col text-base ml-5">
                                     <span className="leading-tight">
                                       {item.merchandise.product.title}
                                     </span>
+                                    
                                     {item.merchandise.title !== DEFAULT_OPTION ? (
                                       <p className="text-sm text-neutral-500">
                                         {item.merchandise.title}
                                       </p>
-                                    ) : null}
-                                  </div>
-                                </Link>
-                              </div>
-                              <div className="flex flex-col justify-between">
-                                <Price
-                                  className="flex justify-end space-y-2 text-right text-xs"
+                                    )
+                                     : null}
+                                     <Price
+                                  className=" text-sm mt-2"
                                   amount={item.cost.totalAmount.amount}
                                   currencyCode={item.cost.totalAmount.currencyCode}
                                 />
-                                <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-neutral-200">
+                                <div className="flex flex-col ">
+                                <div className="flex w-1/2 mt-2 h-9 flex-row items-center  border border-neutral-200">
                                   <EditItemQuantityButton
                                     item={item}
                                     type="minus"
@@ -167,16 +167,20 @@ export default function CartModal() {
                                   />
                                 </div>
                               </div>
+                                  </div>
+                                </Link>
+                              </div>
+                              
                             </div>
                           </li>
                         );
                       })}
                   </ul>
                   <div className="flex flex-col justify-between mt-auto py-4 text-sm text-neutral-500">
-                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1">
-                      <p className='text-3xl font-bold text-black'>Total</p>
+                    <div className="mb-3 flex items-center justify-between border-t border-neutral-200 pb-1 pt-1">
+                      <p className='text-xl font-bold text-gray-700 mt-2'>Total</p>
                       <Price
-                        className="text-3xl font-bold text-black"
+                        className="text-xl font-bold text-black"
                         amount={cart.cost.totalAmount.amount}
                         currencyCode={cart.cost.totalAmount.currencyCode}
                       />

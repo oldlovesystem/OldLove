@@ -6,6 +6,7 @@ import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';
 import * as Icon from '@phosphor-icons/react/dist/ssr';
 import MobileMenu from './mobile-menu';
+import { FaUser, FaBox } from 'react-icons/fa';
 import SpotlightSearch from 'components/spotlight-search';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
@@ -33,7 +34,7 @@ export function Navbar() {
     const customerToken = localStorage.getItem('customerAccessToken');
     setIsLoggedIn(!!customerToken);
   }, []);
- 
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
@@ -76,9 +77,9 @@ export function Navbar() {
 
   const handleProfileClick = () => {
     if (isLoggedIn) {
-      router.push('/my-account'); 
+      router.push('/my-account');
     } else {
-      router.push('/login'); 
+      router.push('/login');
     }
   };
 
@@ -96,19 +97,17 @@ export function Navbar() {
       <nav
         className={`header-menu style-one flex items-center justify-between p-4 lg:px-6 ${fixedHeader ? 'left-0 right-0 top-0 z-10' : ''} ${backgroundColor}`}
       >
-        <div className="block flex-none md:hidden mr-1">
+        <div className="mr-1 block flex-none md:hidden">
           <Suspense fallback={null}>
             <MobileMenu />
           </Suspense>
         </div>
 
         <div className="flex w-full items-center justify-between">
-          <div className="ml-2 xs:ml-3 flex w-auto items-center">
+          <div className="xs:ml-3 ml-2 flex w-auto items-center">
             <Link href="/" prefetch={true} className="flex items-center justify-center">
               {/* <Image src="/updatedlog.svg" alt="logo" width={50} height={30}  className='md:ml-10' /> */}
-              <div className="logo text-3xl font-bold uppercase text-black">
-                OldLove
-              </div>
+              <div className="logo text-3xl font-bold uppercase text-black">OldLove</div>
             </Link>
 
             <ul className="mega-menu ml-16 mr-3 hidden gap-9 text-lg uppercase md:flex md:items-center">
@@ -132,7 +131,7 @@ export function Navbar() {
             </ul>
           </div>
 
-          <div className="relative flex items-center space-x-4 ml-3">
+          <div className="relative ml-3 flex items-center space-x-4">
             <CartModal />
 
             <div
@@ -145,14 +144,23 @@ export function Navbar() {
               </button>
 
               {profileHover && (
-                <div className="absolute right-0 top-full z-20 w-64 rounded-lg border border-gray-200 bg-white px-3 py-4 shadow-lg">
+                <div className="absolute right-0 top-full z-20 w-56 rounded-lg border border-gray-200 bg-white px-3 py-4 shadow-lg">
                   {isLoggedIn ? (
-                    <button
-                      className="block w-full rounded-md bg-black py-2 text-center font-semibold text-white transition hover:bg-gray-800"
-                      onClick={handleLogout}
-                    >
-                      Logout
-                    </button>
+                    <>
+                      <Link href="/my-account">
+                        <div className="flex w-full cursor-pointer items-center  rounded-md px-3 py-3 transition hover:bg-gray-100">
+                          <FaUser className="mr-5 ml-3 text-gray-600  " />
+                          <span className="font-semibold text-black">My Account</span>
+                        </div>
+                      </Link>
+                      <hr className="my-1 border-gray-200" />
+                      <Link href="/orders">
+                        <div className="flex w-full cursor-pointer items-center rounded-md px-3 py-3 transition hover:bg-gray-100">
+                          <FaBox className="mr-5 ml-3 text-gray-600" />
+                          <span className="font-semibold text-black">My Orders</span>
+                        </div>
+                      </Link>
+                    </>
                   ) : (
                     <>
                       <Link href="/login">
@@ -160,18 +168,20 @@ export function Navbar() {
                           Login
                         </button>
                       </Link>
-                     
-                        <div className="block w-full rounded-md text-sm py-2 text-center font-semibold text-black ">
-                        <span className='text-gray-400 text-sm'> Don't have an account?</span> <Link href="/register" className='hover:underline'> Register</Link>
-                        </div>
-                      
+                      <div className="block w-full rounded-md py-2 text-center text-sm font-semibold text-black">
+                        <span className="text-sm text-gray-400">Don't have an account?</span>
+                        <Link href="/register" className="hover:underline">
+                          {' '}
+                          Register
+                        </Link>
+                      </div>
                     </>
                   )}
                 </div>
               )}
             </div>
 
-            <div className="hidden md:flex mb-2">
+            <div className="mb-2 hidden md:flex">
               <SpotlightSearch color="white" />
             </div>
           </div>

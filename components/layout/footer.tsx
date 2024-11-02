@@ -48,7 +48,7 @@ const Footer = () => {
                                     <div className="item flex flex-col basis-1/2 ">
                                         <div className="text-button-uppercase pb-3">TRACK OR RETURN/EXCHANGE ORDER</div>
                                         <Link className='caption1 has-line-before duration-300 w-fit' href={'/trackorder'}>Track Order</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/policy'}>Place Return/Exchange Request</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/returnexhcange'}>Place Return/Exchange Request</Link>
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/policy'}>Returns/Exchange Policy</Link>
                                         
                                     </div>
