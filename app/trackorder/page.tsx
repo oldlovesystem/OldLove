@@ -9,28 +9,17 @@ const TrackOrder = () => {
   const handleTracking = async () => {
     if (identifier) {
       if (trackingMethod === "awb") {
-        // Redirect to AWB tracking page directly
         window.open(`https://shiprocket.co/tracking/${identifier}`, "_blank");
       } else if (trackingMethod === "orderId") {
-        // Call API to get the AWB number using the Order ID
         try {
-          const response = await fetch(`https://apiv2.shiprocket.in/v1/external/courier/track?order_id=${identifier}`, {
-            method: 'GET',
-            headers: {
-              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUzNTY5NTUsInNvdXJjZSI6InNyLWF1dGgtaW50IiwiZXhwIjoxNzMxMDg1NTgzLCJqdGkiOiJxdTVJVFEwWXNUVWwxZmlBIiwiaWF0IjoxNzMwMjIxNTgzLCJpc3MiOiJodHRwczovL3NyLWF1dGguc2hpcHJvY2tldC5pbi9hdXRob3JpemUvdXNlciIsIm5iZiI6MTczMDIyMTU4MywiY2lkIjo1MDMwMjEwLCJ0YyI6MzYwLCJ2ZXJib3NlIjpmYWxzZSwidmVuZG9yX2lkIjowLCJ2ZW5kb3JfY29kZSI6IiJ9.HZUcWNbBg2sIJn9hARA915_IHHWWwejTB7lDvfTtz6U'
-            }
-          });
-          console.log(response);
-          if (!response.ok) throw new Error("Failed to fetch tracking data");
-
+          const response = await fetch(`https://cancelorder.vercel.app/api/getAWB/${identifier}`);
           const data = await response.json();
-          const awbCode = data[0]?.tracking_data?.shipment_track[0]?.awb_code;
-
-          if (awbCode) {
-            // Redirect to the AWB tracking page using the retrieved AWB code
+  
+          if (response.ok) {
+            const awbCode = data.awbCode;
             window.open(`https://shiprocket.co/tracking/${awbCode}`, "_blank");
           } else {
-            alert("AWB code not found in the response.");
+            alert(data.error || "Error retrieving AWB code.");
           }
         } catch (error) {
           alert("Error: " + error.message);
@@ -38,7 +27,7 @@ const TrackOrder = () => {
       }
     }
   };
-
+  
   return (
     <div className="min-h-screen">
       <div className="container lg:w-1/2 p-8">
