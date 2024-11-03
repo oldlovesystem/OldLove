@@ -231,13 +231,13 @@ const Dashboard = () => {
                 <>
                   <button
                     onClick={updateCustomerInfo}
-                    className="bg-gray-300 text-black rounded-lg px-2 ml-2"
+                    className="bg-gray-300 text-black rounded-lg px-2 ml-2 mt-6"
                   >
                     Save
                   </button>
                   <button
                     onClick={() => handleCancelEdit(field)}
-                    className="bg-gray-300 text-black rounded-lg px-2 ml-2"
+                    className="bg-gray-300 text-black rounded-lg px-2 ml-2 mt-6"
                   >
                     Cancel
                   </button>
