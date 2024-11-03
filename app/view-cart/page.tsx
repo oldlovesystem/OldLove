@@ -121,7 +121,7 @@ export default function ViewCart() {
             <div className="block-button flex flex-col items-center gap-y-4 mt-4">
               <form action={redirectToCheckout} onSubmit={(e) => totalAmount <= 0 && e.preventDefault()}>
                 <button
-                  className={`w-full bg-black px-8 py-3 text-sm font-medium text-white rounded-lg hover:opacity-90 ${totalAmount <= 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`w-full button-main  bg-black px-8 py-3 text-sm font-medium text-white rounded-lg ${totalAmount <= 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
                   type="submit"
                   disabled={totalAmount <= 0}
                 >

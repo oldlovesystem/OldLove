@@ -257,7 +257,7 @@ const OrdersPage = () => {
                       ) : (
                         <button
                           onClick={() => openCancelModal(order)}
-                          className="w-full rounded-lg bg-black px-4 py-2 text-white transition hover:bg-gray-800"
+                          className="w-full rounded-lg bg-black px-4 py-2 text-white transition button-main"
                         >
                           Cancel Order
                         </button>
@@ -266,7 +266,7 @@ const OrdersPage = () => {
                       <button
                         onClick={() => trackOrder(order.orderNumber)}
                         disabled={order.canceled} // Disable button if order is canceled
-                        className={`w-full rounded-lg px-4 py-2 transition ${order.canceled ? 'cursor-not-allowed bg-gray-400' : 'bg-black text-white hover:bg-gray-800'}`}
+                        className={`w-full rounded-lg px-4 py-2 transition ${order.canceled ? 'cursor-not-allowed bg-gray-400' : 'bg-black text-white button-main'}`}
                       >
                         Track Order
                       </button>
@@ -274,7 +274,7 @@ const OrdersPage = () => {
                       {/* Updated Return/Exchange button */}
                       <Link
                         href={'/returnexchange'} // Using Link component to navigate
-                        className={`w-full rounded-lg px-4 py-2 text-center transition ${order.canceled ? 'cursor-not-allowed bg-gray-400' : 'bg-black text-white hover:bg-gray-800'}`}
+                        className={`w-full rounded-lg px-4 py-2 text-center transition ${order.canceled ? 'cursor-not-allowed bg-gray-400' : 'bg-black text-white button-main'}`}
                       >
                         Return / Exchange
                       </Link>

@@ -160,7 +160,7 @@ export function Navbar() {
                   ) : (
                     <>
                       <Link href="/login">
-                        <button className="mb-2 block w-full rounded-md bg-black py-2 text-center font-semibold text-white transition hover:bg-gray-800">
+                        <button className=" button-main mb-2 block w-full rounded-md bg-black py-2 text-center font-semibold text-white transition ">
                           Login
                         </button>
                       </Link>

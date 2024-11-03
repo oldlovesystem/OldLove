@@ -46,7 +46,7 @@ function SubmitButton({
     <button
       aria-label="Add to cart"
       className={clsx(buttonClasses, {
-        'hover:opacity-90': true
+        'button-main': true
       })}
     >
       <PlusIcon className="mr-2 h-5 w-5" /> {/* Example: Adding an icon */}
