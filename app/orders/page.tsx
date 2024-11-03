@@ -1,8 +1,8 @@
-"use client";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { FaTimesCircle, FaExchangeAlt, FaMapMarkerAlt } from "react-icons/fa";
-import Link from "next/link";// Import Link for routing
+'use client';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { FaTimesCircle, FaExchangeAlt, FaMapMarkerAlt } from 'react-icons/fa';
+import Link from 'next/link'; // Import Link for routing
 
 // CSS Spinner Styles
 const spinnerStyles = `
@@ -22,12 +22,12 @@ const spinnerStyles = `
 `;
 
 const cancellationReasons = [
-  "Changed my mind",
-  "Order was incorrect",
-  "Found a better price",
-  "Delayed shipment",
-  "Product no longer needed",
-  "Other"
+  'Changed my mind',
+  'Order was incorrect',
+  'Found a better price',
+  'Delayed shipment',
+  'Product no longer needed',
+  'Other'
 ];
 
 const OrdersPage = () => {
@@ -36,23 +36,24 @@ const OrdersPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [cancelReason, setCancelReason] = useState("");
+  const [cancelReason, setCancelReason] = useState('');
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const [customCancelReason, setCustomCancelReason] = useState("");
+  const [customCancelReason, setCustomCancelReason] = useState('');
   const [refundedOrders, setRefundedOrders] = useState([]);
 
   const fetchCustomerOrders = async () => {
-    const accessToken = typeof window !== "undefined" ? localStorage.getItem("customerAccessToken") : null;
+    const accessToken =
+      typeof window !== 'undefined' ? localStorage.getItem('customerAccessToken') : null;
 
     if (!accessToken) {
-      setError("No customer access token found.");
+      setError('No customer access token found.');
       setLoading(false);
       return;
     }
 
     try {
       const response = await axios.post(
-        "https://9eca2f-11.myshopify.com/api/2024-07/graphql.json",
+        'https://9eca2f-11.myshopify.com/api/2024-07/graphql.json',
         {
           query: `
             query GetCustomerOrders($customerAccessToken: String!) {
@@ -93,26 +94,32 @@ const OrdersPage = () => {
             }
           `,
           variables: {
-            customerAccessToken: accessToken,
-          },
+            customerAccessToken: accessToken
+          }
         },
         {
           headers: {
-            "Content-Type": "application/json",
-            "X-Shopify-Storefront-Access-Token": "e5f230e4a5202dc92cf9d9341c72bc5b",
-          },
+            'Content-Type': 'application/json',
+            'X-Shopify-Storefront-Access-Token': 'e5f230e4a5202dc92cf9d9341c72bc5b'
+          }
         }
       );
 
       const customerData = response.data?.data?.customer;
+      console.log(customerData);
       if (customerData) {
         setCustomer(customerData);
-        setOrders(customerData.orders.edges.map(({ node }) => ({ ...node, canceled: node.canceledAt !== null })));
+        setOrders(
+          customerData.orders.edges.map(({ node }) => ({
+            ...node,
+            canceled: node.canceledAt !== null
+          }))
+        );
       } else {
-        setError("No customer data found.");
+        setError('No customer data found.');
       }
     } catch (err) {
-      setError("Error fetching customer data or orders.");
+      setError('Error fetching customer data or orders.');
     } finally {
       setLoading(false);
     }
@@ -121,36 +128,36 @@ const OrdersPage = () => {
   const openCancelModal = (order) => {
     setSelectedOrder(order);
     setIsModalOpen(true);
-    setCancelReason(""); // Reset reason when opening modal
-    setCustomCancelReason(""); // Reset custom reason
+    setCancelReason(''); // Reset reason when opening modal
+    setCustomCancelReason(''); // Reset custom reason
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setCancelReason("");
-    setCustomCancelReason("");
+    setCancelReason('');
+    setCustomCancelReason('');
   };
 
   const confirmCancellation = async () => {
-    const reasonToSend = cancelReason === "Other" ? customCancelReason : cancelReason;
+    const reasonToSend = cancelReason === 'Other' ? customCancelReason : cancelReason;
 
     if (!reasonToSend) {
-      alert("Cancellation reason is required.");
+      alert('Cancellation reason is required.');
       return;
     }
 
     try {
-      await axios.post("https://cancelorder.vercel.app/api/cancelOrder", {
+      await axios.post('https://cancelorder.vercel.app/api/cancelOrder', {
         orderId: selectedOrder.orderNumber,
         cancelReason: reasonToSend,
-        id: selectedOrder.id,
+        id: selectedOrder.id
       });
 
-      alert("Order canceled! Please allow a few minutes for the cancellation to reflect.");
+      alert('Order canceled! Please allow a few minutes for the cancellation to reflect.');
       closeModal();
       fetchCustomerOrders();
     } catch (error) {
-      setError("Error canceling order: " + (error.response?.data?.error || error.message));
+      setError('Error canceling order: ' + (error.response?.data?.error || error.message));
     }
   };
 
@@ -161,16 +168,14 @@ const OrdersPage = () => {
 
       if (response.ok) {
         const awbCode = data.awbCode;
-        window.open(`https://shiprocket.co/tracking/${awbCode}`, "_blank");
+        window.open(`https://shiprocket.co/tracking/${awbCode}`, '_blank');
       } else {
-        alert(data.error || "Error retrieving AWB code.");
+        alert(data.error || 'Error retrieving AWB code.');
       }
     } catch (error) {
-      alert("Error: " + error.message);
+      alert('Error: ' + error.message);
     }
   };
-
- 
 
   useEffect(() => {
     fetchCustomerOrders();
@@ -180,7 +185,7 @@ const OrdersPage = () => {
     return (
       <div>
         <style>{spinnerStyles}</style>
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex h-screen items-center justify-center">
           <div className="spinner" />
         </div>
       </div>
@@ -194,35 +199,46 @@ const OrdersPage = () => {
   return (
     <div className="min-h-screen">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold logofont pt-10 mb-6">Your Orders</h1>
+        <h1 className="logofont mb-6 pt-10 text-3xl font-bold">Your Orders</h1>
         <div className="bg-white p-6">
           {orders.length === 0 ? (
             <p className="text-center text-gray-600">No orders found.</p>
           ) : (
             <ul>
               {orders.map((order) => (
-                <li key={order.id} className="order-item border border-gray-300 rounded-lg my-2 bg-gray-50">
-                  <div className="flex justify-between items-center bg-gray-300 p-4 rounded-t-lg">
-                    <h3 className="font-semibold text-lg">Order #{order.orderNumber}</h3>
-                    <h4 className="font-semibold text-lg">Status: {order.fulfillmentStatus}</h4>
+                <li
+                  key={order.id}
+                  className="order-item my-2 rounded-lg border border-gray-300 bg-gray-50"
+                >
+                  <div className="flex items-center justify-between rounded-t-lg bg-gray-300 p-4">
+                    <h3 className="text-lg font-semibold">Order #{order.orderNumber}</h3>
+                    <h4 className="text-lg font-semibold">Status: {order.fulfillmentStatus}</h4>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row p-4">
-                    <div className="w-full sm:w-3/4 pr-4">
-                      <p className="text-gray-600">Processed At: {new Date(order.processedAt).toLocaleDateString()}</p>
-                      <p className="font-bold mt-2">
-                        Total Price: {order.currentTotalPrice.amount} {order.currentTotalPrice.currencyCode}
+                  <div className="flex flex-col p-4 sm:flex-row">
+                    <div className="w-full pr-4 sm:w-3/4">
+                      <p className="text-gray-600">
+                        Processed At: {new Date(order.processedAt).toLocaleDateString()}
+                      </p>
+                      <p className="mt-2 font-bold">
+                        Total Price: {order.currentTotalPrice.amount}{' '}
+                        {order.currentTotalPrice.currencyCode}
                       </p>
 
                       <div className="mt-3">
                         <h4 className="font-semibold">Shipping Address:</h4>
-                        <p className="text-gray-600">
-                          <FaMapMarkerAlt className="inline mr-1" />
-                          {order.shippingAddress.address1}, {order.shippingAddress.city}, {order.shippingAddress.country}
-                        </p>
+                        {order.shippingAddress ? (
+                          <p className="text-gray-600">
+                            <FaMapMarkerAlt className="mr-1 inline" />
+                            {order.shippingAddress.address1}, {order.shippingAddress.city},{' '}
+                            {order.shippingAddress.country}
+                          </p>
+                        ) : (
+                          <p className="text-gray-600">Shipping address not available</p>
+                        )}
                       </div>
 
-                      <h4 className="font-semibold mt-3">Items:</h4>
+                      <h4 className="mt-3 font-semibold">Items:</h4>
                       <ul className="list-disc pl-5">
                         {order.lineItems.edges.map(({ node: item }) => (
                           <li key={item.title} className="text-gray-600">
@@ -232,17 +248,17 @@ const OrdersPage = () => {
                       </ul>
                     </div>
 
-                    <div className="hidden sm:block border-l border-gray-300 mx-4"></div>
+                    <div className="mx-4 hidden border-l border-gray-300 sm:block"></div>
 
-                    <div className="w-full sm:w-1/4 flex flex-col space-y-3 items-center sm:items-start mt-4 sm:mt-0">
+                    <div className="mt-4 flex w-full flex-col items-center space-y-3 sm:mt-0 sm:w-1/4 sm:items-start">
                       {order.canceled ? (
-                        <p className="text-red-600 flex items-center">
+                        <p className="flex items-center text-red-600">
                           <FaTimesCircle className="mr-1" /> Order Canceled
                         </p>
                       ) : (
                         <button
                           onClick={() => openCancelModal(order)}
-                          className="w-full px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition"
+                          className="w-full rounded-lg bg-black px-4 py-2 text-white transition hover:bg-gray-800"
                         >
                           Cancel Order
                         </button>
@@ -251,15 +267,15 @@ const OrdersPage = () => {
                       <button
                         onClick={() => trackOrder(order.orderNumber)}
                         disabled={order.canceled} // Disable button if order is canceled
-                        className={`w-full px-4 py-2 rounded-lg transition ${order.canceled ? 'bg-gray-400 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`}
+                        className={`w-full rounded-lg px-4 py-2 transition ${order.canceled ? 'cursor-not-allowed bg-gray-400' : 'bg-black text-white hover:bg-gray-800'}`}
                       >
                         Track Order
                       </button>
 
                       {/* Updated Return/Exchange button */}
                       <Link
-                        href={"/returnexchange"} // Using Link component to navigate
-                        className={`w-full px-4 py-2 rounded-lg  text-center transition ${order.canceled ? 'bg-gray-400 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`}
+                        href={'/returnexchange'} // Using Link component to navigate
+                        className={`w-full rounded-lg px-4 py-2 text-center transition ${order.canceled ? 'cursor-not-allowed bg-gray-400' : 'bg-black text-white hover:bg-gray-800'}`}
                       >
                         Return / Exchange
                       </Link>
@@ -273,14 +289,14 @@ const OrdersPage = () => {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 sm:w-1/3">
-            <h2 className="text-lg font-semibold mb-4">Cancel Order</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="w-11/12 rounded-lg bg-white p-6 shadow-lg sm:w-1/3">
+            <h2 className="mb-4 text-lg font-semibold">Cancel Order</h2>
             <p className="mb-4">Please select a reason for cancellation:</p>
             <select
               value={cancelReason}
               onChange={(e) => setCancelReason(e.target.value)}
-              className="border rounded p-2 w-full mb-4"
+              className="mb-4 w-full rounded border p-2"
             >
               <option value="">Select a reason</option>
               {cancellationReasons.map((reason) => (
@@ -290,18 +306,28 @@ const OrdersPage = () => {
               ))}
               <option value="Other">Other</option>
             </select>
-            {cancelReason === "Other" && (
+            {cancelReason === 'Other' && (
               <input
                 type="text"
                 value={customCancelReason}
                 onChange={(e) => setCustomCancelReason(e.target.value)}
                 placeholder="Please specify..."
-                className="border rounded p-2 w-full mb-4"
+                className="mb-4 w-full rounded border p-2"
               />
             )}
             <div className="flex justify-end">
-              <button onClick={closeModal} className="mr-2 bg-gray-300 hover:bg-gray-400 rounded px-4 py-2">Cancel</button>
-              <button onClick={confirmCancellation} className="bg-red-500 hover:bg-red-600 text-white rounded px-4 py-2">Confirm Cancellation</button>
+              <button
+                onClick={closeModal}
+                className="mr-2 rounded bg-gray-300 px-4 py-2 hover:bg-gray-400"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmCancellation}
+                className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+              >
+                Confirm Cancellation
+              </button>
             </div>
           </div>
         </div>
