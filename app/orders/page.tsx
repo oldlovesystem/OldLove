@@ -250,21 +250,23 @@ const OrdersPage = () => {
                     <div className="mx-4 hidden border-l border-gray-300 sm:block"></div>
 
                     <div className="mt-4 flex w-full flex-col items-center space-y-3 sm:mt-0 sm:w-1/4 sm:items-start">
-                    {order.canceled ? (
-  <p className="flex items-center text-red-600">
-    <FaTimesCircle className="mr-1" /> Order Canceled
-  </p>
-) : (
-  <button
-    onClick={() => openCancelModal(order)}
-    disabled={order.fulfillmentStatus === "FULFILLED"} // Disable if order is fulfilled
-    className={`w-full rounded-lg px-4 py-2 transition ${
-      order.fulfillmentStatus === "FULFILLED" ? "cursor-not-allowed bg-gray-400" : "bg-black text-white button-main"
-    }`}
-  >
-    Cancel Order
-  </button>
-)}
+                      {order.canceled ? (
+                        <p className="flex items-center text-red-600">
+                          <FaTimesCircle className="mr-1" /> Order Canceled
+                        </p>
+                      ) : (
+                        <button
+                          onClick={() => openCancelModal(order)}
+                          disabled={order.fulfillmentStatus === 'FULFILLED'} // Disable if order is fulfilled
+                          className={`w-full rounded-lg px-4 py-2 transition ${
+                            order.fulfillmentStatus === 'FULFILLED'
+                              ? 'cursor-not-allowed bg-gray-400'
+                              : 'button-main bg-black text-white'
+                          }`}
+                        >
+                          Cancel Order
+                        </button>
+                      )}
 
                       <button
                         onClick={() => trackOrder(order.orderNumber)}
