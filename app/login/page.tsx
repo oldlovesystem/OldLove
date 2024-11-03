@@ -1,10 +1,11 @@
+// pages/login.jsx
 "use client";
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { loginShopify } from '../../lib/login';
-import Breadcrumb from '../../components/Breadcrumb';
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 
 const Login = () => {
@@ -13,17 +14,19 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const [resetEmail, setResetEmail] = useState(''); // State for the reset email
+  const [resetError, setResetError] = useState('');
+  const [resetSuccess, setResetSuccess] = useState('');
 
   useEffect(() => {
-    // Check if a token exists on mount
     const token = localStorage.getItem('customerAccessToken');
     if (token) {
-      // Redirect to the home page if already logged in
       router.push('/');
     }
   }, [router]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const result = await loginShopify(email, password);
@@ -34,7 +37,6 @@ const Login = () => {
         setSuccess('Login successful!');
         setError('');
         setTimeout(() => {
-          // Refresh the page and then redirect to home
           window.location.reload();
           router.push('/');
         }, 1000);
@@ -43,12 +45,55 @@ const Login = () => {
         setSuccess('');
       }
     } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError('An unexpected error occurred');
-      }
+      setError(err.message || 'An unexpected error occurred');
       setSuccess('');
+    }
+  };
+
+  const handleResetPassword = async () => {
+    if (!resetEmail) {
+      setResetError("Email is required to reset password.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "https://9eca2f-11.myshopify.com/api/2024-07/graphql.json",
+        {
+          query: `
+            mutation customerRecover($email: String!) {
+              customerRecover(email: $email) {
+                customerUserErrors {
+                  field
+                  message
+                }
+                userErrors {
+                  field
+                  message
+                }
+              }
+            }
+          `,
+          variables: {
+            email: resetEmail,
+          },
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-Shopify-Storefront-Access-Token": "e5f230e4a5202dc92cf9d9341c72bc5b",
+          },
+        }
+      );
+
+      if (response.data.data.customerRecover.userErrors.length) {
+        setResetError("Error sending reset password email.");
+      } else {
+        setResetSuccess("Reset password email sent successfully! Please check your inbox.");
+        setResetEmail(''); // Clear the email input after success
+      }
+    } catch (error) {
+      setResetError("Error sending reset password request.");
     }
   };
 
@@ -90,7 +135,7 @@ const Login = () => {
                     </div>
                     <label htmlFor='remember' className="pl-2 cursor-pointer">Remember me</label>
                   </div>
-                  <Link href={'/forgot-password'} className='font-semibold hover:underline'>Forgot Your Password?</Link>
+                  <button type="button" onClick={() => setIsModalOpen(true)} className='font-semibold hover:underline'>Forgot Your Password?</button>
                 </div>
                 <div className="block-button md:mt-7 mt-4">
                   <button type="submit" className="button-main">Login</button>
@@ -109,6 +154,31 @@ const Login = () => {
           </div>
         </div>
       </div>
+
+      {/* Modal for resetting password */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded shadow-md max-w-sm w-full">
+            <h2 className="text-lg font-bold mb-4">Reset Password</h2>
+            {resetError && <p className="text-red-500">{resetError}</p>}
+            {resetSuccess && <p className="text-green-500">{resetSuccess}</p>}
+            <input
+              type="email"
+              value={resetEmail}
+              onChange={(e) => setResetEmail(e.target.value)}
+              placeholder="Enter your email"
+              className="border border-gray-300 rounded-lg p-2 w-full mb-4"
+              required
+            />
+            <button onClick={handleResetPassword} className="button-main w-full">
+              Send Reset Link
+            </button>
+            <button onClick={() => setIsModalOpen(false)} className="mt-4 text-gray-500 hover:underline">
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 };

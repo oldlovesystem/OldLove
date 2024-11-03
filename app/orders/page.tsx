@@ -1,7 +1,8 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { FaTimesCircle, FaExchangeAlt, FaMapMarkerAlt } from "react-icons/fa";
+import Link from "next/link";// Import Link for routing
 
 // CSS Spinner Styles
 const spinnerStyles = `
@@ -20,6 +21,15 @@ const spinnerStyles = `
   }
 `;
 
+const cancellationReasons = [
+  "Changed my mind",
+  "Order was incorrect",
+  "Found a better price",
+  "Delayed shipment",
+  "Product no longer needed",
+  "Other"
+];
+
 const OrdersPage = () => {
   const [customer, setCustomer] = useState(null);
   const [orders, setOrders] = useState([]);
@@ -28,6 +38,8 @@ const OrdersPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [cancelReason, setCancelReason] = useState("");
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [customCancelReason, setCustomCancelReason] = useState("");
+  const [refundedOrders, setRefundedOrders] = useState([]);
 
   const fetchCustomerOrders = async () => {
     const accessToken = typeof window !== "undefined" ? localStorage.getItem("customerAccessToken") : null;
@@ -49,7 +61,7 @@ const OrdersPage = () => {
                 firstName
                 lastName
                 email
-                orders(first: 10) {
+                orders(first: 30) {
                   edges {
                     node {
                       id
@@ -68,6 +80,11 @@ const OrdersPage = () => {
                             quantity
                           }
                         }
+                      }
+                      shippingAddress {
+                        address1
+                        city
+                        country
                       }
                     }
                   }
@@ -104,15 +121,20 @@ const OrdersPage = () => {
   const openCancelModal = (order) => {
     setSelectedOrder(order);
     setIsModalOpen(true);
+    setCancelReason(""); // Reset reason when opening modal
+    setCustomCancelReason(""); // Reset custom reason
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
     setCancelReason("");
+    setCustomCancelReason("");
   };
 
   const confirmCancellation = async () => {
-    if (!cancelReason) {
+    const reasonToSend = cancelReason === "Other" ? customCancelReason : cancelReason;
+
+    if (!reasonToSend) {
       alert("Cancellation reason is required.");
       return;
     }
@@ -120,7 +142,7 @@ const OrdersPage = () => {
     try {
       await axios.post("https://cancelorder.vercel.app/api/cancelOrder", {
         orderId: selectedOrder.orderNumber,
-        cancelReason,
+        cancelReason: reasonToSend,
         id: selectedOrder.id,
       });
 
@@ -129,6 +151,40 @@ const OrdersPage = () => {
       fetchCustomerOrders();
     } catch (error) {
       setError("Error canceling order: " + (error.response?.data?.error || error.message));
+    }
+  };
+
+  const trackOrder = async (orderId) => {
+    try {
+      const response = await fetch(`https://cancelorder.vercel.app/api/getAWB/${orderId}`);
+      const data = await response.json();
+
+      if (response.ok) {
+        const awbCode = data.awbCode;
+        window.open(`https://shiprocket.co/tracking/${awbCode}`, "_blank");
+      } else {
+        alert(data.error || "Error retrieving AWB code.");
+      }
+    } catch (error) {
+      alert("Error: " + error.message);
+    }
+  };
+
+  const refundOrder = async (order) => {
+    try {
+      // Extracting the order ID, ensuring to remove anything after the '?'
+      const orderId = order.id.split('?')[0].split('/').pop(); // Get only the numeric ID part
+  
+      const response = await axios.post("http://localhost:3001/api/refundOrder", {
+        orderId: orderId, // Send the cleaned order ID
+      });
+  
+      if (response.status === 200) {
+        alert("Refund processed successfully!");
+        setRefundedOrders((prev) => [...prev, order.id]); // Store the refunded order ID
+      }
+    } catch (error) {
+      alert("Error processing refund: " + error.message);
     }
   };
 
@@ -152,49 +208,77 @@ const OrdersPage = () => {
   }
 
   return (
-    <div className="bg-gray-100 min-h-screen py-10">
-      <div className="container mx-auto px-4">
-        <h1 className="text-3xl font-bold text-center mb-6">Your Orders</h1>
-        <div className="bg-white rounded-lg shadow-lg p-6">
+    <div className="min-h-screen">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 className="text-3xl font-bold logofont pt-10 mb-6">Your Orders</h1>
+        <div className="bg-white p-6">
           {orders.length === 0 ? (
             <p className="text-center text-gray-600">No orders found.</p>
           ) : (
             <ul>
               {orders.map((order) => (
-                <li key={order.id} className="order-item border border-gray-300 rounded-lg my-2 bg-gray-50 flex">
-                  <div className="order-details flex-grow p-4">
+                <li key={order.id} className="order-item border border-gray-300 rounded-lg my-2 bg-gray-50">
+                  <div className="flex justify-between items-center bg-gray-300 p-4 rounded-t-lg">
                     <h3 className="font-semibold text-lg">Order #{order.orderNumber}</h3>
-                    <p className="text-gray-600">Processed At: {new Date(order.processedAt).toLocaleDateString()}</p>
-                    <p className="text-gray-600">Status: {order.fulfillmentStatus}</p>
-                    <p className="font-bold mt-2">Total Price: {order.currentTotalPrice.amount} {order.currentTotalPrice.currencyCode}</p>
-                    <h4 className="font-semibold mt-3">Items:</h4>
-                    <ul className="list-disc pl-5">
-                      {order.lineItems.edges.map(({ node: item }) => (
-                        <li key={item.title} className="text-gray-600">
-                          {item.title} (Quantity: {item.quantity})
-                        </li>
-                      ))}
-                    </ul>
+                    <h4 className="font-semibold text-lg">Status: {order.fulfillmentStatus}</h4>
                   </div>
 
-                  {/* Vertical Divider */}
-                  <div className="border-l border-gray-300"></div>
+                  <div className="flex flex-col sm:flex-row p-4">
+                    <div className="w-full sm:w-3/4 pr-4">
+                      <p className="text-gray-600">Processed At: {new Date(order.processedAt).toLocaleDateString()}</p>
+                      <p className="font-bold mt-2">
+                        Total Price: {order.currentTotalPrice.amount} {order.currentTotalPrice.currencyCode}
+                      </p>
 
-                  {/* Status Section */}
-                  <div className="order-status flex flex-col justify-between bg-gray-200 p-4 w-1/4">
-                    <h4 className="font-semibold text-lg mb-2">Status</h4>
-                    <div className="flex-grow">
-                      {!order.canceled && (
+                      <div className="mt-3">
+                        <h4 className="font-semibold">Shipping Address:</h4>
+                        <p className="text-gray-600">
+                          <FaMapMarkerAlt className="inline mr-1" />
+                          {order.shippingAddress.address1}, {order.shippingAddress.city}, {order.shippingAddress.country}
+                        </p>
+                      </div>
+
+                      <h4 className="font-semibold mt-3">Items:</h4>
+                      <ul className="list-disc pl-5">
+                        {order.lineItems.edges.map(({ node: item }) => (
+                          <li key={item.title} className="text-gray-600">
+                            {item.title} (Quantity: {item.quantity})
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="hidden sm:block border-l border-gray-300 mx-4"></div>
+
+                    <div className="w-full sm:w-1/4 flex flex-col space-y-3 items-center sm:items-start mt-4 sm:mt-0">
+                      {order.canceled ? (
+                        <p className="text-red-600 flex items-center">
+                          <FaTimesCircle className="mr-1" /> Order Canceled
+                        </p>
+                      ) : (
                         <button
-                          className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
                           onClick={() => openCancelModal(order)}
+                          className="w-full px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition"
                         >
                           Cancel Order
                         </button>
                       )}
-                      {order.canceled && (
-                        <p className="text-red-600 mt-2">Order Canceled</p>
-                      )}
+
+                      <button
+                        onClick={() => trackOrder(order.orderNumber)}
+                        disabled={order.canceled} // Disable button if order is canceled
+                        className={`w-full px-4 py-2 rounded-lg transition ${order.canceled ? 'bg-gray-400 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`}
+                      >
+                        Track Order
+                      </button>
+
+                      {/* Updated Return/Exchange button */}
+                      <Link
+                        href={"/returnexchange"} // Using Link component to navigate
+                        className={`w-full px-4 py-2 rounded-lg  text-center transition ${order.canceled ? 'bg-gray-400 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`}
+                      >
+                        Return / Exchange
+                      </Link>
                     </div>
                   </div>
                 </li>
@@ -205,19 +289,35 @@ const OrdersPage = () => {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
-            <h3 className="text-lg font-semibold mb-3">Cancel Order #{selectedOrder?.orderNumber}</h3>
-            <textarea
-              rows={4}
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 sm:w-1/3">
+            <h2 className="text-lg font-semibold mb-4">Cancel Order</h2>
+            <p className="mb-4">Please select a reason for cancellation:</p>
+            <select
               value={cancelReason}
               onChange={(e) => setCancelReason(e.target.value)}
-              placeholder="Enter reason for cancellation..."
-              className="border border-gray-300 rounded-lg p-2 w-full mb-4"
-            />
+              className="border rounded p-2 w-full mb-4"
+            >
+              <option value="">Select a reason</option>
+              {cancellationReasons.map((reason) => (
+                <option key={reason} value={reason}>
+                  {reason}
+                </option>
+              ))}
+              <option value="Other">Other</option>
+            </select>
+            {cancelReason === "Other" && (
+              <input
+                type="text"
+                value={customCancelReason}
+                onChange={(e) => setCustomCancelReason(e.target.value)}
+                placeholder="Please specify..."
+                className="border rounded p-2 w-full mb-4"
+              />
+            )}
             <div className="flex justify-end">
-              <button onClick={closeModal} className="mr-2 px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400 transition">Cancel</button>
-              <button onClick={confirmCancellation} className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Confirm Cancellation</button>
+              <button onClick={closeModal} className="mr-2 bg-gray-300 hover:bg-gray-400 rounded px-4 py-2">Cancel</button>
+              <button onClick={confirmCancellation} className="bg-red-500 hover:bg-red-600 text-white rounded px-4 py-2">Confirm Cancellation</button>
             </div>
           </div>
         </div>

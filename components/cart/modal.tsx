@@ -25,7 +25,7 @@ export default function CartModal() {
   const { cart, updateCartItem } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const quantityRef = useRef(cart?.totalQuantity);
-  
+
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
 
@@ -75,14 +75,14 @@ export default function CartModal() {
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="fixed bottom-0 h-[99vh] mt-40 right-0 flex flex-col border-l border-neutral-200 bg-white p-6 text-black backdrop-blur-sm md:w-[450px] ">
+            <Dialog.Panel className="fixed bottom-0 right-0 mt-40 flex h-[99vh] flex-col border-l border-neutral-200 bg-white p-6 text-black backdrop-blur-sm md:w-[450px]">
               <div className="flex items-center justify-between">
-                <p className="text-3xl font-semibold heading5 text-gray-900 uppercase  ">Cart</p>
+                <p className="heading5 text-3xl font-semibold uppercase text-gray-900">Cart</p>
                 <button aria-label="Close cart" onClick={closeCart}>
                   <CloseCart />
                 </button>
               </div>
-              <hr className="my-2 border-t-1 border-gray-200" />
+              <hr className="border-t-1 my-2 border-gray-200" />
 
               {!cart || cart.lines.length === 0 ? (
                 <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
@@ -90,7 +90,7 @@ export default function CartModal() {
                   <p className="mt-6 text-center text-2xl font-bold">Your cart is empty.</p>
                 </div>
               ) : (
-                <div className="flex flex-col flex-grow overflow-hidden p-1">
+                <div className="flex flex-grow flex-col overflow-hidden p-1">
                   <ul className="flex-grow overflow-auto py-4">
                     {cart.lines
                       .sort((a, b) =>
@@ -113,11 +113,9 @@ export default function CartModal() {
                         return (
                           <li key={i} className="flex w-full flex-col border-neutral-300">
                             <div className="relative flex w-full flex-row justify-between px-1 py-4">
-                              <div className="absolute z-40 -ml-1 -mt-2">
-                               
-                              </div>
-                              <div className="flex flex-row">
-                                <div className="relative h-32 w-24 overflow-hidden  border border-neutral-300 bg-neutral-300 flex-1">
+                              <div className="absolute z-40 -ml-1 -mt-2"></div>
+                              <div className="flex flex-row w-full">
+                                <div className="relative h-32 w-30 flex-shrink-0 overflow-hidden border border-neutral-300 bg-neutral-300">
                                   <Image
                                     className="h-full w-full object-fill"
                                     width={200}
@@ -129,56 +127,51 @@ export default function CartModal() {
                                     src={item.merchandise.product.featuredImage.url}
                                   />
                                 </div>
-                                <Link
-                                  href={merchandiseUrl}
-                                  onClick={closeCart}
-                                  className="z-30 ml-2 flex flex-row space-x-4"
-                                >
-                                  <div className="flex flex-1 flex-col text-base ml-5">
-                                    <span className="leading-tight">
+                                <div className="ml-2 flex flex-col flex-grow">
+                                  <Link
+                                    href={merchandiseUrl}
+                                    onClick={closeCart}
+                                    className="z-30 flex-grow"
+                                  >
+                                    <span className="leading-tight text-base">
                                       {item.merchandise.product.title}
                                     </span>
-                                    
                                     {item.merchandise.title !== DEFAULT_OPTION ? (
                                       <p className="text-sm text-neutral-500">
                                         {item.merchandise.title}
                                       </p>
-                                    )
-                                     : null}
-                                     <Price
-                                  className=" text-sm mt-2"
-                                  amount={item.cost.totalAmount.amount}
-                                  currencyCode={item.cost.totalAmount.currencyCode}
-                                />
-                                <div className="flex flex-col ">
-                                <div className="flex w-1/2 mt-2 h-9 flex-row items-center  border border-neutral-200">
-                                  <EditItemQuantityButton
-                                    item={item}
-                                    type="minus"
-                                    optimisticUpdate={updateCartItem}
-                                  />
-                                  <p className="w-6 text-center">
-                                    <span className="w-full text-sm">{item.quantity}</span>
-                                  </p>
-                                  <EditItemQuantityButton
-                                    item={item}
-                                    type="plus"
-                                    optimisticUpdate={updateCartItem}
-                                  />
+                                    ) : null}
+                                    <Price
+                                      className="mt-2 text-sm"
+                                      amount={item.cost.totalAmount.amount}
+                                      currencyCode={item.cost.totalAmount.currencyCode}
+                                    />
+                                  </Link>
+                                  <div className="mt-2 flex h-9 w-1/2 flex-row items-center border border-neutral-200">
+                                    <EditItemQuantityButton
+                                      item={item}
+                                      type="minus"
+                                      optimisticUpdate={updateCartItem}
+                                    />
+                                    <p className="w-6 text-center">
+                                      <span className="w-full text-sm">{item.quantity}</span>
+                                    </p>
+                                    <EditItemQuantityButton
+                                      item={item}
+                                      type="plus"
+                                      optimisticUpdate={updateCartItem}
+                                    />
+                                  </div>
                                 </div>
                               </div>
-                                  </div>
-                                </Link>
-                              </div>
-                              
                             </div>
                           </li>
                         );
                       })}
                   </ul>
-                  <div className="flex flex-col justify-between mt-auto py-4 text-sm text-neutral-500">
+                  <div className="mt-auto flex flex-col justify-between py-4 text-sm text-neutral-500">
                     <div className="mb-3 flex items-center justify-between border-t border-neutral-200 pb-1 pt-1">
-                      <p className='text-xl font-bold text-gray-700 mt-2'>Total</p>
+                      <p className="mt-2 text-xl font-bold text-gray-700">Total</p>
                       <Price
                         className="text-xl font-bold text-black"
                         amount={cart.cost.totalAmount.amount}
@@ -203,7 +196,7 @@ function CheckoutButton({ closeCart }) {
   const { pending } = useFormStatus();
 
   return (
-    <div className='flex space-x-2'> 
+    <div className="flex space-x-2">
       <button
         className="block w-full rounded-lg bg-black p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
         type="submit"
@@ -217,7 +210,7 @@ function CheckoutButton({ closeCart }) {
         disabled={pending}
         onClick={() => {
           closeCart(); // Close the cart
-          window.location.href = "/view-cart"; // Navigate to the view cart page
+          window.location.href = '/view-cart'; // Navigate to the view cart page
         }}
       >
         View Cart

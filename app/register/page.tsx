@@ -17,9 +17,18 @@ const Register = () => {
   const [success, setSuccess] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isVerificationModalOpen, setIsVerificationModalOpen] = useState(false); // For email verification modal
+  const [isAgreedToTerms, setIsAgreedToTerms] = useState(false); // State for terms agreement
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Check if the user has agreed to the terms
+    if (!isAgreedToTerms) {
+      setError('You must agree to the terms and conditions.'); // Set error message
+      return; // Exit early if terms are not agreed
+    }
+
+    // Attempt to register the customer
     const response = await registerCustomer(email, password, firstName, lastName);
     console.log(response);
     if (response.success) {
@@ -29,8 +38,7 @@ const Register = () => {
         router.push('/');
       }, 3000); // Redirect after 3 seconds
     } else {
-      // Display the message returned by the registerCustomer function
-      setError(response.message);
+      setError(response.message); // Display error message from server
       setSuccess('');
       
       // Show verification modal if the error is about email verification
@@ -50,8 +58,8 @@ const Register = () => {
           <div className="content-main flex gap-y-8 max-md:flex-col">
             <div className="left md:w-1/2 w-full lg:pr-[60px] md:pr-[40px] md:border-r border-line">
               <div className="heading4">Register</div>
-              {error && <p className="text-red-500 mb-4">{error}</p>}
-              {success && <p className="text-green-500 mb-4">{success}</p>}
+              {error && <p className="text-red-500 mb-4">{error}</p>} {/* Error message */}
+              {success && <p className="text-green-500 mb-4">{success}</p>} {/* Success message */}
               <form onSubmit={handleSubmit} className="md:mt-7 mt-4">
                 <div className="email">
                   <input
@@ -97,12 +105,14 @@ const Register = () => {
                   <div className="block-input">
                     <input
                       type="checkbox"
-                      name='remember'
-                      id='remember'
+                      name='terms'
+                      id='terms'
+                      checked={isAgreedToTerms}
+                      onChange={(e) => setIsAgreedToTerms(e.target.checked)}
                     />
                     <Icon.CheckSquare size={20} weight='fill' className='icon-checkbox' />
                   </div>
-                  <label htmlFor='remember' className="pl-2 cursor-pointer text-secondary2">
+                  <label htmlFor='terms' className="pl-2 cursor-pointer text-secondary2">
                     I agree to the
                     <button type="button" onClick={() => setIsModalOpen(true)} className='text-black hover:underline pl-1'>
                       Terms and Policy
@@ -110,7 +120,13 @@ const Register = () => {
                   </label>
                 </div>
                 <div className="block-button md:mt-7 mt-4">
-                  <button type="submit" className="button-main">Register</button>
+                  <button 
+                    type="submit" 
+                    className="button-main" 
+                    disabled={!isAgreedToTerms} // Disable if terms are not agreed
+                  >
+                    Register
+                  </button>
                 </div>
               </form>
             </div>
@@ -130,7 +146,6 @@ const Register = () => {
       {/* Modal for Terms and Policies */}
       {isModalOpen && (
         <div className="modal">
-          {/* Modal content goes here */}
           <div className="modal-content">
             <span className="close" onClick={() => setIsModalOpen(false)}>&times;</span>
             <h2>Terms and Policies</h2>
@@ -141,14 +156,14 @@ const Register = () => {
 
       {/* Modal for Verification */}
       {isVerificationModalOpen && (
-  <div className="modal-overlay" onClick={() => setIsVerificationModalOpen(false)}>
-    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-      <span className="close" onClick={() => setIsVerificationModalOpen(false)}>&times;</span>
-      <h2>Email Verification Required</h2>
-      <p>We have sent an email to {email}, please click the link included to verify your email address.</p>
-    </div>
-  </div>
-)}
+        <div className="modal-overlay" onClick={() => setIsVerificationModalOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <span className="close" onClick={() => setIsVerificationModalOpen(false)}>&times;</span>
+            <h2>Email Verification Required</h2>
+            <p>We have sent an email to {email}, please click the link included to verify your email address.</p>
+          </div>
+        </div>
+      )}
     </>
   );
 };

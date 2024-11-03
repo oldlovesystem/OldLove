@@ -1,8 +1,6 @@
-'use client';
+"use client"
 import React, { useState, useEffect, useRef, Suspense } from 'react';
 import CartModal from 'components/cart/modal';
-import Image from 'next/image';
-import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';
 import * as Icon from '@phosphor-icons/react/dist/ssr';
 import MobileMenu from './mobile-menu';
@@ -12,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import ShopHoverContent from './ShopHoverContent';
 
-const menu: Menu[] = [
+const menu = [
   { title: 'Home', path: '/' },
   { title: 'Shop', path: '/search' },
   { title: 'About Us', path: '/about' },
@@ -39,7 +37,6 @@ export function Navbar() {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       setFixedHeader(scrollPosition > 0);
-
       lastScrollY.current = scrollPosition;
     };
 
@@ -89,14 +86,11 @@ export function Navbar() {
     router.push('/login');
   };
 
-  // Background color only changes when scrolled
   const backgroundColor = fixedHeader ? 'bg-white' : 'bg-white';
 
   return (
     <div className="relative">
-      <nav
-        className={`header-menu style-one flex items-center justify-between p-4 lg:px-6 ${fixedHeader ? 'left-0 right-0 top-0 z-10' : ''} ${backgroundColor}`}
-      >
+      <nav className={`header-menu style-one flex items-center justify-between p-4 lg:px-6 ${fixedHeader ? 'left-0 right-0 top-0 z-10' : ''} ${backgroundColor}`}>
         <div className="mr-1 block flex-none md:hidden">
           <Suspense fallback={null}>
             <MobileMenu />
@@ -106,7 +100,6 @@ export function Navbar() {
         <div className="flex w-full items-center justify-between">
           <div className="xs:ml-3 ml-2 flex w-auto items-center">
             <Link href="/" prefetch={true} className="flex items-center justify-center">
-              {/* <Image src="/updatedlog.svg" alt="logo" width={50} height={30}  className='md:ml-10' /> */}
               <div className="logo text-3xl font-bold uppercase text-black">OldLove</div>
             </Link>
 
@@ -148,8 +141,8 @@ export function Navbar() {
                   {isLoggedIn ? (
                     <>
                       <Link href="/my-account">
-                        <div className="flex w-full cursor-pointer items-center  rounded-md px-3 py-3 transition hover:bg-gray-100">
-                          <FaUser className="mr-5 ml-3 text-gray-600  " />
+                        <div className="flex w-full cursor-pointer items-center rounded-md px-3 py-3 transition hover:bg-gray-100">
+                          <FaUser className="mr-5 ml-3 text-gray-600" />
                           <span className="font-semibold text-black">My Account</span>
                         </div>
                       </Link>
@@ -160,6 +153,9 @@ export function Navbar() {
                           <span className="font-semibold text-black">My Orders</span>
                         </div>
                       </Link>
+                      <div className="flex w-full cursor-pointer items-center rounded-md px-3 py-3 transition hover:bg-gray-100" onClick={handleLogout}>
+                        <span className="font-semibold text-black">Logout</span>
+                      </div>
                     </>
                   ) : (
                     <>

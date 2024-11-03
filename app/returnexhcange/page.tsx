@@ -1,21 +1,34 @@
-"use client"
+"use client";
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import axios from 'axios'; // Make sure to import axios
 
 const ReturnExchange: React.FC = () => {
   const [orderNumber, setOrderNumber] = useState('');
   const [contactInfo, setContactInfo] = useState('');
+  const [message, setMessage] = useState<string | null>(null); // To display success or error messages
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('Order Number:', orderNumber);
-    console.log('Contact Info:', contactInfo);
+    setMessage(null); // Reset message before new submission
+
+    try {
+      const response = await axios.post('https://cancelorder.vercel.app/api/returnRequest', {
+        orderId: orderNumber,
+        reason: 'Return/Exchange', // Specify a reason, can be adjusted as needed
+        contactInfo // Include the contact information
+      });
+      
+      setMessage(response.data.message); // Set success message
+    } catch (error: any) {
+      console.error('Error submitting the return/exchange:', error);
+      setMessage(error.response?.data?.error || 'An error occurred while processing your request.');
+    }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen ">
+    <div className="flex items-center justify-center min-h-screen">
       <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
         <h2 className="text-2xl font-semibold text-center mb-4">Return/Exchange</h2>
         <p className="text-center mb-4">
@@ -56,10 +69,11 @@ const ReturnExchange: React.FC = () => {
             Submit
           </button>
         </form>
+        {message && <p className="mt-4 text-center text-red-500">{message}</p>} {/* Display message */}
         <Link href={"/policy"}>
-        <p className="text-center mt-4 text-sm text-gray-600">
-          Please read our <span className='text-blue-600'>return and exchange</span> policies before proceeding.
-        </p>
+          <p className="text-center mt-4 text-sm text-gray-600">
+            Please read our <span className='text-blue-600'>return and exchange</span> policies before proceeding.
+          </p>
         </Link>
       </div>
     </div>
