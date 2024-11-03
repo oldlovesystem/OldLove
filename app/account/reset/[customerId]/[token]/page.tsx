@@ -3,24 +3,51 @@
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
+import * as Icon from "@phosphor-icons/react/dist/ssr";
 
 const ResetPage = () => {
   const params = useParams();
   const customerId = params.customerId; // Capture the customer segment from the URL
   const token = params.token; // Capture the token segment from the URL
   const [password, setPassword] = useState(''); // State for new password
+  const [confirmPassword, setConfirmPassword] = useState(''); // State for confirm password
   const [error, setError] = useState<string | null>(null); // State for error messages
   const [success, setSuccess] = useState(false); // State for success message
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
+  const [isPasswordMismatchModalOpen, setIsPasswordMismatchModalOpen] = useState(false); // State for modal visibility
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value); // Update password state
   };
 
+  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setConfirmPassword(e.target.value); // Update confirm password state
+  };
+
+  const getPasswordStrength = (password: string) => {
+    const lengthCriteria = password.length >= 8;
+    const uppercaseCriteria = /[A-Z]/.test(password);
+    const lowercaseCriteria = /[a-z]/.test(password);
+    const numberCriteria = /[0-9]/.test(password);
+    const specialCharCriteria = /[!@#$%^&*]/.test(password);
+
+    const criteriaMet = [lengthCriteria, uppercaseCriteria, lowercaseCriteria, numberCriteria, specialCharCriteria].filter(Boolean).length;
+
+    if (criteriaMet === 5) return "Strong";
+    if (criteriaMet >= 3) return "Medium";
+    return "Weak";
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent default form submission
 
+    if (password !== confirmPassword) {
+      setIsPasswordMismatchModalOpen(true);
+      return; // Do not proceed with the reset if passwords do not match
+    }
+
     const resetUrl = `https://9eca2f-11.myshopify.com/account/reset/${customerId}/${token}`; // Construct the reset URL
-    console.log(resetUrl);
     const query = `
       mutation customerResetByUrl($password: String!, $resetUrl: URL!) {
         customerResetByUrl(password: $password, resetUrl: $resetUrl) {
@@ -82,14 +109,49 @@ const ResetPage = () => {
           {token ? (
             <form onSubmit={handleSubmit} className="w-full max-w-sm">
               <div className="mb-4">
-                <input
-                  className="border-line border-gray-300 px-4 pt-3 pb-3 w-full rounded-lg"
-                  type="password"
-                  placeholder="New Password *"
-                  value={password}
-                  onChange={handlePasswordChange}
-                  required
-                />
+                <label htmlFor="password" className="block mb-1">New Password *</label>
+                <div className="relative">
+                  <input
+                    className="border-line border-gray-300 px-4 pt-3 pb-3 w-full rounded-lg"
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    placeholder="New Password *"
+                    value={password}
+                    onChange={handlePasswordChange}
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                  >
+                    {showPassword ? <Icon.EyeSlash size={20} /> : <Icon.Eye size={20} />}
+                  </button>
+                </div>
+                <p className={`mt-1 ${getPasswordStrength(password) === 'Weak' ? 'text-red-500' : getPasswordStrength(password) === 'Medium' ? 'text-yellow-500' : 'text-green-500'}`}>
+                  {getPasswordStrength(password)} Password
+                </p>
+              </div>
+              <div className="mb-4">
+                <label htmlFor="confirmPassword" className="block mb-1">Confirm Password *</label>
+                <div className="relative">
+                  <input
+                    className="border-line border-gray-300 px-4 pt-3 pb-3 w-full rounded-lg"
+                    type={showConfirmPassword ? "text" : "password"}
+                    id="confirmPassword"
+                    placeholder="Confirm Password *"
+                    value={confirmPassword}
+                    onChange={handleConfirmPasswordChange}
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                  >
+                    {showConfirmPassword ? <Icon.EyeSlash size={20} /> : <Icon.Eye size={20} />}
+                  </button>
+                </div>
               </div>
               <div className="block-button md:mt-7 mt-4">
                 <button type="submit" className="button-main w-full">Reset Password</button>
@@ -110,6 +172,19 @@ const ResetPage = () => {
             <div style={{ color: 'green' }}>
               <h2>Password reset successfully!</h2>
               <Link href="/login" className="text-blue-500 hover:underline">Go to Login</Link>
+            </div>
+          )}
+
+          {/* Modal for password mismatch */}
+          {isPasswordMismatchModalOpen && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+              <div className="bg-white p-6 rounded shadow-md max-w-sm w-full">
+                <h2 className="text-red-500">Passwords do not match!</h2>
+                <p>Please ensure both password fields are identical.</p>
+                <button onClick={() => setIsPasswordMismatchModalOpen(false)} className="mt-4 text-gray-500 hover:underline">
+                  Close
+                </button>
+              </div>
             </div>
           )}
         </div>
