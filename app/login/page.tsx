@@ -18,6 +18,7 @@ const Login = () => {
   const [resetEmail, setResetEmail] = useState(''); // State for the reset email
   const [resetError, setResetError] = useState('');
   const [resetSuccess, setResetSuccess] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
 
   useEffect(() => {
     const token = localStorage.getItem('customerAccessToken');
@@ -119,15 +120,22 @@ const Login = () => {
                     required
                   />
                 </div>
-                <div className="pass mt-5">
+                <div className="pass mt-5 relative">
                   <input
                     className="border-line border-gray-300 px-4 pt-3 pb-3 w-full rounded-lg"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Password *"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                  >
+                    {showPassword ? <Icon.EyeSlash size={20} /> : <Icon.Eye size={20} />}
+                  </button>
                 </div>
                 <div className="flex items-center justify-between mt-5">
                   <div className='flex items-center'>
