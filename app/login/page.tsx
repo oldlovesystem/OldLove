@@ -36,9 +36,11 @@ const Login = () => {
         }
         setSuccess('Login successful!');
         setError('');
-        // Use setTimeout to delay the redirect
+        
+        // Refresh the page and then navigate to the home page
         setTimeout(() => {
-          router.push('/');
+          router.replace('/'); // Navigate to the home page
+          window.location.reload(); // Refresh the page
         }, 1000); // Adjust the delay as needed
       } else {
         setError(result.message || 'Login failed');
@@ -48,7 +50,8 @@ const Login = () => {
       setError(err.message || 'An unexpected error occurred');
       setSuccess('');
     }
-  }
+  };
+  
   const handleResetPassword = async () => {
     if (!resetEmail) {
       setResetError("Email is required to reset password.");
