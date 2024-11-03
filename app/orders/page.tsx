@@ -26,7 +26,7 @@ const cancellationReasons = [
   'Order was incorrect',
   'Found a better price',
   'Delayed shipment',
-  'Product no longer needed',
+  'Product no longer needed'
 ];
 
 const OrdersPage = () => {
@@ -250,23 +250,26 @@ const OrdersPage = () => {
                     <div className="mx-4 hidden border-l border-gray-300 sm:block"></div>
 
                     <div className="mt-4 flex w-full flex-col items-center space-y-3 sm:mt-0 sm:w-1/4 sm:items-start">
-                      {order.canceled ? (
-                        <p className="flex items-center text-red-600">
-                          <FaTimesCircle className="mr-1" /> Order Canceled
-                        </p>
-                      ) : (
-                        <button
-                          onClick={() => openCancelModal(order)}
-                          className="w-full rounded-lg bg-black px-4 py-2 text-white transition button-main"
-                        >
-                          Cancel Order
-                        </button>
-                      )}
+                    {order.canceled ? (
+  <p className="flex items-center text-red-600">
+    <FaTimesCircle className="mr-1" /> Order Canceled
+  </p>
+) : (
+  <button
+    onClick={() => openCancelModal(order)}
+    disabled={order.fulfillmentStatus === "FULFILLED"} // Disable if order is fulfilled
+    className={`w-full rounded-lg px-4 py-2 transition ${
+      order.fulfillmentStatus === "FULFILLED" ? "cursor-not-allowed bg-gray-400" : "bg-black text-white button-main"
+    }`}
+  >
+    Cancel Order
+  </button>
+)}
 
                       <button
                         onClick={() => trackOrder(order.orderNumber)}
                         disabled={order.canceled} // Disable button if order is canceled
-                        className={`w-full rounded-lg px-4 py-2 transition ${order.canceled ? 'cursor-not-allowed bg-gray-400' : 'bg-black text-white button-main'}`}
+                        className={`w-full rounded-lg px-4 py-2 transition ${order.canceled ? 'cursor-not-allowed bg-gray-400' : 'button-main bg-black text-white'}`}
                       >
                         Track Order
                       </button>
@@ -274,7 +277,7 @@ const OrdersPage = () => {
                       {/* Updated Return/Exchange button */}
                       <Link
                         href={'/returnexchange'} // Using Link component to navigate
-                        className={`w-full rounded-lg px-4 py-2 text-center transition ${order.canceled ? 'cursor-not-allowed bg-gray-400' : 'bg-black text-white button-main'}`}
+                        className={`w-full rounded-lg px-4 py-2 text-center transition ${order.canceled ? 'cursor-not-allowed bg-gray-400' : 'button-main bg-black text-white'}`}
                       >
                         Return / Exchange
                       </Link>
@@ -306,13 +309,13 @@ const OrdersPage = () => {
               <option value="Other">Other</option>
             </select>
             {cancelReason === 'Other' && (
-             <input
-             type="text"
-             value={customCancelReason}
-             onChange={(e) => setCustomCancelReason(e.target.value)}
-             placeholder="Please specify..."
-             className="mb-4 w-full rounded border p-4 border-gray-500 text-lg"
-           />
+              <input
+                type="text"
+                value={customCancelReason}
+                onChange={(e) => setCustomCancelReason(e.target.value)}
+                placeholder="Please specify..."
+                className="mb-4 w-full rounded border border-gray-500 p-4 text-lg"
+              />
             )}
             <div className="flex justify-end">
               <button
