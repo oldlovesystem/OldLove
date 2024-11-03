@@ -31,7 +31,7 @@ const MyAccount = () => {
         <div className="flex flex-row items-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition">
           <FaMapMarkerAlt className="text-gray-700 text-4xl mr-4" />
           <div>
-            <h2 className="text-lg font-semibold text-gray-800">Your Address</h2>
+            <h2 className="text-lg font-semibold text-gray-800">Your Addresses</h2>
             <p className="text-gray-500 text-sm">Edit or add address for orders</p>
           </div>
         </div>

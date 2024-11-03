@@ -27,7 +27,6 @@ const cancellationReasons = [
   'Found a better price',
   'Delayed shipment',
   'Product no longer needed',
-  'Other'
 ];
 
 const OrdersPage = () => {
@@ -307,13 +306,13 @@ const OrdersPage = () => {
               <option value="Other">Other</option>
             </select>
             {cancelReason === 'Other' && (
-              <input
-                type="text"
-                value={customCancelReason}
-                onChange={(e) => setCustomCancelReason(e.target.value)}
-                placeholder="Please specify..."
-                className="mb-4 w-full rounded border p-2"
-              />
+             <input
+             type="text"
+             value={customCancelReason}
+             onChange={(e) => setCustomCancelReason(e.target.value)}
+             placeholder="Please specify..."
+             className="mb-4 w-full rounded border p-4 border-gray-500 text-lg"
+           />
             )}
             <div className="flex justify-end">
               <button
