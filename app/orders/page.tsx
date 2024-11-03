@@ -170,23 +170,7 @@ const OrdersPage = () => {
     }
   };
 
-  const refundOrder = async (order) => {
-    try {
-      // Extracting the order ID, ensuring to remove anything after the '?'
-      const orderId = order.id.split('?')[0].split('/').pop(); // Get only the numeric ID part
-  
-      const response = await axios.post("http://localhost:3001/api/refundOrder", {
-        orderId: orderId, // Send the cleaned order ID
-      });
-  
-      if (response.status === 200) {
-        alert("Refund processed successfully!");
-        setRefundedOrders((prev) => [...prev, order.id]); // Store the refunded order ID
-      }
-    } catch (error) {
-      alert("Error processing refund: " + error.message);
-    }
-  };
+ 
 
   useEffect(() => {
     fetchCustomerOrders();
