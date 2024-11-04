@@ -25,6 +25,7 @@ export function Navbar() {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [isHovering, setIsHovering] = useState(false);
   const [profileHover, setProfileHover] = useState(false);
+  const profileHoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const lastScrollY = useRef(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,7 +35,6 @@ export function Navbar() {
     const customerToken = localStorage.getItem('customerAccessToken');
     setIsLoggedIn(!!customerToken);
 
-    // Retrieve customer first name from local storage
     const storedFirstName = localStorage.getItem('customerFirstName');
     if (storedFirstName) {
       setCustomerFirstName(storedFirstName);
@@ -68,7 +68,7 @@ export function Navbar() {
     hoverTimeoutRef.current = setTimeout(() => {
       setIsHovering(false);
       setHoveredItem(null);
-    }, 100);
+    }, 300);
   };
 
   const renderHoverContent = () => {
@@ -80,13 +80,27 @@ export function Navbar() {
     }
   };
 
-  
   const handleLogout = () => {
     localStorage.removeItem('customerAccessToken');
     localStorage.removeItem('customerFirstName');
     setIsLoggedIn(false);
     setCustomerFirstName(null);
     router.push('/login');
+  };
+
+  const handleProfileMouseEnter = () => {
+    if (profileHoverTimeoutRef.current) {
+      clearTimeout(profileHoverTimeoutRef.current);
+    }
+    profileHoverTimeoutRef.current = setTimeout(() => {
+      setProfileHover(true);
+    }, 300);
+  };
+
+  const handleProfileMouseLeave = () => {
+    profileHoverTimeoutRef.current = setTimeout(() => {
+      setProfileHover(false);
+    }, 300);
   };
 
   const backgroundColor = fixedHeader ? 'bg-white' : 'bg-white';
@@ -128,15 +142,15 @@ export function Navbar() {
           </div>
 
           <div className="relative ml-3 flex items-center space-x-4">
-          <div className="mb-2 hidden md:flex">
+            <div className="mb-2 hidden md:flex">
               <SpotlightSearch color="white" />
             </div>
             <CartModal />
-           
+
             <div
               className="relative"
-              onMouseEnter={() => setProfileHover(true)}
-              onMouseLeave={() => setProfileHover(false)}
+              onMouseEnter={handleProfileMouseEnter}
+              onMouseLeave={handleProfileMouseLeave}
             >
               <button >
                 {customerFirstName ? (
@@ -172,7 +186,7 @@ export function Navbar() {
                   ) : (
                     <>
                       <Link href="/login">
-                        <button className=" button-main mb-2 block w-full rounded-md bg-black py-2 text-center font-semibold text-white transition ">
+                        <button className="button-main mb-2 block w-full rounded-md bg-black py-2 text-center font-semibold text-white transition ">
                           Login
                         </button>
                       </Link>
@@ -188,8 +202,6 @@ export function Navbar() {
                 </div>
               )}
             </div>
-
-           
           </div>
         </div>
       </nav>
