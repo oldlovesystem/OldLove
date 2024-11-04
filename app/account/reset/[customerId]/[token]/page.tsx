@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
-import * as Icon from "@phosphor-icons/react/dist/ssr";
+import * as Icon from '@phosphor-icons/react/dist/ssr';
 
 const ResetPage = () => {
   const params = useParams();
@@ -32,11 +32,17 @@ const ResetPage = () => {
     const numberCriteria = /[0-9]/.test(password);
     const specialCharCriteria = /[!@#$%^&*]/.test(password);
 
-    const criteriaMet = [lengthCriteria, uppercaseCriteria, lowercaseCriteria, numberCriteria, specialCharCriteria].filter(Boolean).length;
+    const criteriaMet = [
+      lengthCriteria,
+      uppercaseCriteria,
+      lowercaseCriteria,
+      numberCriteria,
+      specialCharCriteria
+    ].filter(Boolean).length;
 
-    if (criteriaMet === 5) return "Strong";
-    if (criteriaMet >= 3) return "Medium";
-    return "Weak";
+    if (criteriaMet === 5) return 'Strong';
+    if (criteriaMet >= 3) return 'Medium';
+    return 'Weak';
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -74,7 +80,7 @@ const ResetPage = () => {
 
     const variables = {
       password,
-      resetUrl,
+      resetUrl
     };
 
     try {
@@ -84,14 +90,19 @@ const ResetPage = () => {
           'Content-Type': 'application/json',
           'X-Shopify-Storefront-Access-Token': 'e5f230e4a5202dc92cf9d9341c72bc5b'
         },
-        body: JSON.stringify({ query, variables }),
+        body: JSON.stringify({ query, variables })
       });
 
       const data = await response.json();
 
       if (data.errors || data.data.customerResetByUrl.customerUserErrors.length > 0) {
         // Handle errors
-        setError(data.errors || data.data.customerResetByUrl.customerUserErrors.map((err: any) => err.message).join(', '));
+        setError(
+          data.errors ||
+            data.data.customerResetByUrl.customerUserErrors
+              .map((err: any) => err.message)
+              .join(', ')
+        );
       } else {
         // Handle success
         setSuccess(true);
@@ -102,18 +113,20 @@ const ResetPage = () => {
   };
 
   return (
-    <div className="reset-block md:py-20 py-10">
+    <div className="reset-block py-10 md:py-20">
       <div className="container">
         <div className="content-main flex flex-col items-center">
           <h1 className="heading4 mb-6">Password Reset</h1>
           {token ? (
             <form onSubmit={handleSubmit} className="w-full max-w-sm">
               <div className="mb-4">
-                <label htmlFor="password" className="block mb-1">New Password *</label>
+                <label htmlFor="password" className="mb-1 block">
+                  New Password *
+                </label>
                 <div className="relative">
                   <input
-                    className="border-line border-gray-300 px-4 pt-3 pb-3 w-full rounded-lg"
-                    type={showPassword ? "text" : "password"}
+                    className="border-line w-full rounded-lg border-gray-300 px-4 pb-3 pt-3"
+                    type={showPassword ? 'text' : 'password'}
                     id="password"
                     placeholder="New Password *"
                     value={password}
@@ -123,21 +136,25 @@ const ResetPage = () => {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 transform text-gray-500"
                   >
                     {showPassword ? <Icon.EyeSlash size={20} /> : <Icon.Eye size={20} />}
                   </button>
                 </div>
-                <p className={`mt-1 ${getPasswordStrength(password) === 'Weak' ? 'text-red-500' : getPasswordStrength(password) === 'Medium' ? 'text-yellow-500' : 'text-green-500'}`}>
+                <p
+                  className={`mt-1 ${getPasswordStrength(password) === 'Weak' ? 'text-red-500' : getPasswordStrength(password) === 'Medium' ? 'text-yellow-500' : 'text-green-500'}`}
+                >
                   {getPasswordStrength(password)} Password
                 </p>
               </div>
               <div className="mb-4">
-                <label htmlFor="confirmPassword" className="block mb-1">Confirm Password *</label>
+                <label htmlFor="confirmPassword" className="mb-1 block">
+                  Confirm Password *
+                </label>
                 <div className="relative">
                   <input
-                    className="border-line border-gray-300 px-4 pt-3 pb-3 w-full rounded-lg"
-                    type={showConfirmPassword ? "text" : "password"}
+                    className="border-line w-full rounded-lg border-gray-300 px-4 pb-3 pt-3"
+                    type={showConfirmPassword ? 'text' : 'password'}
                     id="confirmPassword"
                     placeholder="Confirm Password *"
                     value={confirmPassword}
@@ -147,14 +164,16 @@ const ResetPage = () => {
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 transform text-gray-500"
                   >
                     {showConfirmPassword ? <Icon.EyeSlash size={20} /> : <Icon.Eye size={20} />}
                   </button>
                 </div>
               </div>
-              <div className="block-button md:mt-7 mt-4">
-                <button type="submit" className="button-main w-full">Reset Password</button>
+              <div className="block-button mt-4 md:mt-7">
+                <button type="submit" className="button-main w-full">
+                  Reset Password
+                </button>
               </div>
             </form>
           ) : (
@@ -171,17 +190,24 @@ const ResetPage = () => {
           {success && (
             <div style={{ color: 'green' }}>
               <h2>Password reset successfully!</h2>
-              <Link href="/login" className="text-blue-500 hover:underline">Go to Login</Link>
+              <div className="block-button  md:mt-7">
+                <Link href="/login">
+                  <button className="button-main">Go to Login</button>
+                </Link>
+              </div>
             </div>
           )}
 
           {/* Modal for password mismatch */}
           {isPasswordMismatchModalOpen && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-              <div className="bg-white p-6 rounded shadow-md max-w-sm w-full">
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="w-full max-w-sm rounded bg-white p-6 shadow-md">
                 <h2 className="text-red-500">Passwords do not match!</h2>
                 <p>Please ensure both password fields are identical.</p>
-                <button onClick={() => setIsPasswordMismatchModalOpen(false)} className="mt-4 text-gray-500 hover:underline">
+                <button
+                  onClick={() => setIsPasswordMismatchModalOpen(false)}
+                  className="mt-4 text-gray-500 hover:underline"
+                >
                   Close
                 </button>
               </div>
