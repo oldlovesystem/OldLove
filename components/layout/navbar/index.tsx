@@ -31,14 +31,35 @@ export function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [customerFirstName, setCustomerFirstName] = useState<string | null>(null);
 
-  useEffect(() => {
-    const customerToken = localStorage.getItem('customerAccessToken');
-    setIsLoggedIn(!!customerToken);
+  // Polling interval reference
+  const pollingRef = useRef<NodeJS.Timeout | null>(null);
 
-    const storedFirstName = localStorage.getItem('customerFirstName');
-    if (storedFirstName) {
+  // Start polling for user data
+  const startPolling = () => {
+    if (pollingRef.current) return; // Prevent multiple intervals
+    pollingRef.current = setInterval(() => {
+      const customerToken = localStorage.getItem('customerAccessToken');
+      setIsLoggedIn(!!customerToken);
+
+      const storedFirstName = localStorage.getItem('customerFirstName');
       setCustomerFirstName(storedFirstName);
+    }, 200); // Check every 2 milliseconds
+  };
+
+  // Stop polling
+  const stopPolling = () => {
+    if (pollingRef.current) {
+      clearInterval(pollingRef.current);
+      pollingRef.current = null;
     }
+  };
+
+  useEffect(() => {
+    startPolling();
+
+    return () => {
+      stopPolling();
+    };
   }, []);
 
   useEffect(() => {

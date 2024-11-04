@@ -41,8 +41,8 @@ const Login = () => {
         // Refresh the page and then navigate to the home page
         setTimeout(() => {
           router.replace('/'); // Navigate to the home page
-          window.location.reload(); // Refresh the page
-        }, 1000); // Adjust the delay as needed
+        ; // Refresh the page
+        }, 10); // Adjust the delay as needed
       } else {
         setError(result.message || 'Login failed');
         setSuccess('');
