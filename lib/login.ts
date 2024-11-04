@@ -57,7 +57,13 @@ export async function loginShopify(
       response.data.data.customerAccessTokenCreate;
 
     if (customerAccessToken) {
-      return { success: true, token: customerAccessToken.accessToken };
+      // Store the access token
+      const accessToken = customerAccessToken.accessToken;
+
+      // Make a background request to get customer details
+      fetchCustomerDetails(accessToken);
+
+      return { success: true, token: accessToken };
     } else {
       return {
         success: false,
@@ -66,5 +72,42 @@ export async function loginShopify(
     }
   } catch (error) {
     return { success: false, message: 'Server error' };
+  }
+}
+
+// Function to fetch customer details and store the first name in local storage
+async function fetchCustomerDetails(accessToken: string): Promise<void> {
+  const shopifyUrl = `https://9eca2f-11.myshopify.com/api/2024-07/graphql.json`;
+  const query = `
+    query GetCustomer {
+      customer(customerAccessToken: "${accessToken}") {
+        id
+        firstName
+        lastName
+        email
+        phone
+      }
+    }
+  `;
+
+  try {
+    const response = await axios.post(
+      shopifyUrl,
+      { query },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Shopify-Storefront-Access-Token': 'e5f230e4a5202dc92cf9d9341c72bc5b',
+        },
+      }
+    );
+
+    const customer = response.data.data.customer;
+    if (customer && customer.firstName) {
+      // Store the first name in local storage
+      localStorage.setItem('customerFirstName', customer.firstName);
+    }
+  } catch (error) {
+    console.error('Failed to fetch customer details', error);
   }
 }

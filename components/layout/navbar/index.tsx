@@ -1,4 +1,5 @@
-"use client"
+"use client";
+
 import React, { useState, useEffect, useRef, Suspense } from 'react';
 import CartModal from 'components/cart/modal';
 import Link from 'next/link';
@@ -27,10 +28,17 @@ export function Navbar() {
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const lastScrollY = useRef(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [customerFirstName, setCustomerFirstName] = useState<string | null>(null);
 
   useEffect(() => {
     const customerToken = localStorage.getItem('customerAccessToken');
     setIsLoggedIn(!!customerToken);
+
+    // Retrieve customer first name from local storage
+    const storedFirstName = localStorage.getItem('customerFirstName');
+    if (storedFirstName) {
+      setCustomerFirstName(storedFirstName);
+    }
   }, []);
 
   useEffect(() => {
@@ -72,17 +80,12 @@ export function Navbar() {
     }
   };
 
-  const handleProfileClick = () => {
-    if (isLoggedIn) {
-      router.push('/my-account');
-    } else {
-      router.push('/login');
-    }
-  };
-
+  
   const handleLogout = () => {
     localStorage.removeItem('customerAccessToken');
+    localStorage.removeItem('customerFirstName');
     setIsLoggedIn(false);
+    setCustomerFirstName(null);
     router.push('/login');
   };
 
@@ -125,15 +128,24 @@ export function Navbar() {
           </div>
 
           <div className="relative ml-3 flex items-center space-x-4">
+          <div className="mb-2 hidden md:flex">
+              <SpotlightSearch color="white" />
+            </div>
             <CartModal />
-
+           
             <div
               className="relative"
               onMouseEnter={() => setProfileHover(true)}
               onMouseLeave={() => setProfileHover(false)}
             >
-              <button onClick={handleProfileClick}>
-                <Icon.User className="text-2xl" />
+              <button >
+                {customerFirstName ? (
+                  <div className="flex mb-2 h-9 w-9 items-center justify-center rounded-full bg-gray-400 text-white ">
+                    {customerFirstName.charAt(0).toUpperCase()}
+                  </div>
+                ) : (
+                  <Icon.User className="text-2xl" />
+                )}
               </button>
 
               {profileHover && (
@@ -177,9 +189,7 @@ export function Navbar() {
               )}
             </div>
 
-            <div className="mb-2 hidden md:flex">
-              <SpotlightSearch color="white" />
-            </div>
+           
           </div>
         </div>
       </nav>
