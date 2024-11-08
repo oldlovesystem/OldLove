@@ -8,6 +8,15 @@ const MyAccount = () => {
       <h1 className="text-2xl font-semibold text-gray-800 mb-6">My Account</h1>
     
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <Link href={"/account"} >
+        <div className="flex flex-row items-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition">
+          <FaLock className="text-gray-700 text-4xl mr-4" />
+          <div>
+            <h2 className="text-lg font-semibold text-gray-800">Login & Security</h2>
+            <p className="text-gray-500 text-sm">Edit name, mobile, password, and more</p>
+          </div>
+        </div>
+        </Link>
       <Link href={"/orders"} >
         <div className="flex flex-row items-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition">
           <FaBox className="text-gray-700 text-4xl mr-4" />
@@ -18,24 +27,16 @@ const MyAccount = () => {
         </div>
     </Link>
 
-    <Link href={"/account"} >
+    
+        <Link href={"/myaddress"} >
         <div className="flex flex-row items-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition">
-          <FaLock className="text-gray-700 text-4xl mr-4" />
-          <div>
-            <h2 className="text-lg font-semibold text-gray-800">Login & Security</h2>
-            <p className="text-gray-500 text-sm">Edit name, mobile, password, and more</p>
-          </div>
-        </div>
-        </Link>
-
-        {/* <div className="flex flex-row items-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition">
           <FaMapMarkerAlt className="text-gray-700 text-4xl mr-4" />
           <div>
             <h2 className="text-lg font-semibold text-gray-800">Your Addresses</h2>
             <p className="text-gray-500 text-sm">Edit or add address for orders</p>
           </div>
-        </div> */}
-
+        </div>
+    </Link>
       <Link href={"/contact"} >
         <div className="flex flex-row items-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition">
           <FaEnvelope className="text-gray-700 text-4xl mr-4" />

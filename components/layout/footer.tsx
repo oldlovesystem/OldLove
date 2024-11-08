@@ -12,7 +12,6 @@ const Footer = () => {
                     <div className="container">
                         <hr className="mt-5" />
                         <div className="content-footer py-[60px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
-                            {/* Company Info Section */}
                             <div className="company-infor p-4 flex flex-col">
                                 <p className="text-button-uppercase pb-3">Customer Care</p>
                                 <div className="flex flex-col mt-3">
@@ -58,7 +57,7 @@ const Footer = () => {
                                     </form>
                                 </div>
                                 <div className="list-social flex items-center gap-6 mt-4">
-                                    <Link href="https://www.facebook.com/" target="_blank">
+                                    <Link href="https://www.facebook.com/people/Old-Love/61566655953803/" target="_blank">
                                         <AiFillFacebook className="text-3xl" />
                                     </Link>
                                     <Link href="https://www.instagram.com/oldlove.in/?igsh=MTE4bHNuZXk1d2Y3aA%3D%3D" target="_blank">
