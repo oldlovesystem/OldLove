@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FaTimesCircle, FaExchangeAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import Link from 'next/link';
+import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 
 const spinnerStyles = `
   .spinner {
@@ -193,20 +194,25 @@ const OrdersPage = () => {
   return (
     <div className="min-h-screen">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="logofont mb-6 pt-10 text-3xl font-bold">Your Orders</h1>
+        <h1 className="logofont mb-6 pt-10 text-4xl font-bold">Your Orders</h1>
 
         {/* Sort Dropdown */}
-        <div className="mb-4 flex  lg:justify-end">
-          <select
-            value={sortOrder}
-            onChange={(e) => setSortOrder(e.target.value)}
-            className="rounded bg-gray-200 p-2"
-          >
-            <option value="newest">Newest to Oldest</option>
-            <option value="oldest">Oldest to Newest</option>
-          </select>
-        </div>
-
+        <div className="mb-4 flex justify-end">
+  <select
+    value={sortOrder}
+    onChange={(e) => setSortOrder(e.target.value)}
+    className="custom-select rounded bg-gray-200 p-2 pr-8"
+  >
+    <option value="newest">
+      Newest to Oldest
+      <span className="arrow-down "> &nbsp; &#8595;</span>
+    </option>
+    <option value="oldest">
+      Oldest to Newest
+      <span className="arrow-up "> &nbsp; &#8593;</span>
+    </option>
+  </select>
+</div>
         <div className="bg-white p-6">
           {sortedOrders.length === 0 ? (
             <p className="text-center text-gray-600">No orders found.</p>

@@ -503,3 +503,22 @@ button {
   justify-content: center;
   align-items: center;
 }
+.custom-select {
+  position: relative;
+}
+
+.arrow-down {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.arrow-up {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.custom-select option {
+  padding-right: 24px; /* Add space for the arrow */
+}
