@@ -179,14 +179,28 @@ const Register = () => {
 
       {/* Modal for Terms and Policies */}
       {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={() => setIsModalOpen(false)}>&times;</span>
-            <h2>Terms and Policies</h2>
-            <p>Content of the terms and policies...</p>
-          </div>
-        </div>
-      )}
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="modal-content bg-white p-6 rounded-lg w-11/12 sm:w-1/3 transform transition-all duration-300 ease-in-out">
+      <button
+        onClick={() => setIsModalOpen(false)}
+        className="absolute top-2 right-2 text-2xl text-gray-700 hover:text-gray-900"
+      >
+        &times;
+      </button>
+      <h2 className="text-xl font-semibold mb-4">Terms and Policies</h2>
+      <p>This policy applies to all the Old Love platforms (the &quot;Site&quot; or &quot;Web Site&quot; or &quot;Mobile Application&quot; or &quot;App&quot; or &quot;Us&quot;
+or &quot;We&quot; or &quot;Social Media Platforms&quot;), which is operated and owned by Nandi International, marketed and/or
+managed by Nandi International. It is Old Love&#39;s policy to comply with general laws for protecting user information
+and bank details shared for the purpose of availing Old Love (Nandi International) services. This regulates the
+processing of information relating to you and grants you various rights in respect of your personal data. Any
+Images, Data or Files Uploaded on the website must not be used without the consent of the authorized personnel
+of the brand. The Web Site contains links to other websites over which we have no control. Old Love is not
+responsible for the privacy policies or practices of other web sites to which you choose to link from OldLove
+(Nandi International). in. We encourage you to review the privacy policies of those other web sites so you can
+understand how they collect, use and share your information.</p>
+    </div>
+  </div>
+)}
 
       {/* Modal for Password Mismatch */}
       {isPasswordMismatchModalOpen && (
