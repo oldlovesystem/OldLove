@@ -10,6 +10,10 @@ import SpotlightSearch from 'components/spotlight-search';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import ShopHoverContent from './ShopHoverContent';
+import { HiOutlineHome } from "react-icons/hi2";
+import { CiShop } from "react-icons/ci";
+import { MdOutlineShoppingBag } from "react-icons/md";
+import { FaShoppingBag ,  FaShoppingCart } from 'react-icons/fa';
 
 const menu = [
   { title: 'Home', path: '/' },
@@ -17,7 +21,27 @@ const menu = [
   { title: 'About Us', path: '/about' },
   { title: 'Contact', path: '/contact' }
 ];
-
+function BottomNav({ customerFirstName }: { customerFirstName: string | null })  {
+  return (
+    <div className="fixed bottom-0 left-0 right-0 z-20 bg-white border-t border-gray-200 flex justify-around py-2 shadow-lg md:hidden">
+      <Link href="/" className="flex flex-col items-center text-gray-700">
+      <HiOutlineHome  className="text-3xl font-thin" />
+        <span className="text-xs mt-1">Home</span>
+      </Link>
+      <Link href="/search" className="flex flex-col items-center text-gray-700">
+      <CiShop className="text-3xl " />
+        <span className="text-xs mt-1">Shop</span>
+      </Link>
+      <Link href="/view-cart" className="flex flex-col items-center text-gray-700">
+      <div className='mt-1'>
+      <CartModal/>
+      </div>
+        <span className="text-xs -mt-1">Bag</span>
+      </Link>
+      
+    </div>
+  );
+}
 export function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
@@ -226,6 +250,7 @@ export function Navbar() {
           </div>
         </div>
       </nav>
+      <BottomNav customerFirstName={customerFirstName} />
 
       {hoveredItem && isHovering && (
         <div

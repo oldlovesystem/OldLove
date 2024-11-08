@@ -11,7 +11,7 @@ export default function OpenCart({
   quantity?: number;
 }) {
   return (
-    <div className={`relative flex h-11 w-11 items-center justify-center transition-colors   ${className}`}>
+    <div className={`relative flex h-8 w-11 items-center justify-center transition-colors   ${className}`}>
       <PiHandbagSimpleLight
         className='text-3xl mb-2 transition-all ease-in-out hover:scale-110'
       />

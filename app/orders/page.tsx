@@ -1,10 +1,9 @@
-'use client';
+"use client"
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FaTimesCircle, FaExchangeAlt, FaMapMarkerAlt } from 'react-icons/fa';
-import Link from 'next/link'; // Import Link for routing
+import Link from 'next/link';
 
-// CSS Spinner Styles
 const spinnerStyles = `
   .spinner {
     border: 4px solid rgba(255, 255, 255, 0.3);
@@ -14,7 +13,6 @@ const spinnerStyles = `
     height: 40px;
     animation: spin 1s linear infinite;
   }
-
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -38,18 +36,15 @@ const OrdersPage = () => {
   const [cancelReason, setCancelReason] = useState('');
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [customCancelReason, setCustomCancelReason] = useState('');
-  const [refundedOrders, setRefundedOrders] = useState([]);
+  const [sortOrder, setSortOrder] = useState('newest'); 
 
   const fetchCustomerOrders = async () => {
-    const accessToken =
-      typeof window !== 'undefined' ? localStorage.getItem('customerAccessToken') : null;
-
+    const accessToken = typeof window !== 'undefined' ? localStorage.getItem('customerAccessToken') : null;
     if (!accessToken) {
       setError('No customer access token found.');
       setLoading(false);
       return;
     }
-
     try {
       const response = await axios.post(
         'https://9eca2f-11.myshopify.com/api/2024-07/graphql.json',
@@ -105,15 +100,13 @@ const OrdersPage = () => {
       );
 
       const customerData = response.data?.data?.customer;
-      console.log(customerData);
       if (customerData) {
         setCustomer(customerData);
-        setOrders(
-          customerData.orders.edges.map(({ node }) => ({
-            ...node,
-            canceled: node.canceledAt !== null
-          }))
-        );
+        const fetchedOrders = customerData.orders.edges.map(({ node }) => ({
+          ...node,
+          canceled: node.canceledAt !== null
+        }));
+        setOrders(fetchedOrders);
       } else {
         setError('No customer data found.');
       }
@@ -127,8 +120,8 @@ const OrdersPage = () => {
   const openCancelModal = (order) => {
     setSelectedOrder(order);
     setIsModalOpen(true);
-    setCancelReason(''); // Reset reason when opening modal
-    setCustomCancelReason(''); // Reset custom reason
+    setCancelReason('');
+    setCustomCancelReason('');
   };
 
   const closeModal = () => {
@@ -139,19 +132,16 @@ const OrdersPage = () => {
 
   const confirmCancellation = async () => {
     const reasonToSend = cancelReason === 'Other' ? customCancelReason : cancelReason;
-
     if (!reasonToSend) {
       alert('Cancellation reason is required.');
       return;
     }
-
     try {
       await axios.post('https://cancelorder.vercel.app/api/cancelOrder', {
         orderId: selectedOrder.orderNumber,
         cancelReason: reasonToSend,
         id: selectedOrder.id
       });
-
       alert('Order canceled! Please allow a few minutes for the cancellation to reflect.');
       closeModal();
       fetchCustomerOrders();
@@ -164,7 +154,6 @@ const OrdersPage = () => {
     try {
       const response = await fetch(`https://cancelorder.vercel.app/api/getAWB/${orderId}`);
       const data = await response.json();
-
       if (response.ok) {
         const awbCode = data.awbCode;
         window.open(`https://shiprocket.co/tracking/${awbCode}`, '_blank');
@@ -179,6 +168,12 @@ const OrdersPage = () => {
   useEffect(() => {
     fetchCustomerOrders();
   }, []);
+
+  const sortedOrders = orders.slice().sort((a, b) => {
+    const dateA = new Date(a.processedAt).getTime();
+    const dateB = new Date(b.processedAt).getTime();
+    return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+  });
 
   if (loading) {
     return (
@@ -199,12 +194,25 @@ const OrdersPage = () => {
     <div className="min-h-screen">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="logofont mb-6 pt-10 text-3xl font-bold">Your Orders</h1>
+
+        {/* Sort Dropdown */}
+        <div className="mb-4 flex  lg:justify-end">
+          <select
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value)}
+            className="rounded bg-gray-200 p-2"
+          >
+            <option value="newest">Newest to Oldest</option>
+            <option value="oldest">Oldest to Newest</option>
+          </select>
+        </div>
+
         <div className="bg-white p-6">
-          {orders.length === 0 ? (
+          {sortedOrders.length === 0 ? (
             <p className="text-center text-gray-600">No orders found.</p>
           ) : (
             <ul>
-              {orders.map((order) => (
+              {sortedOrders.map((order) => (
                 <li
                   key={order.id}
                   className="order-item my-2 rounded-lg border border-gray-300 bg-gray-50"
@@ -220,8 +228,7 @@ const OrdersPage = () => {
                         Processed At: {new Date(order.processedAt).toLocaleDateString()}
                       </p>
                       <p className="mt-2 font-bold">
-                        Total Price: {order.currentTotalPrice.amount}{' '}
-                        {order.currentTotalPrice.currencyCode}
+                        Total Price: {order.currentTotalPrice.amount} {order.currentTotalPrice.currencyCode}
                       </p>
 
                       <div className="mt-3">
@@ -229,8 +236,7 @@ const OrdersPage = () => {
                         {order.shippingAddress ? (
                           <p className="text-gray-600">
                             <FaMapMarkerAlt className="mr-1 inline" />
-                            {order.shippingAddress.address1}, {order.shippingAddress.city},{' '}
-                            {order.shippingAddress.country}
+                            {order.shippingAddress.address1}, {order.shippingAddress.city}, {order.shippingAddress.country}
                           </p>
                         ) : (
                           <p className="text-gray-600">Shipping address not available</p>
@@ -257,7 +263,7 @@ const OrdersPage = () => {
                       ) : (
                         <button
                           onClick={() => openCancelModal(order)}
-                          disabled={order.fulfillmentStatus === 'FULFILLED'} // Disable if order is fulfilled
+                          disabled={order.fulfillmentStatus === 'FULFILLED'} 
                           className={`w-full rounded-lg px-4 py-2 transition ${
                             order.fulfillmentStatus === 'FULFILLED'
                               ? 'cursor-not-allowed bg-gray-400'
@@ -270,16 +276,17 @@ const OrdersPage = () => {
 
                       <button
                         onClick={() => trackOrder(order.orderNumber)}
-                        disabled={order.canceled} // Disable button if order is canceled
+                        disabled={order.canceled}
                         className={`w-full rounded-lg px-4 py-2 transition ${order.canceled ? 'cursor-not-allowed bg-gray-400' : 'button-main bg-black text-white'}`}
                       >
                         Track Order
                       </button>
 
-                      {/* Updated Return/Exchange button */}
                       <Link
-                        href={'/returnexchange'} // Using Link component to navigate
-                        className={`w-full rounded-lg px-4 py-2 text-center transition ${order.canceled ? 'cursor-not-allowed bg-gray-400' : 'button-main bg-black text-white'}`}
+                        href={'/returnexchange'}
+                        className={`w-full rounded-lg px-4 py-2 text-center transition ${
+                          order.canceled ? 'cursor-not-allowed bg-gray-400' : 'button-main bg-black text-white'
+                        }`}
                       >
                         Return / Exchange
                       </Link>
