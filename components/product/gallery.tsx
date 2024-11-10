@@ -61,13 +61,11 @@ export function Gallery({ images }: { images: Array<{ src: string; altText?: str
         {loading || imageError ? (
           <Skeleton className="h-full w-full object-contain" />
         ) : (
-          <Image
+          <img
             className="h-full w-full object-contain cursor-pointer bg-gray-300"
-            fill
             sizes="(min-width: 1024px) 66vw, 100vw"
             alt="Product Image"
             src={images[selectedImageIndex]?.src}
-            priority={true}
           />
         )}
 
