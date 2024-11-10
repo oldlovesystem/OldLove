@@ -40,7 +40,7 @@ const ContactUs = () => {
         <>
             
 
-            <div className='contact-us md:py-20 py-10 flex items-center justify-center'>
+            <div className='contact-us md:py-20 py-10 flex items-center justify-center font-tenor-sans'>
                 <div className="container">
                     <div className="flex justify-center max-lg:flex-col gap-y-10">
                         <div className="left lg:w-2/3 lg:pr-4">

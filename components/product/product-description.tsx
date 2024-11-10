@@ -61,52 +61,66 @@ export function ProductDescription({ product }: { product: Product }) {
     {
       title: 'Shipping',
       content: (
+        <div>
+        <p className="mb-4">
+        Welcome to OLDLOVE&#39;s delivery policy. We are committed to providing you with the best shipping
+experience. We ensure prompt delivery, secure packaging, and transparent cost. Our aim is to build trust
+and confidence, so you can shop with peace of mind.
+        </p>
         <ul className="list-disc pl-6">
-          <li>₹100 shipping charges will be charged on orders below ₹1500.</li>
+          <li>Shipping charges will be charged based on the product weight.</li>
           <li>
-            For international orders, customs duties may be levied at the time of delivery in
-            certain countries.
+          Product are shipped from our warehouse within 4 working days.
           </li>
-          <li>Products are shipped from our warehouse within 4 working days.</li>
           <li>The order will be delivered in 10 working days.</li>
-          <li>You will receive an order tracking number as soon as we ship your order.</li>
+          <li>You will receive order tracking number as soon as we ship your order.</li>
         </ul>
+        </div>
       )
     },
     {
       title: 'Returns',
       content: (
-        <ul className="list-disc pl-6">
-          <li>
-            Exchange is not available for masks, boxers, socks, and products at or below ₹899.
-          </li>
-          <li>There is no additional charge for any exchange orders.</li>
-          <li>
-            For new orders of lower price, the balance amount will be refunded as a gift voucher.
-          </li>
-          <li>Size exchange is subject to availability.</li>
-          <li>Please share the package unboxing video for wrong product received.</li>
-        </ul>
+        <>
+          <p className="mb-4">
+          At OldLove (Nandi International), we prioritize customer satisfaction and make every effort to offer a hassle-free
+return policy, ensuring that you are fully satisfied with your purchase. Our goal is to establish trust with our
+customers and provide them with the confidence to shop with us.
+          </p>
+          <ul className="list-disc pl-6">
+            <li>
+            We have a 7- day return policy.
+            </li>
+            <li>Please ensure that the products you return are unused, unworn, and the original tags are intact.</li>
+            <li>
+            Once the product is picked, a refund will be initiated in 5-3 working days for prepaid orders after
+            examining the return order.
+            </li>
+            <li>Please share the package unboxing video for wrong product/missing item received.</li>
+            <li>Do not hand over the product without a pick-up slip or SMS confirmation.</li>
+            <li>Items purchased during sale are non-returnable.</li>
+          </ul>
+        </>
       )
     },
     {
       title: 'Exchange',
       content: (
+        <>
+        <p className="mb-4">
+        At OldLove (Nandi International), we want you to be delighted with your purchase. If for any reason you are not
+satisfied, our hassle-free exchange policy is here to ensure your complete satisfaction. We aim to build trust and
+reassure you that you can shop with confidence.
+        </p>
         <ul className="list-disc pl-6">
-          <li>We have a 7-day return policy (only for returnable products).</li>
+          <li>There is no additional charge for any exchange orders.</li>
           <li>
-            Please ensure that the products you return are unused, unworn, and the original tags are
-            intact.
+          Size exchange is subject to availability.
           </li>
-          <li>International orders are not eligible for return.</li>
-          <li>
-            Once the product is picked, a refund will be initiated in 3 working days for prepaid
-            orders.
-          </li>
-          <li>Please share the package unboxing video for wrong product/missing item received.</li>
-          <li>Do not hand over the product without a pick-up slip or SMS confirmation.</li>
-          <li>Items purchased during sale are non-returnable.</li>
+          <li>Size exchange is subject to availability.</li>
+
         </ul>
+      </>
       )
     },
     {
@@ -188,7 +202,7 @@ export function ProductDescription({ product }: { product: Product }) {
       <VariantSelector options={product.options} variants={product.variants} />
       <AddToCart product={product} />
 
-      <div className="more-info mt-6 ">
+      <div className="more-info mt-6  font-tenor-sans">
         {dropdownItems.map((item, index) => (
           <div key={index} className="border border-gray-100 px-4 text-gray-600">
             <div

@@ -45,13 +45,22 @@ const Modal: React.FC<ModalProps> = ({
       modalElement.addEventListener('touchend', handleTouchEnd);
     }
 
+    // Prevent background scroll when modal is open
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
     return () => {
       if (modalElement) {
         modalElement.removeEventListener('touchstart', handleTouchStart);
         modalElement.removeEventListener('touchend', handleTouchEnd);
       }
+      // Reset body overflow on cleanup
+      document.body.style.overflow = '';
     };
-  }, [onNext, onPrevious]);
+  }, [isOpen, onNext, onPrevious]);
 
   if (!isOpen) return null;
 
