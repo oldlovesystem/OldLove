@@ -118,8 +118,8 @@ export function ProductDescription({ product }: { product: Product }) {
       content: (
         <div className="">
           <p className="text-sm font-semibold">Nandi International</p>
-          <p className="logofont text-sm">
-            No 79/290, National Park Road, Sampigehalli Village, near Sri Shyam Gaushala,
+          <p className="font-tenor-sans text-sm">
+            National Park Road, Sampigehalli Village, near Sri Shyam Gaushala,
             Bannerughatta Post, Bengaluru - 560083
           </p>
           <p className="text-sm font-semibold">Country of Origin</p>
@@ -131,11 +131,11 @@ export function ProductDescription({ product }: { product: Product }) {
 
   return (
     <>
-      <div className="mb-6 flex flex-col border-b pb-6">
-        <p className="logofont mb-2 uppercase text-gray-400">{product.tags}</p>
-        <h1 className="logofont mb-2 text-2xl font-medium">{product.title}</h1>
+      <div className="mb-6 flex flex-col border-b pb-6 font-tenor-sans">
+        <p className="font-tenor-sans mb-2 uppercase text-gray-400">{product.tags}</p>
+        <h1 className="font-tenor-sans mb-2 text-2xl font-medium uppercase">{product.title}</h1>
         <div className="mr-auto flex w-auto items-center rounded-full text-sm text-black">
-          <span className="logofont text-2xl font-semibold">
+          <span className="font-tenor-sans text-2xl font-semibold">
             INR {Math.round(Number(product.priceRange.maxVariantPrice.amount))}{' '}
           </span>
         </div>
@@ -143,7 +143,7 @@ export function ProductDescription({ product }: { product: Product }) {
         {product.descriptionHtml ? (
           <div>
             <div
-              className={`logofont text-sm text-gray-600 ${isDescriptionExpanded ? '' : 'truncated'}`}
+              className={` text-sm text-gray-600 ${isDescriptionExpanded ? '' : 'truncated'}`}
               style={
                 isDescriptionExpanded
                   ? {}
@@ -231,7 +231,7 @@ export function ProductDescription({ product }: { product: Product }) {
 
       {estimatedDelivery && (
         <div className="mt-4 p-2 border rounded-md shadow-lg bg-gray-50">
-          <p className="text-gray-800 flex items-center text-sm logofont">
+          <p className="text-gray-800 flex items-center text-sm font-tenor-sans">
             <FaTruck className="mr-2 " />
             {estimatedDelivery}
           </p>

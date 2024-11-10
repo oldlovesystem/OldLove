@@ -48,7 +48,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 
   return (
     <html lang="en" className={GeistSans.variable}>
-    <body className="bg-white text-black selection:bg-teal-300">
+    <body className="bg-white text-black selection:bg-teal-300 logo">
       <CartProvider cartPromise={cart}>
         <div className="fixed top-0 left-0 right-0 z-50">
           <TopNavOne props="style-one bg-black" slogan="Celebrate in Style: Enjoy 10% Off This Festive Season! Use code 'NEW10'"/>

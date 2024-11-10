@@ -13,7 +13,7 @@ const Footer = () => {
                         <hr className="mt-5" />
                         <div className="content-footer py-[60px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
                             <div className="company-infor p-4 flex flex-col">
-                                <p className="text-button-uppercase pb-3">Customer Care</p>
+                                <p className="uppercase font-bold pb-3 ">Customer Care</p>
                                 <div className="flex flex-col mt-3">
                                     <span className="text-button">Mail:</span>
                                     <span>support@oldlove.in</span>

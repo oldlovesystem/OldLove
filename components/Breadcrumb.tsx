@@ -16,7 +16,7 @@ const Breadcrumb: React.FC<Pros> = ({ heading, subHeading }) => {
                     <div className="container lg:pt-[20px] pt-7 pb-7 relative">
                         <div className="main-content w-full h-full flex flex-col items-center justify-center relative z-[1]">
                             <div className="text-content">
-                                <div className="heading2 text-center  logofont">{heading}</div>
+                                <div className="heading2 text-cente font-tenor-sans uppercase">{heading}</div>
                             </div>
                         </div>
                     </div>

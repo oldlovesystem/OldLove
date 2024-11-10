@@ -10,10 +10,10 @@ import 'swiper/css/bundle';
 const Instagram = () => {
     return (
         <>
-            <div className="instagram-block md:pt-20 pt-10">
+            <div className="instagram-block md:pt-20 pt-10 logofont">
                 <div className="container">
                     <div className="logofont font-thin">
-                        <div className="text-center logofont uppercase  text-3xl">Oldlove On Instagram</div>
+                        <div className="text-center logofont uppercase  text-3xl ">Oldlove On Instagram</div>
                         <div className="text-center mt-3 logofont">#Oldlovetheme</div>
                     </div>
                     <div className="list-instagram md:mt-10 mt-6">

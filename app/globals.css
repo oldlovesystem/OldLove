@@ -12,7 +12,9 @@
     color-scheme: light;
   }
 }
-
+.body{
+  font-family: "Tenor Sans" ;
+}
 @supports (font: -apple-system-body) and (-webkit-appearance: none) {
   img[loading='lazy'] {
     clip-path: inset(0.6px);
@@ -59,7 +61,7 @@ button {
 
 /* HeaderAlignemnet */
 .logo{
-  font-family: 'font-name';
+  font-family: 'Tenor Sans';
 }
 
 @media (min-width: 320px) and (max-width: 340px) {

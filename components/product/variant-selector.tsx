@@ -91,7 +91,7 @@ export function VariantSelector({
                 disabled={!isAvailableForSale}
                 title={`${option.name} ${value}${!isAvailableForSale ? ' (Out of Stock)' : ''}`}
                 className={clsx(
-                  'flex min-w-[48px] items-center justify-center rounded-full border bg-white px-3 py-3 text-sm',
+                  'flex min-w-[48px] items-center justify-center rounded-xl border bg-white px-3 py-3 text-sm',
                   {
                     'cursor-default ring-2 ring-black': isActive,
                     'ring-1 ring-transparent transition duration-300 ease-in-out hover:ring-black':
