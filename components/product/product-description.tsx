@@ -6,13 +6,13 @@ import { Product } from 'lib/shopify/types';
 import { VariantSelector } from './variant-selector';
 import { FaShareAlt } from 'react-icons/fa';
 import { FaTruck } from 'react-icons/fa';
-
+import SizeChartModal from '../sizechat';
 export function ProductDescription({ product }: { product: Product }) {
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [postcode, setPostcode] = useState('');
   const [estimatedDelivery, setEstimatedDelivery] = useState<string | null>(null);
-
+  const [isSizeChartOpen, setIsSizeChartOpen] = useState(false);
   const toggleDropdown = (index: number) => {
     setOpenDropdown((prev) => (prev === index ? null : index));
   };
@@ -32,7 +32,7 @@ export function ProductDescription({ product }: { product: Product }) {
           }
         }
       );
-
+    
       const data = await response.json();
       console.log(data);
       if (data.data?.available_courier_companies?.length > 0) {
@@ -61,8 +61,8 @@ export function ProductDescription({ product }: { product: Product }) {
     {
       title: 'Shipping',
       content: (
-        <div>
-        <p className="mb-4">
+        <div className='text-xs'>
+        <p className="mb-4 text-xs">
         Welcome to OLDLOVE&#39;s delivery policy. We are committed to providing you with the best shipping
 experience. We ensure prompt delivery, secure packaging, and transparent cost. Our aim is to build trust
 and confidence, so you can shop with peace of mind.
@@ -82,7 +82,7 @@ and confidence, so you can shop with peace of mind.
       title: 'Returns',
       content: (
         <>
-          <p className="mb-4">
+          <p className="mb-4 text-xs">
           At OldLove (Nandi International), we prioritize customer satisfaction and make every effort to offer a hassle-free
 return policy, ensuring that you are fully satisfied with your purchase. Our goal is to establish trust with our
 customers and provide them with the confidence to shop with us.
@@ -107,7 +107,7 @@ customers and provide them with the confidence to shop with us.
       title: 'Exchange',
       content: (
         <>
-        <p className="mb-4">
+        <p className="mb-4 text-xs">
         At OldLove (Nandi International), we want you to be delighted with your purchase. If for any reason you are not
 satisfied, our hassle-free exchange policy is here to ensure your complete satisfaction. We aim to build trust and
 reassure you that you can shop with confidence.
@@ -130,14 +130,14 @@ reassure you that you can shop with confidence.
     {
       title: 'Manufactured & Marketed by',
       content: (
-        <div className="">
-          <p className="text-sm font-semibold">Nandi International</p>
-          <p className="font-tenor-sans text-sm">
+        <div className="text-xs">
+          <p className="text-xs font-semibold">Nandi International</p>
+          <p className="font-tenor-sans text-xs">
             National Park Road, Sampigehalli Village, near Sri Shyam Gaushala,
             Bannerughatta Post, Bengaluru - 560083
           </p>
-          <p className="text-sm font-semibold">Country of Origin</p>
-          <p className="text-sm">India</p>
+          <p className="text-xs font-semibold">Country of Origin</p>
+          <p className="text-xs">India</p>
         </div>
       )
     }
@@ -198,9 +198,26 @@ reassure you that you can shop with confidence.
           </button>
         </div>
       </div>
+      <div className="flex flex-col lg:flex-row lg:space-x-4">
+  {/* Variant Selector */}
+  <div className="flex-1">
+    <VariantSelector options={product.options} variants={product.variants} />
+  </div>
 
-      <VariantSelector options={product.options} variants={product.variants} />
+  {/* Size Chart Button */}
+  <div className="mt-4 mb-5 lg:mt-10 lg:ml-4">
+    <button
+      onClick={() => setIsSizeChartOpen(true)}
+      className="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition duration-200 w-full lg:w-auto"
+    >
+      View Size Chart
+    </button>
+  </div>
+</div>
+        {/* Size Chart Modal */}
+        <SizeChartModal isOpen={isSizeChartOpen} onClose={() => setIsSizeChartOpen(false)} />
       <AddToCart product={product} />
+      
 
       <div className="more-info mt-6  font-tenor-sans">
         {dropdownItems.map((item, index) => (
@@ -214,7 +231,7 @@ reassure you that you can shop with confidence.
             </div>
             {openDropdown === index && (
               <div className="bg-white p-2">
-                <p className="text-sm text-gray-600">{item.content}</p>
+                <p className="text-xs text-gray-600">{item.content}</p>
               </div>
             )}
           </div>
