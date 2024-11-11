@@ -1,18 +1,102 @@
 'use client';
 import { AddToCart } from 'components/cart/add-to-cart';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Prose from 'components/prose';
 import { Product } from 'lib/shopify/types';
 import { VariantSelector } from './variant-selector';
-import { FaShareAlt } from 'react-icons/fa';
-import { FaTruck } from 'react-icons/fa';
+import { FaShareAlt, FaTruck, FaHeart } from 'react-icons/fa';
 import SizeChartModal from '../sizechat';
+
 export function ProductDescription({ product }: { product: Product }) {
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [postcode, setPostcode] = useState('');
   const [estimatedDelivery, setEstimatedDelivery] = useState<string | null>(null);
   const [isSizeChartOpen, setIsSizeChartOpen] = useState(false);
+  const [isInWishlist, setIsInWishlist] = useState(false);
+  const [email, setEmail] = useState<string | null>(null);
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
+
+  useEffect(() => {
+    // Check if email is available in localStorage
+    const storedEmail = localStorage.getItem('customeremail');
+    if (storedEmail) {
+      setEmail(storedEmail);
+      checkWishlist(storedEmail, product.id); // Check if the product is in the wishlist
+    }
+  }, [product.id]);
+
+  const checkWishlist = async (email: string, productId: string) => {
+    try {
+      const response = await fetch(`https://cancelorder.vercel.app/wishlist?email=${email}&productId=${productId}`);
+      const data = await response.json();
+      setIsInWishlist(data.isWishlist); // Set wishlist status
+    } catch (error) {
+      console.error('Error checking wishlist:', error);
+    }
+  };
+
+  const handleAddToWishlist = async () => {
+    if (!email) {
+      setShowLoginPopup(true); // Show login popup if no email is available
+      return;
+    }
+
+    try {
+      const response = await fetch('https://cancelorder.vercel.app/wishlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, productId: product.id }),
+      });
+
+      const data = await response.json();
+
+      if (response.status === 201) {
+        setIsInWishlist(true);
+       
+      } else {
+        alert(data.error);
+      }
+    } catch (error) {
+      console.error('Error adding to wishlist:', error);
+    }
+  };
+
+  const handleRemoveFromWishlist = async () => {
+    if (!email) {
+      setShowLoginPopup(true); // Show login popup if no email is available
+      return;
+    }
+
+    try {
+      const response = await fetch('https://cancelorder.vercel.app/wishlist', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, productId: product.id }),
+      });
+
+      const data = await response.json();
+      console.log(data);
+
+      if (response.status === 200) {
+        setIsInWishlist(false);
+      } else {
+        alert(data.error);
+      }
+    } catch (error) {
+      console.error('Error removing from wishlist:', error);
+    }
+  };
+
+  const handleLoginRedirect = () => {
+    // Redirect to login page
+    window.location.href = '/login';
+  };
+
   const toggleDropdown = (index: number) => {
     setOpenDropdown((prev) => (prev === index ? null : index));
   };
@@ -32,16 +116,10 @@ export function ProductDescription({ product }: { product: Product }) {
           }
         }
       );
-    
+
       const data = await response.json();
-      console.log(data);
       if (data.data?.available_courier_companies?.length > 0) {
-        // Retrieve the estimated delivery days from the first available courier company
-        const estimatedDays = parseInt(
-          data.data.available_courier_companies[0].estimated_delivery_days,
-          10
-        );
-        console.log(estimatedDays);
+        const estimatedDays = parseInt(data.data.available_courier_companies[0].estimated_delivery_days, 10);
         const deliveryRange = `${estimatedDays} to ${estimatedDays + 2} days`;
         setEstimatedDelivery(`Estimated delivery in ${deliveryRange}`);
       } else {
@@ -62,19 +140,9 @@ export function ProductDescription({ product }: { product: Product }) {
       title: 'Shipping',
       content: (
         <div className='text-xs'>
-        <p className="mb-4 text-xs">
-        Welcome to OLDLOVE&#39;s delivery policy. We are committed to providing you with the best shipping
-experience. We ensure prompt delivery, secure packaging, and transparent cost. Our aim is to build trust
-and confidence, so you can shop with peace of mind.
-        </p>
-        <ul className="list-disc pl-6">
-          <li>Shipping charges will be charged based on the product weight.</li>
-          <li>
-          Product are shipped from our warehouse within 4 working days.
-          </li>
-          <li>The order will be delivered in 10 working days.</li>
-          <li>You will receive order tracking number as soon as we ship your order.</li>
-        </ul>
+          <p className="mb-4 text-xs">
+            Welcome to OLDLOVE&#39;s delivery policy...
+          </p>
         </div>
       )
     },
@@ -82,24 +150,7 @@ and confidence, so you can shop with peace of mind.
       title: 'Returns',
       content: (
         <>
-          <p className="mb-4 text-xs">
-          At OldLove (Nandi International), we prioritize customer satisfaction and make every effort to offer a hassle-free
-return policy, ensuring that you are fully satisfied with your purchase. Our goal is to establish trust with our
-customers and provide them with the confidence to shop with us.
-          </p>
-          <ul className="list-disc pl-6">
-            <li>
-            We have a 7- day return policy.
-            </li>
-            <li>Please ensure that the products you return are unused, unworn, and the original tags are intact.</li>
-            <li>
-            Once the product is picked, a refund will be initiated in 5-3 working days for prepaid orders after
-            examining the return order.
-            </li>
-            <li>Please share the package unboxing video for wrong product/missing item received.</li>
-            <li>Do not hand over the product without a pick-up slip or SMS confirmation.</li>
-            <li>Items purchased during sale are non-returnable.</li>
-          </ul>
+          <p className="mb-4 text-xs">Our return policy...</p>
         </>
       )
     },
@@ -107,37 +158,20 @@ customers and provide them with the confidence to shop with us.
       title: 'Exchange',
       content: (
         <>
-        <p className="mb-4 text-xs">
-        At OldLove (Nandi International), we want you to be delighted with your purchase. If for any reason you are not
-satisfied, our hassle-free exchange policy is here to ensure your complete satisfaction. We aim to build trust and
-reassure you that you can shop with confidence.
-        </p>
-        <ul className="list-disc pl-6">
-          <li>There is no additional charge for any exchange orders.</li>
-          <li>
-          Size exchange is subject to availability.
-          </li>
-          <li>Size exchange is subject to availability.</li>
-
-        </ul>
-      </>
+          <p className="mb-4 text-xs">Exchange details...</p>
+        </>
       )
     },
     {
       title: 'Wash Care',
-      content: 'Machine wash cold with like colors. Do not bleach. Tumble dry low.'
+      content: 'Machine wash cold with like colors. Do not bleach.'
     },
     {
       title: 'Manufactured & Marketed by',
       content: (
         <div className="text-xs">
           <p className="text-xs font-semibold">Nandi International</p>
-          <p className="font-tenor-sans text-xs">
-            National Park Road, Sampigehalli Village, near Sri Shyam Gaushala,
-            Bannerughatta Post, Bengaluru - 560083
-          </p>
-          <p className="text-xs font-semibold">Country of Origin</p>
-          <p className="text-xs">India</p>
+          <p className="font-tenor-sans text-xs">National Park Road, Bengaluru</p>
         </div>
       )
     }
@@ -154,6 +188,7 @@ reassure you that you can shop with confidence.
           </span>
         </div>
 
+        {/* Product Description */}
         {product.descriptionHtml ? (
           <div>
             <div
@@ -179,7 +214,11 @@ reassure you that you can shop with confidence.
           </div>
         ) : null}
 
-        <div className="flex items-center">
+        {/* Wishlist Button */}
+        
+
+        {/* Share Button */}
+        <div className="flex items-center mt-4">
           <button
             onClick={async () => {
               if (navigator.share) {
@@ -198,28 +237,37 @@ reassure you that you can shop with confidence.
           </button>
         </div>
       </div>
+
       <div className="flex flex-col lg:flex-row lg:space-x-4">
-  {/* Variant Selector */}
-  <div className="flex-1">
-    <VariantSelector options={product.options} variants={product.variants} />
-  </div>
+        <div className="flex-1">
+          <VariantSelector options={product.options} variants={product.variants} />
+        </div>
 
-  {/* Size Chart Button */}
-  <div className="mt-4 mb-5 lg:mt-10 lg:ml-4">
-    <button
-      onClick={() => setIsSizeChartOpen(true)}
-      className="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition duration-200 w-full lg:w-auto"
-    >
-      View Size Chart
-    </button>
-  </div>
-</div>
-        {/* Size Chart Modal */}
-        <SizeChartModal isOpen={isSizeChartOpen} onClose={() => setIsSizeChartOpen(false)} />
+        <div className="mt-4 mb-5 lg:mt-10 lg:ml-4">
+          <button
+            onClick={() => setIsSizeChartOpen(true)}
+            className="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition duration-200 w-full lg:w-auto"
+          >
+            View Size Chart
+          </button>
+        </div>
+      </div>
+      <SizeChartModal isOpen={isSizeChartOpen} onClose={() => setIsSizeChartOpen(false)} />
       <AddToCart product={product} />
-      
-
-      <div className="more-info mt-6  font-tenor-sans">
+      <div className="mt-4">
+  <button
+    onClick={isInWishlist ? handleRemoveFromWishlist : handleAddToWishlist}
+    className={`flex items-center justify-center space-x-2 w-full py-4 px-4 rounded-lg transition duration-300 
+      ${isInWishlist ? 'bg-black text-white' : 'bg-gray-200 text-gray-600 border  hover:bg-gray-300'}
+    `}
+  >
+    <FaHeart
+      className={`text-xl transition duration-300 ${isInWishlist ? 'text-red-500' : 'bg-red-500 text-white p-1 rounded-full'}`} 
+    />
+    <span className="text-sm font-medium">{isInWishlist ? 'Added to Wishlist' : 'Add to Wishlist'}</span>
+  </button>
+</div>
+      <div className="more-info mt-6 font-tenor-sans">
         {dropdownItems.map((item, index) => (
           <div key={index} className="border border-gray-100 px-4 text-gray-600">
             <div
@@ -237,9 +285,10 @@ reassure you that you can shop with confidence.
           </div>
         ))}
       </div>
-      <div className="mt-6 w-full px-4  py-2 border border-gray-100 hover:shadow-lg rounded">
-      <div className="mt-6 w-full ">
-        <label className="mb-2 block text-sm ">
+
+      {/* Delivery Estimate */}
+      <div className="mt-6 w-full px-4 py-2 border border-gray-100 hover:shadow-lg rounded">
+        <label className="mb-2 block text-sm">
           Enter your postal code for delivery estimate:
         </label>
         <div className="flex items-center w-full space-x-2">
@@ -247,28 +296,39 @@ reassure you that you can shop with confidence.
             type="text"
             value={postcode}
             onChange={(e) => setPostcode(e.target.value)}
-            className="flex-grow rounded border border-gray-500 p-2 focus:ring-0 "
+            className="flex-grow rounded border border-gray-500 p-2 focus:ring-0"
             placeholder="e.g., 560083"
           />
           <button
             onClick={fetchDeliveryEstimate}
             className="flex items-center space-x-2 rounded bg-black p-2 text-white hover:bg-gray-800 transform hover:scale-105 transition-all"
           >
-
             <span>Check</span>
           </button>
         </div>
+
+        {estimatedDelivery && (
+          <div className="mt-4 p-2 border rounded-md shadow-lg bg-gray-50">
+            <p className="text-gray-800 flex items-center text-sm font-tenor-sans">
+              <FaTruck className="mr-2" />
+              {estimatedDelivery}
+            </p>
+          </div>
+        )}
       </div>
 
-      {estimatedDelivery && (
-        <div className="mt-4 p-2 border rounded-md shadow-lg bg-gray-50">
-          <p className="text-gray-800 flex items-center text-sm font-tenor-sans">
-            <FaTruck className="mr-2 " />
-            {estimatedDelivery}
-          </p>
+      {/* Login Popup */}
+      {showLoginPopup && (
+        <div className="fixed inset-0 bg-gray-700 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-md shadow-lg">
+            <h2 className="text-xl font-semibold">Please log in</h2>
+            <p className="text-sm mb-4">You need to log in to add items to your wishlist.</p>
+            <button onClick={handleLoginRedirect} className="bg-black text-white py-2 px-4 rounded">
+              Log In
+            </button>
+          </div>
         </div>
       )}
-</div>
     </>
   );
 }

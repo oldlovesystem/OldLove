@@ -106,6 +106,7 @@ async function fetchCustomerDetails(accessToken: string): Promise<void> {
     if (customer && customer.firstName) {
       // Store the first name in local storage
       localStorage.setItem('customerFirstName', customer.firstName);
+      localStorage.setItem('customeremail', customer.email);
     }
   } catch (error) {
     console.error('Failed to fetch customer details', error);
