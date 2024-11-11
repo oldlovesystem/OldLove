@@ -28,7 +28,7 @@ const ReturnExchange: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center min-h-screen font-tenor-sans">
       <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
         <h2 className="text-2xl font-semibold text-center mb-4">Return/Exchange</h2>
         <p className="text-center mb-4">

@@ -129,7 +129,7 @@ understand how they collect, use and share your information.
   return (
     <>
       <Breadcrumb heading="Privacy Policy" subHeading="Privacy Policy" />
-      <div className="flex min-h-screen w-full flex-col bg-gray-50 md:flex-row">
+      <div className="flex min-h-screen w-full flex-col bg-gray-50 md:flex-row font-tenor-sans">
         <aside className="border-r border-gray-300 p-6 md:w-1/4">
           <h2 className="mb-6 text-center text-xl font-semibold">Policies</h2>
           <ul className="space-y-4">

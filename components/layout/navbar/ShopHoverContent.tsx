@@ -40,7 +40,7 @@ const ShopHoverContent: React.FC = () => {
   ];
 
   return (
-    <div className="w-full rounded bg-white p-4 px-10 shadow-lg">
+    <div className="w-full rounded bg-white p-4 px-10 shadow-lg font-tenor-sans">
       <div className="mt-4 grid grid-cols-6 gap-4">
         {/* Column 1: Top Wear */}
         <div className="nav-link flex basis-2/3 gap-12 pr-12">

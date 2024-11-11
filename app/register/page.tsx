@@ -59,6 +59,19 @@ const Register = () => {
     return "Too Short";
   };
 
+  const handleTermsChange = (e) => {
+    if (e.target.checked) {
+      setIsModalOpen(true); // Open the modal when the checkbox is checked
+    } else {
+      setIsAgreedToTerms(false);
+    }
+  };
+
+  const handleModalOk = () => {
+    setIsModalOpen(false);
+    setIsAgreedToTerms(true); // Set agreement to true after reading the terms
+  };
+
   return (
     <>
       <div id="header" className='relative w-full'>
@@ -142,7 +155,7 @@ const Register = () => {
                       name='terms'
                       id='terms'
                       checked={isAgreedToTerms}
-                      onChange={(e) => setIsAgreedToTerms(e.target.checked)}
+                      onChange={handleTermsChange}
                     />
                     <Icon.CheckSquare size={20} weight='fill' className='icon-checkbox' />
                   </div>
@@ -179,16 +192,16 @@ const Register = () => {
 
       {/* Modal for Terms and Policies */}
       {isModalOpen && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-    <div className="modal-content bg-white p-6 rounded-lg w-11/12 sm:w-1/3 transform transition-all duration-300 ease-in-out">
-      <button
-        onClick={() => setIsModalOpen(false)}
-        className="absolute top-2 right-2 text-2xl text-gray-700 hover:text-gray-900"
-      >
-        &times;
-      </button>
-      <h2 className="text-xl font-semibold mb-4">Terms and Policies</h2>
-      <p>This policy applies to all the Old Love platforms (the &quot;Site&quot; or &quot;Web Site&quot; or &quot;Mobile Application&quot; or &quot;App&quot; or &quot;Us&quot;
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="modal-content bg-white p-6 rounded-lg w-11/12 sm:w-1/3 transform transition-all duration-300 ease-in-out">
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-2 right-2 text-2xl text-gray-700 hover:text-gray-900"
+            >
+              &times;
+            </button>
+            <h2 className="text-xl font-semibold mb-4 font-tenor-sans">Terms and Policies</h2>
+            <p>This policy applies to all the Old Love platforms (the &quot;Site&quot; or &quot;Web Site&quot; or &quot;Mobile Application&quot; or &quot;App&quot; or &quot;Us&quot;
 or &quot;We&quot; or &quot;Social Media Platforms&quot;), which is operated and owned by Nandi International, marketed and/or
 managed by Nandi International. It is Old Love&#39;s policy to comply with general laws for protecting user information
 and bank details shared for the purpose of availing Old Love (Nandi International) services. This regulates the
@@ -198,28 +211,12 @@ of the brand. The Web Site contains links to other websites over which we have n
 responsible for the privacy policies or practices of other web sites to which you choose to link from OldLove
 (Nandi International). in. We encourage you to review the privacy policies of those other web sites so you can
 understand how they collect, use and share your information.</p>
-    </div>
-  </div>
-)}
-
-      {/* Modal for Password Mismatch */}
-      {isPasswordMismatchModalOpen && (
-  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50" onClick={() => setIsPasswordMismatchModalOpen(false)}>
-    <div className="modal-content bg-white p-6 rounded-lg shadow-lg" onClick={(e) => e.stopPropagation()}>
-      <span className="close cursor-pointer float-right" onClick={() => setIsPasswordMismatchModalOpen(false)}>&times;</span>
-      <h2 className="text-red-500">Passwords do not match!</h2>
-      <p>Please check that both password fields are identical.</p>
-    </div>
-  </div>
-)}
-
-      {/* Modal for Verification */}
-      {isVerificationModalOpen && (
-        <div className="modal-overlay z-50" onClick={() => setIsVerificationModalOpen(false)}>
-          <div className="modal-content bg-white p-6 rounded-lg shadow-lg" onClick={(e) => e.stopPropagation()}>
-            <span className="close cursor-pointer float-right" onClick={() => setIsVerificationModalOpen(false)}>&times;</span>
-            <h2>Email Verification Required</h2>
-            <p>We have sent an email to {email}, please click the link included to verify your email address.</p>
+            <button
+              onClick={handleModalOk}
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              OK
+            </button>
           </div>
         </div>
       )}

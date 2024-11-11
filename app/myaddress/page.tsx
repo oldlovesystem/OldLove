@@ -174,7 +174,7 @@ const AccountPage = () => {
   };
 
   return (
-    <div className="text-black flex items-center justify-center">
+    <div className="text-black flex items-center justify-center font-tenor-sans">
       <div className="w-full max-w-4xl p-8">
         {loading ? (
           <p>Loading...</p>

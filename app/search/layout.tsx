@@ -15,7 +15,7 @@ export default function SearchLayout({ children }: SearchLayoutProps) {
     <>
       <Breadcrumb />
 
-      <div className="mt-5 flex max-w-screen-2xl flex-col px-0 pb-0 text-black md:flex-row">
+      <div className="mt-5 flex max-w-screen-2xl flex-col px-0 pb-0 text-black md:flex-row font-tenor-sans">
         <div className="right flex items-center gap-3"></div>
         <div className="order-first flex-none pl-5 pr-5 md:flex md:w-[20%] md:flex-col lg:pl-10">
           <div className="border-line flex-none border-b">

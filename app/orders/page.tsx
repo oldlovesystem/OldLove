@@ -192,9 +192,9 @@ const OrdersPage = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen font-tenor-sans">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="logofont mb-6 pt-10 text-4xl font-bold">Your Orders</h1>
+        <h1 className="font-tenor-sans mb-6 pt-10 text-4xl font-bold ">Your Orders</h1>
 
         {/* Sort Dropdown */}
         <div className="mb-4 flex justify-end">

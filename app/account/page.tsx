@@ -194,7 +194,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center font-tenor-sans">
       <div className="bg-white p-8 max-w-3xl w-full">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">Account Information</h2>
 

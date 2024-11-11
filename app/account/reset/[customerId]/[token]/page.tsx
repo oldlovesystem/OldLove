@@ -113,7 +113,7 @@ const ResetPage = () => {
   };
 
   return (
-    <div className="reset-block py-10 md:py-20">
+    <div className="reset-block py-10 md:py-20 font-tenor-sans">
       <div className="container">
         <div className="content-main flex flex-col items-center">
           <h1 className="heading4 mb-6">Password Reset</h1>

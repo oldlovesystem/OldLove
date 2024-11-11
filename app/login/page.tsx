@@ -102,7 +102,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="login-block md:py-20 py-10">
+      <div className="login-block md:py-20 py-10 font-tenor-sans">
         <div className="container">
           <div className="content-main flex gap-y-8 max-md:flex-col">
             <div className="left md:w-1/2 w-full lg:pr-[60px] md:pr-[40px] md:border-r border-line">
@@ -155,7 +155,7 @@ const Login = () => {
             <div className="right md:w-1/2 w-full lg:pl-[60px] md:pl-[40px] flex items-center">
               <div className="text-content">
                 <div className="heading4">New Customer</div>
-                <div className="mt-2 text-secondary">Be part of our growing family of new customers! Join us today and unlock a world of exclusive benefits, offers, and personalized experiences.</div>
+                <div className="mt-2 text-secondary font-tenor-sans">Be part of our growing family of new customers! Join us today and unlock a world of exclusive benefits, offers, and personalized experiences.</div>
                 <div className="block-button md:mt-7 mt-4">
                   <Link href={'/register'} className="button-main">Register</Link>
                 </div>
@@ -169,7 +169,7 @@ const Login = () => {
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded shadow-md max-w-sm w-full">
-            <h2 className="text-lg font-bold mb-4">Reset Password</h2>
+            <h2 className="text-lg font-bold mb-4 font-tenor-sans">Reset Password</h2>
             {resetError && <p className="text-red-500">{resetError}</p>}
             {resetSuccess && <p className="text-green-500">{resetSuccess}</p>}
             <input
