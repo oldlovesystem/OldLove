@@ -28,7 +28,7 @@ export function ProductDescription({ product }: { product: Product }) {
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUzNTY5NTUsInNvdXJjZSI6InNyLWF1dGgtaW50IiwiZXhwIjoxNzMxMDg1NTgzLCJqdGkiOiJxdTVJVFEwWXNUVWwxZmlBIiwiaWF0IjoxNzMwMjIxNTgzLCJpc3MiOiJodHRwczovL3NyLWF1dGguc2hpcHJvY2tldC5pbi9hdXRob3JpemUvdXNlciIsIm5iZiI6MTczMDIyMTU4MywiY2lkIjo1MDMwMjEwLCJ0YyI6MzYwLCJ2ZXJib3NlIjpmYWxzZSwidmVuZG9yX2lkIjowLCJ2ZW5kb3JfY29kZSI6IiJ9.HZUcWNbBg2sIJn9hARA915_IHHWWwejTB7lDvfTtz6U`
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUzNTY5NTUsInNvdXJjZSI6InNyLWF1dGgtaW50IiwiZXhwIjoxNzMyMTk5MDUzLCJqdGkiOiIxelNpSXJNeTNLT1RMS2J4IiwiaWF0IjoxNzMxMzM1MDUzLCJpc3MiOiJodHRwczovL3NyLWF1dGguc2hpcHJvY2tldC5pbi9hdXRob3JpemUvdXNlciIsIm5iZiI6MTczMTMzNTA1MywiY2lkIjo1MDMwMjEwLCJ0YyI6MzYwLCJ2ZXJib3NlIjpmYWxzZSwidmVuZG9yX2lkIjowLCJ2ZW5kb3JfY29kZSI6IiJ9.fIY1yVJlhlmiMICRNiAGBvaGBfiOAxF1ukZV29xUjbU`
           }
         }
       );

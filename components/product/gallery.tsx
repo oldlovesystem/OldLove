@@ -36,6 +36,23 @@ export function Gallery({ images }: { images: Array<{ src: string; altText?: str
       });
   }, [images]);
 
+  useEffect(() => {
+    if (isModalOpen) {
+      document.querySelector('body').style.overflow = "hidden";
+      document.querySelector('body').style.paddingRight = "15px";
+    } else {
+      document.querySelector('body').style.overflow = "auto";
+      document.querySelector('body').style.paddingRight = "0px";
+    }
+
+    // Clean up to reset the overflow style when the component unmounts
+    return () => {
+      document.querySelector('body').style.overflow = "auto";
+      document.querySelector('body').style.paddingRight = "0px";
+    };
+  }, [isModalOpen]);
+
+
   const openModal = (index: number) => {
     setSelectedImageIndex(index);
     setIsModalOpen(true);
