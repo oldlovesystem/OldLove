@@ -11,57 +11,60 @@ import 'swiper/css/effect-fade';
 const SliderOne = () => {
   return (
     <div className="slider "> {/* Added padding-top */}
-      <div className="slider-main h-full w-full">
+      <div className="slider-main  w-full">
         <Swiper
           spaceBetween={0}
           slidesPerView={1}
           loop={true}
           pagination={{ clickable: true }}
           modules={[Pagination, Autoplay]}
-          className="relative h-full"
+          className="relative "
           autoplay={{
-            delay: 4000
+            delay: 3500
           }}
         >
                  <SwiperSlide>
             <Link href="/search/formal-shirts">
               <div className="relative h-full w-full">
-                <Image
-                  src={'/b3.jpg'}
-                  layout="fill"
-                  objectFit="cover"
-                  alt="bg1-1"
-                  priority={true}
-                  className="object-cover"
-                />
+              <video
+                                    className='w-[100vw]'
+                                    loop
+                                    autoPlay
+                                    muted
+                                >
+                                    <source src='/CanvaDesign.mp4' type='video/mp4' />
+                                    Your browser does not support the video tag.
+                                </video>
               </div>
             </Link>
           </SwiperSlide>
           <SwiperSlide>
             <Link href="/search/printed-shirts">
               <div className="relative h-full w-full">
-                <Image
-                  src={'/b-2.jpeg'}
-                  layout="fill"
-                  objectFit="cover"
-                  alt="bg1-1"
-                  priority={true}
-                  className="object-cover"
-                />
+              <video
+                                    className='w-[100vw]  '
+                                    loop
+                                    autoPlay
+                                    muted
+                                >
+                                    <source src='/d3.mp4' type='video/mp4' />
+                                    Your browser does not support the video tag.
+                                </video>
               </div>
             </Link>
           </SwiperSlide>
           <SwiperSlide>
             <Link href="/search/cargo-trousers">
               <div className="relative h-full w-full">
-                <Image
-                  src={'/bgg.jpeg'}
-                  layout="fill"
-                  objectFit="cover"
-                  alt="bg1-1"
-                  priority={true}
-                  className="object-cover"
-                />
+              <video
+                                    className='w-[100vw]   md:mt-0'
+                                    loop
+                                    autoPlay
+                                    muted
+                                >
+                                    <source src='/d2.mp4' type='video/mp4' />
+                                    Your browser does not support the video tag.
+                                </video>
               </div>
             </Link>
           </SwiperSlide>

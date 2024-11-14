@@ -262,7 +262,7 @@ export function ProductDescription({ product }: { product: Product }) {
     `}
   >
     <FaHeart
-      className={`text-xl transition duration-300 ${isInWishlist ? 'text-red-500' : 'bg-red-500 text-white p-1 rounded-full'}`} 
+      className={`text-3xl  broder border-gray-800 transition duration-100 ${isInWishlist ? 'text-red-500' : ' text-gray-500 p-1 rounded-full'}`} 
     />
     <span className="text-sm font-medium">{isInWishlist ? 'Added to Wishlist' : 'Add to Wishlist'}</span>
   </button>
@@ -317,18 +317,31 @@ export function ProductDescription({ product }: { product: Product }) {
         )}
       </div>
 
-      {/* Login Popup */}
+
       {showLoginPopup && (
-        <div className="fixed inset-0 bg-gray-700 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-md shadow-lg">
-            <h2 className="text-xl font-semibold">Please log in</h2>
-            <p className="text-sm mb-4">You need to log in to add items to your wishlist.</p>
-            <button onClick={handleLoginRedirect} className="bg-black text-white py-2 px-4 rounded">
-              Log In
-            </button>
-          </div>
-        </div>
-      )}
+  <div className="fixed inset-0 bg-gray-700 bg-opacity-50 flex items-center justify-center">
+    <div className="bg-white p-6 rounded-md shadow-lg relative">
+      {/* Close button */}
+      <button
+        onClick={() => setShowLoginPopup(false)}
+        className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+      
+      <h2 className="text-xl font-semibold">Please log in</h2>
+      <p className="text-sm mb-4">You need to log in to add items to your wishlist.</p>
+      <button
+        onClick={handleLoginRedirect}
+        className="bg-black text-white py-2 px-4 rounded"
+      >
+        Log In
+      </button>
+    </div>
+  </div>
+)}
+
     </>
   );
 }

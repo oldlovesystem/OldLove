@@ -139,40 +139,6 @@ button {
 
 /* Slider Alignments */
 
-.slider {
-  height: 350px;
-  width: 100%;
-}
-
-@media (max-width: 420px) {
-  .slider {
-    height: 320px;
-  }
-}
-
-@media (min-width: 640px) { 
-  .slider {
-    height: 500px;
-  }
-}
-
-@media (min-width: 768px) {
-  .slider {
-    height: 580px;
-  }
-}
-
-@media (min-width: 1024px) { 
-  .slider {
-    height: 800px;
-  }
-}
-
-@media (min-width: 1280px) { 
-  .slider {
-    height: 860px;
-  }
-}
 
 /* ------------  END ------------- */
 

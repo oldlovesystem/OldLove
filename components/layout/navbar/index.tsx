@@ -128,6 +128,7 @@ export function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem('customerAccessToken');
     localStorage.removeItem('customerFirstName');
+    localStorage.removeItem('customeremail');
     setIsLoggedIn(false);
     setCustomerFirstName(null);
     router.push('/login');
