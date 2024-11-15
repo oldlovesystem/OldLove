@@ -51,7 +51,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     <body className="bg-white text-black selection:bg-teal-300 font-tenor-sans">
       <CartProvider cartPromise={cart}>
         <div className="fixed top-0 left-0 right-0 z-50">
-          <TopNavOne props="style-one bg-black" slogan="New launch, new style, new you , Exclusive launch 10% OFF on every order. Use code 'New10' "/>
+          <TopNavOne props="style-one bg-black" slogan=" New launch, New style, New you Exclusive launch offer . Use code 'New10' for 10% OFF on every order ."/>
           <Navbar />
         </div>
         <main className="pt-[110px] md:pt-[120px]"> {/* Adjust the padding to fit the fixed components */}
