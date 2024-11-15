@@ -140,9 +140,19 @@ export function ProductDescription({ product }: { product: Product }) {
       title: 'Shipping',
       content: (
         <div className='text-xs'>
-          <p className="mb-4 text-xs">
-            Welcome to OLDLOVE&#39;s delivery policy...
-          </p>
+        <p className="mb-4 text-xs">
+        Welcome to OLDLOVE&#39;s delivery policy. We are committed to providing you with the best shipping
+experience. We ensure prompt delivery, secure packaging, and transparent cost. Our aim is to build trust
+and confidence, so you can shop with peace of mind.
+        </p>
+        <ul className="list-disc pl-6">
+          <li>Shipping charges will be charged based on the product weight.</li>
+          <li>
+          Product are shipped from our warehouse within 4 working days.
+          </li>
+          <li>The order will be delivered in 10 working days.</li>
+          <li>You will receive order tracking number as soon as we ship your order.</li>
+        </ul>
         </div>
       )
     },
@@ -150,16 +160,44 @@ export function ProductDescription({ product }: { product: Product }) {
       title: 'Returns',
       content: (
         <>
-          <p className="mb-4 text-xs">Our return policy...</p>
-        </>
+        <p className="mb-4 text-xs">
+        At OldLove (Nandi International), we prioritize customer satisfaction and make every effort to offer a hassle-free
+return policy, ensuring that you are fully satisfied with your purchase. Our goal is to establish trust with our
+customers and provide them with the confidence to shop with us.
+        </p>
+        <ul className="list-disc pl-6">
+          <li>
+          We have a 7- day return policy.
+          </li>
+          <li>Please ensure that the products you return are unused, unworn, and the original tags are intact.</li>
+          <li>
+          Once the product is picked, a refund will be initiated in 5-3 working days for prepaid orders after
+          examining the return order.
+          </li>
+          <li>Please share the package unboxing video for wrong product/missing item received.</li>
+          <li>Do not hand over the product without a pick-up slip or SMS confirmation.</li>
+          <li>Items purchased during sale are non-returnable.</li>
+        </ul>
+      </>
       )
     },
     {
       title: 'Exchange',
       content: (
         <>
-          <p className="mb-4 text-xs">Exchange details...</p>
-        </>
+        <p className="mb-4 text-xs">
+        At OldLove (Nandi International), we want you to be delighted with your purchase. If for any reason you are not
+satisfied, our hassle-free exchange policy is here to ensure your complete satisfaction. We aim to build trust and
+reassure you that you can shop with confidence.
+        </p>
+        <ul className="list-disc pl-6">
+          <li>There is no additional charge for any exchange orders.</li>
+          <li>
+          Size exchange is subject to availability.
+          </li>
+          <li>Size exchange is subject to availability.</li>
+        </ul>
+      </>
       )
     },
     {
@@ -170,9 +208,14 @@ export function ProductDescription({ product }: { product: Product }) {
       title: 'Manufactured & Marketed by',
       content: (
         <div className="text-xs">
-          <p className="text-xs font-semibold">Nandi International</p>
-          <p className="font-tenor-sans text-xs">National Park Road, Bengaluru</p>
-        </div>
+        <p className="text-xs font-semibold">Nandi International</p>
+        <p className="font-tenor-sans text-xs">
+          National Park Road, Sampigehalli Village, near Sri Shyam Gaushala,
+          Bannerughatta Post, Bengaluru - 560083
+        </p>
+        <p className="text-xs font-semibold">Country of Origin</p>
+        <p className="text-xs">India</p>
+      </div>
       )
     }
   ];
