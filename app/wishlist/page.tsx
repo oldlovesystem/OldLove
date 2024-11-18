@@ -179,28 +179,31 @@ export default function WishlistPage() {
         <div className="py-3 text-lg text-center text-gray-500">
           Your wishlist is empty.{' '}
           <span className="text-blue-500 hover:underline">
-            Please <Link href="/shop">add items</Link> to your wishlist!
+            Please <Link href="/search">add items</Link> to your wishlist!
           </span>
         </div>
       ) : (
         <ProductGridItems products={products} />
       )}
 
-      {showLoginModal && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-          style={{ backdropFilter: 'blur(4px)' }}
-        >
-          <div className="bg-white p-6 rounded shadow-lg max-w-sm w-full">
-            <h2 className="text-xl font-bold mb-4">Login Required</h2>
-            <p className="text-gray-700 mb-6">Please log in to view your wishlist.</p>
+{showLoginModal && (
+  <div
+    className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    style={{ backdropFilter: 'blur(4px)' }}
+  >
+    <div className="bg-white p-6 rounded shadow-lg max-w-sm w-full relative">
+      {/* Close button */}
 
-            <Link href={"/login"}>
-              <button className="bg-blue-500 text-white px-4 py-2 rounded w-full">Login</button>
-            </Link>
-          </div>
-        </div>
-      )}
+
+      <h2 className="text-xl font-bold mb-4">Login Required</h2>
+      <p className="text-gray-700 mb-6">Please log in to view your wishlist.</p>
+
+      <Link href={"/login"}>
+        <button className="button-main text-white px-4 py-2 rounded w-full">Login</button>
+      </Link>
+    </div>
+  </div>
+)}
     </section>
   );
 }
