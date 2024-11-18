@@ -12,8 +12,8 @@ import { usePathname } from 'next/navigation';
 import ShopHoverContent from './ShopHoverContent';
 import { HiOutlineHome } from "react-icons/hi2";
 import { CiShop } from "react-icons/ci";
-import { MdOutlineShoppingBag } from "react-icons/md";
-import { FaShoppingBag ,  FaShoppingCart } from 'react-icons/fa';
+import { CiHeart } from "react-icons/ci";
+
 
 const menu = [
   { title: 'Home', path: '/' },
@@ -32,9 +32,15 @@ function BottomNav({ customerFirstName }: { customerFirstName: string | null }) 
       <CiShop className="text-3xl " />
         <span className="text-xs mt-1">Shop</span>
       </Link>
+      <Link href={"/wishlist"}>
+            <CiHeart className='text-3xl  ml-2' />
+            <span className="text-xs mt-1">Wishlist</span>
+            </Link>
+      
       <Link href="/view-cart" className="flex flex-col items-center text-gray-700">
       <div className='mt-1'>
       <CartModal/>
+     
       </div>
         <span className="text-xs -mt-1">Bag</span>
       </Link>
@@ -191,8 +197,12 @@ export function Navbar() {
             <div className="mb-2 hidden md:flex">
               <SpotlightSearch color="white" />
             </div>
-            <CartModal />
-
+            <div className="hidden md:block">
+  <CartModal />
+</div>
+            <Link href={"/wishlist"}>
+            <CiHeart className='xs: hidden text-3xl mb-2  md:block' />
+            </Link>
             <div
               className="relative"
               onMouseEnter={handleProfileMouseEnter}
