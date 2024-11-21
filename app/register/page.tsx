@@ -53,12 +53,13 @@ const Register = () => {
   };
 
   const passwordStrength = () => {
-    const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const strongPasswordPattern =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$/;
+;
+  
+    if (password.length < 8) return "Too Short";
     if (strongPasswordPattern.test(password)) return "Strong";
-    if (password.length >= 6) return "Weak";
-    return "Too Short";
+    return "Weak";
   };
-
   const handleTermsChange = (e) => {
     if (e.target.checked) {
       setIsModalOpen(true); // Open the modal when the checkbox is checked
