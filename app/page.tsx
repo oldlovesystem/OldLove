@@ -16,6 +16,8 @@ export default function HomePage() {
     <>
       <SliderCosmeticOne />
       <Collection />
+      <div className="text-center mt-10 logo-font uppercase collectionheading font-thin mb-8">New Arrival</div>
+      <Carousel speed={1500} /> 
       <div className="text-center mt-10 logo-font uppercase collectionheading font-thin mb-8">Redefine your Wardrobe</div>
       <Carousel speed={3000} /> 
       <Carousel speed={5000} /> 
