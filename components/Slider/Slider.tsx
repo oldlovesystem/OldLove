@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React from 'react';
 import Image from 'next/image';
@@ -10,67 +10,40 @@ import 'swiper/css/effect-fade';
 
 const SliderOne = () => {
   return (
-    <div className="slider "> {/* Added padding-top */}
-      <div className="slider-main  w-full">
-        <Swiper
-          spaceBetween={0}
-          slidesPerView={1}
-          loop={true}
-          pagination={{ clickable: true }}
-          modules={[Pagination, Autoplay]}
-          className="relative "
-          autoplay={{
-            delay: 3500
-          }}
-        >
-                 <SwiperSlide>
-            <Link href="/search/formal-shirts">
-              <div className="relative h-full w-full">
-              <video
-                                    className='w-[100vw]'
-                                    loop
-                                    autoPlay
-                                    muted
-                                >
-                                    <source src='/CanvaDesign.mp4' type='video/mp4' />
-                                    Your browser does not support the video tag.
-                                </video>
+    <div className="slider">
+      <Swiper
+        spaceBetween={0}
+        slidesPerView={1}
+        loop={true}
+        pagination={{ clickable: true }}
+        modules={[Pagination, Autoplay]}
+        autoplay={{
+          delay: 4000,
+        }}
+      >
+        {[
+          { href: '/search', src: '/Home00005.JPG' },
+          { href: '/search/casual-shirts', src: '/3.JPG' },
+          { href: '/search/printed-shirts', src: '/Home00001.JPG' },
+          { href: '/search/casual-shirts', src: '/Home00002.JPG' },
+          { href: '/search/jeans', src: '/Home00004.JPG' },
+        ].map((slide, index) => (
+          <SwiperSlide key={index}>
+            <Link href={slide.href}>
+              <div className="relative image-container">
+              <Image
+  src={slide.src}
+  fill
+  sizes="100vw"
+  alt={`Slide ${index + 1}`}
+  priority={true}
+  className="image"
+/>
               </div>
             </Link>
           </SwiperSlide>
-          <SwiperSlide>
-            <Link href="/search/printed-shirts">
-              <div className="relative h-full w-full">
-              <video
-                                    className='w-[100vw]  '
-                                    loop
-                                    autoPlay
-                                    muted
-                                >
-                                    <source src='/d3.mp4' type='video/mp4' />
-                                    Your browser does not support the video tag.
-                                </video>
-              </div>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link href="/search/cargo-trousers">
-              <div className="relative h-full w-full">
-              <video
-                                    className='w-[100vw]   md:mt-0'
-                                    loop
-                                    autoPlay
-                                    muted
-                                >
-                                    <source src='/d2.mp4' type='video/mp4' />
-                                    Your browser does not support the video tag.
-                                </video>
-              </div>
-            </Link>
-          </SwiperSlide>
-     
-        </Swiper>
-      </div>
+        ))}
+      </Swiper>
     </div>
   );
 };
