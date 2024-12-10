@@ -25,7 +25,7 @@ const SliderOne = () => {
           { href: '/search', src: '/Home00005.JPG' },
           { href: '/search/casual-shirts', src: '/3.JPG' },
           { href: '/search/printed-shirts', src: '/Home00001.JPG' },
-          { href: '/search/casual-shirts', src: '/Home00002.JPG' },
+          { href: '/search/casual-shirts', src: '/Home0003.jpg' },
           { href: '/search/jeans', src: '/Home00004.JPG' },
         ].map((slide, index) => (
           <SwiperSlide key={index}>
