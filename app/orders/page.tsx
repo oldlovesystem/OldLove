@@ -74,6 +74,23 @@ const OrdersPage = () => {
                           node {
                             title
                             quantity
+                            variant {
+                              id
+                              title
+                              priceV2 {
+                                amount
+                                currencyCode
+                              }
+                              image {
+                                src
+                                altText
+                              }
+                              product {
+                                id
+                                title
+                                descriptionHtml
+                              }
+                            }
                           }
                         }
                       }
@@ -233,9 +250,7 @@ const OrdersPage = () => {
                       <p className="text-gray-600">
                         Processed At: {new Date(order.processedAt).toLocaleDateString()}
                       </p>
-                      <p className="mt-2 font-bold">
-                        Total Price: {order.currentTotalPrice.amount} {order.currentTotalPrice.currencyCode}
-                      </p>
+
 
                       <div className="mt-3">
                         <h4 className="font-semibold">Shipping Address:</h4>
@@ -251,51 +266,43 @@ const OrdersPage = () => {
 
                       <h4 className="mt-3 font-semibold">Items:</h4>
                       <ul className="list-disc pl-5">
-                        {order.lineItems.edges.map(({ node: item }) => (
-                          <li key={item.title} className="text-gray-600">
-                            {item.title} (Quantity: {item.quantity})
+                        {order.lineItems.edges.map(({ node }) => (
+                          <li key={node.variant.id} className="flex items-center py-2">
+                            <img
+                              src={node.variant.image.src}
+                              alt={node.variant.image.altText}
+                              className="mr-4 w-24 h-24 object-fit"
+                            />
+                            <div className="flex-1">
+                              <p className="font-semibold">{node.title}</p>
+                              <p>{node.variant.title}</p>
+                              <p>Quantity: {node.quantity}</p>
+                              <p>Price: {node.variant.priceV2.amount} {node.variant.priceV2.currencyCode}</p>
+                            </div>
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    <div className="mx-4 hidden border-l border-gray-300 sm:block"></div>
-
-                    <div className="mt-4 flex w-full flex-col items-center space-y-3 sm:mt-0 sm:w-1/4 sm:items-start">
+                    <div className="mt-4 sm:mt-0 sm:w-1/4">
                       {order.canceled ? (
-                        <p className="flex items-center text-red-600">
-                          <FaTimesCircle className="mr-1" /> Order Canceled
-                        </p>
+                        <p className="text-red-600">Order Canceled</p>
                       ) : (
-                        <button
-                          onClick={() => openCancelModal(order)}
-                          disabled={order.fulfillmentStatus === 'FULFILLED'} 
-                          className={`w-full rounded-lg px-4 py-2 transition ${
-                            order.fulfillmentStatus === 'FULFILLED'
-                              ? 'cursor-not-allowed bg-gray-400'
-                              : 'button-main bg-black text-white'
-                          }`}
-                        >
-                          Cancel Order
-                        </button>
+                        <div>
+                          <button
+                            className="mb-2 w-full rounded bg-black py-2 px-4 text-white"
+                            onClick={() => openCancelModal(order)}
+                          >
+                            Cancel Order
+                          </button>
+                          <button
+                            className="mb-2 w-full rounded bg-black py-2 px-4 text-white"
+                            onClick={() => trackOrder(order.orderNumber)}
+                          >
+                            Track Order
+                          </button>
+                        </div>
                       )}
-
-                      <button
-                        onClick={() => trackOrder(order.orderNumber)}
-                        disabled={order.canceled}
-                        className={`w-full rounded-lg px-4 py-2 transition ${order.canceled ? 'cursor-not-allowed bg-gray-400' : 'button-main bg-black text-white'}`}
-                      >
-                        Track Order
-                      </button>
-
-                      <Link
-                        href={'/returnexchange'}
-                        className={`w-full rounded-lg px-4 py-2 text-center transition ${
-                          order.canceled ? 'cursor-not-allowed bg-gray-400' : 'button-main bg-black text-white'
-                        }`}
-                      >
-                        Return / Exchange
-                      </Link>
                     </div>
                   </div>
                 </li>
@@ -303,52 +310,59 @@ const OrdersPage = () => {
             </ul>
           )}
         </div>
-      </div>
 
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="w-11/12 rounded-lg bg-white p-6 shadow-lg sm:w-1/3">
-            <h2 className="mb-4 text-lg font-semibold">Cancel Order</h2>
-            <p className="mb-4">Please select a reason for cancellation:</p>
-            <select
-              value={cancelReason}
-              onChange={(e) => setCancelReason(e.target.value)}
-              className="mb-4 w-full rounded border p-2"
+        {isModalOpen && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50"
+            onClick={closeModal}
+          >
+            <div
+              className="w-full max-w-lg rounded-lg bg-white p-6"
+              onClick={(e) => e.stopPropagation()}
             >
-              <option value="">Select a reason</option>
-              {cancellationReasons.map((reason) => (
-                <option key={reason} value={reason}>
-                  {reason}
-                </option>
-              ))}
-              <option value="Other">Other</option>
-            </select>
-            {cancelReason === 'Other' && (
-              <input
-                type="text"
-                value={customCancelReason}
-                onChange={(e) => setCustomCancelReason(e.target.value)}
-                placeholder="Please specify..."
-                className="mb-4 w-full rounded border border-gray-500 p-4 text-lg"
-              />
-            )}
-            <div className="flex justify-end">
-              <button
-                onClick={closeModal}
-                className="mr-2 rounded bg-gray-300 px-4 py-2 hover:bg-gray-400"
+              <h2 className="mb-4 text-2xl font-semibold">Cancel Order</h2>
+              <p className="mb-4">Please select a cancellation reason:</p>
+              <select
+                value={cancelReason}
+                onChange={(e) => setCancelReason(e.target.value)}
+                className="mb-4 w-full rounded bg-gray-200 p-2"
               >
-                Cancel
-              </button>
-              <button
-                onClick={confirmCancellation}
-                className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
-              >
-                Confirm Cancellation
-              </button>
+                <option value="">Select a reason...</option>
+                {cancellationReasons.map((reason) => (
+                  <option key={reason} value={reason}>
+                    {reason}
+                  </option>
+                ))}
+                <option value="Other">Other</option>
+              </select>
+
+              {cancelReason === 'Other' && (
+                <textarea
+                  value={customCancelReason}
+                  onChange={(e) => setCustomCancelReason(e.target.value)}
+                  placeholder="Please specify your reason..."
+                  className="mb-4 w-full rounded border p-2"
+                />
+              )}
+
+              <div className="flex justify-between">
+                <button
+                  className="rounded bg-gray-300 py-2 px-4"
+                  onClick={closeModal}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="rounded bg-red-500 py-2 px-4 text-white"
+                  onClick={confirmCancellation}
+                >
+                  Confirm Cancellation
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
