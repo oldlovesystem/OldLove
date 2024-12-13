@@ -1,5 +1,4 @@
 'use client';
-
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -7,22 +6,22 @@ import * as Icon from '@phosphor-icons/react/dist/ssr';
 
 const ResetPage = () => {
   const params = useParams();
-  const customerId = params.customerId; // Capture the customer segment from the URL
-  const token = params.token; // Capture the token segment from the URL
-  const [password, setPassword] = useState(''); // State for new password
-  const [confirmPassword, setConfirmPassword] = useState(''); // State for confirm password
-  const [error, setError] = useState<string | null>(null); // State for error messages
-  const [success, setSuccess] = useState(false); // State for success message
-  const [showPassword, setShowPassword] = useState(false); // State for password visibility
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
-  const [isPasswordMismatchModalOpen, setIsPasswordMismatchModalOpen] = useState(false); // State for modal visibility
+  const customerId = params.customerId;
+  const token = params.token;
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isPasswordMismatchModalOpen, setIsPasswordMismatchModalOpen] = useState(false);
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value); // Update password state
+    setPassword(e.target.value);
   };
 
   const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setConfirmPassword(e.target.value); // Update confirm password state
+    setConfirmPassword(e.target.value); 
   };
 
   const getPasswordStrength = (password: string) => {
@@ -46,14 +45,14 @@ const ResetPage = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault(); 
 
     if (password !== confirmPassword) {
       setIsPasswordMismatchModalOpen(true);
-      return; // Do not proceed with the reset if passwords do not match
+      return; 
     }
 
-    const resetUrl = `https://9eca2f-11.myshopify.com/account/reset/${customerId}/${token}`; // Construct the reset URL
+    const resetUrl = `https://9eca2f-11.myshopify.com/account/reset/${customerId}/${token}`; 
     const query = `
       mutation customerResetByUrl($password: String!, $resetUrl: URL!) {
         customerResetByUrl(password: $password, resetUrl: $resetUrl) {
@@ -84,11 +83,12 @@ const ResetPage = () => {
     };
 
     try {
-      const response = await fetch('https://9eca2f-11.myshopify.com/api/2024-07/graphql.json', {
+      const response = await fetch(
+        process.env.NEXT_PUBLIC_SHOPIFY_GRAPHQL_API_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Shopify-Storefront-Access-Token': 'e5f230e4a5202dc92cf9d9341c72bc5b'
+          'X-Shopify-Storefront-Access-Token': process.env.NEXT_PUBLIC_SHOPIFY_KEY
         },
         body: JSON.stringify({ query, variables })
       });
@@ -96,7 +96,6 @@ const ResetPage = () => {
       const data = await response.json();
 
       if (data.errors || data.data.customerResetByUrl.customerUserErrors.length > 0) {
-        // Handle errors
         setError(
           data.errors ||
             data.data.customerResetByUrl.customerUserErrors
@@ -104,7 +103,6 @@ const ResetPage = () => {
               .join(', ')
         );
       } else {
-        // Handle success
         setSuccess(true);
       }
     } catch (error) {
@@ -113,7 +111,7 @@ const ResetPage = () => {
   };
 
   return (
-    <div className="reset-block py-10 md:py-20 font-tenor-sans">
+    <div className="reset-block font-tenor-sans py-10 md:py-20">
       <div className="container">
         <div className="content-main flex flex-col items-center">
           <h1 className="heading4 mb-6">Password Reset</h1>
@@ -190,15 +188,13 @@ const ResetPage = () => {
           {success && (
             <div style={{ color: 'green' }}>
               <h2>Password reset successfully!</h2>
-              <div className="block-button  md:mt-7">
+              <div className="block-button md:mt-7">
                 <Link href="/login">
                   <button className="button-main">Go to Login</button>
                 </Link>
               </div>
             </div>
           )}
-
-          {/* Modal for password mismatch */}
           {isPasswordMismatchModalOpen && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
               <div className="w-full max-w-sm rounded bg-white p-6 shadow-md">

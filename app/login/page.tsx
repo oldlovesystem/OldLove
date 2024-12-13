@@ -61,7 +61,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "https://9eca2f-11.myshopify.com/api/2024-07/graphql.json",
+        process.env.NEXT_PUBLIC_SHOPIFY_GRAPHQL_API_ENDPOINT,
         {
           query: `
             mutation customerRecover($email: String!) {
@@ -84,7 +84,7 @@ const Login = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            "X-Shopify-Storefront-Access-Token": "e5f230e4a5202dc92cf9d9341c72bc5b",
+            "X-Shopify-Storefront-Access-Token": process.env.NEXT_PUBLIC_SHOPIFY_KEY,
           },
         }
       );

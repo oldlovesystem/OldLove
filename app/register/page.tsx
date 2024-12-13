@@ -1,10 +1,10 @@
-"use client";
+'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { registerCustomer } from '../../lib/customer';
 import Breadcrumb from '../../components/Breadcrumb';
-import * as Icon from "@phosphor-icons/react/dist/ssr";
+import * as Icon from '@phosphor-icons/react/dist/ssr';
 
 const Register = () => {
   const router = useRouter();
@@ -53,12 +53,11 @@ const Register = () => {
   };
 
   const passwordStrength = () => {
-    const strongPasswordPattern =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$/;
-;
-  
-    if (password.length < 8) return "Too Short";
-    if (strongPasswordPattern.test(password)) return "Strong";
-    return "Weak";
+    const strongPasswordPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$/;
+    if (password.length < 8) return 'Too Short';
+    if (strongPasswordPattern.test(password)) return 'Strong';
+    return 'Weak';
   };
   const handleTermsChange = (e) => {
     if (e.target.checked) {
@@ -75,20 +74,20 @@ const Register = () => {
 
   return (
     <>
-      <div id="header" className='relative w-full'>
-        <Breadcrumb heading='Create An Account' subHeading='Create An Account' />
+      <div id="header" className="relative w-full">
+        <Breadcrumb heading="Create An Account" subHeading="Create An Account" />
       </div>
-      <div className="register-block md:py-20 py-10">
+      <div className="register-block py-10 md:py-20">
         <div className="container">
           <div className="content-main flex gap-y-8 max-md:flex-col">
-            <div className="left md:w-1/2 w-full lg:pr-[60px] md:pr-[40px] md:border-r border-line">
+            <div className="left border-line w-full md:w-1/2 md:border-r md:pr-[40px] lg:pr-[60px]">
               <div className="heading4">Register</div>
-              {error && <p className="text-red-500 mb-4">{error}</p>}
-              {success && <p className="text-green-500 mb-4">{success}</p>}
-              <form onSubmit={handleSubmit} className="md:mt-7 mt-4">
+              {error && <p className="mb-4 text-red-500">{error}</p>}
+              {success && <p className="mb-4 text-green-500">{success}</p>}
+              <form onSubmit={handleSubmit} className="mt-4 md:mt-7">
                 <div className="first-name">
                   <input
-                    className="border-line border-gray-300 px-4 pt-3 pb-3 w-full rounded-lg"
+                    className="border-line w-full rounded-lg border-gray-300 px-4 pb-3 pt-3"
                     type="text"
                     placeholder="First Name *"
                     value={firstName}
@@ -98,7 +97,7 @@ const Register = () => {
                 </div>
                 <div className="last-name mt-5">
                   <input
-                    className="border-line border-gray-300 px-4 pt-3 pb-3 w-full rounded-lg"
+                    className="border-line w-full rounded-lg border-gray-300 px-4 pb-3 pt-3"
                     type="text"
                     placeholder="Last Name *"
                     value={lastName}
@@ -108,7 +107,7 @@ const Register = () => {
                 </div>
                 <div className="email mt-5">
                   <input
-                    className="border-line border-gray-300 px-4 pt-3 pb-3 w-full rounded-lg"
+                    className="border-line w-full rounded-lg border-gray-300 px-4 pb-3 pt-3"
                     type="email"
                     placeholder="Email address *"
                     value={email}
@@ -116,9 +115,9 @@ const Register = () => {
                     required
                   />
                 </div>
-                <div className="pass mt-5 relative">
+                <div className="pass relative mt-5">
                   <input
-                    className="border-line border-gray-300 px-4 pt-3 pb-3 w-full rounded-lg"
+                    className="border-line w-full rounded-lg border-gray-300 px-4 pb-3 pt-3"
                     type={isPasswordVisible ? 'text' : 'password'}
                     placeholder="Password *"
                     value={password}
@@ -126,17 +125,27 @@ const Register = () => {
                     required
                   />
                   {isPasswordVisible ? (
-                    <Icon.EyeSlash onClick={() => setIsPasswordVisible(false)} className="absolute right-3 top-3 cursor-pointer" />
+                    <Icon.EyeSlash
+                      onClick={() => setIsPasswordVisible(false)}
+                      className="absolute right-3 top-3 cursor-pointer"
+                    />
                   ) : (
-                    <Icon.Eye onClick={() => setIsPasswordVisible(true)} className="absolute right-3 top-3 cursor-pointer" />
+                    <Icon.Eye
+                      onClick={() => setIsPasswordVisible(true)}
+                      className="absolute right-3 top-3 cursor-pointer"
+                    />
                   )}
-                  <p className={`mt-1 ${passwordStrength() === 'Strong' ? 'text-green-500' : 'text-red-500'}`}>
-                    {passwordStrength() === 'Too Short' ? 'Password too short' : `${passwordStrength()} password`}
+                  <p
+                    className={`mt-1 ${passwordStrength() === 'Strong' ? 'text-green-500' : 'text-red-500'}`}
+                  >
+                    {passwordStrength() === 'Too Short'
+                      ? 'Password too short'
+                      : `${passwordStrength()} password`}
                   </p>
                 </div>
-                <div className="confirm-pass mt-5 relative">
+                <div className="confirm-pass relative mt-5">
                   <input
-                    className="border-line border-gray-300 px-4 pt-3 pb-3 w-full rounded-lg"
+                    className="border-line w-full rounded-lg border-gray-300 px-4 pb-3 pt-3"
                     type={isConfirmPasswordVisible ? 'text' : 'password'}
                     placeholder="Re-enter Password *"
                     value={confirmPassword}
@@ -144,33 +153,43 @@ const Register = () => {
                     required
                   />
                   {isConfirmPasswordVisible ? (
-                    <Icon.EyeSlash onClick={() => setIsConfirmPasswordVisible(false)} className="absolute right-3 top-3 cursor-pointer" />
+                    <Icon.EyeSlash
+                      onClick={() => setIsConfirmPasswordVisible(false)}
+                      className="absolute right-3 top-3 cursor-pointer"
+                    />
                   ) : (
-                    <Icon.Eye onClick={() => setIsConfirmPasswordVisible(true)} className="absolute right-3 top-3 cursor-pointer" />
+                    <Icon.Eye
+                      onClick={() => setIsConfirmPasswordVisible(true)}
+                      className="absolute right-3 top-3 cursor-pointer"
+                    />
                   )}
                 </div>
-                <div className='flex items-center mt-5'>
+                <div className="mt-5 flex items-center">
                   <div className="block-input">
                     <input
                       type="checkbox"
-                      name='terms'
-                      id='terms'
+                      name="terms"
+                      id="terms"
                       checked={isAgreedToTerms}
                       onChange={handleTermsChange}
                     />
-                    <Icon.CheckSquare size={20} weight='fill' className='icon-checkbox' />
+                    <Icon.CheckSquare size={20} weight="fill" className="icon-checkbox" />
                   </div>
-                  <label htmlFor='terms' className="pl-2 cursor-pointer text-secondary2">
+                  <label htmlFor="terms" className="text-secondary2 cursor-pointer pl-2">
                     I agree to the
-                    <button type="button" onClick={() => setIsModalOpen(true)} className='text-black hover:underline pl-1'>
+                    <button
+                      type="button"
+                      onClick={() => setIsModalOpen(true)}
+                      className="pl-1 text-black hover:underline"
+                    >
                       Terms and Policy
                     </button>
                   </label>
                 </div>
-                <div className="block-button md:mt-7 mt-4">
-                  <button 
-                    type="submit" 
-                    className="button-main" 
+                <div className="block-button mt-4 md:mt-7">
+                  <button
+                    type="submit"
+                    className="button-main"
                     disabled={!isAgreedToTerms} // Disable if terms are not agreed
                   >
                     Register
@@ -178,12 +197,17 @@ const Register = () => {
                 </div>
               </form>
             </div>
-            <div className="right md:w-1/2 w-full lg:pl-[60px] md:pl-[40px] flex items-center">
+            <div className="right flex w-full items-center md:w-1/2 md:pl-[40px] lg:pl-[60px]">
               <div className="text-content">
                 <div className="heading4">Already have an account?</div>
-                <div className="mt-2 text-secondary">Welcome back. Sign in to access your personalized experience, saved preferences, and more. We’re thrilled to have you with us again!</div>
-                <div className="block-button md:mt-7 mt-4">
-                  <Link href={'/login'} className="button-main">Login</Link>
+                <div className="text-secondary mt-2">
+                  Welcome back. Sign in to access your personalized experience, saved preferences,
+                  and more. We’re thrilled to have you with us again!
+                </div>
+                <div className="block-button mt-4 md:mt-7">
+                  <Link href={'/login'} className="button-main">
+                    Login
+                  </Link>
                 </div>
               </div>
             </div>
@@ -194,27 +218,33 @@ const Register = () => {
       {/* Modal for Terms and Policies */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="modal-content bg-white p-6 rounded-lg w-11/12 sm:w-1/3 transform transition-all duration-300 ease-in-out">
+          <div className="modal-content w-11/12 transform rounded-lg bg-white p-6 transition-all duration-300 ease-in-out sm:w-1/3">
             <button
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-2 right-2 text-2xl text-gray-700 hover:text-gray-900"
+              className="absolute right-2 top-2 text-2xl text-gray-700 hover:text-gray-900"
             >
               &times;
             </button>
-            <h2 className="text-xl font-semibold mb-4 font-tenor-sans">Terms and Policies</h2>
-            <p>This policy applies to all the Old Love platforms (the &quot;Site&quot; or &quot;Web Site&quot; or &quot;Mobile Application&quot; or &quot;App&quot; or &quot;Us&quot;
-or &quot;We&quot; or &quot;Social Media Platforms&quot;), which is operated and owned by Nandi International, marketed and/or
-managed by Nandi International. It is Old Love&#39;s policy to comply with general laws for protecting user information
-and bank details shared for the purpose of availing Old Love (Nandi International) services. This regulates the
-processing of information relating to you and grants you various rights in respect of your personal data. Any
-Images, Data or Files Uploaded on the website must not be used without the consent of the authorized personnel
-of the brand. The Web Site contains links to other websites over which we have no control. Old Love is not
-responsible for the privacy policies or practices of other web sites to which you choose to link from OldLove
-(Nandi International). in. We encourage you to review the privacy policies of those other web sites so you can
-understand how they collect, use and share your information.</p>
+            <h2 className="font-tenor-sans mb-4 text-xl font-semibold">Terms and Policies</h2>
+            <p>
+              This policy applies to all the Old Love platforms (the &quot;Site&quot; or &quot;Web
+              Site&quot; or &quot;Mobile Application&quot; or &quot;App&quot; or &quot;Us&quot; or
+              &quot;We&quot; or &quot;Social Media Platforms&quot;), which is operated and owned by
+              Nandi International, marketed and/or managed by Nandi International. It is Old
+              Love&#39;s policy to comply with general laws for protecting user information and bank
+              details shared for the purpose of availing Old Love (Nandi International) services.
+              This regulates the processing of information relating to you and grants you various
+              rights in respect of your personal data. Any Images, Data or Files Uploaded on the
+              website must not be used without the consent of the authorized personnel of the brand.
+              The Web Site contains links to other websites over which we have no control. Old Love
+              is not responsible for the privacy policies or practices of other web sites to which
+              you choose to link from OldLove (Nandi International). in. We encourage you to review
+              the privacy policies of those other web sites so you can understand how they collect,
+              use and share your information.
+            </p>
             <button
               onClick={handleModalOk}
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              className="mt-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
             >
               OK
             </button>

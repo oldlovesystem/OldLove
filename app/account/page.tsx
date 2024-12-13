@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -11,7 +10,7 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState({ firstName: false, lastName: false, phone: false, email: false });
-  const [resetEmail, setResetEmail] = useState(""); // New state for reset email
+  const [resetEmail, setResetEmail] = useState(""); 
 
   const fetchCustomerData = async () => {
     const accessToken = localStorage.getItem("customerAccessToken");
@@ -23,7 +22,7 @@ const Dashboard = () => {
 
     try {
       const response = await axios.post(
-        "https://9eca2f-11.myshopify.com/api/2024-07/graphql.json",
+        process.env.NEXT_PUBLIC_SHOPIFY_GRAPHQL_API_ENDPOINT,
         {
           query: `
             query GetCustomer {
@@ -40,7 +39,7 @@ const Dashboard = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            "X-Shopify-Storefront-Access-Token": "e5f230e4a5202dc92cf9d9341c72bc5b",
+            "X-Shopify-Storefront-Access-Token": process.env.NEXT_PUBLIC_SHOPIFY_KEY,
           },
         }
       );
