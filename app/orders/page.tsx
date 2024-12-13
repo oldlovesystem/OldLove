@@ -1,9 +1,7 @@
-"use client"
+'use client';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FaTimesCircle, FaExchangeAlt, FaMapMarkerAlt } from 'react-icons/fa';
-import Link from 'next/link';
-import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 
 const spinnerStyles = `
   .spinner {
@@ -37,18 +35,20 @@ const OrdersPage = () => {
   const [cancelReason, setCancelReason] = useState('');
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [customCancelReason, setCustomCancelReason] = useState('');
-  const [sortOrder, setSortOrder] = useState('newest'); 
+  const [sortOrder, setSortOrder] = useState('newest');
 
   const fetchCustomerOrders = async () => {
-    const accessToken = typeof window !== 'undefined' ? localStorage.getItem('customerAccessToken') : null;
+    const accessToken =
+      typeof window !== 'undefined' ? localStorage.getItem('customerAccessToken') : null;
     if (!accessToken) {
       setError('No customer access token found.');
       setLoading(false);
       return;
     }
+    console.log(accessToken);
     try {
       const response = await axios.post(
-        'https://9eca2f-11.myshopify.com/api/2024-07/graphql.json',
+        process.env.NEXT_PUBLIC_SHOPIFY_GRAPHQL_API_ENDPOINT,
         {
           query: `
             query GetCustomerOrders($customerAccessToken: String!) {
@@ -112,7 +112,7 @@ const OrdersPage = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            'X-Shopify-Storefront-Access-Token': 'e5f230e4a5202dc92cf9d9341c72bc5b'
+            'X-Shopify-Storefront-Access-Token': process.env.NEXT_PUBLIC_SHOPIFY_KEY
           }
         }
       );
@@ -209,27 +209,27 @@ const OrdersPage = () => {
   }
 
   return (
-    <div className="min-h-screen font-tenor-sans">
+    <div className="font-tenor-sans min-h-screen">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="font-tenor-sans mb-6 pt-10 text-4xl font-bold ">Your Orders</h1>
+        <h1 className="font-tenor-sans mb-6 pt-10 text-4xl font-bold">Your Orders</h1>
 
         {/* Sort Dropdown */}
         <div className="mb-4 flex justify-end">
-  <select
-    value={sortOrder}
-    onChange={(e) => setSortOrder(e.target.value)}
-    className="custom-select rounded bg-gray-200 p-2 pr-8"
-  >
-    <option value="newest">
-      Newest to Oldest
-      <span className="arrow-down "> &nbsp; &#8595;</span>
-    </option>
-    <option value="oldest">
-      Oldest to Newest
-      <span className="arrow-up "> &nbsp; &#8593;</span>
-    </option>
-  </select>
-</div>
+          <select
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value)}
+            className="custom-select rounded bg-gray-200 p-2 pr-8"
+          >
+            <option value="newest">
+              Newest to Oldest
+              <span className="arrow-down"> &nbsp; &#8595;</span>
+            </option>
+            <option value="oldest">
+              Oldest to Newest
+              <span className="arrow-up"> &nbsp; &#8593;</span>
+            </option>
+          </select>
+        </div>
         <div className="bg-white p-6">
           {sortedOrders.length === 0 ? (
             <p className="text-center text-gray-600">No orders found.</p>
@@ -251,13 +251,13 @@ const OrdersPage = () => {
                         Processed At: {new Date(order.processedAt).toLocaleDateString()}
                       </p>
 
-
                       <div className="mt-3">
                         <h4 className="font-semibold">Shipping Address:</h4>
                         {order.shippingAddress ? (
                           <p className="text-gray-600">
                             <FaMapMarkerAlt className="mr-1 inline" />
-                            {order.shippingAddress.address1}, {order.shippingAddress.city}, {order.shippingAddress.country}
+                            {order.shippingAddress.address1}, {order.shippingAddress.city},{' '}
+                            {order.shippingAddress.country}
                           </p>
                         ) : (
                           <p className="text-gray-600">Shipping address not available</p>
@@ -271,13 +271,16 @@ const OrdersPage = () => {
                             <img
                               src={node.variant.image.src}
                               alt={node.variant.image.altText}
-                              className="mr-4 w-24 h-24 object-fit"
+                              className="object-fit mr-4 h-24 w-24"
                             />
                             <div className="flex-1">
                               <p className="font-semibold">{node.title}</p>
                               <p>{node.variant.title}</p>
                               <p>Quantity: {node.quantity}</p>
-                              <p>Price: {node.variant.priceV2.amount} {node.variant.priceV2.currencyCode}</p>
+                              <p>
+                                Price: {node.variant.priceV2.amount}{' '}
+                                {node.variant.priceV2.currencyCode}
+                              </p>
                             </div>
                           </li>
                         ))}
@@ -290,13 +293,13 @@ const OrdersPage = () => {
                       ) : (
                         <div>
                           <button
-                            className="mb-2 w-full rounded bg-black py-2 px-4 text-white"
+                            className="mb-2 w-full rounded bg-black px-4 py-2 text-white"
                             onClick={() => openCancelModal(order)}
                           >
                             Cancel Order
                           </button>
                           <button
-                            className="mb-2 w-full rounded bg-black py-2 px-4 text-white"
+                            className="mb-2 w-full rounded bg-black px-4 py-2 text-white"
                             onClick={() => trackOrder(order.orderNumber)}
                           >
                             Track Order
@@ -346,14 +349,11 @@ const OrdersPage = () => {
               )}
 
               <div className="flex justify-between">
-                <button
-                  className="rounded bg-gray-300 py-2 px-4"
-                  onClick={closeModal}
-                >
+                <button className="rounded bg-gray-300 px-4 py-2" onClick={closeModal}>
                   Cancel
                 </button>
                 <button
-                  className="rounded bg-red-500 py-2 px-4 text-white"
+                  className="rounded bg-red-500 px-4 py-2 text-white"
                   onClick={confirmCancellation}
                 >
                   Confirm Cancellation
