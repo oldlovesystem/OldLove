@@ -7,10 +7,13 @@ interface BreadcrumbsProps {
 
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ productName }) => {
   return (
-    <nav className=" caption1 text-secondary2 hover:underline text-gray-700 bg-gray-100 py-4 px-5">
-      <Link href="/" className="ml-2 text-gray-500 hover:underline">Home</Link> {' > '}
-      <span className="text-gray-500 text-sm ">Product</span> {' > '}
-      <span className="text-gray-900 text-sm">{productName}</span>
+    <nav className="caption1 text-secondary2 bg-gray-100 px-5 py-4 text-gray-700 hover:underline">
+      <Link href="/" className="ml-2 text-gray-500 hover:underline">
+        Home
+      </Link>{' '}
+      {' > '}
+      <span className="text-sm text-gray-500">Product</span> {' > '}
+      <span className="text-sm text-gray-900">{productName}</span>
     </nav>
   );
 };

@@ -1,8 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import { RiLoopRightLine } from 'react-icons/ri';
-import { MdLockOutline } from 'react-icons/md';
-import { MdOutlineSupportAgent } from 'react-icons/md';
 
 interface Props {
   props: string;
@@ -40,7 +37,7 @@ const Benefit: React.FC<Props> = ({ props }) => {
             </div>
 
             <div className="benefit-item flex flex-col items-center justify-center">
-              <img 
+              <img
                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAD+klEQVR4nO2Zb2jVVRjHP9NtMfNPagvJEBVNp8bINwsbgr2ofKP4RkRCxUAMChN0glJk/7YonBL6QlOaCAq+ELG0fGEqWobCpL3QUWTUVByyLG1WW/vFI98fHH787u69u+fsXmRfOHDuvec8z/me
 P895zvfCEB5uTANeBT4DzgC/Al1AL/ADUE0J41HgDaAViLKUkiQzDFgL3HYG+jdw
 EtgKLARqgCeACSJhbXqADuB74CCwGphYLBITgFMOgavAm8Dj/fSpdsiklWPA3ME
@@ -64,7 +61,7 @@ nQDr1CieAa4mEN4Pae2JY0y7fkW/TfSLTmpXemNl3+fhkCJ43+lyJ+bKcIMkAAAAA
 BJRU5ErkJggg=="
                 alt="online-support--v1"
               />
-              <div className="heading6 text-center mt-5">Dedicated Customer Support</div>
+              <div className="heading6 mt-5 text-center">Dedicated Customer Support</div>
               <div className="caption1 text-secondary mt-3 text-center">
                 We're Here to Assist You In Every Step of the Way.
               </div>

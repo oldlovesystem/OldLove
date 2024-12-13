@@ -2,8 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image';
 import * as Icon from "@phosphor-icons/react/dist/ssr";
-import { AiFillFacebook } from "react-icons/ai";
-import { FaInstagram } from "react-icons/fa6";
+
 
 const Footer = () => {
     return (

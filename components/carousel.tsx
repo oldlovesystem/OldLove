@@ -4,12 +4,16 @@ import TabSwitcher from './TabSwitcher';
 export async function Carousel({ speed }) {
   // Fetch collections excluding the 'All' collection
   const collections = await getCollections();
-  const filteredCollections = collections.filter(collection => collection.title.toLowerCase() !== 'all');
+  const filteredCollections = collections.filter(
+    (collection) => collection.title.toLowerCase() !== 'all'
+  );
 
   // Fetch all products from each filtered collection
   const allProducts = await Promise.all(
     filteredCollections.map(async (collection) => {
-      const products = await getCollectionProducts({ collection: collection.title.toLowerCase().replace(/\s+/g, '-') });
+      const products = await getCollectionProducts({
+        collection: collection.title.toLowerCase().replace(/\s+/g, '-')
+      });
       return products; // Return products directly
     })
   );
@@ -27,7 +31,7 @@ export async function Carousel({ speed }) {
     return array;
   };
 
-  const shuffledProducts = shuffleArray(combinedProducts).slice(0, 10); 
+  const shuffledProducts = shuffleArray(combinedProducts).slice(0, 10);
   console.log(shuffledProducts.length);
 
   return (

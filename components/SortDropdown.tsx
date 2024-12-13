@@ -15,9 +15,9 @@ const SortDropdown: React.FC<SortDropdownProps> = ({ list }) => {
 
   return (
     <div className="relative">
-      <button className="bg-white text-black p-2 rounded">Sort Options</button>
-      <ul className="absolute bg-white shadow-md mt-2 w-full">
-        {list.map(item => {
+      <button className="rounded bg-white p-2 text-black">Sort Options</button>
+      <ul className="absolute mt-2 w-full bg-white shadow-md">
+        {list.map((item) => {
           const href = createUrl(
             pathname,
             new URLSearchParams({

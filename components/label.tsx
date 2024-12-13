@@ -25,12 +25,10 @@ const Label = ({
         'lg:px-20 lg:pb-[35%]': position === 'center'
       })}
     >
-      <div className="logo-font text-black lg:text-xs text-xs">
-        <h3 className="text-custom ">{title}</h3>
-        <div className="product-price-block flex items-center gap-2 flex-wrap mt-1 duration-300 relative z-[1]">
-          <div className="text-custom">
-            INR {formatAmountInINR(numericAmount)}
-          </div>
+      <div className="logo-font text-xs text-black lg:text-xs">
+        <h3 className="text-custom">{title}</h3>
+        <div className="product-price-block relative z-[1] mt-1 flex flex-wrap items-center gap-2 duration-300">
+          <div className="text-custom">INR {formatAmountInINR(numericAmount)}</div>
         </div>
         {/* Uncomment and use Price component if needed */}
         {/* <Price

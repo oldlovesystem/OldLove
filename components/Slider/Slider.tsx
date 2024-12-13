@@ -18,7 +18,7 @@ const SliderOne = () => {
         pagination={{ clickable: true }}
         modules={[Pagination, Autoplay]}
         autoplay={{
-          delay: 4000,
+          delay: 4000
         }}
       >
         {[
@@ -26,19 +26,19 @@ const SliderOne = () => {
           { href: '/search/casual-shirts', src: '/3.JPG' },
           { href: '/search/printed-shirts', src: '/Home00001.JPG' },
           { href: '/search/casual-shirts', src: '/Home0003.jpg' },
-          { href: '/search/jeans', src: '/Home00004.JPG' },
+          { href: '/search/jeans', src: '/Home00004.JPG' }
         ].map((slide, index) => (
           <SwiperSlide key={index}>
             <Link href={slide.href}>
-              <div className="relative image-container">
-              <Image
-  src={slide.src}
-  fill
-  sizes="100vw"
-  alt={`Slide ${index + 1}`}
-  priority={true}
-  className="image"
-/>
+              <div className="image-container relative">
+                <Image
+                  src={slide.src}
+                  fill
+                  sizes="100vw"
+                  alt={`Slide ${index + 1}`}
+                  priority={true}
+                  className="image"
+                />
               </div>
             </Link>
           </SwiperSlide>

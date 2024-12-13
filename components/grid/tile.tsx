@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import clsx from 'clsx';
 import React, { useState } from 'react';
 import Image from 'next/image';
@@ -19,31 +19,33 @@ export function GridTileImage({
     position?: 'bottom' | 'center';
   };
   height?: number; // Add height as a prop
-  variants?: { color: string; colorImage: string }[]; 
+  variants?: { color: string; colorImage: string }[];
 } & React.ComponentProps<typeof Image>) {
-  const [isHovered, setIsHovered] = useState(false); 
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div 
-      className="flex flex-col h-full w-full relative" 
+    <div
+      className="relative flex h-full w-full flex-col"
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)} 
+      onMouseLeave={() => setIsHovered(false)}
     >
       <div
         className={clsx(
-          'group bg-gray-200 flex h-full w-full items-center justify-center overflow-hidden hover:border-blue-600',
+          'group flex h-full w-full items-center justify-center overflow-hidden bg-gray-200 hover:border-blue-600',
           {
             relative: label,
-            'border-1 border-blue-600': active,
+            'border-1 border-blue-600': active
           }
         )}
       >
         {props.src && (
           <Image
-            className={clsx('lg:h-full w-full object-scale-down  md:object-scale-down lg:object-fill ' , {
-              'transition duration-700 ease-in-out': isInteractive,
-            })}
-           
+            className={clsx(
+              'w-full object-scale-down md:object-scale-down lg:h-full lg:object-fill',
+              {
+                'transition duration-700 ease-in-out': isInteractive
+              }
+            )}
             {...props}
           />
         )}
