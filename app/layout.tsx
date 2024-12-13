@@ -10,8 +10,6 @@ import { ReactNode } from 'react';
 import TopNavOne from 'components/layout/navbar/TopNavOne';
 import Footer from 'components/layout/footer';
 import { Toaster } from 'sonner';
-import PostShipLoader from './PostShipLoader';
-import WhatsAppIcon from 'components/WhatsAppIcon'; // Import the WhatsAppIcon component
 import './styles/styles.scss';
 import './globals.css';
 
@@ -54,7 +52,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           <TopNavOne props="style-one bg-black" slogan=""/>
           <Navbar />
         </div>
-        <main className="pt-[110px] md:pt-[120px]"> {/* Adjust the padding to fit the fixed components */}
+        <main className="pt-[110px] md:pt-[120px]">
           {children}
           <Toaster closeButton />
         </main>

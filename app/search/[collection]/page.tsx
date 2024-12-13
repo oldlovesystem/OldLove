@@ -1,10 +1,7 @@
 import { getCollection, getCollectionProducts, getProducts } from 'lib/shopify';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import Link from 'next/link';
-import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
-
 import { defaultSort, sorting } from 'lib/constants';
 
 export async function generateMetadata({
@@ -23,9 +20,6 @@ export async function generateMetadata({
   };
 }
 
-
-
-
 export default async function CategoryPage({
   params,
   searchParams
@@ -37,25 +31,21 @@ export default async function CategoryPage({
   const { sort, columns = '2', q: searchValue } = searchParams as { [key: string]: string };
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
 
-  const products = searchValue 
-    ? await getProducts({ sortKey, reverse, query: searchValue }) 
+  const products = searchValue
+    ? await getProducts({ sortKey, reverse, query: searchValue })
     : await getCollectionProducts({ collection: params.collection, sortKey, reverse });
-
-  // Check if collection is found
   if (!collection) {
     return <p className="py-3 text-lg">{`Collection not found`}</p>;
   }
 
   return (
     <section>
-      <div className='bg-white min-h-screen ml-5 lg:ml-14'>
-
+      <div className="ml-5 min-h-screen bg-white lg:ml-14">
         {products.length === 0 ? (
           <p className="py-3 text-lg">{`No products found${searchValue ? ` for "${searchValue}"` : ''} in this collection`}</p>
         ) : (
-          <div className=''>
-
-            <ProductGridItems products={products}/>
+          <div className="">
+            <ProductGridItems products={products} />
           </div>
         )}
       </div>

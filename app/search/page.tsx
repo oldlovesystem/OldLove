@@ -2,13 +2,11 @@ import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
 import { defaultSort, sorting } from 'lib/constants';
 import { getProducts } from 'lib/shopify';
-import Link from 'next/link';
 
 export const metadata = {
   title: 'Search',
   description: 'Search for products in the store.'
 };
-
 
 export default async function SearchPage({
   searchParams
@@ -32,12 +30,8 @@ export default async function SearchPage({
         </p>
       ) : null}
 
-
-<div className='ml-2 lg:ml-14'>
-      {products.length > 0 ? (
-
-          <ProductGridItems products={products} />
-      ) : null}
+      <div className="ml-2 lg:ml-14">
+        {products.length > 0 ? <ProductGridItems products={products} /> : null}
       </div>
     </>
   );

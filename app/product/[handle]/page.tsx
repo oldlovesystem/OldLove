@@ -1,15 +1,13 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import Breadcrumbs from 'components/Breadcrumbs';
 import { Gallery } from 'components/product/gallery';
 import { ProductProvider } from 'components/product/product-context';
 import { ProductDescription } from 'components/product/product-description';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/shopify';
 import { Image } from 'lib/shopify/types';
-import Link from 'next/link';
 import { Suspense } from 'react';
-import ProductGridItems from 'components/layout/product-grid-items'; 
+import ProductGridItems from 'components/layout/product-grid-items';
 
 export async function generateMetadata({
   params
@@ -79,11 +77,11 @@ export default async function ProductPage({ params }: { params: { handle: string
         }}
       />
       <div className="mx-auto max-w-screen-2xl border-neutral-200 bg-white px-4">
-        <div className="flex flex-col bg-white p-8 md:p-12 lg:flex-row lg:gap-2 gap-5">
+        <div className="flex flex-col gap-5 bg-white p-8 md:p-12 lg:flex-row lg:gap-2">
           <div className="h-full w-full lg:basis-1/2">
             <Suspense
               fallback={
-                <div className="relative aspect-square h-full max-h-[550px] w-11/12 overflow-hidden " />
+                <div className="relative aspect-square h-full max-h-[550px] w-11/12 overflow-hidden" />
               }
             >
               <Gallery
@@ -101,7 +99,7 @@ export default async function ProductPage({ params }: { params: { handle: string
             </Suspense>
           </div>
         </div>
-        
+
         <RelatedProducts id={product.id} />
       </div>
     </ProductProvider>
@@ -115,7 +113,9 @@ async function RelatedProducts({ id }: { id: string }) {
 
   return (
     <div>
-      <h2 className="mb-10 mt-5 max-w-full text-center text-4xl font-thin font-tenor-sans uppercase ">Related Products</h2>
+      <h2 className="font-tenor-sans mb-10 mt-5 max-w-full text-center text-4xl font-thin uppercase">
+        Related Products
+      </h2>
       <div className="tab-content">
         <ProductGridItems products={relatedProducts} />
       </div>

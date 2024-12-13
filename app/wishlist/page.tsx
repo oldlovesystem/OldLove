@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import ProductGridItems from 'components/layout/product-grid-items';
 import Link from 'next/link';
+import { Oval } from 'react-loader-spinner';
 
 export default function WishlistPage() {
   const [email, setEmail] = useState<string | null>(null);
@@ -46,11 +47,11 @@ export default function WishlistPage() {
         // Fetch product details from Shopify
         const shopifyResponses = await Promise.all(
           productIds.map((id: string) =>
-            fetch('https://9eca2f-11.myshopify.com/api/2023-10/graphql.json', {
+            fetch(process.env.NEXT_PUBLIC_SHOPIFY_GRAPHQL_API_ENDPOINT, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
-                'X-Shopify-Storefront-Access-Token': 'e5f230e4a5202dc92cf9d9341c72bc5b',
+                'X-Shopify-Storefront-Access-Token': process.env.NEXT_PUBLIC_SHOPIFY_KEY
               },
               body: JSON.stringify({
                 query: `
@@ -129,9 +130,9 @@ export default function WishlistPage() {
                   }
                 `,
                 variables: {
-                  id: `${id}`,
-                },
-              }),
+                  id: `${id}`
+                }
+              })
             })
           )
         );
@@ -168,15 +169,21 @@ export default function WishlistPage() {
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return (
+      <div className="loader-container">
+        <div className="loader"></div>
+        <p>Loading your wishlist...</p>
+      </div>
+    )
+   
   }
 
   return (
-    <section className="bg-white min-h-screen ml-5 lg:ml-14">
-      <h1 className="text-2xl font-bold mb-6">Your Wishlist</h1>
+    <section className="ml-5 min-h-screen bg-white lg:ml-14">
+      <h1 className="mb-6 text-2xl font-bold">Your Wishlist</h1>
 
       {products.length === 0 ? (
-        <div className="py-3 text-lg text-center text-gray-500">
+        <div className="py-3 text-center text-lg text-gray-500">
           Your wishlist is empty.{' '}
           <span className="text-blue-500 hover:underline">
             Please <Link href="/search">add items</Link> to your wishlist!
@@ -186,24 +193,23 @@ export default function WishlistPage() {
         <ProductGridItems products={products} />
       )}
 
-{showLoginModal && (
-  <div
-    className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-    style={{ backdropFilter: 'blur(4px)' }}
-  >
-    <div className="bg-white p-6 rounded shadow-lg max-w-sm w-full relative">
-      {/* Close button */}
+      {showLoginModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+          style={{ backdropFilter: 'blur(4px)' }}
+        >
+          <div className="relative w-full max-w-sm rounded bg-white p-6 shadow-lg">
+            {/* Close button */}
 
+            <h2 className="mb-4 text-xl font-bold">Login Required</h2>
+            <p className="mb-6 text-gray-700">Please log in to view your wishlist.</p>
 
-      <h2 className="text-xl font-bold mb-4">Login Required</h2>
-      <p className="text-gray-700 mb-6">Please log in to view your wishlist.</p>
-
-      <Link href={"/login"}>
-        <button className="button-main text-white px-4 py-2 rounded w-full">Login</button>
-      </Link>
-    </div>
-  </div>
-)}
+            <Link href={'/login'}>
+              <button className="button-main w-full rounded px-4 py-2 text-white">Login</button>
+            </Link>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
