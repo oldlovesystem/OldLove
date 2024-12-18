@@ -1,10 +1,9 @@
-"use client";
+'use client';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import Modal from './Modal';
 
-// Skeleton Component
 function Skeleton({ className }: { className?: string }) {
   return <div className={`animate-pulse bg-gray-300 ${className}`} />;
 }
@@ -18,13 +17,14 @@ export function Gallery({ images }: { images: Array<{ src: string; altText?: str
   const visibleThumbnails = 5;
 
   useEffect(() => {
-    const imageLoadPromises = images.slice(0, visibleThumbnails).map((image) =>
-      new Promise<void>((resolve, reject) => {
-        const img = new window.Image();
-        img.src = image.src;
-        img.onload = () => resolve();
-        img.onerror = () => reject();
-      })
+    const imageLoadPromises = images.slice(0, visibleThumbnails).map(
+      (image) =>
+        new Promise<void>((resolve, reject) => {
+          const img = new window.Image();
+          img.src = image.src;
+          img.onload = () => resolve();
+          img.onerror = () => reject();
+        })
     );
 
     Promise.all(imageLoadPromises)
@@ -38,20 +38,18 @@ export function Gallery({ images }: { images: Array<{ src: string; altText?: str
 
   useEffect(() => {
     if (isModalOpen) {
-      document.querySelector('body').style.overflow = "hidden";
-      document.querySelector('body').style.paddingRight = "15px";
+      document.querySelector('body').style.overflow = 'hidden';
+      document.querySelector('body').style.paddingRight = '15px';
     } else {
-      document.querySelector('body').style.overflow = "auto";
-      document.querySelector('body').style.paddingRight = "0px";
+      document.querySelector('body').style.overflow = 'auto';
+      document.querySelector('body').style.paddingRight = '0px';
     }
 
-    // Clean up to reset the overflow style when the component unmounts
     return () => {
-      document.querySelector('body').style.overflow = "auto";
-      document.querySelector('body').style.paddingRight = "0px";
+      document.querySelector('body').style.overflow = 'auto';
+      document.querySelector('body').style.paddingRight = '0px';
     };
   }, [isModalOpen]);
-
 
   const openModal = (index: number) => {
     setSelectedImageIndex(index);
@@ -70,48 +68,43 @@ export function Gallery({ images }: { images: Array<{ src: string; altText?: str
 
   return (
     <div className="relative">
-      {/* Featured Image Container */}
       <div
-        className="relative aspect-square h-full max-h-[550px] lg:w-11/12 w-full overflow-hidden"
+        className="relative h-full max-h-[550px] w-full overflow-hidden lg:w-11/12"
         onClick={() => openModal(selectedImageIndex)}
       >
         {loading || imageError ? (
           <Skeleton className="h-full w-full object-contain" />
         ) : (
-          <img
-            className="h-full w-full object-contain cursor-pointer bg-gray-300"
-            sizes="(min-width: 1024px) 66vw, 100vw"
-            alt="Product Image"
-            src={images[selectedImageIndex]?.src}
-          />
+          <div className="flex h-full w-full items-center">
+            <button
+              className="flex-shrink-0 p-2"
+              onClick={(e) => {
+                e.stopPropagation(); 
+                goToPreviousImage();
+              }}
+              aria-label="Previous image"
+            >
+              <FiChevronLeft size={24} />
+            </button>
+            <img
+              className="h-full w-3/4 cursor-pointer bg-gray-300 object-contain"
+              sizes="(min-width: 1024px) 66vw, 100vw"
+              alt="Product Image"
+              src={images[selectedImageIndex]?.src}
+            />
+            <button
+              className="flex-shrink-0 p-2"
+              onClick={(e) => {
+                e.stopPropagation();
+                goToNextImage();
+              }}
+              aria-label="Next image"
+            >
+              <FiChevronRight size={24} />
+            </button>
+          </div>
         )}
-
-        {/* Left Arrow */}
-        <button
-          className="absolute left-2 top-1/2 -translate-y-1/2    focus:outline-none"
-          onClick={(e) => {
-            e.stopPropagation(); // Prevent opening modal
-            goToPreviousImage();
-          }}
-          aria-label="Previous image"
-        >
-          <FiChevronLeft size={24} />
-        </button>
-
-        {/* Right Arrow */}
-        <button
-          className="absolute right-2 top-1/2 -translate-y-1/2  focus:outline-none"
-          onClick={(e) => {
-            e.stopPropagation(); // Prevent opening modal
-            goToNextImage();
-          }}
-          aria-label="Next image"
-        >
-          <FiChevronRight size={24} />
-        </button>
       </div>
-
-      {/* Thumbnails */}
       {loading || images.length === 0 ? (
         <div className="my-12 flex items-center justify-center">
           {[...Array(visibleThumbnails)].map((_, i) => (
@@ -167,8 +160,6 @@ export function Gallery({ images }: { images: Array<{ src: string; altText?: str
           </div>
         )
       )}
-
-      {/* Modal for fullscreen image */}
       <Modal
         isOpen={isModalOpen}
         images={images}

@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
-import Benefit from '../../components/Benefit';
 import Breadcrumb from 'components/Breadcrumb';
+
 
 const AboutUs = () => {
   return (
@@ -31,12 +31,9 @@ const AboutUs = () => {
                 sophistication with Oldlove Menswear.
               </div>
             </div>
-            <div className="flex w-full flex-col items-center md:w-1/2 md:items-start">
+            <div className="flex  flex-col items-center md:w-1/2 md:items-start">
               <div className="bg-img">
-                <video className="mt-10 h-[80vh] w-[90vw] md:mt-0" controls loop autoPlay muted>
-                  <source src="/Oldlove.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+                <img src='/4M6A2498.JPG' height={90}/>
               </div>
             </div>
           </div>

@@ -143,9 +143,9 @@ export function ProductDescription({ product }: { product: Product }) {
     {
       title: 'Shipping',
       content: (
-        <div className="text-xs">
-          <p className="mb-4 text-xs">
-            Welcome to OLDLOVE&#39;s delivery policy. We are committed to providing you with the
+        <div className="text-sm">
+          <p className="mb-4 text-sm">
+            Welcome to Oldlove&#39;s delivery policy. We are committed to providing you with the
             best shipping experience. We ensure prompt delivery, secure packaging, and transparent
             cost. Our aim is to build trust and confidence, so you can shop with peace of mind.
           </p>
@@ -162,7 +162,7 @@ export function ProductDescription({ product }: { product: Product }) {
       title: 'Returns',
       content: (
         <>
-          <p className="mb-4 text-xs">
+          <p className="mb-4 text-sm">
             At OldLove (Nandi International), we prioritize customer satisfaction and make every
             effort to offer a hassle-free return policy, ensuring that you are fully satisfied with
             your purchase. Our goal is to establish trust with our customers and provide them with
@@ -191,7 +191,7 @@ export function ProductDescription({ product }: { product: Product }) {
       title: 'Exchange',
       content: (
         <>
-          <p className="mb-4 text-xs">
+          <p className="mb-4 text-sm">
             At OldLove (Nandi International), we want you to be delighted with your purchase. If for
             any reason you are not satisfied, our hassle-free exchange policy is here to ensure your
             complete satisfaction. We aim to build trust and reassure you that you can shop with
@@ -199,7 +199,6 @@ export function ProductDescription({ product }: { product: Product }) {
           </p>
           <ul className="list-disc pl-6">
             <li>There is no additional charge for any exchange orders.</li>
-            <li>Size exchange is subject to availability.</li>
             <li>Size exchange is subject to availability.</li>
           </ul>
         </>
@@ -212,14 +211,14 @@ export function ProductDescription({ product }: { product: Product }) {
     {
       title: 'Manufactured & Marketed by',
       content: (
-        <div className="text-xs">
-          <p className="text-xs font-semibold">Nandi International</p>
-          <p className="font-tenor-sans text-xs">
+        <div className="text-sm">
+          <p className="text-sm font-semibold">Nandi International</p>
+          <p className="font-tenor-sans text-sm">
             National Park Road, Sampigehalli Village, near Sri Shyam Gaushala, Bannerughatta Post,
             Bengaluru - 560083
           </p>
-          <p className="text-xs font-semibold">Country of Origin</p>
-          <p className="text-xs">India</p>
+          <p className="text-sm font-semibold">Country of Origin</p>
+          <p className="text-sm">India</p>
         </div>
       )
     }
@@ -255,16 +254,13 @@ export function ProductDescription({ product }: { product: Product }) {
               <Prose html={product.descriptionHtml} />
             </div>
             <div className="mr-9 mt-1 flex items-center justify-between">
-              <button onClick={toggleDescription} className="ml-auto text-xs hover:underline">
+              <button onClick={toggleDescription} className="ml-auto text-sm hover:underline">
                 {isDescriptionExpanded ? 'See Less' : 'See More'}
               </button>
             </div>
           </div>
         ) : null}
 
-        {/* Wishlist Button */}
-
-        {/* Share Button */}
         <div className="mt-4 flex items-center">
           <button
             onClick={async () => {
@@ -325,8 +321,8 @@ export function ProductDescription({ product }: { product: Product }) {
               <span className="text-sm">{openDropdown === index ? '-' : '+'}</span>
             </div>
             {openDropdown === index && (
-              <div className="bg-white p-2">
-                <p className="text-xs text-gray-600">{item.content}</p>
+              <div className="bg-white pb-2">
+                <p className="text-sm text-gray-600">{item.content}</p>
               </div>
             )}
           </div>
