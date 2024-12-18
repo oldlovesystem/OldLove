@@ -80,32 +80,56 @@ export default function MobileMenu() {
                   {/* Scrollable List */}
                   <ul className="flex-grow overflow-y-auto pl-4 pr-4 font-light uppercase tracking-widest">
                     <li className="w-full border-b border-gray-300 py-4">
-                      <Link href="/search/cargo-trousers" onClick={closeMobileMenu}>
+                      <Link
+                        href="/search/cargo-trousers"
+                        onClick={closeMobileMenu}
+                        className="block h-full w-full"
+                      >
                         Cargo Trousers
                       </Link>
                     </li>
                     <li className="w-full border-b border-gray-300 py-4">
-                      <Link href="/search/casual-shirts" onClick={closeMobileMenu}>
+                      <Link
+                        href="/search/casual-shirts"
+                        onClick={closeMobileMenu}
+                        className="block h-full w-full"
+                      >
                         Casual Shirts
                       </Link>
                     </li>
                     <li className="w-full border-b border-gray-300 py-4">
-                      <Link href="/search/check-shirts" onClick={closeMobileMenu}>
+                      <Link
+                        href="/search/check-shirts"
+                        onClick={closeMobileMenu}
+                        className="block h-full w-full"
+                      >
                         Check Shirts
                       </Link>
                     </li>
                     <li className="w-full border-b border-gray-300 py-4">
-                      <Link href="/search/formal-shirts" onClick={closeMobileMenu}>
+                      <Link
+                        href="/search/formal-shirts"
+                        onClick={closeMobileMenu}
+                        className="block h-full w-full"
+                      >
                         Formal Shirts
                       </Link>
                     </li>
                     <li className="w-full border-b border-gray-300 py-4">
-                      <Link href="/search/jeans" onClick={closeMobileMenu}>
+                      <Link
+                        href="/search/jeans"
+                        onClick={closeMobileMenu}
+                        className="block h-full w-full"
+                      >
                         Jeans
                       </Link>
                     </li>
                     <li className="w-full border-b border-gray-300 py-4">
-                      <Link href="/search/printed-shirts" onClick={closeMobileMenu}>
+                      <Link
+                        href="/search/printed-shirts"
+                        onClick={closeMobileMenu}
+                        className="block h-full w-full"
+                      >
                         Printed Shirts
                       </Link>
                     </li>
