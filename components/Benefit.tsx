@@ -18,9 +18,6 @@ const Benefit: React.FC<Props> = ({ props }) => {
               />
 
               <div className="heading6 mt-5 text-center">Fast Shipping & Easy Returns</div>
-              <div className="caption1 text-secondary mt-3 text-center">
-                Shop with Confidence: Your Payment Information is Safe
-              </div>
             </div>
 
             <div className="benefit-item flex flex-col items-center justify-center">
@@ -31,9 +28,7 @@ const Benefit: React.FC<Props> = ({ props }) => {
                 alt="security-checked--v1"
               />
               <div className="heading6 mt-5 text-center">Our Guarantee</div>
-              <div className="caption1 text-secondary mt-3 text-center">
-                Shop with Confidence: Your Payment Information is Safe
-              </div>
+              
             </div>
 
             <div className="benefit-item flex flex-col items-center justify-center">
@@ -62,9 +57,7 @@ BJRU5ErkJggg=="
                 alt="online-support--v1"
               />
               <div className="heading6 mt-5 text-center">Dedicated Customer Support</div>
-              <div className="caption1 text-secondary mt-3 text-center">
-                We're Here to Assist You In Every Step of the Way.
-              </div>
+
             </div>
           </div>
         </div>
