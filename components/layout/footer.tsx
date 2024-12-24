@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -14,14 +14,17 @@ const Footer = () => {
               <div className="company-infor flex flex-col p-4">
                 <p className="pb-3 font-bold uppercase">Customer Care</p>
                 <div className="mt-3 flex flex-col">
-  <span className="text-button">Mail:</span>
-  <button 
-    onClick={() => window.location.href = 'mailto:support@oldlove.in'} 
-    className="text-blue-500 underline"
-  >
-    support@oldlove.in
-  </button>
-</div>
+                  <span className="text-button">Mail:</span>
+                  
+                </div>
+                <div>
+                <button
+                    onClick={() => (window.location.href = 'mailto:support@oldlove.in')}
+                    className="text-blue-500 underline"
+                  >
+                    support@oldlove.in
+                  </button>
+                  </div>
               </div>
 
               {/* Get to Know Us Section */}
