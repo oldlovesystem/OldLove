@@ -23,6 +23,7 @@ const SliderOne = () => {
       >
         {[
           { href: '/search', src: '/banner1.png' },
+          { href: '/search/formal-shirts', src: '/banner-2.png' },
         ].map((slide, index) => (
           <SwiperSlide key={index}>
             <Link href={slide.href}>
