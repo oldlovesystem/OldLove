@@ -11,6 +11,7 @@ import TopNavOne from 'components/layout/navbar/TopNavOne';
 import Footer from 'components/layout/footer';
 import { Toaster } from 'sonner';
 import { FacebookPixelEvents } from '../components/pixel-events'
+import { Analytics } from "@vercel/analytics/react"
 import './styles/styles.scss';
 import './globals.css';
 
@@ -50,6 +51,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       <meta name="google-site-verification" content="YACT63a3hYBFRPitOpn4pXBANCkEguFENIHyeyAfD14" />
     <body className="bg-white text-black selection:bg-teal-300 font-tenor-sans">
       <CartProvider cartPromise={cart}>
+      <Analytics />
       <FacebookPixelEvents />
         <div className="fixed top-0 left-0 right-0 z-50">
           <TopNavOne props="style-one bg-black" slogan=""/>
