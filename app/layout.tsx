@@ -46,6 +46,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 
   return (
     <html lang="en" className={GeistSans.variable}>
+      <meta name="google-site-verification" content="YACT63a3hYBFRPitOpn4pXBANCkEguFENIHyeyAfD14" />
     <body className="bg-white text-black selection:bg-teal-300 font-tenor-sans">
       <CartProvider cartPromise={cart}>
         <div className="fixed top-0 left-0 right-0 z-50">
