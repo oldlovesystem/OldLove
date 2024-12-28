@@ -4,7 +4,7 @@ import Image from 'next/image';
 const SplitSection = () => {
   return (
     <div className="mt-4 flex w-full flex-col md:flex-row">
-      <div className="relative m-1 mr-3 h-[400px] w-full p-0 md:h-[600px] md:w-1/2">
+      <div className="relative  mt-2  mr-3 h-[400px] w-full p-0 md:h-[600px] md:w-1/2">
         <div className="group relative h-full w-full">
           <Image
             src="/topwear.png"
@@ -19,10 +19,10 @@ const SplitSection = () => {
 
           <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-4 text-white">
             <Link href="/search/casual-shirts" className="hover:underline">
-              Casual Shirts
+              Casual 
             </Link>
             <Link href="/search/formal-shirts" className="hover:underline">
-              Formal Shirts
+              Formal 
             </Link>
             <Link href="/search/check-shirts" className="hover:underline">
               Checks
@@ -34,7 +34,7 @@ const SplitSection = () => {
         </div>
       </div>
 
-      <div className="relative m-1 mr-3 h-[400px] w-full p-0 md:h-[600px] md:w-1/2">
+      <div className="relative mt-2 mr-3 h-[400px] w-full p-0 md:h-[600px] md:w-1/2">
         <div className="group relative h-full w-full">
           <Image
             src="/bottomwear.png"
@@ -51,7 +51,7 @@ const SplitSection = () => {
             <Link href="/search/jeans" className="hover:underline">
               Jeans
             </Link>
-            <Link href="/search/cargos" className="hover:underline">
+            <Link href="/search/cargo-trousers" className="hover:underline">
               Cargos
             </Link>
           </div>
