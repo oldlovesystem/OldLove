@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { useProduct, useUpdateURL } from 'components/product/product-context';
 import { ProductOption, ProductVariant } from 'lib/shopify/types';
 import { useEffect } from 'react';
+import Image from 'next/image';
 
 type Combination = {
   id: string;
@@ -21,6 +22,7 @@ export function VariantSelector({
 }) {
   const { state, updateOption, selectedVariantImage, updateSelectedVariantImage } = useProduct();
   const updateURL = useUpdateURL();
+
   const hasNoOptionsOrJustOneOption =
     !options.length || (options.length === 1 && options[0]?.values.length === 1);
 
@@ -31,7 +33,7 @@ export function VariantSelector({
   const combinations: Combination[] = variants.map((variant) => ({
     id: variant.id,
     availableForSale: variant.availableForSale,
-    imageUrl: variant.image.url, // Store the image URL
+    imageUrl: variant.image.url,
     ...variant.selectedOptions.reduce(
       (accumulator, option) => ({ ...accumulator, [option.name.toLowerCase()]: option.value }),
       {}
@@ -42,7 +44,7 @@ export function VariantSelector({
     if (!selectedVariantImage && variants.length > 0) {
       updateSelectedVariantImage(variants[0].image.url);
     }
-  }, [selectedVariantImage, variants]);
+  }, [selectedVariantImage, variants, updateSelectedVariantImage]);
 
   return options.map((option) => (
     <form key={option.id}>
@@ -52,21 +54,19 @@ export function VariantSelector({
           {option.values.map((value) => {
             const optionNameLowerCase = option.name.toLowerCase();
 
-            const optionParams = { ...state, [optionNameLowerCase]: value };
-
-            const filtered = Object.entries(optionParams).filter(([key, value]) =>
-              options.find(
-                (option) => option.name.toLowerCase() === key && option.values.includes(value)
-              )
-            );
-
-            const isAvailableForSale = combinations.find((combination) =>
-              filtered.every(
-                ([key, value]) => combination[key] === value && combination.availableForSale
-              )
-            );
-
             const isActive = state[optionNameLowerCase] === value;
+
+            const isAvailableForSale = combinations.some((combination) =>
+              combination[optionNameLowerCase] === value && combination.availableForSale
+            );
+
+            const variantWithImage = combinations.find(
+              (combination) =>
+                combination[optionNameLowerCase] === value && combination.imageUrl
+            );
+
+            // Check if the current option is for color (adjust this if the color option name differs)
+            const isColorOption = option.name.toLowerCase() === 'color';
 
             return (
               <button
@@ -75,15 +75,8 @@ export function VariantSelector({
                   const newState = updateOption(optionNameLowerCase, value);
                   updateURL(newState);
 
-                  // Store the image URL in local storage when variant is selected
-                  const selectedVariant = combinations.find((combination) =>
-                    filtered.every(([key, val]) => combination[key] === val)
-                  );
-                  if (selectedVariant?.imageUrl) {
-                    updateSelectedVariantImage(selectedVariant.imageUrl);
-
-                    // console.log('selectedVariantImageUrl: ', selectedVariant.imageUrl);
-                    // localStorage.setItem('selectedImageUrl', selectedVariant.imageUrl);
+                  if (variantWithImage?.imageUrl) {
+                    updateSelectedVariantImage(variantWithImage.imageUrl);
                   }
                 }}
                 key={value}
@@ -91,7 +84,7 @@ export function VariantSelector({
                 disabled={!isAvailableForSale}
                 title={`${option.name} ${value}${!isAvailableForSale ? ' (Out of Stock)' : ''}`}
                 className={clsx(
-                  'flex min-w-[48px] items-center justify-center rounded-xl border bg-white px-3 py-3 text-sm',
+                  'flex flex-col items-center justify-center rounded-xl  px-3 py-3 text-sm',
                   {
                     'cursor-default ring-2 ring-black': isActive,
                     'ring-1 ring-transparent transition duration-300 ease-in-out hover:ring-black':
@@ -101,6 +94,16 @@ export function VariantSelector({
                   }
                 )}
               >
+                {/* Display image only if it's a color option */}
+                {isColorOption && variantWithImage?.imageUrl && (
+                  <Image
+                    src={variantWithImage.imageUrl}
+                    alt={`${option.name} ${value}`}
+                    width={50}
+                    height={50}
+                    className="mb-2 rounded"
+                  />
+                )}
                 {value}
               </button>
             );
