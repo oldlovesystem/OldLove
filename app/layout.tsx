@@ -6,6 +6,7 @@ import { GeistSans } from 'geist/font/sans';
 import { getCart } from 'lib/shopify';
 import { ensureStartsWith } from 'lib/utils';
 import { cookies } from 'next/headers';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { ReactNode } from 'react';
 import TopNavOne from 'components/layout/navbar/TopNavOne';
 import Footer from 'components/layout/footer';
@@ -60,6 +61,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           <main className="pt-[110px] md:pt-[120px]">
             {children}
             <Toaster closeButton />
+            <SpeedInsights />
           </main>
           <Footer />
         </CartProvider>
