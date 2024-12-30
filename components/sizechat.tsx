@@ -8,7 +8,7 @@ const SizeChartModal = ({ isOpen, onClose }) => {
       <div className="relative w-full max-w-2xl rounded-lg bg-white p-6 shadow-lg">
         <button
           onClick={onClose}
-          className="absolute right-2 top-2 text-gray-500 hover:text-gray-800"
+          className="absolute text-2xl right-2 top-2 text-gray-500 hover:text-gray-800"
         >
           &times;
         </button>

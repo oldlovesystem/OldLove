@@ -1,6 +1,4 @@
 'use client';
-
-import { ProductTitle } from 'components/grid/producttitel';
 import { useProduct } from 'components/product/product-context';
 import Image from 'next/image';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
@@ -25,33 +23,6 @@ export function Gallery({ images }) {
     setSelectedImageUrl(selectedVariantImage);
   }, [selectedVariantImage]);
 
-  // useEffect(() => {
-  //   setLoading(true);
-
-  //   // const regex = /files\/([^?]+)/;
-  //   // const match = selectedVariantImage?.match(regex);
-
-  //   // const storedImageId = match ? match[1] : null;
-
-  //   // setFoundIndex((prev) =>
-  //   //   selectedVariantImage
-  //   //     ? images.findIndex((image: any) => image.src.includes(storedImageId))
-  //   //     : -1
-  //   // );
-
-  //   // console.log(foundIndex, 'foundIndex');
-
-  //   // if (foundIndex !== -1) {
-  //   //   setSelectedIndex(foundIndex);
-  //   //   setSelectedImageUrl(images[foundIndex].src);
-  //   // } else {
-  //   //   setSelectedIndex(0);
-  //   //   setSelectedImageUrl(images[0]?.src);
-  //   // }
-
-  //   setLoading(false);
-  // }, [images]);
-
   useEffect(() => {
     console.log('outside Effect', selectedImageUrl);
     setLoading(true);
@@ -70,17 +41,6 @@ export function Gallery({ images }) {
     }
     setLoading(false);
   }, [images, selectedVariantImage]);
-
-  // useEffect(() => {
-  //   if (selectedImageUrl !== selectedVariantImage) {
-  //     setLoading(true);
-  //     setSelectedImageUrl(selectedVariantImage);
-
-  //     setTimeout(() => {
-  //       setLoading(false);
-  //     }, 2000);
-  //   }
-  // }, [selectedVariantImage, selectedImageUrl]);
 
   const handleNext = () => {
     const nextIndex = (selectedIndex + 1) % images.length;
@@ -122,7 +82,6 @@ export function Gallery({ images }) {
               onClick={() => setIsModalOpen(true)}
             />
 
-            {/* Navigation arrows on main image */}
             <button
               type="button"
               onClick={(e) => {
@@ -150,7 +109,6 @@ export function Gallery({ images }) {
         )}
       </div>
 
-      {/* Thumbnail Gallery */}
       {loading || images.length === 0 ? (
         <div className="my-12 flex items-center justify-center">
           {[...Array(visibleThumbnails)].map((_, i) => (
@@ -174,7 +132,7 @@ export function Gallery({ images }) {
                       updateSelectedVariantImage(image.src);
                     }}
                     aria-label="Select product image"
-                    className={`h-20 w-20 lg:h-24 lg:w-24 ${isActive ? 'border border-black' : ''}`}
+                    className={`h-20 w-20 lg:h-24 lg:w-24`}
                   >
                     <div className="h-full w-full">
                       <Image alt={image.altText} src={image.src} width={100} height={100} />
