@@ -13,47 +13,74 @@ function Skeleton({ className }: { className?: string }) {
 
 export function Gallery({ images }) {
   const { selectedVariantImage, updateSelectedVariantImage } = useProduct();
-  const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(
-    selectedVariantImage || images[0]?.src
-  );
+  const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [foundIndex, setFoundIndex] = useState(0);
 
   const visibleThumbnails = 5;
 
   useEffect(() => {
-    setLoading(true);
+    setSelectedImageUrl(selectedVariantImage);
+  }, [selectedVariantImage]);
 
-    const regex = /files\/([^?]+)/;
-    const match = selectedVariantImage?.match(regex);
-    const storedImageId = match ? match[1] : null;
+  // useEffect(() => {
+  //   setLoading(true);
 
-    const foundIndex = selectedVariantImage
-      ? images.findIndex((image: any) => image.src.includes(storedImageId))
-      : -1;
+  //   // const regex = /files\/([^?]+)/;
+  //   // const match = selectedVariantImage?.match(regex);
 
-    if (foundIndex !== -1) {
-      setSelectedIndex(foundIndex);
-      setSelectedImageUrl(images[foundIndex].src);
-    } else {
-      setSelectedIndex(0);
-      setSelectedImageUrl(images[0]?.src || null);
-    }
+  //   // const storedImageId = match ? match[1] : null;
 
-    setLoading(false);
-  }, [images]);
+  //   // setFoundIndex((prev) =>
+  //   //   selectedVariantImage
+  //   //     ? images.findIndex((image: any) => image.src.includes(storedImageId))
+  //   //     : -1
+  //   // );
+
+  //   // console.log(foundIndex, 'foundIndex');
+
+  //   // if (foundIndex !== -1) {
+  //   //   setSelectedIndex(foundIndex);
+  //   //   setSelectedImageUrl(images[foundIndex].src);
+  //   // } else {
+  //   //   setSelectedIndex(0);
+  //   //   setSelectedImageUrl(images[0]?.src);
+  //   // }
+
+  //   setLoading(false);
+  // }, [images]);
 
   useEffect(() => {
-    if (selectedImageUrl !== selectedVariantImage) {
-      setLoading(true);
-      setSelectedImageUrl(selectedVariantImage);
+    console.log('outside Effect', selectedImageUrl);
+    setLoading(true);
+    const regex = /files\/([^?]+)/;
+    const match = selectedVariantImage?.match(regex);
 
-      setTimeout(() => {
-        setLoading(false);
-      }, 2000);
+    const storedImageId = match ? match[1] : null;
+    if (images?.length > 0) {
+      console.log('I am running');
+      const newIndex = images?.findIndex((image: any) => image.src.includes(storedImageId)) || 0;
+      setFoundIndex(newIndex);
+      setSelectedIndex(newIndex);
+      setSelectedImageUrl(images[newIndex]?.src);
+      updateSelectedVariantImage(images[newIndex]?.src);
+      console.log('inside Effect', selectedImageUrl);
     }
-  }, [selectedVariantImage, selectedImageUrl]);
+    setLoading(false);
+  }, [images, selectedVariantImage]);
+
+  // useEffect(() => {
+  //   if (selectedImageUrl !== selectedVariantImage) {
+  //     setLoading(true);
+  //     setSelectedImageUrl(selectedVariantImage);
+
+  //     setTimeout(() => {
+  //       setLoading(false);
+  //     }, 2000);
+  //   }
+  // }, [selectedVariantImage, selectedImageUrl]);
 
   const handleNext = () => {
     const nextIndex = (selectedIndex + 1) % images.length;
@@ -134,10 +161,10 @@ export function Gallery({ images }) {
         <div className="my-12 flex items-center justify-center">
           <ul className="flex items-center justify-center gap-2 py-1 lg:mb-0">
             {getThumbnailIndices().map((image, idx) => {
-              const isActive = image.src === selectedImageUrl;
+              const isActive = image?.src === selectedImageUrl;
 
               return (
-                image.src && (
+                image?.src && (
                   <button
                     type="button"
                     key={image.src}
@@ -147,18 +174,10 @@ export function Gallery({ images }) {
                       updateSelectedVariantImage(image.src);
                     }}
                     aria-label="Select product image"
-                    className={`h-20 w-20 lg:h-24 lg:w-24 ${
-                      isActive ? 'border border-black' : ''
-                    }`}
+                    className={`h-20 w-20 lg:h-24 lg:w-24 ${isActive ? 'border border-black' : ''}`}
                   >
                     <div className="h-full w-full">
-                      <ProductTitle
-                        alt={image.altText}
-                        src={image.src}
-                        width={100}
-                        height={100}
-                        active={isActive}
-                      />
+                      <Image alt={image.altText} src={image.src} width={100} height={100} />
                     </div>
                   </button>
                 )

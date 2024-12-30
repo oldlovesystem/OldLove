@@ -41,10 +41,53 @@ export function VariantSelector({
   }));
 
   useEffect(() => {
-    if (!selectedVariantImage && variants.length > 0) {
+    // Prevent running this logic if no options are available
+    if (!options || options.length === 0) return;
+
+    const colorOption = options.find((option) => option.name.toLowerCase() === 'color');
+
+    // Default to the first color option if not already selected
+    if (colorOption && !state.color && colorOption.values.length > 0) {
+      const defaultColor = colorOption.values[0];
+      const variantWithImage = combinations.find(
+        (combination) => combination.color === defaultColor && combination.imageUrl
+      );
+
+      if (state.color !== defaultColor) {
+        updateOption('color', defaultColor);
+        updateURL({ ...state, color: defaultColor });
+
+        if (variantWithImage?.imageUrl) {
+          updateSelectedVariantImage(variantWithImage.imageUrl);
+        }
+      }
+    } else if (colorOption && state.color) {
+      const variantWithImage = combinations.find(
+        (combination) => combination.color === state.color && combination.imageUrl
+      );
+
+      if (variantWithImage?.imageUrl && selectedVariantImage !== variantWithImage.imageUrl) {
+        updateSelectedVariantImage(variantWithImage.imageUrl);
+      }
+    }
+
+    // Default to the first image if none is selected
+    if (
+      !selectedVariantImage &&
+      variants.length > 0 &&
+      variants[0].image.url !== selectedVariantImage
+    ) {
       updateSelectedVariantImage(variants[0].image.url);
     }
-  }, [selectedVariantImage, variants, updateSelectedVariantImage]);
+  }, [
+    combinations,
+    state.color,
+    selectedVariantImage,
+    variants,
+    updateOption,
+    updateSelectedVariantImage,
+    updateURL
+  ]);
 
   return options.map((option) => (
     <form key={option.id}>
@@ -56,16 +99,15 @@ export function VariantSelector({
 
             const isActive = state[optionNameLowerCase] === value;
 
-            const isAvailableForSale = combinations.some((combination) =>
-              combination[optionNameLowerCase] === value && combination.availableForSale
+            const isAvailableForSale = combinations.some(
+              (combination) =>
+                combination[optionNameLowerCase] === value && combination.availableForSale
             );
 
             const variantWithImage = combinations.find(
-              (combination) =>
-                combination[optionNameLowerCase] === value && combination.imageUrl
+              (combination) => combination[optionNameLowerCase] === value && combination.imageUrl
             );
 
-            // Check if the current option is for color (adjust this if the color option name differs)
             const isColorOption = option.name.toLowerCase() === 'color';
 
             return (
@@ -73,6 +115,7 @@ export function VariantSelector({
                 type="button"
                 onClick={() => {
                   const newState = updateOption(optionNameLowerCase, value);
+
                   updateURL(newState);
 
                   if (variantWithImage?.imageUrl) {
@@ -84,7 +127,7 @@ export function VariantSelector({
                 disabled={!isAvailableForSale}
                 title={`${option.name} ${value}${!isAvailableForSale ? ' (Out of Stock)' : ''}`}
                 className={clsx(
-                  'flex flex-col items-center justify-center rounded-xl  px-3 py-3 text-sm',
+                  'flex flex-col items-center justify-center rounded-xl px-3 py-3 text-sm',
                   {
                     'cursor-default ring-2 ring-black': isActive,
                     'ring-1 ring-transparent transition duration-300 ease-in-out hover:ring-black':
@@ -94,7 +137,6 @@ export function VariantSelector({
                   }
                 )}
               >
-                {/* Display image only if it's a color option */}
                 {isColorOption && variantWithImage?.imageUrl && (
                   <Image
                     src={variantWithImage.imageUrl}
