@@ -3,7 +3,7 @@
 import clsx from 'clsx';
 import { useProduct, useUpdateURL } from 'components/product/product-context';
 import { ProductOption, ProductVariant } from 'lib/shopify/types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 type Combination = {
@@ -22,6 +22,7 @@ export function VariantSelector({
 }) {
   const { state, updateOption, selectedVariantImage, updateSelectedVariantImage } = useProduct();
   const updateURL = useUpdateURL();
+  const [initialLoad, setInitialLoad] = useState(true);
 
   const hasNoOptionsOrJustOneOption =
     !options.length || (options.length === 1 && options[0]?.values.length === 1);
@@ -66,18 +67,29 @@ export function VariantSelector({
         (combination) => combination.color === state.color && combination.imageUrl
       );
 
-      if (variantWithImage?.imageUrl && selectedVariantImage !== variantWithImage.imageUrl) {
+      if (
+        variantWithImage?.imageUrl &&
+        selectedVariantImage !== variantWithImage.imageUrl &&
+        initialLoad === true
+      ) {
         updateSelectedVariantImage(variantWithImage.imageUrl);
+        setInitialLoad(false);
       }
     }
+
+    const defaultColor = colorOption?.values[0];
+    const variantWithImage = combinations?.find(
+      (combination) => combination.color === defaultColor && combination.imageUrl
+    );
 
     // Default to the first image if none is selected
     if (
       !selectedVariantImage &&
       variants.length > 0 &&
-      variants[0].image.url !== selectedVariantImage
+      variants[0].image.url !== selectedVariantImage &&
+      !defaultColor
     ) {
-      updateSelectedVariantImage(variants[0].image.url);
+      updateSelectedVariantImage(variants[0]?.image?.url);
     }
   }, [
     combinations,
@@ -88,6 +100,8 @@ export function VariantSelector({
     updateSelectedVariantImage,
     updateURL
   ]);
+
+  console.log('XXX, selectedVariantImage', selectedVariantImage);
 
   return options.map((option) => (
     <form key={option.id}>

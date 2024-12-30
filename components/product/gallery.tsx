@@ -1,5 +1,5 @@
 'use client';
-import { useProduct } from 'components/product/product-context';
+import { useProduct, useUpdateURL } from 'components/product/product-context';
 import Image from 'next/image';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
@@ -10,12 +10,14 @@ function Skeleton({ className }: { className?: string }) {
 }
 
 export function Gallery({ images }) {
-  const { selectedVariantImage, updateSelectedVariantImage } = useProduct();
+  const { state, selectedVariantImage, updateSelectedVariantImage } = useProduct();
   const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [foundIndex, setFoundIndex] = useState(0);
+  const updateURL = useUpdateURL();
+  const [initialLoad, setInitialLoad] = useState(true);
 
   const visibleThumbnails = 5;
 
@@ -43,27 +45,47 @@ export function Gallery({ images }) {
   }, [images, selectedVariantImage]);
 
   const handleNext = () => {
-    const nextIndex = (selectedIndex + 1) % images.length;
+    const nextIndex =
+      selectedIndex % visibleThumbnails === 4 ? selectedIndex - 4 : selectedIndex + 1;
     setSelectedIndex(nextIndex);
     setSelectedImageUrl(images[nextIndex].src);
     updateSelectedVariantImage(images[nextIndex].src);
   };
 
   const handlePrevious = () => {
-    const previousIndex = selectedIndex === 0 ? images.length - 1 : selectedIndex - 1;
+    const previousIndex =
+      selectedIndex % visibleThumbnails === 0 ? selectedIndex + 4 : selectedIndex - 1;
     setSelectedIndex(previousIndex);
     setSelectedImageUrl(images[previousIndex].src);
     updateSelectedVariantImage(images[previousIndex].src);
   };
 
   const getThumbnailIndices = () => {
-    const thumbnails = [];
-    for (let i = 0; i < visibleThumbnails; i++) {
-      const index = (selectedIndex + i) % images.length;
-      thumbnails.push(images[index]);
+    console.log('thumbnail', selectedIndex);
+    if (selectedIndex !== -1) {
+      let startIndex = selectedIndex - (selectedIndex % 5);
+      let lastIndex = 0;
+      if (selectedIndex % 5 === 0) {
+        lastIndex = Math.ceil((selectedIndex + 1) / 5) * 5;
+      } else {
+        lastIndex = Math.ceil(selectedIndex / 5) * 5;
+      }
+      const thumbnails = [];
+      for (let i = startIndex; i < lastIndex; i++) {
+        thumbnails.push(images[i]);
+      }
+      return thumbnails;
+    } else {
+      const thumbnails = [];
+      for (let i = 0; i < visibleThumbnails; i++) {
+        const index = (selectedIndex + i) % images.length;
+        thumbnails.push(images[index]);
+      }
+      return thumbnails;
     }
-    return thumbnails;
   };
+
+  console.log('Thumbnail', getThumbnailIndices());
 
   return (
     <form>
@@ -132,10 +154,18 @@ export function Gallery({ images }) {
                       updateSelectedVariantImage(image.src);
                     }}
                     aria-label="Select product image"
-                    className={`h-20 w-20 lg:h-24 lg:w-24`}
+                    className="h-20 w-20 lg:h-24 lg:w-24"
                   >
                     <div className="h-full w-full">
-                      <Image alt={image.altText} src={image.src} width={100} height={100} />
+                      <Image
+                        alt={image.altText}
+                        src={image.src}
+                        width={100}
+                        height={100}
+                        className={` ${
+                          isActive ? 'border-2 border-black' : 'border border-gray-300'
+                        }`}
+                      />
                     </div>
                   </button>
                 )
@@ -144,7 +174,6 @@ export function Gallery({ images }) {
           </ul>
         </div>
       )}
-
       <Modal
         isOpen={isModalOpen}
         images={images}
