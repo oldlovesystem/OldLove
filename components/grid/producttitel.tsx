@@ -42,7 +42,7 @@ export function ProductTitle({
         {props.src && (
           <Image
             className={clsx('h-full w-full object-contain', {
-              'transition duration-300 ease-in-out group-hover:scale-105': isInteractive,
+              'transition duration-300 ease-in-out group-hover:scale-105 bg-gray-300': isInteractive,
             })}
 
             {...props}

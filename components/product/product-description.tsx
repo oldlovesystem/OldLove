@@ -5,6 +5,7 @@ import Prose from 'components/prose';
 import { Product } from 'lib/shopify/types';
 import { VariantSelector } from './variant-selector';
 import { FaShareAlt, FaTruck, FaHeart } from 'react-icons/fa';
+import { IoIosHeart } from "react-icons/io";
 import SizeChartModal from '../sizechat';
 
 export function ProductDescription({ product }: { product: Product }) {
@@ -302,7 +303,7 @@ export function ProductDescription({ product }: { product: Product }) {
           onClick={isInWishlist ? handleRemoveFromWishlist : handleAddToWishlist}
           className={`flex w-full items-center justify-center space-x-2 rounded-lg px-4 py-4 transition duration-300 ${isInWishlist ? 'bg-black text-white' : 'border bg-gray-200 text-gray-600 hover:bg-gray-300'} `}
         >
-          <FaHeart
+          <IoIosHeart
             className={`broder border-gray-800 text-3xl transition duration-100 ${isInWishlist ? 'text-red-500' : 'rounded-full p-1 text-gray-500'}`}
           />
           <span className="text-sm font-medium">

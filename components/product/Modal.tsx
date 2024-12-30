@@ -65,7 +65,10 @@ const Modal: React.FC<ModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50" ref={modalRef}>
+    <div
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50"
+      ref={modalRef}
+    >
       <div className="relative">
         <img
           src={images[selectedIndex]?.src}
@@ -73,7 +76,10 @@ const Modal: React.FC<ModalProps> = ({
           className="max-w-full max-h-screen bg-gray-200"
         />
         <button
-          onClick={onClose}
+          onClick={(e) => {
+            e.preventDefault(); // Prevent default button behavior
+            onClose();
+          }}
           className="absolute top-2 right-2 text-white font-thin text-5xl"
         >
           &times;
@@ -81,13 +87,19 @@ const Modal: React.FC<ModalProps> = ({
 
         {/* Navigation Arrows (Only on laptop screens and up) */}
         <button
-          onClick={onPrevious}
+          onClick={(e) => {
+            e.preventDefault(); // Prevent default button behavior
+            onPrevious();
+          }}
           className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white text-3xl hidden lg:block"
         >
           &lt;
         </button>
         <button
-          onClick={onNext}
+          onClick={(e) => {
+            e.preventDefault(); // Prevent default button behavior
+            onNext();
+          }}
           className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white text-3xl hidden lg:block"
         >
           &gt;

@@ -4,28 +4,27 @@ import { ProductTitle } from 'components/grid/producttitel';
 import { useProduct } from 'components/product/product-context';
 import Image from 'next/image';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { useRef, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import Modal from './Modal';
 
-// Skeleton Component
 function Skeleton({ className }: { className?: string }) {
   return <div className={`animate-pulse bg-gray-300 ${className}`} />;
 }
 
 export function Gallery({ images }) {
   const { selectedVariantImage, updateSelectedVariantImage } = useProduct();
-  const thumbnailRef = useRef<HTMLUListElement>(null);
   const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(
-    selectedVariantImage || images[0].src
+    selectedVariantImage || images[0]?.src
   );
-  const [selectedIndex, setSelectedIndex] = useState(0); // Index of selected image
-  const [loading, setLoading] = useState(true); // Loading state
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const visibleThumbnails = 5;
 
   useEffect(() => {
     setLoading(true);
 
-    // If a variant is selected, find its index in images array
     const regex = /files\/([^?]+)/;
     const match = selectedVariantImage?.match(regex);
     const storedImageId = match ? match[1] : null;
@@ -35,10 +34,10 @@ export function Gallery({ images }) {
       : -1;
 
     if (foundIndex !== -1) {
-      setSelectedIndex(foundIndex); // Set index of found image
+      setSelectedIndex(foundIndex);
       setSelectedImageUrl(images[foundIndex].src);
     } else {
-      setSelectedIndex(0); // Default to first image
+      setSelectedIndex(0);
       setSelectedImageUrl(images[0]?.src || null);
     }
 
@@ -56,123 +55,127 @@ export function Gallery({ images }) {
     }
   }, [selectedVariantImage, selectedImageUrl]);
 
-  const scrollThumbnails = (direction: 'left' | 'right') => {
-    const totalImages = images.length;
+  const handleNext = () => {
+    const nextIndex = (selectedIndex + 1) % images.length;
+    setSelectedIndex(nextIndex);
+    setSelectedImageUrl(images[nextIndex].src);
+    updateSelectedVariantImage(images[nextIndex].src);
+  };
 
-    let newIndex = selectedIndex;
+  const handlePrevious = () => {
+    const previousIndex = selectedIndex === 0 ? images.length - 1 : selectedIndex - 1;
+    setSelectedIndex(previousIndex);
+    setSelectedImageUrl(images[previousIndex].src);
+    updateSelectedVariantImage(images[previousIndex].src);
+  };
 
-    // Calculate new index based on direction and handle circular scrolling
-    if (direction === 'left') {
-      newIndex = selectedIndex === 0 ? totalImages - visibleThumbnails : selectedIndex - 1;
-    } else if (direction === 'right') {
-      newIndex = selectedIndex + visibleThumbnails >= totalImages ? 0 : selectedIndex + 1;
+  const getThumbnailIndices = () => {
+    const thumbnails = [];
+    for (let i = 0; i < visibleThumbnails; i++) {
+      const index = (selectedIndex + i) % images.length;
+      thumbnails.push(images[index]);
     }
-
-    setSelectedIndex(newIndex);
-
-    if (thumbnailRef.current) {
-      const scrollAmount =
-        direction === 'left'
-          ? -thumbnailRef.current.clientWidth / visibleThumbnails
-          : thumbnailRef.current.clientWidth / visibleThumbnails;
-
-      thumbnailRef.current.scrollBy({
-        top: 0,
-        left: scrollAmount,
-        behavior: 'smooth'
-      });
-    }
+    return thumbnails;
   };
 
   return (
     <form>
-      <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
+      <div className="group relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
         {!selectedImageUrl || loading ? (
-          // Show skeleton loader when loading
           <Skeleton className="h-full w-full object-contain" />
         ) : (
-          selectedImageUrl && (
+          <>
             <Image
-              className="h-full w-full object-contain"
+              className="h-full w-full cursor-pointer bg-[rgb(224,220,225)] object-contain"
               fill
               sizes="(min-width: 1024px) 66vw, 100vw"
               alt="Product Image"
               src={selectedImageUrl}
               priority={true}
+              onClick={() => setIsModalOpen(true)}
             />
-          )
+
+            {/* Navigation arrows on main image */}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePrevious();
+              }}
+              className="absolute left-2 top-1/2 -translate-y-1/2 transform rounded-full bg-white/80 p-2 opacity-0 transition-opacity group-hover:opacity-100"
+              aria-label="Previous image"
+            >
+              <FaChevronLeft className="h-4 w-4" />
+            </button>
+
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNext();
+              }}
+              className="absolute right-2 top-1/2 -translate-y-1/2 transform rounded-full bg-white/80 p-2 opacity-0 transition-opacity group-hover:opacity-100"
+              aria-label="Next image"
+            >
+              <FaChevronRight className="h-4 w-4" />
+            </button>
+          </>
         )}
       </div>
 
-      {loading || images.length == 0 ? (
-        // Skeletons for thumbnails
+      {/* Thumbnail Gallery */}
+      {loading || images.length === 0 ? (
         <div className="my-12 flex items-center justify-center">
           {[...Array(visibleThumbnails)].map((_, i) => (
             <div key={i} className={`mx-2 h-20 w-20 animate-pulse bg-gray-300`} />
           ))}
         </div>
       ) : (
-        images.length > 1 && (
-          <div className="my-12 flex items-center justify-center">
-            <button
-              type="button"
-              onClick={() => scrollThumbnails('left')}
-              aria-label="Scroll left"
-              className="p-2"
-            >
-              <FaChevronLeft />
-            </button>
-            <ul
-              ref={thumbnailRef}
-              className="flex items-center justify-center gap-2 overflow-x-auto py-1 lg:mb-0"
-            >
-              {images
-                .slice(
-                  selectedIndex,
-                  selectedIndex + visibleThumbnails > images.length
-                    ? images.length
-                    : selectedIndex + visibleThumbnails
-                )
-                .map((image, idx) => {
-                  const isActive = image.src === selectedImageUrl;
+        <div className="my-12 flex items-center justify-center">
+          <ul className="flex items-center justify-center gap-2 py-1 lg:mb-0">
+            {getThumbnailIndices().map((image, idx) => {
+              const isActive = image.src === selectedImageUrl;
 
-                  return (
-                    image.src && (
-                      <button
-                        type="button"
-                        key={image.src}
-                        onClick={() => {
-                          setSelectedImageUrl(image.src); // Select the image without scrolling
-                          updateSelectedVariantImage(image.src);
-                        }}
-                        aria-label="Select product image"
-                        className={`h-30 w-25 ${isActive ? '' : ''}`}
-                      >
-                        <div className="h-full w-full">
-                          <ProductTitle
-                            alt={image.altText}
-                            src={image.src}
-                            width={100}
-                            height={100}
-                            active={isActive}
-                          />
-                        </div>
-                      </button>
-                    )
-                  );
-                })}
-            </ul>
-            <button
-              type="button"
-              onClick={() => scrollThumbnails('right')}
-              aria-label="Scroll right"
-              className="p-2"
-            >
-              <FaChevronRight />
-            </button>
-          </div>
-        )
+              return (
+                image.src && (
+                  <button
+                    type="button"
+                    key={image.src}
+                    onClick={() => {
+                      setSelectedImageUrl(image.src);
+                      setSelectedIndex((selectedIndex + idx) % images.length);
+                      updateSelectedVariantImage(image.src);
+                    }}
+                    aria-label="Select product image"
+                    className={`h-20 w-20 lg:h-24 lg:w-24 ${
+                      isActive ? 'border border-black' : ''
+                    }`}
+                  >
+                    <div className="h-full w-full">
+                      <ProductTitle
+                        alt={image.altText}
+                        src={image.src}
+                        width={100}
+                        height={100}
+                        active={isActive}
+                      />
+                    </div>
+                  </button>
+                )
+              );
+            })}
+          </ul>
+        </div>
       )}
+
+      <Modal
+        isOpen={isModalOpen}
+        images={images}
+        selectedIndex={selectedIndex}
+        onClose={() => setIsModalOpen(false)}
+        onNext={handleNext}
+        onPrevious={handlePrevious}
+      />
     </form>
   );
 }
