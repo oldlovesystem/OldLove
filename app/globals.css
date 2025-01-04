@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,7 +14,7 @@
   }
 }
 .body{
-  font-family: "Tenor Sans" ;
+  font-family: "Noto Sans" ;
 }
 @supports (font: -apple-system-body) and (-webkit-appearance: none) {
   img[loading='lazy'] {
@@ -35,7 +36,7 @@ button {
   opacity: 1; /* Ensure it’s fully visible */
 }
 .font-tenor-sans {
-  font-family: 'Tenor Sans', sans-serif;
+  font-family:  "Noto Sans";
 }
 
 .hover-content {

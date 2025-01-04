@@ -20,48 +20,49 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ products, speed }) => {
       <div className="section-swiper-navigation">
         {displayProducts.length ? (
           <Swiper
-            spaceBetween={12}
-            slidesPerView={2}
-            loop={true}
-            modules={[Autoplay]}
-            autoplay={{
-              delay: speed, // Use the speed prop here
-              disableOnInteraction: false
-            }}
-            breakpoints={{
-              576: {
-                slidesPerView: 2,
-                spaceBetween: 10
-              },
-              768: {
-                slidesPerView: 3,
-                spaceBetween: 20
-              },
-              1200: {
-                slidesPerView: 4,
-                spaceBetween: 20
-              }
-            }}
-            className="h-full"
-          >
+          spaceBetween={8} // Reduced default spaceBetween
+          slidesPerView={2}
+          loop={true}
+          modules={[Autoplay]}
+          autoplay={{
+            delay: speed, // Use the speed prop here
+            disableOnInteraction: false,
+          }}
+          breakpoints={{
+            576: {
+              slidesPerView: 2,
+              spaceBetween: 5, // Reduced spacing for small screens
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 10, // Reduced spacing for medium screens
+            },
+            1200: {
+              slidesPerView: 4,
+              spaceBetween: 15, // Reduced spacing for larger screens
+            },
+          }}
+          className="h-full"
+        >
             {displayProducts.map((product) => (
               <SwiperSlide key={product.handle}>
                 <Link
                   href={`/product/${product.handle}`}
                   className="relative block overflow-hidden"
                 >
-                  <div className="bg-white p-4">
+                  <div className="bg-white p-[-1]">
                     <Image
                       src={product.featuredImage?.url}
                       alt={product.title}
                       width={300}
                       height={300}
-                      className="h-auto w-full transform bg-gray-300 transition duration-500 ease-in-out hover:scale-105"
+                      className="h-auto w-full rounded-xl transform bg-gray-300 transition duration-500 ease-in-out hover:scale-105"
                       loading="lazy"
                     />
                     <div className="mt-2 text-sm text-gray-700">
                       <div>{product.title}</div>
                       <div>
+                      <span className='pr-1 pl-1 font-bold'>₹</span>
                         {parseInt(product.priceRange.maxVariantPrice.amount, 10)}{' '}
                         {product.priceRange.maxVariantPrice.currencyCode}
                       </div>

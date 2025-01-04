@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState, useEffect, useRef, Suspense } from 'react';
 import CartModal from 'components/cart/modal';
@@ -10,10 +10,9 @@ import SpotlightSearch from 'components/spotlight-search';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import ShopHoverContent from './ShopHoverContent';
-import { HiOutlineHome } from "react-icons/hi2";
-import { CiShop } from "react-icons/ci";
-import { CiHeart } from "react-icons/ci";
-
+import { HiOutlineHome } from 'react-icons/hi2';
+import { CiShop } from 'react-icons/ci';
+import { CiHeart } from 'react-icons/ci';
 
 const menu = [
   { title: 'Home', path: '/' },
@@ -21,30 +20,28 @@ const menu = [
   { title: 'About Us', path: '/about' },
   { title: 'Contact', path: '/contact' }
 ];
-function BottomNav({ customerFirstName }: { customerFirstName: string | null })  {
+function BottomNav({ customerFirstName }: { customerFirstName: string | null }) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-20 bg-white border-t border-gray-200 flex justify-around py-2 shadow-lg md:hidden">
+    <div className="fixed bottom-0 left-0 right-0 z-20 flex justify-around border-t border-gray-200 bg-white py-2 shadow-lg md:hidden">
       <Link href="/" className="flex flex-col items-center text-gray-700">
-      <HiOutlineHome  className="text-3xl font-thin" />
-        <span className="text-xs mt-1">Home</span>
+        <HiOutlineHome className="text-3xl font-thin" />
+        <span className="mt-1 text-xs">Home</span>
       </Link>
       <Link href="/search" className="flex flex-col items-center text-gray-700">
-      <CiShop className="text-3xl " />
-        <span className="text-xs mt-1">Shop</span>
+        <CiShop className="text-3xl" />
+        <span className="mt-1 text-xs">Shop</span>
       </Link>
-      <Link href={"/wishlist"}>
-            <CiHeart className='text-3xl  ml-2' />
-            <span className="text-xs mt-1">Wishlist</span>
-            </Link>
-      
+      <Link href={'/wishlist'}>
+        <CiHeart className="ml-2 text-3xl" />
+        <span className="mt-1 text-xs">Wishlist</span>
+      </Link>
+
       <Link href="/view-cart" className="flex flex-col items-center text-gray-700">
-      <div className='mt-1'>
-      <CartModal/>
-     
-      </div>
-        <span className="text-xs -mt-1">Bag</span>
+        <div className="mt-1">
+          <CartModal />
+        </div>
+        <span className="-mt-1 text-xs">Bag</span>
       </Link>
-      
     </div>
   );
 }
@@ -159,7 +156,9 @@ export function Navbar() {
 
   return (
     <div className="relative">
-      <nav className={`header-menu style-one flex items-center justify-between p-4 lg:px-6 ${fixedHeader ? 'left-0 right-0 top-0 z-10' : ''} ${backgroundColor}`}>
+      <nav
+        className={`header-menu style-one flex items-center justify-between p-4 lg:px-6 ${fixedHeader ? 'left-0 right-0 top-0 z-10' : ''} ${backgroundColor}`}
+      >
         <div className="mr-1 block flex-none md:hidden">
           <Suspense fallback={null}>
             <MobileMenu />
@@ -168,9 +167,10 @@ export function Navbar() {
 
         <div className="flex w-full items-center justify-between">
           <div className="xs:ml-3 ml-2 flex w-auto items-center">
-            <Link href="/" prefetch={true} className="flex items-center justify-center">
-              <div className="logo text-3xl font-bold uppercase text-black">OldLove</div>
-            </Link>
+          <Link href="/" prefetch={true} className="flex flex-col items-center justify-center">
+  <div className="logo text-3xl font-bold uppercase text-black pt-2">OldLove</div>
+  <div className="text-sm text-gray-500 mt-1 block md:hidden lg:hidden logo"> Specialy Made With Love</div>
+</Link>
 
             <ul className="mega-menu ml-16 mr-3 hidden gap-9 text-lg uppercase md:flex md:items-center">
               {menu.map((item) => (
@@ -198,19 +198,19 @@ export function Navbar() {
               <SpotlightSearch color="white" />
             </div>
             <div className="hidden md:block">
-  <CartModal />
-</div>
-            <Link href={"/wishlist"}>
-            <CiHeart className='xs: hidden text-3xl mb-2  md:block' />
+              <CartModal />
+            </div>
+            <Link href={'/wishlist'}>
+              <CiHeart className="xs: mb-2 hidden text-3xl md:block" />
             </Link>
             <div
               className="relative"
               onMouseEnter={handleProfileMouseEnter}
               onMouseLeave={handleProfileMouseLeave}
             >
-              <button >
+              <button>
                 {customerFirstName ? (
-                  <div className="flex mb-2 h-9 w-9 items-center justify-center rounded-full bg-gray-400 text-white ">
+                  <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-full bg-gray-400 text-white">
                     {customerFirstName.charAt(0).toUpperCase()}
                   </div>
                 ) : (
@@ -224,25 +224,28 @@ export function Navbar() {
                     <>
                       <Link href="/my-account">
                         <div className="flex w-full cursor-pointer items-center rounded-md px-3 py-3 transition hover:bg-gray-100">
-                          <FaUser className="mr-5 ml-3 text-gray-600" />
+                          <FaUser className="ml-3 mr-5 text-gray-600" />
                           <span className="font-semibold text-black">My Account</span>
                         </div>
                       </Link>
                       <hr className="my-1 border-gray-200" />
                       <Link href="/orders">
                         <div className="flex w-full cursor-pointer items-center rounded-md px-3 py-3 transition hover:bg-gray-100">
-                          <FaBox className="mr-5 ml-3 text-gray-600" />
+                          <FaBox className="ml-3 mr-5 text-gray-600" />
                           <span className="font-semibold text-black">My Orders</span>
                         </div>
                       </Link>
-                      <div className="flex w-full cursor-pointer items-center rounded-md px-3 py-3 transition hover:bg-gray-100" onClick={handleLogout}>
+                      <div
+                        className="flex w-full cursor-pointer items-center rounded-md px-3 py-3 transition hover:bg-gray-100"
+                        onClick={handleLogout}
+                      >
                         <span className="font-semibold text-black">Logout</span>
                       </div>
                     </>
                   ) : (
                     <>
                       <Link href="/login">
-                        <button className="button-main mb-2 block w-full rounded-md bg-black py-2 text-center font-semibold text-white transition ">
+                        <button className="button-main mb-2 block w-full rounded-md bg-black py-2 text-center font-semibold text-white transition">
                           Login
                         </button>
                       </Link>
