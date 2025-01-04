@@ -152,13 +152,13 @@ export function VariantSelector({
                 )}
               >
                 {isColorOption && variantWithImage?.imageUrl && (
-                  <Image
-                    src={variantWithImage.imageUrl}
-                    alt={`${option.name} ${value}`}
-                    width={50}
-                    height={50}
-                    className="mb-2 rounded"
-                  />
+                   <img
+                   src={variantWithImage.imageUrl}
+                   alt={`${option.name} ${value}`}
+                   width={50}
+                   height={50}
+                   className="mb-2 rounded"
+                 />
                 )}
                 {value}
               </button>
