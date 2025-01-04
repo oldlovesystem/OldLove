@@ -89,47 +89,47 @@ export function Gallery({ images }) {
 
   return (
     <form>
-      <div className="group relative aspect-square h-auto w-full max-h-[90vh] overflow-hidden">
-  {!selectedImageUrl || loading ? (
-    <Skeleton className="h-full w-full object-contain" />
-  ) : (
-    <>
-      <Image
-        className="h-auto w-full cursor-pointer object-contain"
-        fill
-        sizes="100vw"
-        alt="Product Image"
-        src={selectedImageUrl}
-        priority={true}
-        onClick={() => setIsModalOpen(true)}
-      />
+      <div className="group relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
+        {!selectedImageUrl || loading ? (
+          <Skeleton className="h-full w-full object-contain" />
+        ) : (
+          <>
+            <Image
+              className="h-full w-full cursor-pointer  object-contain"
+              fill
+              sizes="(min-width: 1024px) 66vw, 100vw"
+              alt="Product Image"
+              src={selectedImageUrl}
+              priority={true}
+              onClick={() => setIsModalOpen(true)}
+            />
 
-      <button
-        type="button"
-        onClick={(e) => {
-          e.stopPropagation();
-          handlePrevious();
-        }}
-        className="absolute left-2 top-1/2 -translate-y-1/2 transform rounded-full bg-white/80 p-2 opacity-0 transition-opacity group-hover:opacity-100"
-        aria-label="Previous image"
-      >
-        <FaChevronLeft className="h-4 w-4" />
-      </button>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePrevious();
+              }}
+              className="absolute left-2 top-1/2 -translate-y-1/2 transform rounded-full bg-white/80 p-2 opacity-0 transition-opacity group-hover:opacity-100"
+              aria-label="Previous image"
+            >
+              <FaChevronLeft className="h-4 w-4" />
+            </button>
 
-      <button
-        type="button"
-        onClick={(e) => {
-          e.stopPropagation();
-          handleNext();
-        }}
-        className="absolute right-2 top-1/2 -translate-y-1/2 transform rounded-full bg-white/80 p-2 opacity-0 transition-opacity group-hover:opacity-100"
-        aria-label="Next image"
-      >
-        <FaChevronRight className="h-4 w-4" />
-      </button>
-    </>
-  )}
-</div>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNext();
+              }}
+              className="absolute right-2 top-1/2 -translate-y-1/2 transform rounded-full bg-white/80 p-2 opacity-0 transition-opacity group-hover:opacity-100"
+              aria-label="Next image"
+            >
+              <FaChevronRight className="h-4 w-4" />
+            </button>
+          </>
+        )}
+      </div>
 
       {loading || images.length === 0 ? (
         <div className="my-12 flex items-center justify-center">

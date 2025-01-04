@@ -34,7 +34,8 @@ const ProductGridItems: React.FC<ProductGridItemsProps> = ({ products }) => {
                     <div className="mt-2 text-sm text-gray-700">
                       <div>{product.title}</div>
                       <div>
-                        ₹{parseInt(product.priceRange.maxVariantPrice.amount, 10)} {product.priceRange.maxVariantPrice.currencyCode}
+                        ₹{parseInt(product.priceRange.maxVariantPrice.amount, 10)} 
+                        {/* {product.priceRange.maxVariantPrice.currencyCode} */}
                       </div>
                     </div>
                   </div>
@@ -64,7 +65,8 @@ const ProductGridItems: React.FC<ProductGridItemsProps> = ({ products }) => {
                     <div className="mt-2 text-sm text-gray-700">
                       <div>{product.title}</div>
                       <div>
-                        ₹{parseInt(product.priceRange.maxVariantPrice.amount, 10)} {product.priceRange.maxVariantPrice.currencyCode}
+                        ₹{parseInt(product.priceRange.maxVariantPrice.amount, 10)}
+                         {/* {product.priceRange.maxVariantPrice.currencyCode} */}
                       </div>
                     </div>
                   </div>

@@ -62,9 +62,9 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ products, speed }) => {
                     <div className="mt-2 text-sm text-gray-700">
                       <div>{product.title}</div>
                       <div>
-                      <span className='pr-1 pl-1 font-bold'>₹</span>
+                      <span className='font-bold'>₹</span>
                         {parseInt(product.priceRange.maxVariantPrice.amount, 10)}{' '}
-                        {product.priceRange.maxVariantPrice.currencyCode}
+                        {/* {product.priceRange.maxVariantPrice.currencyCode} */}
                       </div>
                     </div>
                   </div>
