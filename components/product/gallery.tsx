@@ -1,6 +1,5 @@
 'use client';
 import { useProduct, useUpdateURL } from 'components/product/product-context';
-import Image from 'next/image';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import Modal from './Modal';
@@ -26,20 +25,17 @@ export function Gallery({ images }) {
   }, [selectedVariantImage]);
 
   useEffect(() => {
-    console.log('outside Effect', selectedImageUrl);
     setLoading(true);
     const regex = /files\/([^?]+)/;
     const match = selectedVariantImage?.match(regex);
 
     const storedImageId = match ? match[1] : null;
     if (images?.length > 0) {
-      console.log('I am running');
       const newIndex = images?.findIndex((image: any) => image.src.includes(storedImageId)) || 0;
       setFoundIndex(newIndex);
       setSelectedIndex(newIndex);
       setSelectedImageUrl(images[newIndex]?.src);
       updateSelectedVariantImage(images[newIndex]?.src);
-      console.log('inside Effect', selectedImageUrl);
     }
     setLoading(false);
   }, [images, selectedVariantImage]);
@@ -61,7 +57,6 @@ export function Gallery({ images }) {
   };
 
   const getThumbnailIndices = () => {
-    console.log('thumbnail', selectedIndex);
     if (selectedIndex !== -1) {
       let startIndex = selectedIndex - (selectedIndex % 5);
       let lastIndex = 0;
@@ -85,8 +80,6 @@ export function Gallery({ images }) {
     }
   };
 
-  console.log('Thumbnail', getThumbnailIndices());
-
   return (
     <form>
       <div className="group relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
@@ -94,13 +87,10 @@ export function Gallery({ images }) {
           <Skeleton className="h-full w-full object-contain" />
         ) : (
           <>
-            <Image
-              className="h-full w-full cursor-pointer  object-contain"
-              fill
-              sizes="(min-width: 1024px) 66vw, 100vw"
+            <img
+              className="h-full w-full cursor-pointer object-contain"
               alt="Product Image"
               src={selectedImageUrl}
-              priority={true}
               onClick={() => setIsModalOpen(true)}
             />
 
@@ -157,12 +147,12 @@ export function Gallery({ images }) {
                     className="h-20 w-20 lg:h-24 lg:w-24"
                   >
                     <div className="h-full w-full">
-                      <Image
+                      <img
                         alt={image.altText}
                         src={image.src}
                         width={100}
                         height={100}
-                        className={` ${
+                        className={`${
                           isActive ? 'border-2 border-black' : 'border border-gray-300'
                         }`}
                       />
