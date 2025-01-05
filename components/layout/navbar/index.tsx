@@ -169,7 +169,7 @@ export function Navbar() {
           <div className="xs:ml-3 ml-2 flex w-auto items-center">
           <Link href="/" prefetch={true} className="flex flex-col items-center justify-center">
   <div className="logo text-3xl font-bold uppercase text-black pt-2">OldLove</div>
-  <div className="text-sm text-gray-500 mt-1 block md:hidden lg:hidden logo"> Specialy Made With Love</div>
+  <div className="text-sm text-gray-500 mt-1 block md:hidden lg:hidden logo"> Specially Made With Love</div>
 </Link>
 
             <ul className="mega-menu ml-16 mr-3 hidden gap-9 text-lg uppercase md:flex md:items-center">
