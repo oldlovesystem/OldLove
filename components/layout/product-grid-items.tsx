@@ -60,11 +60,11 @@ const ProductGridItems: React.FC<ProductGridItemsProps> = ({ products }) => {
                   className="relative block overflow-hidden"
                 >
                   <div className="bg-white p-1">
-                    <Image
+                    <img
                       src={product.featuredImage.url}
                       alt={product.title}
-                      width={300}
-                      height={300}
+                      width="300"
+                      height="300"
                       className="h-auto w-full transform rounded-xl bg-gray-300 object-cover transition duration-500 ease-in-out hover:scale-105"
                       loading="lazy"
                     />
