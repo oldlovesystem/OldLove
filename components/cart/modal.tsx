@@ -114,9 +114,9 @@ export default function CartModal() {
                           <li key={i} className="flex w-full flex-col border-neutral-300">
                             <div className="relative flex w-full flex-row justify-between px-1 py-4">
                               <div className="absolute z-40 -ml-1 -mt-2"></div>
-                              <div className="flex flex-row w-full">
-                                <div className="relative h-30 w-24 flex-shrink-0 overflow-hidden border border-neutral-300 bg-neutral-300">
-                                  <Image
+                              <div className="flex w-full flex-row">
+                                <div className="h-30 relative w-24 flex-shrink-0 overflow-hidden border border-neutral-300 bg-neutral-300">
+                                  <img
                                     className="h-full w-full object-fill"
                                     width={200}
                                     height={200}
@@ -127,13 +127,13 @@ export default function CartModal() {
                                     src={item.merchandise.product.featuredImage.url}
                                   />
                                 </div>
-                                <div className="ml-2 flex flex-col flex-grow">
+                                <div className="ml-2 flex flex-grow flex-col">
                                   <Link
                                     href={merchandiseUrl}
                                     onClick={closeCart}
                                     className="z-30 flex-grow"
                                   >
-                                    <span className="leading-tight text-base">
+                                    <span className="text-base leading-tight">
                                       {item.merchandise.product.title}
                                     </span>
                                     {item.merchandise.title !== DEFAULT_OPTION ? (

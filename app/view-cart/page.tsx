@@ -58,13 +58,13 @@ export default function ViewCart() {
                       {/* Product Image */}
                       <div className="flex items-center">
                         <div className="relative h-16 w-16 overflow-hidden rounded-lg border border-neutral-300 bg-neutral-300">
-                          <Image
-                            className="object-contain"
-                            width={80}
-                            height={80}
-                            alt={item.merchandise.product.title}
-                            src={item.merchandise.product.featuredImage.url}
-                          />
+                        <img
+  className="object-contain"
+  width={80}
+  height={80}
+  alt={item.merchandise.product.title}
+  src={item.merchandise.product.featuredImage.url}
+/>
                         </div>
                       </div>
 
