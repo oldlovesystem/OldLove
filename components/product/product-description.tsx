@@ -9,6 +9,7 @@ import { IoIosHeart } from "react-icons/io";
 import SizeChartModal from '../sizechat';
 
 export function ProductDescription({ product }: { product: Product }) {
+  console.log(product);
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [postcode, setPostcode] = useState('');

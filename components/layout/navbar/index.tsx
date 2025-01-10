@@ -157,9 +157,9 @@ export function Navbar() {
   return (
     <div className="relative">
       <nav
-        className={`header-menu style-one flex items-center justify-between p-4 lg:px-6 ${fixedHeader ? 'left-0 right-0 top-0 z-10' : ''} ${backgroundColor}`}
+        className={`header-menu style-one flex items-center justify-between p-1 lg:px-6 ${fixedHeader ? 'left-0 right-0 top-0 z-10' : ''} ${backgroundColor}`}
       >
-        <div className="mr-1 block flex-none md:hidden">
+        <div className="block flex-none md:hidden">
           <Suspense fallback={null}>
             <MobileMenu />
           </Suspense>
@@ -224,7 +224,7 @@ export function Navbar() {
                     <>
                       <Link href="/my-account">
                         <div className="flex w-full cursor-pointer items-center rounded-md px-3 py-3 transition hover:bg-gray-100">
-                          <FaUser className="ml-3 mr-5 text-gray-600" />
+                          <FaUser className="ml-3 mr-5 text-gray-600 " />
                           <span className="font-semibold text-black">My Account</span>
                         </div>
                       </Link>

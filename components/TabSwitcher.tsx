@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css/bundle';
@@ -9,7 +8,7 @@ import { Product } from 'lib/shopify/types';
 
 interface TabSwitcherProps {
   products: Product[];
-  speed: number; // Include speed prop
+  speed: number;
 }
 
 const TabSwitcher: React.FC<TabSwitcherProps> = ({ products, speed }) => {
@@ -20,57 +19,85 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ products, speed }) => {
       <div className="section-swiper-navigation">
         {displayProducts.length ? (
           <Swiper
-          spaceBetween={8} // Reduced default spaceBetween
+          spaceBetween={8}
           slidesPerView={2}
           loop={true}
-          modules={[Autoplay]}
           autoplay={{
-            delay: speed, // Use the speed prop here
+            delay: speed,
             disableOnInteraction: false,
+            reverseDirection: true, // Reverses the autoplay direction
           }}
+          // Makes the swiper move from right to left
           breakpoints={{
-            576: {
-              slidesPerView: 2,
-              spaceBetween: 5, // Reduced spacing for small screens
-            },
-            768: {
-              slidesPerView: 3,
-              spaceBetween: 10, // Reduced spacing for medium screens
-            },
-            1200: {
-              slidesPerView: 4,
-              spaceBetween: 15, // Reduced spacing for larger screens
-            },
+            576: { slidesPerView: 2, spaceBetween: 5 },
+            768: { slidesPerView: 3, spaceBetween: 10 },
+            1200: { slidesPerView: 4, spaceBetween: 15 },
           }}
           className="h-full"
         >
-            {displayProducts.map((product) => (
-              <SwiperSlide key={product.handle}>
-                <Link
-                  href={`/product/${product.handle}`}
-                  className="relative block overflow-hidden"
-                >
-                  <div className="bg-white p-[-1]">
-                  <img
-  src={product.featuredImage?.url}
-  alt={product.title}
-  width={300}
-  height={300}
-  className="h-auto w-full rounded-xl transform bg-gray-300 transition duration-500 ease-in-out hover:scale-105"
-  loading="lazy"
-/>
-                    <div className="mt-2 text-sm text-gray-700">
-                      <div>{product.title}</div>
-                      <div>
-                      <span className='font-bold'>₹</span>
-                        {parseInt(product.priceRange.maxVariantPrice.amount, 10)}{' '}
-                        {/* {product.priceRange.maxVariantPrice.currencyCode} */}
+            {displayProducts.map((product) => {
+              // Filter unique color images
+              const colorVariants = product.variants.filter((variant) =>
+                variant.selectedOptions.some((opt) => opt.name === 'Color')
+              );
+
+              const uniqueColorImages = Array.from(
+                new Map(
+                  colorVariants.map((variant) => [variant.selectedOptions.find((opt) => opt.name === 'Color')?.value, variant.image?.url])
+                )
+              ).map(([_, url]) => url);
+
+              // Limit to 3 thumbnails
+              const maxThumbnails = uniqueColorImages.slice(0, 3);
+              const remainingCount = uniqueColorImages.length - 3;
+
+              return (
+                <SwiperSlide key={product.handle}>
+                  <Link href={`/product/${product.handle}`} className="relative block overflow-hidden">
+                    <div className="bg-white p-[-1]">
+                      {/* Main Product Image */}
+                      <img
+                        src={product.featuredImage?.url}
+                        alt={product.title}
+                        width={300}
+                        height={300}
+                        className="h-auto w-full transform rounded-xl bg-gray-300 transition duration-500 ease-in-out hover:scale-105"
+                        loading="lazy"
+                      />
+
+                      <div className="mt-2 text-sm text-gray-700">
+                        <div>{product.title}</div>
+                        <div>
+                          <span className="font-bold">₹</span>
+                          {parseInt(product.priceRange.maxVariantPrice.amount, 10)}
+                        </div>
                       </div>
+
+                      {/* Thumbnails for Unique Color Images (only if color exists) */}
+                      {uniqueColorImages.length > 0 && (
+                        <div className="flex space-x-2">
+                          {maxThumbnails.map((url, index) => (
+                            <img
+                              key={index}
+                              src={url}
+                              alt={`Color Option ${index + 1}`}
+                              width={50}
+                              height={50}
+                              className="h-11 w-9 md:h-14 md:w-12 rounded bg-gray-100 border border-gray-300"
+                            />
+                          ))}
+
+                          {/* Remaining Count Indicator */}
+                          {remainingCount > 0 && (
+                            <span className="text-sm text-gray-500 font-semibold">+{remainingCount}</span>
+                          )}
+                        </div>
+                      )}
                     </div>
-                  </div>
-                </Link>
-              </SwiperSlide>
-            ))}
+                  </Link>
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         ) : (
           <p className="mt-4 text-gray-500">No products available.</p>
