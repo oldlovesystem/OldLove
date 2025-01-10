@@ -12,6 +12,8 @@ export function ProductDescription({ product }: { product: Product }) {
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [postcode, setPostcode] = useState('');
+  const [isServiceable, setIsServiceable] = useState(null);
+  const [error, setError] = useState("");
   const [estimatedDelivery, setEstimatedDelivery] = useState<string | null>(null);
   const [isSizeChartOpen, setIsSizeChartOpen] = useState(false);
   const [isInWishlist, setIsInWishlist] = useState(false);
@@ -107,32 +109,41 @@ export function ProductDescription({ product }: { product: Product }) {
     setIsDescriptionExpanded(!isDescriptionExpanded);
   };
 
-  const fetchDeliveryEstimate = async () => {
+  const fetchDeliveryServiceability = async () => {
+    setError("");
+    setIsServiceable(null);
+
+    if (!postcode) {
+      setError("Please enter a valid postal code.");
+      return;
+    }
+
     try {
       const response = await fetch(
-        `https://apiv2.shiprocket.in/v1/external/courier/serviceability/?pickup_postcode=560083&delivery_postcode=${postcode}&cod=1&weight=1`,
+        `https://track.delhivery.com/c/api/pin-codes/json/?filter_codes=${postcode}`,
         {
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUzNTY5NTUsInNvdXJjZSI6InNyLWF1dGgtaW50IiwiZXhwIjoxNzMyMTk5MDUzLCJqdGkiOiIxelNpSXJNeTNLT1RMS2J4IiwiaWF0IjoxNzMxMzM1MDUzLCJpc3MiOiJodHRwczovL3NyLWF1dGguc2hpcHJvY2tldC5pbi9hdXRob3JpemUvdXNlciIsIm5iZiI6MTczMTMzNTA1MywiY2lkIjo1MDMwMjEwLCJ0YyI6MzYwLCJ2ZXJib3NlIjpmYWxzZSwidmVuZG9yX2lkIjowLCJ2ZW5kb3JfY29kZSI6IiJ9.fIY1yVJlhlmiMICRNiAGBvaGBfiOAxF1ukZV29xUjbU`
-          }
+            "Content-Type": "application/json",
+            Authorization: "Token 472c0e5a204c4a9c52c3f3cdc2795fafe1ab25d0", 
+          },
         }
       );
-
-      const data = await response.json();
-      if (data.data?.available_courier_companies?.length > 0) {
-        const estimatedDays = parseInt(
-          data.data.available_courier_companies[0].estimated_delivery_days,
-          10
-        );
-        const deliveryRange = `${estimatedDays} to ${estimatedDays + 2} days`;
-        setEstimatedDelivery(`Estimated delivery in ${deliveryRange}`);
-      } else {
-        setEstimatedDelivery('No courier options available for this postcode.');
+      
+      if (!response.ok) {
+        throw new Error("Failed to fetch serviceability. Please try again.");
       }
-    } catch (error) {
-      console.error('Error fetching delivery estimate:', error);
-      setEstimatedDelivery('Error fetching estimate');
+      
+      const data = await response.json();
+      console.log(data);
+
+      if (data && data.delivery_codes && data.delivery_codes.length > 0) {
+        setIsServiceable("Yes");
+      } else {
+        setIsServiceable("No");
+      }
+    } catch (err) {
+      setError(err.message || "An error occurred. Please try again later.");
     }
   };
 
@@ -332,32 +343,39 @@ export function ProductDescription({ product }: { product: Product }) {
 
       {/* Delivery Estimate */}
       <div className="mt-6 w-full rounded border border-gray-100 px-4 py-2 hover:shadow-lg">
-        <label className="mb-2 block text-sm">Enter your postal code for delivery estimate:</label>
-        <div className="flex w-full items-center space-x-2">
-          <input
-            type="text"
-            value={postcode}
-            onChange={(e) => setPostcode(e.target.value)}
-            className="flex-grow rounded border border-gray-500 p-2 focus:ring-0"
-            placeholder="e.g., 560083"
-          />
-          <button
-            onClick={fetchDeliveryEstimate}
-            className="flex transform items-center space-x-2 rounded bg-black p-2 text-white transition-all hover:scale-105 hover:bg-gray-800"
-          >
-            <span>Check</span>
-          </button>
-        </div>
-
-        {estimatedDelivery && (
-          <div className="mt-4 rounded-md border bg-gray-50 p-2 shadow-lg">
-            <p className="font-tenor-sans flex items-center text-sm text-gray-800">
-              <FaTruck className="mr-2" />
-              {estimatedDelivery}
-            </p>
-          </div>
-        )}
+      <label className="mb-2 block text-sm">
+        Enter your postal code to check serviceability:
+      </label>
+      <div className="flex w-full items-center space-x-2">
+        <input
+          type="text"
+          value={postcode}
+          onChange={(e) => setPostcode(e.target.value)}
+          className="flex-grow rounded border border-gray-500 p-2 focus:ring-0"
+          placeholder="e.g., 560083"
+        />
+        <button
+          onClick={fetchDeliveryServiceability}
+          className="flex transform items-center space-x-2 rounded bg-black p-2 text-white transition-all hover:scale-105 hover:bg-gray-800"
+        >
+          <span>Check</span>
+        </button>
       </div>
+
+      {error && (
+        <div className="mt-4 rounded-md border bg-red-50 p-2 text-red-700 shadow-lg">
+          <p className="text-sm">{error}</p>
+        </div>
+      )}
+
+      {isServiceable !== null && (
+        <div className="mt-4 rounded-md border bg-gray-50 p-2 shadow-lg">
+          <p className={`text-sm ${isServiceable === "Yes" ? "text-green-700" : "text-red-700"}`}>
+            Serviceable: {isServiceable}
+          </p>
+        </div>
+      )}
+    </div>
 
       {showLoginPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50">

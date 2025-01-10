@@ -9,5 +9,13 @@ module.exports = {
         pathname: '/s/files/**'
       }
     ]
-  }
+  },
+  async rewrites() {
+    return [
+        {
+            source: '/api/delhivery',
+            destination: 'https://api.delhivery.com/endpoint',
+        },
+    ];
+},
 };
