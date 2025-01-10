@@ -27,7 +27,7 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ products, speed }) => {
             disableOnInteraction: false,
             reverseDirection: true, // Reverses the autoplay direction
           }}
-          // Makes the swiper move from right to left
+          modules={[Autoplay]} // <-- This is crucial for enabling autoplay
           breakpoints={{
             576: { slidesPerView: 2, spaceBetween: 5 },
             768: { slidesPerView: 3, spaceBetween: 10 },
@@ -75,7 +75,7 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ products, speed }) => {
 
                       {/* Thumbnails for Unique Color Images (only if color exists) */}
                       {uniqueColorImages.length > 0 && (
-                        <div className="flex space-x-2">
+                        <div className="flex space-x-2 mb-2 py-2">
                           {maxThumbnails.map((url, index) => (
                             <img
                               key={index}
