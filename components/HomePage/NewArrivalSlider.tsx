@@ -7,8 +7,8 @@ const NewArrivalSlider = () => {
   const isMobile = useMediaQuery('(max-width: 768px)'); // Check for mobile screen size
 
   const imageSrc = isMobile
-    ? '/banner/Mobile/BannerMobileNewArrival.jpg' // Mobile-specific image
-    : '/banner/PC/Bannernewarrival.jpg';   // PC-specific image
+    ? '/BannerMobileNewArrival.jpg' // Mobile-specific image
+    : '/Bannernewarrival.jpg';   // PC-specific image
 
   return (
     <div className="mt-4 mb-2">
