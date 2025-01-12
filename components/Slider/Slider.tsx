@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
@@ -29,12 +28,14 @@ const SliderOne = () => {
           <SwiperSlide key={index}>
             <Link href={slide.href}>
               <div className="image-container relative">
-                <Image
+                <img
                   src={slide.src}
-                  fill
-                  sizes="100vw"
                   alt={`Slide ${index + 1}`}
-                  priority={true}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
                   className="image"
                 />
               </div>
@@ -47,4 +48,3 @@ const SliderOne = () => {
 };
 
 export default SliderOne;
-
