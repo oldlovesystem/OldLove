@@ -52,13 +52,13 @@ const SliderOne = () => {
             <Link href={slide.href}>
               <div className="image-container">
                 <Image
-                  src={slide.src}
-                  fill
-                  sizes="100vw"
-                  alt={`${slide.src}`}
-                  priority={true}
-                  className="object-fit"
-                />
+  src={slide.src}
+  fill
+  sizes="100vw"
+  alt={`Slide ${index + 1}`}
+  priority={true}
+  className="object-fit"
+/>
               </div>
             </Link>
           </SwiperSlide>
