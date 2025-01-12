@@ -46,14 +46,16 @@ const SliderOne = () => {
         }}
       >
         {slides.map((slide, index) => (
+         
           <SwiperSlide key={index}>
+            
             <Link href={slide.href}>
               <div className="image-container">
                 <Image
                   src={slide.src}
                   fill
                   sizes="100vw"
-                  alt={`Slide ${index + 1}`}
+                  alt={`${slide.src}`}
                   priority={true}
                   className="object-fit"
                 />
