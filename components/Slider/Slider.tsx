@@ -9,19 +9,28 @@ import 'swiper/css/bundle';
 import useMediaQuery from './useMediaQuery';
 import 'swiper/css/effect-fade';
 
+// Importing Images
+import MobileBanner1 from '../../public/banner/Mobile/Banner1.jpg';
+import MobileBanner2 from '../../public/banner/Mobile/Banner2.jpg';
+import MobileBanner3 from '../../public/banner/Mobile/Banner3.jpg';
+
+import PCBanner1 from '../../public/banner/PC/Banner1.png';
+import PCBanner2 from '../../public/banner/PC/Banner2.png';
+import PCBanner3 from '../../public/banner/PC/Banner3.png';
+
 const SliderOne = () => {
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   const slides = isMobile
     ? [
-        { href: '/search', src: '/banner/Mobile/Banner1.jpg' },
-        { href: '/search/formal-shirts', src: '/banner/Mobile/Banner2.jpg' },
-        { href: '/search/formal-shirts', src: '/banner/Mobile/Banner3.jpg' },
+        { href: '/search', src: MobileBanner1 },
+        { href: '/search/formal-shirts', src: MobileBanner2 },
+        { href: '/search/formal-shirts', src: MobileBanner3 },
       ]
     : [
-        { href: '/search', src: '/banner/PC/Banner1.png' },
-        { href: '/search', src: '/banner/PC/Banner2.png' },
-        { href: '/search/formal-shirts', src: '/banner/PC/Banner3.png' },
+        { href: '/search', src: PCBanner1 },
+        { href: '/search', src: PCBanner2 },
+        { href: '/search/formal-shirts', src: PCBanner3 },
       ];
 
   return (
@@ -40,7 +49,7 @@ const SliderOne = () => {
           <SwiperSlide key={index}>
             <Link href={slide.href}>
               <div className="image-container">
-              <Image
+                <Image
                   src={slide.src}
                   fill
                   sizes="100vw"
@@ -56,4 +65,5 @@ const SliderOne = () => {
     </div>
   );
 };
+
 export default SliderOne;
