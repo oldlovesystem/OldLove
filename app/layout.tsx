@@ -27,7 +27,7 @@ export const metadata = {
   metadataBase: new URL(baseUrl),
   title: {
     default: "Oldlove",
-    template: `%s | ${SITE_NAME}`
+    template: `%s | "Oldlove"`
   },
   robots: {
     follow: true,
@@ -58,7 +58,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
             <TopNavOne props="style-one bg-black" slogan="" />
             <Navbar />
           </div>
-          <main className="pt-[110px] md:pt-[120px]">
+          <main className="pt-[80px] md:pt-[100px]">
             {children}
             <Toaster closeButton />
             <SpeedInsights />

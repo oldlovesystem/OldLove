@@ -75,7 +75,7 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ products, speed }) => {
 
                       {/* Thumbnails for Unique Color Images (only if color exists) */}
                       {uniqueColorImages.length > 0 && (
-                        <div className="flex space-x-2 mb-2 py-2">
+                        <div className="flex space-x-2 mb-1 py-2">
                           {maxThumbnails.map((url, index) => (
                             <img
                               key={index}

@@ -167,10 +167,13 @@ export function Navbar() {
 
         <div className="flex w-full items-center justify-between">
           <div className="xs:ml-3 ml-2 flex w-auto items-center">
-          <Link href="/" prefetch={true} className="flex flex-col items-center justify-center">
-  <div className="logo text-3xl font-bold uppercase text-black pt-2">OldLove</div>
-  <div className="text-sm text-gray-500 mt-1 block md:hidden lg:hidden logo"> Specially Made With Love</div>
-</Link>
+            <Link href="/" prefetch={true} className="flex flex-col items-center justify-center">
+              <div className="logo  text-2xl md:text-3xl font-bold uppercase text-black">OldLove</div>
+              <div className="logo  block text-sm text-gray-500 md:hidden lg:hidden">
+                {' '}
+                Specially Made With Love
+              </div>
+            </Link>
 
             <ul className="mega-menu ml-16 mr-3 hidden gap-9 text-lg uppercase md:flex md:items-center">
               {menu.map((item) => (
@@ -214,7 +217,7 @@ export function Navbar() {
                     {customerFirstName.charAt(0).toUpperCase()}
                   </div>
                 ) : (
-                  <Icon.User className="text-2xl" />
+                  <Icon.User className="mr-2 text-2xl" />
                 )}
               </button>
 
@@ -224,7 +227,7 @@ export function Navbar() {
                     <>
                       <Link href="/my-account">
                         <div className="flex w-full cursor-pointer items-center rounded-md px-3 py-3 transition hover:bg-gray-100">
-                          <FaUser className="ml-3 mr-5 text-gray-600 " />
+                          <FaUser className="ml-3 mr-5  text-gray-600" />
                           <span className="font-semibold text-black">My Account</span>
                         </div>
                       </Link>
