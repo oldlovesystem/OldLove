@@ -27,8 +27,7 @@ const Slider = () => {
 
   // Mobile Slider Slides
   const mobileSlides = [
-    { href: '/search', src: '/BannerMobileNewArrival.jpg' },
-    { href: '/search/printed-shirts', src: '/BannerMobile2.jpg' },
+    { href: '/search/check-shirts', src: '/FooterBanner.jpg' },
   ];
 
   // Handle swipe start
@@ -130,8 +129,7 @@ const Slider = () => {
             }}
           >
             {[
-              { href: '/search', src: '/Bannernewarrival.jpg' },
-              { href: '/search/printed-shirts', src: '/Banner1.png' },
+              { href: '/search/check-shirts', src: '/FooterbannerPC.jpg' },
             ].map((slide, index) => (
               <SwiperSlide key={index}>
                 <Link href={slide.href}>
