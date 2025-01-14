@@ -21,7 +21,7 @@ const SliderOne = () => {
         }}
       >
         {[
-           { href: '/search/sale', src: '/desktop banner.png' },
+           { href: '/search/republic-sale', src: '/desktop banner.png' },
           { href: '/search/formal-shirts', src: '/Banner1.png' },
           { href: '/search/printed-shirtsw', src: '/Banner2.png' },
           { href: '/search', src: '/Banner3.png' },
