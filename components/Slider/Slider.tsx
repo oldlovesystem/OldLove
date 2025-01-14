@@ -27,7 +27,7 @@ const Slider = () => {
 
   // Mobile Slider Slides
   const mobileSlides = [
-    { href: '/search/republic-sale', src: '/MobileBanner.jpg' },
+    { href: '/search/republic-sale', src: '/Mobilebanner.jpg' },
     { href: '/search/formal-shirts', src: '/BannerMobile1.jpg' },
     { href: '/search/printed-shirts', src: '/BannerMobile3.jpg' }
   ];
