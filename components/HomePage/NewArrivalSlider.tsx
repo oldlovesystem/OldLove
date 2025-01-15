@@ -131,7 +131,7 @@ const Slider = () => {
           >
             {[
               { href: '/search', src: '/Bannernewarrival.jpg' },
-              { href: '/search/printed-shirts', src: '/Banner1.png' },
+              { href: '/search/printed-shirts', src: '/Banner2.png' },
             ].map((slide, index) => (
               <SwiperSlide key={index}>
                 <Link href={slide.href}>
