@@ -82,23 +82,7 @@ const Footer = () => {
 
               {/* Newsletter Section */}
               <div className="newsletter col-span-1 flex flex-col p-4 sm:col-span-2 lg:col-span-1">
-                <div className="font-tenor-sans pb-3 font-bold uppercase">Newsletter</div>
-                <div className="caption1 mt-3">
-                  Sign up for our newsletter and get 10% off your first purchase
-                </div>
-                <div className="input-block mt-4 h-[52px] w-full">
-                  <form className="relative h-full w-full" action="post">
-                    <input
-                      type="email"
-                      placeholder="Enter your e-mail"
-                      className="caption1 border-line h-full w-full rounded-xl border-gray-300 pl-4 pr-14"
-                      required
-                    />
-                    <button className="absolute right-1 top-1 flex h-[44px] w-[44px] items-center justify-center rounded-xl bg-black">
-                      <Icon.ArrowRight size={24} color="#fff" />
-                    </button>
-                  </form>
-                </div>
+                <div className="font-tenor-sans pb-3 font-bold uppercase">Follow Us On</div>
                 <div className="list-social mt-4 flex items-center gap-6">
                   <Link
                     href="https://www.facebook.com/people/Old-Love/61566655953803/"
