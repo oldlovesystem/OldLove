@@ -29,7 +29,7 @@ const Slider = () => {
   const mobileSlides = [
     { href: '/search/republic-sale', src: '/Mobilebanner.jpg' },
     { href: '/search/formal-shirts', src: '/BannerMobile1.jpg' },
-    { href: '/search/printed-shirts', src: '/BannerMobile3.jpg' }
+    { href: '/search/sacket', src: '/BannerMobile3.jpg' }
   ];
 
   // Handle swipe start
@@ -133,7 +133,7 @@ const Slider = () => {
             {[
               { href: '/search/republic-sale', src: '/Banner4.png' },
               { href: '/search/formal-shirts', src: '/Banner1.png' },
-              { href: '/search', src: '/Banner3.png' }
+              { href: '/search/sacket', src: '/Banner3.png' }
             ].map((slide, index) => (
               <SwiperSlide key={index}>
                 <Link href={slide.href}>

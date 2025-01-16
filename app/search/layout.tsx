@@ -11,7 +11,6 @@ interface SearchLayoutProps {
 export default function SearchLayout({ children }: SearchLayoutProps) {
   return (
     <>
-      <Breadcrumb />
 
       <div className="font-tenor-sans mt-5 flex max-w-screen-2xl flex-col px-0 pb-0 text-black md:flex-row">
         <div className="right flex items-center gap-3"></div>
