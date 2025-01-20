@@ -200,7 +200,7 @@ export function ProductDescription({ product }: { product: Product }) {
             confidence.
           </p>
           <ul className="list-disc pl-6">
-            <li>There is no additional charge for any exchange orders.</li>
+            <li>There is ₹100 additional charge for any exchange orders.</li>
             <li>Size exchange is subject to availability.</li>
           </ul>
         </>

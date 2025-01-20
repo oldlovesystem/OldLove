@@ -7,7 +7,7 @@ import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css/bundle';
 import 'swiper/css/effect-fade';
 
-const Slider = () => {
+const Slider1 = () => {
   const [isMobileView, setIsMobileView] = useState(false);
   const sliderRef = useRef(null); 
   const [startTouch, setStartTouch] = useState(0);
@@ -155,4 +155,4 @@ const Slider = () => {
   );
 };
 
-export default Slider;
+export default Slider1;

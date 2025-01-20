@@ -3,144 +3,77 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
-import 'swiper/css/bundle';
 
 const Instagram = () => {
+  const pcImages = [
+    { src: '/shacketcollection.JPG', name: 'Shacket', link: '/search/shacket' },
+    { src: '/1L9A3393.JPG', name: 'Half Sleeve', link: '/shacket' },
+    { src: '/Checks.jpg', name: 'Checks', link: '/search/check-shirts' },
+    { src: '/printed.JPG', name: 'Prints', link: '/search/printed-shirts' },
+    { src: '/Causals.JPG', name: 'Casual', link: '/search/casual-shirts' },
+    { src: '/Formals.jpg', name: 'Formal', link: '/search/formal-shirts' },
+    { src: '/striped.JPG', name: 'Striped', link: '/search/striped-shirt' },
+    { src: '/cargo.JPG', name: 'Cargo', link: '/search/cargo-trousers' },
+    { src: '/jeans.jpg', name: 'Jeans', link: '/search/jeans' },
+    { src: '/BD0A2811.JPG', name: 'More', link: '/search' },
+  ];
+
+  const mobileImages = [
+    { src: '/shacketcollection.JPG', name: 'Shacket', link: '/search/shacket' },
+    { src: '/Checks.jpg', name: 'Checks', link: '/search/check-shirts' },
+    { src: '/printed.JPG', name: 'Prints', link: '/search/printed-shirts' },
+    { src: '/Causals.JPG', name: 'Casual', link: '/search/casual-shirts' },
+    { src: '/Formals.jpg', name: 'Formal', link: '/search/formal-shirts' },
+    { src: '/striped.JPG', name: 'Striped', link: '/search/striped-shirt' },
+    { src: '/cargo.JPG', name: 'Cargo', link: '/search/cargo-trousers' },
+    { src: '/jeans.jpg', name: 'Jeans', link: '/search/jeans' },
+    { src: '/BD0A2811.JPG', name: 'More', link: '/search' },
+  ];
+
   return (
-    <>
-      <div className="instagram-block font-tenor-sans pt-10 md:pt-20">
-        <div className="container">
-          <div className="font-tenor-sans font-thin">
-            <div className="font-tenor-sans text-center text-3xl uppercase">
-              Oldlove On Instagram
+    <div className="instagram-block font-tenor-sans mb-3">
+      <div className="container">
+        {/* PC List */}
+        <div className="hidden md:grid grid-cols-5 gap-4">
+          {pcImages.map((image, index) => (
+            <div key={index} className="item relative overflow-hidden rounded-lg">
+              <Link href={image.link} passHref>
+                <Image
+                  src={image.src}
+                  width={300}
+                  height={300}
+                  alt={`collection ${index + 1}`}
+                  className="h-full w-full object-cover duration-500 bg-gray-300"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-30 p-1 text-center">
+                  <span className="text-white font-bold">{image.name}</span>
+                </div>
+              </Link>
             </div>
-            <div className="font-tenor-sans mt-3 text-center">#Oldlovetheme</div>
-          </div>
-          <div className="list-instagram mt-6 md:mt-10">
-            <Swiper
-              spaceBetween={12}
-              slidesPerView={2}
-              loop={true}
-              modules={[Autoplay]}
-              autoplay={{
-                delay: 4000
-              }}
-              breakpoints={{
-                500: {
-                  slidesPerView: 2,
-                  spaceBetween: 16
-                },
-                680: {
-                  slidesPerView: 3,
-                  spaceBetween: 16
-                },
-                992: {
-                  slidesPerView: 4,
-                  spaceBetween: 16
-                },
-                1200: {
-                  slidesPerView: 5,
-                  spaceBetween: 16
-                }
-              }}
-            >
-              <SwiperSlide>
-                <Link
-                  href={'https://www.instagram.com/oldlove.in/?igsh=MTE4bHNuZXk1d2Y3aA%3D%3D'}
-                  target="_blank"
-                  className="item relative block overflow-hidden rounded-[32px]"
-                >
-                  <Image
-                    src={'/IMG_0062.JPG'}
-                    width={300}
-                    height={300}
-                    alt="1"
-                    className="relative h-full w-full duration-500"
-                  />
-                  <div className="icon absolute left-1/2 top-1/2 z-[1] flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-white duration-500 hover:bg-black">
-                    <div className="icon-instagram text-2xl text-black"></div>
-                  </div>
-                </Link>
-              </SwiperSlide>
-              <SwiperSlide>
-                <Link
-                  href={'https://www.instagram.com/oldlove.in/?igsh=MTE4bHNuZXk1d2Y3aA%3D%3D'}
-                  target="_blank"
-                  className="item relative block overflow-hidden rounded-[32px]"
-                >
-                  <Image
-                    src={'/4M6A2692.JPG'}
-                    width={300}
-                    height={300}
-                    alt="1"
-                    className="relative h-full w-full duration-500"
-                  />
-                  <div className="icon absolute left-1/2 top-1/2 z-[1] flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-white duration-500 hover:bg-black">
-                    <div className="icon-instagram text-2xl text-black"></div>
-                  </div>
-                </Link>
-              </SwiperSlide>
-              <SwiperSlide>
-                <Link
-                  href={'https://www.instagram.com/oldlove.in/?igsh=MTE4bHNuZXk1d2Y3aA%3D%3D'}
-                  target="_blank"
-                  className="item relative block overflow-hidden rounded-[32px]"
-                >
-                  <Image
-                    src={'/IMG_0012.JPG'}
-                    width={300}
-                    height={300}
-                    alt="1"
-                    className="relative h-full w-full duration-500"
-                  />
-                  <div className="icon absolute left-1/2 top-1/2 z-[1] flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-white duration-500 hover:bg-black">
-                    <div className="icon-instagram text-2xl text-black"></div>
-                  </div>
-                </Link>
-              </SwiperSlide>
-              <SwiperSlide>
-                <Link
-                  href={'https://www.instagram.com/oldlove.in/?igsh=MTE4bHNuZXk1d2Y3aA%3D%3D'}
-                  target="_blank"
-                  className="item relative block overflow-hidden rounded-[32px]"
-                >
-                  <Image
-                    src={'/4M6A2769.JPG'}
-                    width={300}
-                    height={300}
-                    alt="1"
-                    className="relative h-full w-full duration-500"
-                  />
-                  <div className="icon absolute left-1/2 top-1/2 z-[1] flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-white duration-500 hover:bg-black">
-                    <div className="icon-instagram text-2xl text-black"></div>
-                  </div>
-                </Link>
-              </SwiperSlide>
-              <SwiperSlide>
-                <Link
-                  href={'https://www.instagram.com/oldlove.in/?igsh=MTE4bHNuZXk1d2Y3aA%3D%3D'}
-                  target="_blank"
-                  className="item relative block overflow-hidden rounded-[32px]"
-                >
-                  <Image
-                    src={'/4M6A2498.JPG'}
-                    width={300}
-                    height={300}
-                    alt="1"
-                    className="relative h-full w-full duration-500"
-                  />
-                  <div className="icon absolute left-1/2 top-1/2 z-[1] flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-white duration-500 hover:bg-black">
-                    <div className="icon-instagram text-2xl text-black"></div>
-                  </div>
-                </Link>
-              </SwiperSlide>
-            </Swiper>
-          </div>
+          ))}
+        </div>
+
+        {/* Mobile List */}
+        <div className="grid grid-cols-3 gap-4 md:hidden">
+          {mobileImages.map((image, index) => (
+            <div key={index} className="item relative overflow-hidden rounded-lg">
+              <Link href={image.link} passHref>
+                <Image
+                  src={image.src}
+                  width={300}
+                  height={300}
+                  alt={`collection ${index + 1}`}
+                  className="h-full w-full object-cover duration-500 bg-gray-300"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-30 p-1 text-center">
+                  <span className="text-white font-bold">{image.name}</span>
+                </div>
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

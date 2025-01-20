@@ -31,7 +31,7 @@ export default function NewsletterSection() {
 
   return (
     <div
-      className="relative w-full min-h-[300px] bg-cover bg-center flex items-center justify-center text-white"
+      className="relative w-full min-h-[190px] bg-cover bg-center flex items-center justify-center text-white"
       style={{ backgroundImage: "url('/NewsLetter.jpg')" }}
     >
       <div className="absolute inset-0 bg-black/50"></div>
