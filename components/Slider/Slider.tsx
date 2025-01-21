@@ -29,7 +29,7 @@ const Slider = () => {
   const mobileSlides = [
     { href: '/search/republic-sale', src: '/Mobilebanner.jpg' },
     { href: '/search/formal-shirts', src: '/BannerMobile1.jpg' },
-    { href: '/search/sacket', src: '/BannerMobile3.jpg' }
+    { href: '/search/shacket', src: '/BannerMobile3.jpg' }
   ];
 
   // Handle swipe start
