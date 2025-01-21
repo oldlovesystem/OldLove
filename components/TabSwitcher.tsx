@@ -64,27 +64,26 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ products, speed }) => {
                         className="h-auto w-full transform rounded-xl bg-gray-300 transition duration-500 ease-in-out hover:scale-105"
                         loading="lazy"
                       />
-
                       <div className="mt-2 text-sm text-gray-700">
-                        <div>{product.title}</div>
+                      <div className="line-clamp-1">{product.title}</div>
                         <div>
                           <span className="font-bold">₹</span>
                           {parseInt(product.priceRange.maxVariantPrice.amount, 10)}
                         </div>
                       </div>
-
-                      {/* Thumbnails for Unique Color Images (only if color exists) */}
                       {uniqueColorImages.length > 0 && (
                         <div className="flex space-x-2 mb-1 py-2">
                           {maxThumbnails.map((url, index) => (
-                            <img
-                              key={index}
-                              src={url}
-                              alt={`Color Option ${index + 1}`}
-                              width={50}
-                              height={50}
-                              className="h-11 w-9 md:h-14 md:w-12 rounded bg-gray-100 border border-gray-300"
-                            />
+                           <div
+                           className="h-7 w-7 md:h-9 md:w-9 rounded-full bg-gray-100 border border-gray-300 overflow-hidden"
+                         >
+                           <img
+                             key={index}
+                             src={url}
+                             alt={`Color Option ${index + 1}`}
+                             className="w-full h-full object-cover scale-[4] object-center"
+                           />
+                         </div>                 
                           ))}
 
                           {/* Remaining Count Indicator */}

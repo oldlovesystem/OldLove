@@ -43,7 +43,7 @@ export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
         }}
         className="flex w-full items-center justify-between rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow hover:bg-gray-100 transition duration-200 cursor-pointer"
       >
-        <div>{active || 'Select an option'}</div>
+        <div className='uppercase'>{active || 'Select an option'}</div>
         <ChevronDownIcon className="h-4 text-gray-500" />
       </div>
       {openSelect && (

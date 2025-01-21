@@ -2,9 +2,9 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import * as Icon from '@phosphor-icons/react';
-import { PiYoutubeLogoThin } from "react-icons/pi";
-import { CiLinkedin } from "react-icons/ci";
-import { FaFacebookF, FaInstagram } from "react-icons/fa";
+import { PiYoutubeLogoThin } from 'react-icons/pi';
+import { CiLinkedin } from 'react-icons/ci';
+import { FaFacebookF, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
   const [openSection, setOpenSection] = useState(null);
@@ -26,7 +26,7 @@ const Footer = () => {
                 <div>
                   <div
                     onClick={() => toggleSection('customerCare')}
-                    className="flex justify-between items-center font-bold uppercase pb-3 cursor-pointer"
+                    className="flex cursor-pointer items-center justify-between pb-3 font-bold uppercase"
                   >
                     Customer Care
                     <Icon.CaretDown
@@ -35,7 +35,7 @@ const Footer = () => {
                     />
                   </div>
                   {openSection === 'customerCare' && (
-                    <div className="pl-4 flex flex-col space-y-2">
+                    <div className="flex flex-col space-y-2 pl-4">
                       <span>Mail:</span>
                       <button
                         onClick={() => (window.location.href = 'mailto:support@oldlove.in')}
@@ -51,7 +51,7 @@ const Footer = () => {
                 <div>
                   <div
                     onClick={() => toggleSection('getToKnowUs')}
-                    className="flex justify-between items-center font-bold uppercase pb-3 cursor-pointer"
+                    className="flex cursor-pointer items-center justify-between pb-3 font-bold uppercase"
                   >
                     Get to Know Us
                     <Icon.CaretDown
@@ -60,7 +60,7 @@ const Footer = () => {
                     />
                   </div>
                   {openSection === 'getToKnowUs' && (
-                    <div className="pl-4 flex flex-col space-y-2">
+                    <div className="flex flex-col space-y-2 pl-4">
                       <Link href="/contact">Contact Us</Link>
                       <Link href="/my-account">My Account</Link>
                       <Link href="/my-account">Order & Returns</Link>
@@ -72,7 +72,7 @@ const Footer = () => {
                 <div>
                   <div
                     onClick={() => toggleSection('customerServices')}
-                    className="flex justify-between items-center font-bold uppercase pb-3 cursor-pointer"
+                    className="flex cursor-pointer items-center justify-between pb-3 font-bold uppercase"
                   >
                     Customer Services
                     <Icon.CaretDown
@@ -81,7 +81,7 @@ const Footer = () => {
                     />
                   </div>
                   {openSection === 'customerServices' && (
-                    <div className="pl-4 flex flex-col space-y-2">
+                    <div className="flex flex-col space-y-2 pl-4">
                       <Link href="/policy">Shipping</Link>
                       <Link href="/policy">Privacy Policy</Link>
                       <Link href="/policy">Return & Refund</Link>
@@ -93,7 +93,7 @@ const Footer = () => {
                 <div>
                   <div
                     onClick={() => toggleSection('trackOrder')}
-                    className="flex justify-between items-center font-bold uppercase pb-3 cursor-pointer"
+                    className="flex cursor-pointer items-center justify-between pb-3 font-bold uppercase"
                   >
                     Track or Return/Exchange Order
                     <Icon.CaretDown
@@ -102,7 +102,7 @@ const Footer = () => {
                     />
                   </div>
                   {openSection === 'trackOrder' && (
-                    <div className="pl-4 flex flex-col space-y-2">
+                    <div className="flex flex-col space-y-2 pl-4">
                       <Link href="/trackorder">Track Order</Link>
                       <Link href="/returnexchange">Place Return/Exchange Request</Link>
                       <Link href="/policy">Returns/Exchange Policy</Link>
@@ -111,33 +111,33 @@ const Footer = () => {
                 </div>
 
                 {/* Follow Us On Section */}
-                <div>
-                  <div
-                    onClick={() => toggleSection('followUs')}
-                    className="flex justify-between items-center font-bold uppercase pb-3 cursor-pointer"
-                  >
+                <div className="mt-6">
+                  <div className="flex items-center justify-between pb-3 font-bold uppercase">
                     Follow Us On
-                    <Icon.CaretDown
-                      size={20}
-                      className={`transition-transform ${openSection === 'followUs' ? 'rotate-180' : ''}`}
-                    />
                   </div>
-                  {openSection === 'followUs' && (
-                    <div className="pl-4 flex items-center gap-6">
-                      <Link href="https://www.facebook.com/people/Old-Love/61566655953803/" target="_blank">
-                        <FaFacebookF className="text-xl text-blue-600" />
-                      </Link>
-                      <Link href="https://www.instagram.com/oldlove.in/?igsh=MTE4bHNuZXk1d2Y3aA%3D%3D" target="_blank">
-                        <FaInstagram className="text-xl text-pink-500" />
-                      </Link>
-                      <Link href="https://youtube.com/@oldloveindia?si=TmC1tcVLWeqp6HdS" target="_blank">
-                        <PiYoutubeLogoThin className="text-3xl text-red-600" />
-                      </Link>
-                      <Link href="https://www.linkedin.com/company/old-love-1" target="_blank">
-                        <CiLinkedin className="text-3xl text-blue-500" />
-                      </Link>
-                    </div>
-                  )}
+                  <div className="flex items-center gap-6 pl-4">
+                    <Link
+                      href="https://www.facebook.com/people/Old-Love/61566655953803/"
+                      target="_blank"
+                    >
+                      <FaFacebookF className="text-xl text-blue-600" />
+                    </Link>
+                    <Link
+                      href="https://www.instagram.com/oldlove.in/?igsh=MTE4bHNuZXk1d2Y3aA%3D%3D"
+                      target="_blank"
+                    >
+                      <FaInstagram className="text-xl text-pink-500" />
+                    </Link>
+                    <Link
+                      href="https://youtube.com/@oldloveindia?si=TmC1tcVLWeqp6HdS"
+                      target="_blank"
+                    >
+                      <PiYoutubeLogoThin className="text-3xl text-red-600" />
+                    </Link>
+                    <Link href="https://www.linkedin.com/company/old-love-1" target="_blank">
+                      <CiLinkedin className="text-3xl text-blue-500" />
+                    </Link>
+                  </div>
                 </div>
               </div>
 
@@ -187,13 +187,22 @@ const Footer = () => {
                 <div className="newsletter flex flex-col p-4 sm:flex-1">
                   <div className="pb-3 font-bold uppercase">Follow Us On</div>
                   <div className="list-social mt-4 flex items-center gap-6">
-                    <Link href="https://www.facebook.com/people/Old-Love/61566655953803/" target="_blank">
+                    <Link
+                      href="https://www.facebook.com/people/Old-Love/61566655953803/"
+                      target="_blank"
+                    >
                       <FaFacebookF className="text-xl text-blue-600" />
                     </Link>
-                    <Link href="https://www.instagram.com/oldlove.in/?igsh=MTE4bHNuZXk1d2Y3aA%3D%3D" target="_blank">
+                    <Link
+                      href="https://www.instagram.com/oldlove.in/?igsh=MTE4bHNuZXk1d2Y3aA%3D%3D"
+                      target="_blank"
+                    >
                       <FaInstagram className="text-xl text-pink-500" />
                     </Link>
-                    <Link href="https://youtube.com/@oldloveindia?si=TmC1tcVLWeqp6HdS" target="_blank">
+                    <Link
+                      href="https://youtube.com/@oldloveindia?si=TmC1tcVLWeqp6HdS"
+                      target="_blank"
+                    >
                       <PiYoutubeLogoThin className="text-3xl text-red-600" />
                     </Link>
                     <Link href="https://www.linkedin.com/company/old-love-1" target="_blank">
@@ -203,7 +212,6 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-
             {/* Footer Bottom */}
             <div className="footer-bottom border-line flex items-center justify-between gap-5 border-t py-3 max-lg:flex-col max-lg:justify-center">
               <div className="left flex items-center gap-8">
