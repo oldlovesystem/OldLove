@@ -36,6 +36,8 @@ const OrdersPage = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [customCancelReason, setCustomCancelReason] = useState('');
   const [sortOrder, setSortOrder] = useState('newest');
+  const [expandedOrder, setExpandedOrder] = useState(null); // For tracking details
+  const [trackingDetails, setTrackingDetails] = useState({});
 
   const fetchCustomerOrders = async () => {
     const accessToken =
@@ -45,7 +47,7 @@ const OrdersPage = () => {
       setLoading(false);
       return;
     }
-    console.log(accessToken);
+
     try {
       const response = await axios.post(
         process.env.NEXT_PUBLIC_SHOPIFY_GRAPHQL_API_ENDPOINT,
@@ -170,11 +172,39 @@ const OrdersPage = () => {
 
   const trackOrder = async (orderId) => {
     try {
-      const response = await fetch(`https://cancelorder.vercel.app/api/getAWB/${orderId}`);
+      const response = await fetch(`https://cancelorder.vercel.app/track-order/${orderId}`);
       const data = await response.json();
+      console.log(data);
       if (response.ok) {
-        const awbCode = data.awbCode;
-        window.open(`https://shiprocket.co/tracking/${awbCode}`, '_blank');
+        const shipment = data.ShipmentData?.[0]?.Shipment;
+        const awb = shipment?.AWB || null;
+        const scans = shipment?.Scans || [];
+
+        let status = 'Order is yet to be dispatched';
+        let lastUpdated = null;
+        let checkpoints = [];
+
+        if (awb && scans.length > 0) {
+          const lastScan = scans[scans.length - 1]?.ScanDetail;
+          status = lastScan?.Instructions || 'In Transit';
+          lastUpdated = lastScan?.StatusDateTime || 'Unknown';
+          checkpoints = scans.map((scan) => ({
+            location: scan.ScanDetail.ScannedLocation,
+            dateTime: scan.ScanDetail.StatusDateTime,
+            status: scan.ScanDetail.Instructions
+          }));
+        }
+
+        setTrackingDetails((prev) => ({
+          ...prev,
+          [orderId]: {
+            awb,
+            status,
+            lastUpdated,
+            checkpoints
+          }
+        }));
+        setExpandedOrder(orderId); // Expand tracking details for the order
       } else {
         alert(data.error || 'Error retrieving AWB code.');
       }
@@ -220,16 +250,11 @@ const OrdersPage = () => {
             onChange={(e) => setSortOrder(e.target.value)}
             className="custom-select rounded bg-gray-200 p-2 pr-8"
           >
-            <option value="newest">
-              Newest to Oldest
-              <span className="arrow-down"> &nbsp; &#8595;</span>
-            </option>
-            <option value="oldest">
-              Oldest to Newest
-              <span className="arrow-up"> &nbsp; &#8593;</span>
-            </option>
+            <option value="newest">Newest to Oldest</option>
+            <option value="oldest">Oldest to Newest</option>
           </select>
         </div>
+
         <div className="bg-white p-6">
           {sortedOrders.length === 0 ? (
             <p className="text-center text-gray-600">No orders found.</p>
@@ -308,61 +333,135 @@ const OrdersPage = () => {
                       )}
                     </div>
                   </div>
+                  {expandedOrder === order.orderNumber && trackingDetails[order.orderNumber] && (
+                    <div className="mt-4 border-t border-gray-200 p-4">
+                      <h4 className="mb-4 font-semibold">Tracking Details</h4>
+
+                      {trackingDetails[order.orderNumber].awb ? (
+                        <div>
+                          <p>
+                            <strong>AWB Code:</strong> {trackingDetails[order.orderNumber].awb}
+                          </p>
+                          <p>
+                            <strong>Current Status:</strong>{' '}
+                            {trackingDetails[order.orderNumber].status}
+                          </p>
+                          <p>
+  <strong>Last Updated:</strong> 
+  {new Date(trackingDetails[order.orderNumber].lastUpdated).toLocaleString('en-US', {
+    weekday: 'long', // e.g., Monday
+    year: 'numeric', // e.g., 2025
+    month: 'long', // e.g., January
+    day: 'numeric', // e.g., 28
+    hour: 'numeric', // e.g., 6
+    minute: 'numeric', // e.g., 59
+    second: 'numeric', // e.g., 23
+    hour12: true, // AM/PM
+  })}
+</p>
+
+                          {/* Checkpoints */}
+                          <div className="mt-6 space-y-4">
+                            {trackingDetails[order.orderNumber].checkpoints.map(
+                              (checkpoint, index) => {
+                                const isLastCheckpoint =
+                                  index ===
+                                  trackingDetails[order.orderNumber].checkpoints.length - 1;
+
+                                // Check if the last status is "Delivered to consignee"
+                                const isDelivered =
+                                  isLastCheckpoint &&
+                                  checkpoint.status === 'Delivered to consignee';
+
+                                return (
+                                  <div key={index} className="flex items-start space-x-4">
+                                    {/* Checkpoint Circle */}
+                                    <div
+                                      className={`h-6 w-6 flex-shrink-0 rounded-full ${
+                                        isDelivered
+                                          ? 'bg-green-500'
+                                          : isLastCheckpoint
+                                            ? 'bg-blue-500'
+                                            : 'bg-green-500'
+                                      } flex items-center justify-center`}
+                                    >
+                                      {isDelivered ? (
+                                        <span className="text-white">✔</span> // Green checkmark for "Delivered"
+                                      ) : isLastCheckpoint ? (
+                                        <span className="text-white">🔵</span> // Blue circle for non-delivered last checkpoint
+                                      ) : (
+                                        <span className="text-gray-600">{index + 1}</span>
+                                      )}
+                                    </div>
+
+                                    {/* Checkpoint Details */}
+                                    <div>
+                                      <p className="font-semibold">{checkpoint.status}</p>
+                                      <p className="text-sm text-gray-500">{checkpoint.location}</p>
+                                      <p className="text-xs text-gray-400">
+                                        {new Date(checkpoint.dateTime).toLocaleString()}
+                                      </p>
+                                    </div>
+                                  </div>
+                                );
+                              }
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        <p className="text-gray-500">
+                          <strong>Status:</strong> {trackingDetails[order.orderNumber].status}
+                        </p>
+                      )}
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>
           )}
         </div>
+      </div>
 
-        {isModalOpen && (
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50"
-            onClick={closeModal}
-          >
-            <div
-              className="w-full max-w-lg rounded-lg bg-white p-6"
-              onClick={(e) => e.stopPropagation()}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="modal-content w-11/12 max-w-lg rounded-lg bg-white p-6 shadow-lg">
+            <h2 className="mb-4 text-xl font-bold">Cancel Order</h2>
+            <p>Why are you canceling the order?</p>
+            <select
+              value={cancelReason}
+              onChange={(e) => setCancelReason(e.target.value)}
+              className="my-3 w-full rounded border px-4 py-2"
             >
-              <h2 className="mb-4 text-2xl font-semibold">Cancel Order</h2>
-              <p className="mb-4">Please select a cancellation reason:</p>
-              <select
-                value={cancelReason}
-                onChange={(e) => setCancelReason(e.target.value)}
-                className="mb-4 w-full rounded bg-gray-200 p-2"
+              <option value="">Select a reason</option>
+              {cancellationReasons.map((reason, index) => (
+                <option key={index} value={reason}>
+                  {reason}
+                </option>
+              ))}
+              <option value="Other">Other</option>
+            </select>
+            {cancelReason === 'Other' && (
+              <textarea
+                value={customCancelReason}
+                onChange={(e) => setCustomCancelReason(e.target.value)}
+                className="my-3 w-full rounded border px-4 py-2"
+                placeholder="Enter custom reason"
+              />
+            )}
+            <div className="mt-4 flex justify-end">
+              <button className="mr-4 rounded bg-gray-300 px-4 py-2" onClick={closeModal}>
+                Close
+              </button>
+              <button
+                className="rounded bg-black px-4 py-2 text-white"
+                onClick={confirmCancellation}
               >
-                <option value="">Select a reason...</option>
-                {cancellationReasons.map((reason) => (
-                  <option key={reason} value={reason}>
-                    {reason}
-                  </option>
-                ))}
-                <option value="Other">Other</option>
-              </select>
-
-              {cancelReason === 'Other' && (
-                <textarea
-                  value={customCancelReason}
-                  onChange={(e) => setCustomCancelReason(e.target.value)}
-                  placeholder="Please specify your reason..."
-                  className="mb-4 w-full rounded border p-2"
-                />
-              )}
-
-              <div className="flex justify-between">
-                <button className="rounded bg-gray-300 px-4 py-2" onClick={closeModal}>
-                  Cancel
-                </button>
-                <button
-                  className="rounded bg-red-500 px-4 py-2 text-white"
-                  onClick={confirmCancellation}
-                >
-                  Confirm Cancellation
-                </button>
-              </div>
+                Confirm Cancellation
+              </button>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
