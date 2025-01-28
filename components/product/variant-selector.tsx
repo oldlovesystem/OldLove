@@ -157,7 +157,7 @@ export function VariantSelector({
                    alt={`${option.name} ${value}`}
                    width={50}
                    height={50}
-                   className="mb-2 rounded"
+                   className="mb-2 rounded-full h-7 w-7 md:h-9 md:w-9  object-cover object-center "
                  />
                 )}
                 {value}
