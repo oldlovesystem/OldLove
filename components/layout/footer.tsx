@@ -95,7 +95,7 @@ const Footer = () => {
                     onClick={() => toggleSection('trackOrder')}
                     className="flex cursor-pointer items-center justify-between pb-3 font-bold uppercase"
                   >
-                    Track or Return/Exchange Order
+                    Return/Exchange Order
                     <Icon.CaretDown
                       size={20}
                       className={`transition-transform ${openSection === 'trackOrder' ? 'rotate-180' : ''}`}
@@ -103,7 +103,6 @@ const Footer = () => {
                   </div>
                   {openSection === 'trackOrder' && (
                     <div className="flex flex-col space-y-2 pl-4">
-                      <Link href="/trackorder">Track Order</Link>
                       <Link href="/returnexchange">Place Return/Exchange Request</Link>
                       <Link href="/policy">Returns/Exchange Policy</Link>
                     </div>
@@ -177,8 +176,7 @@ const Footer = () => {
 
                 {/* Track/Return Exchange Order Section */}
                 <div className="track-return flex flex-col p-4 sm:flex-1">
-                  <div className="pb-3 font-bold uppercase">Track or Return/Exchange Order</div>
-                  <Link href="/trackorder">Track Order</Link>
+                  <div className="pb-3 font-bold uppercase">Return/Exchange Order</div>
                   <Link href="/returnexchange">Place Return/Exchange Request</Link>
                   <Link href="/policy">Returns/Exchange Policy</Link>
                 </div>
