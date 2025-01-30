@@ -219,7 +219,7 @@ export function Navbar() {
                     {customerFirstName.charAt(0).toUpperCase()}
                   </div>
                 ) : (
-                  <Icon.User className="mr-2 text-2xl" />
+                  <img width="35" height="35" src="https://img.icons8.com/laces/64/gender-neutral-user.png" alt="gender-neutral-user"/>
                 )}
               </button>
 
@@ -229,14 +229,14 @@ export function Navbar() {
                     <>
                       <Link href="/my-account">
                         <div className="flex w-full cursor-pointer items-center rounded-md px-3 py-3 transition hover:bg-gray-100">
-                          <FaUser className="ml-3 mr-5  text-gray-600" />
+                        <img width="30" height="30" src="https://img.icons8.com/laces/64/gender-neutral-user.png" alt="gender-neutral-user" className='mr-2 '/>
                           <span className="font-semibold text-black">My Account</span>
                         </div>
                       </Link>
                       <hr className="my-1 border-gray-200" />
                       <Link href="/orders">
                         <div className="flex w-full cursor-pointer items-center rounded-md px-3 py-3 transition hover:bg-gray-100">
-                          <FaBox className="ml-3 mr-5 text-gray-600" />
+                        <img width="30" height="30" src="https://img.icons8.com/ios/50/box--v1.png" alt="box--v1" className='mr-2'/>
                           <span className="font-semibold text-black">My Orders</span>
                         </div>
                       </Link>
