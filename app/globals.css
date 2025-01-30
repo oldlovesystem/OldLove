@@ -6,7 +6,7 @@
 
 @font-face {
   font-family: 'font-name';
-  src: url('/fonts/ProximaNovaFont.otf'); 
+  src: url('/fonts/glimer-medium.ttf'); 
  }
 @media (prefers-color-scheme: light) {
   html {
@@ -14,7 +14,7 @@
   }
 }
 .body{
-  font-family: "Noto Sans" ;
+  font-family: "font-name" ;
 }
 @supports (font: -apple-system-body) and (-webkit-appearance: none) {
   img[loading='lazy'] {
@@ -40,7 +40,7 @@ button {
   opacity: 1; /* Ensure it’s fully visible */
 }
 .font-tenor-sans {
-  font-family:  "Noto Sans";
+  font-family:  "font-name";
 }
 
 .hover-content {
@@ -88,7 +88,7 @@ button {
 
 /* HeaderAlignemnet */
 .logo{
-  font-family: 'Tenor Sans';
+  font-family: 'font-name';
 }
 
 @media (min-width: 320px) and (max-width: 340px) {

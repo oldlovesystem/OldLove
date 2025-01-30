@@ -34,7 +34,14 @@ export default function ViewCart() {
 
           {!cart || cart.lines.length === 0 ? (
             <div className="mt-10 flex flex-col items-center justify-center">
-              <ShoppingCartIcon className="h-12" />
+              <img
+  className="h-12"
+  width="48"
+  height="48"
+  src="https://img.icons8.com/parakeet-line/96/shopping-cart.png"
+  alt="shopping-cart"
+/>
+
               <p className="mt-4 text-lg font-bold">Your cart is empty.</p>
               <Link href="/" className="mt-2 text-blue-600 hover:underline">
                 Continue Shopping
