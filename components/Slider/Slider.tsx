@@ -27,7 +27,7 @@ const Slider = () => {
 
   // Mobile Slider Slides
   const mobileSlides = [
-    { href: '/search/republic-sale', src: '/Mobilebanner.jpg' },
+
     { href: '/search/formal-shirts', src: '/BannerMobile1.jpg' },
     { href: '/search/shacket', src: '/BannerMobile3.jpg' }
   ];
@@ -131,7 +131,6 @@ const Slider = () => {
             }}
           >
             {[
-              { href: '/search/republic-sale', src: '/Banner4.png' },
               { href: '/search/formal-shirts', src: '/Banner1.png' },
               { href: '/search/sacket', src: '/Banner3.png' }
             ].map((slide, index) => (
