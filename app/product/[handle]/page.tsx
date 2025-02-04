@@ -78,7 +78,7 @@ export default async function ProductPage({ params }: { params: { handle: string
       />
       <div className="mx-auto max-w-screen-2xl border-neutral-200 bg-white px-4">
         <div className="flex flex-col gap-5 bg-white p-8 md:p-12 lg:flex-row lg:gap-2">
-          <div className="h-full w-full lg:basis-1/2">
+          <div className="h-full w-full lg:basis-[60%]"> {/* Changed to take more than half */}
             <Suspense
               fallback={
                 <div className="relative aspect-square h-full max-h-[550px] w-11/12 overflow-hidden" />
@@ -93,7 +93,7 @@ export default async function ProductPage({ params }: { params: { handle: string
             </Suspense>
           </div>
 
-          <div className="basis-full lg:basis-1/2">
+          <div className="basis-full lg:basis-[40%]"> {/* Changed to take less than half */}
             <Suspense fallback={null}>
               <ProductDescription product={product} />
             </Suspense>

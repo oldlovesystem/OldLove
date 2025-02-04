@@ -27,7 +27,7 @@ const Slider = () => {
 
   // Mobile Slider Slides
   const mobileSlides = [
-    { href: '/search', src: '/Casuals Mobile Banner.png' },
+    { href: '/search/printed-shirts', src: '/Casuals Mobile Banner.png' },
   ];
 
   // Handle swipe start
@@ -129,7 +129,7 @@ const Slider = () => {
             }}
           >
             {[
-              { href: '/search', src: '/Casuals Desktop Banner.jpg' },
+              { href: '/search/printed-shirts', src: '/Casuals Desktop Banner.jpg' },
             ].map((slide, index) => (
               <SwiperSlide key={index}>
                 <Link href={slide.href}>

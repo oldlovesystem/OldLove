@@ -93,7 +93,7 @@ button {
 
 @media (min-width: 320px) and (max-width: 340px) {
   .logo {
-    margin-left: 2rem;
+    margin-left: 4rem;
   }
 }
 @media (min-width: 341px) and (max-width: 360px) {
@@ -108,7 +108,7 @@ button {
 }
 @media (min-width: 401px) and (max-width: 481px) {
   .logo {
-    margin-left: 6rem;
+    margin-left: 8rem;
   }
 }
 

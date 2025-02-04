@@ -35,8 +35,10 @@ export default function HomePage() {
       <hr className="my-5 border-t-2 border-gray-300" />
       <div className="logo-font mb-4 text-center text-xl uppercase">Shop By Category</div>
       <Instagram />
-      <img src="/Shacket.jpg" />
 
+     <a href="/search/shacket">
+    <img src="/Shacket.jpg" alt="Shacket" />
+</a>
       <div className="logo-font mb-4 mt-4 px-4 font-bold uppercase">Latest Arrivals</div>
 
       <Carousel speed={5000} />

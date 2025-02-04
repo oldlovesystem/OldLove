@@ -64,7 +64,7 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ products, speed }) => {
                         className="h-auto w-full transform rounded-xl bg-gray-300 transition duration-500 ease-in-out hover:scale-105"
                         loading="lazy"
                       />
-                      <div className="mt-2 text-sm text-gray-700">
+                      <div className="mt-2  text-black">
                       <div className="line-clamp-1">{product.title}</div>
                         <div>
                           <span className="font-bold">₹</span>

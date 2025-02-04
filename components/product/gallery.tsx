@@ -14,10 +14,6 @@ export function Gallery({ images }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [foundIndex, setFoundIndex] = useState(0);
-  const updateURL = useUpdateURL();
-  const [initialLoad, setInitialLoad] = useState(true);
-
   const visibleThumbnails = 5;
 
   useEffect(() => {
@@ -32,7 +28,6 @@ export function Gallery({ images }) {
     const storedImageId = match ? match[1] : null;
     if (images?.length > 0) {
       const newIndex = images?.findIndex((image: any) => image.src.includes(storedImageId)) || 0;
-      setFoundIndex(newIndex);
       setSelectedIndex(newIndex);
       setSelectedImageUrl(images[newIndex]?.src);
       updateSelectedVariantImage(images[newIndex]?.src);
@@ -58,42 +53,28 @@ export function Gallery({ images }) {
 
   const getThumbnailIndices = () => {
     if (selectedIndex !== -1) {
-      let startIndex = selectedIndex - (selectedIndex % 5);
-      let lastIndex = 0;
-      if (selectedIndex % 5 === 0) {
-        lastIndex = Math.ceil((selectedIndex + 1) / 5) * 5;
-      } else {
-        lastIndex = Math.ceil(selectedIndex / 5) * 5;
-      }
-      const thumbnails = [];
-      for (let i = startIndex; i < lastIndex; i++) {
-        thumbnails.push(images[i]);
-      }
-      return thumbnails;
-    } else {
-      const thumbnails = [];
-      for (let i = 0; i < visibleThumbnails; i++) {
-        const index = (selectedIndex + i) % images.length;
-        thumbnails.push(images[index]);
-      }
-      return thumbnails;
+      let startIndex = selectedIndex - (selectedIndex % visibleThumbnails);
+      let lastIndex = Math.min(startIndex + visibleThumbnails, images.length); // Ensure we don't go out of bounds
+      return images.slice(startIndex, lastIndex); // Get only the visible thumbnails
     }
+    return [];
   };
 
   return (
     <form>
-      <div className="group relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
+      <div className="group relative h-full max-h-[700px] w-full overflow-hidden"> {/* Increased height */}
         {!selectedImageUrl || loading ? (
           <Skeleton className="h-full w-full object-contain" />
         ) : (
           <>
+          <div className='flex items-center justify-center h-full w-full'>
             <img
-              className="h-full w-full cursor-pointer object-contain"
+              className="h-full w-3/4 cursor-pointer object-fill" // Changed to object-cover for better scaling
               alt="Product Image"
               src={selectedImageUrl}
               onClick={() => setIsModalOpen(true)}
             />
-
+</div>
             <button
               type="button"
               onClick={(e) => {
@@ -103,7 +84,7 @@ export function Gallery({ images }) {
               className="absolute left-2 top-1/2 -translate-y-1/2 transform rounded-full bg-white/80 p-2 opacity-0 transition-opacity group-hover:opacity-100"
               aria-label="Previous image"
             >
-              <FaChevronLeft className="h-4 w-4" />
+              <FaChevronLeft className="h-6 w-6" /> {/* Increased size of arrow */}
             </button>
 
             <button
@@ -115,7 +96,7 @@ export function Gallery({ images }) {
               className="absolute right-2 top-1/2 -translate-y-1/2 transform rounded-full bg-white/80 p-2 opacity-0 transition-opacity group-hover:opacity-100"
               aria-label="Next image"
             >
-              <FaChevronRight className="h-4 w-4" />
+              <FaChevronRight className="h-6 w-6" /> {/* Increased size of arrow */}
             </button>
           </>
         )}
@@ -140,7 +121,7 @@ export function Gallery({ images }) {
                     key={image.src}
                     onClick={() => {
                       setSelectedImageUrl(image.src);
-                      setSelectedIndex((selectedIndex + idx) % images.length);
+                      setSelectedIndex((selectedIndex + idx) % images.length); // Maintain logic for selecting thumbnails
                       updateSelectedVariantImage(image.src);
                     }}
                     aria-label="Select product image"
@@ -164,6 +145,7 @@ export function Gallery({ images }) {
           </ul>
         </div>
       )}
+      
       <Modal
         isOpen={isModalOpen}
         images={images}

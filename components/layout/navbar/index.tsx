@@ -3,15 +3,10 @@
 import React, { useState, useEffect, useRef, Suspense } from 'react';
 import CartModal from 'components/cart/modal';
 import Link from 'next/link';
-import * as Icon from '@phosphor-icons/react/dist/ssr';
 import MobileMenu from './mobile-menu';
-import { FaUser, FaBox } from 'react-icons/fa';
 import SpotlightSearch from 'components/spotlight-search';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
-import ShopHoverContent from './ShopHoverContent';
-import { HiOutlineHome } from 'react-icons/hi2';
-import { CiShop } from 'react-icons/ci';
 import { CiHeart } from 'react-icons/ci';
 
 const menu = [
@@ -121,14 +116,6 @@ export function Navbar() {
     }, 300);
   };
 
-  const renderHoverContent = () => {
-    switch (hoveredItem) {
-      case 'Shop':
-        return <ShopHoverContent />;
-      default:
-        return null;
-    }
-  };
 
   const handleLogout = () => {
     localStorage.removeItem('customerAccessToken');
@@ -271,19 +258,6 @@ export function Navbar() {
       </nav>
       <BottomNav customerFirstName={customerFirstName} />
 
-      {hoveredItem && isHovering && (
-        <div
-          className={`absolute left-0 right-0 top-full z-20 transition-all duration-300 ease-in-out ${isHovering ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'}`}
-          onMouseEnter={() => handleMouseEnter(hoveredItem)}
-          onMouseLeave={handleMouseLeave}
-        >
-          <div
-            className={`transition-transform duration-300 ease-in-out ${isHovering ? 'translate-y-0' : 'translate-y-2'}`}
-          >
-            {renderHoverContent()}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

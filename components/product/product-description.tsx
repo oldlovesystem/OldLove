@@ -220,8 +220,8 @@ export function ProductDescription({ product }: { product: Product }) {
         <p className="font-tenor-sans mb-2 uppercase text-gray-400">{product.tags}</p>
         <h1 className="font-tenor-sans mb-2 text-2xl font-medium uppercase">{product.title}</h1>
         <div className="mr-auto flex w-auto items-center rounded-full text-sm text-black">
-          <span className="font-tenor-sans text-2xl font-semibold">
-            INR {Math.round(Number(product.priceRange.maxVariantPrice.amount))}{' '}
+          <span className="text-2xl ">
+          ₹ {Math.round(Number(product.priceRange.maxVariantPrice.amount))}{' '}
           </span>
         </div>
 
